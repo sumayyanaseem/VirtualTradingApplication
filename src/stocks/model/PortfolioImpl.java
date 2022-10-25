@@ -10,10 +10,12 @@ public class PortfolioImpl implements Portfolio{
 
   Map<String, Map<String,List<companyStockStructure.stockInfo>>> portfolioMap = new HashMap<>();
 
+
+  //TODO:check why is this needed?
   String initialPortfolio;
 
 
-  //TODO:Have one more constructor to read fileInput
+  //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
 
   public PortfolioImpl(String portfolioName,String companyName){
    if(!portfolioMap.isEmpty()){
@@ -22,8 +24,8 @@ public class PortfolioImpl implements Portfolio{
        List<companyStockStructure.stockInfo> list =companyStockList.get(companyName);
        if(!list.isEmpty()){
          Date currentDate = getCurrentDate();
-         stockInfo stock=  list.stream().filter(str -> (str.getDatePurchased()<currentDate).findLast();
-         stockInfo newStockInfo =new stockInfo();
+         companyStockStructure.stockInfo stock=  list.stream().filter(str -> (str.getDatePurchased()<currentDate).findLast();
+         companyStockStructure.stockInfo newStockInfo =new companyStockStructure.stockInfo();
          newStockInfo.setQuantity(stock.getQuantity()+quantity);
 //add all other details.
          list.add(newStockInfo);
@@ -73,7 +75,7 @@ public class PortfolioImpl implements Portfolio{
   @Override
   public Portfolio sellStocks(int quantity, String CompanyName, String portfolioName) {
 
-    if(!portfolioMap.isEmpty()){
+   /* if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
       if(!listOfStocks.isEmpty()){
         companyStockStructure c= listOfStocks.stream().filter(str -> str.getCompanyTickerSymbol().equals(CompanyName)).findFirst();
@@ -82,7 +84,9 @@ public class PortfolioImpl implements Portfolio{
         c.setTotalValue();
         c.setDateSold();
       }
-    }
+    }*/
+
+    return null;
   }
 
   @Override

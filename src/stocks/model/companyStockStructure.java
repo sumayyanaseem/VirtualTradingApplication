@@ -1,8 +1,6 @@
 package stocks.model;
 
 import java.security.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,19 +8,23 @@ public class companyStockStructure {
 
   private String companyTickerSymbol;
   
-  List<stockInfo> list = new LinkedList<>();
+  List<stockInfo> list;
 
   companyStockStructure(String companyTickerSymbol,List<stockInfo> stockInfoList){
     this.companyTickerSymbol = companyTickerSymbol;
-    this.list.addAll(stockInfoList);
+    if(this.list!=null && !this.list.isEmpty()) {
+      this.list.addAll(stockInfoList);
+    } else {
+      this.list = new LinkedList<>();
+      this.list.addAll(stockInfoList);
+    }
   }
-  /*from controller  call should be made similar to this:
+  /*TODO:from controller  call should be made similar to this:
   companyStockStructure c = new companyStockStructure();
 
   stockInfo  s = new stockInfo().setDatePurchased().setQuantityBought().
           build();
    c.list.add(s);*/
-
 
 
    class stockInfo() {
@@ -47,7 +49,7 @@ public class companyStockStructure {
      }
 
 
-     private class stockInfoBuilder() {
+     private static class stockInfoBuilder {
        Double purchasedPrice;
 
        long quantityBought;
@@ -71,6 +73,11 @@ public class companyStockStructure {
 
        public stockInfoBuilder setQuantityBought(long quantityBought) {
          this.quantityBought = quantityBought;
+         return this;
+       }
+
+       public stockInfoBuilder setTotalValue(long totalValue) {
+         this.totalValue = totalValue;
          return this;
        }
 
