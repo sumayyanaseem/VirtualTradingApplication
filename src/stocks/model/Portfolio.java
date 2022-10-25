@@ -4,12 +4,12 @@ import java.util.Date;
 
 public interface Portfolio {
 
-  void buyStocks(int quantity,String CompanyName, String portfolioName);
+  Portfolio buyStocks(int quantity,String CompanyName, String portfolioName);
 
-  void sellStocks(int quantity,String CompanyName, String portfolioName);
+  Portfolio sellStocks(int quantity,String CompanyName, String portfolioName);
 
-  void createPortfolio(String portfolioName);
+  Portfolio createPortfolio(String portfolioName);
 
-  void getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
+  double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
 
 }
