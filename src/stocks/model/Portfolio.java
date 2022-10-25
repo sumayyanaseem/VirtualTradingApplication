@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface Portfolio {
 
-  Portfolio buyStocks(int quantity,String CompanyName, String portfolioName);
+  Portfolio buyStocks(String companyId, String qty);
 
   Portfolio sellStocks(int quantity,String CompanyName, String portfolioName);
 
