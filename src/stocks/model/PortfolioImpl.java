@@ -4,44 +4,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class PortfolioImpl implements Portfolio{
 
-  public class companyStockStructure {
+  Map<String, Map<String,List<companyStockStructure.stockInfo>>> portfolioMap = new HashMap<>();
 
-    private String companyTickerSymbol;
-
-    List<stockInfo> list = new LinkedList<>();
-
-    companyStockStructure(String companyTickerSymbol,List<stockInfo> stockInfoList){
-      this.companyTickerSymbol = companyTickerSymbol;
-      this.list.addAll(stockInfoList);
-    }
-
-    class stockInfo(){
-      Double purchasedPrice;
-
-      long quantity;
-
-      Timestamp dateSold;
-
-      Timestamp datePurchased;
-
-      Long totalValue;
-    }
+  String initialPortfolio;
 
 
-  }
-
-  Map<String,Map<String,List<stockInfo>>> portfolioMap = new HashMap<>();
-
-  String initialportfolio;
+  //TODO:Have one more constructor to read fileInput
 
   public PortfolioImpl(String portfolioName,String companyName){
    if(!portfolioMap.isEmpty()){
-     Map<String,List<stockInfo>> companyStockList= portfolioMap.get(portfolioName);
+     Map<String,List<companyStockStructure.stockInfo>> companyStockList= portfolioMap.get(portfolioName);
      if(!companyStockList.isEmpty()){
-       List<stockInfo> list =companyStockList.get(companyName);
+       List<companyStockStructure.stockInfo> list =companyStockList.get(companyName);
        if(!list.isEmpty()){
          Date currentDate = getCurrentDate();
          stockInfo stock=  list.stream().filter(str -> (str.getDatePurchased()<currentDate).findLast();
@@ -67,6 +45,8 @@ public class PortfolioImpl implements Portfolio{
 
   @Override
   public Portfolio buyStocks(int quantity, String CompanyName, String portfolioName) {
+
+
 
     if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
