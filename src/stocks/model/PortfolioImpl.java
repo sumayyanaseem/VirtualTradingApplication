@@ -33,7 +33,6 @@ public class PortfolioImpl implements Portfolio{
 
   }
 
-
   Map<String,Map<String,List<stockInfo>>> portfolioMap = new HashMap<>();
 
   String initialportfolio;
@@ -67,7 +66,7 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public void buyStocks(int quantity, String CompanyName, String portfolioName) {
+  public Portfolio buyStocks(int quantity, String CompanyName, String portfolioName) {
 
     if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
@@ -92,7 +91,7 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public void sellStocks(int quantity, String CompanyName, String portfolioName) {
+  public Portfolio sellStocks(int quantity, String CompanyName, String portfolioName) {
 
     if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
@@ -107,13 +106,13 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public void createPortfolio(String portfolioName) {
+  public Portfolio createPortfolio(String portfolioName) {
 
 
   }
 
   @Override
-  public void getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
+  public double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
 
   }
 
