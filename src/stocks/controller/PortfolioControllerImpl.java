@@ -1,60 +1,60 @@
 package stocks.controller;
 
-import java.io.File;
-import java.io.InputStream;
-
 import stocks.model.PortfolioModel;
+import stocks.view.PortfolioView;
 
-public class PortfolioControllerImpl implements  PortfolioController{
+public class PortfolioControllerImpl implements PortfolioController {
 
   private PortfolioModel model;
 
-  public  PortfolioControllerImpl(PortfolioModel model, InputStream in){
+  private PortfolioView view;
+
+  public PortfolioControllerImpl(PortfolioModel model, PortfolioView view) {
     this.model = model;
-    this.input =in;
+    this.view = view;
   }
 
-  public void go(){
-    callToViewToChooseCreateOrView();
-    Switch(option){
-      case 1:
-        goForCreate();
+  public void start() {
+    String option = view.callToViewToChooseCreateOrView();
+    switch (option) {
+      case "1":
+        getCreatePortfolioChoice();
         break;
-      case 2:
-        Json json= fetchDetailsFromModelToDisplay();
-        callToViewTODispylay(json);
+      case "2":
+        //Json json = fetchDetailsFromModelToDisplay();
+        //view.callToViewTODisplay(json);
         break;
     }
   }
 
-  public void goForCreate(){
-    callToViewToHowToCreatePortfolio();//using Json/XML file or individual inputs
-    switch(option){
-      case 1:
-        helper();
+  private void getCreatePortfolioChoice() {
+    String option = view.callToViewOnHowToCreatePortfolio();//using Json/XML file or individual inputs
+    switch (option) {
+      case "1":
+        createPortfolioForCurrentUser();
         break;
-      case 2:
-        File file = callToViewToGetFile();
-        model.createUsingFile(file);
+      case "2":
+        String filePath = view.callToViewToGetFilePath();
+        model.createPortfolioUsingFilePath(filePath);
         break;
     }
 
   }
 
-  public void helper(){
-    callToViewToAskPortfoliName();
+  private void createPortfolioForCurrentUser() {
+    String portfolioName = view.callToViewToAskPortfolioName();
     model.createPortfolio(portfolioName);
-    callToViewToChoiceOption();
-    Switch(option) {
-      case 1:
-        callToViewToAskQuantity();
-        callToViewToAskCompanyTicker();
-        model.buyStocks(quantity,companyName,passPortofolioObject);
+    String option = view.callToViewToChoiceOption();
+    switch (option) {
+      case "1":
+        String quantity = view.callToViewToAskQuantity();
+        String companyName = view.callToViewToAskCompanyTicker();
+        model.buyStocks(quantity, companyName, portfolioName);
         break;
-      case 2:
-        callToViewToAskQuantity();
-        callToViewToAskCompanyTicker();
-        model.sellStocks(quantity,companyName,passPortofolioObject);
+      case "2":
+        quantity = view.callToViewToAskQuantity();
+        companyName = view.callToViewToAskCompanyTicker();
+       // model.sellStocks(quantity, companyName, portfolioName);
         break;
     }
   }

@@ -9,13 +9,15 @@ public class PortfolioImplModel implements PortfolioModel{
 
  private Map<String, Map<String,List<companyStockStructure>>> portfolioMap;
 
-
   //TODO:check why is this needed?
   String initialPortfolio;
 
 
-  //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
+  public PortfolioImplModel(){
 
+  }
+
+  //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
   public PortfolioImplModel(String portfolioName, String companyName){
    if(!portfolioMap.isEmpty()){
      Map<String,List<companyStockStructure.stockInfo>> companyStockList= portfolioMap.get(portfolioName);
@@ -45,7 +47,7 @@ public class PortfolioImplModel implements PortfolioModel{
   }
 
   @Override
-  public PortfolioModel buyStocks(int quantity, String CompanyName, String portfolioName) {
+  public PortfolioModel buyStocks(String quantity, String CompanyName, String portfolioName) {
 
 
 
@@ -72,7 +74,7 @@ public class PortfolioImplModel implements PortfolioModel{
   }
 
   @Override
-  public PortfolioModel sellStocks(int quantity, String CompanyName, String portfolioName) {
+  public PortfolioModel sellStocks(String quantity, String CompanyName, String portfolioName) {
 
    /* if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
@@ -92,11 +94,18 @@ public class PortfolioImplModel implements PortfolioModel{
   public PortfolioModel createPortfolio(String portfolioName) {
 
 
+    return null;
+
+  }
+
+  @Override
+  public PortfolioModel createPortfolioUsingFilePath(String filePath) {
+    return null;
   }
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
-
+  return 0.0;
   }
 
 
