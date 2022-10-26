@@ -2,7 +2,7 @@ package stocks.view;
 
 import java.util.Scanner;
 
-public class PortfolioViewImpl implements  PortfolioView{
+public class PortfolioViewImpl implements PortfolioView {
   @Override
   public String callToViewToChooseCreateOrView() {
     System.out.println("Enter 1: To view the portfolio composition 2: To trade a stock");

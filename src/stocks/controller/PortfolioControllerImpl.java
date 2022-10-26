@@ -54,7 +54,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "2":
         quantity = view.callToViewToAskQuantity();
         companyName = view.callToViewToAskCompanyTicker();
-       // model.sellStocks(quantity, companyName, portfolioName);
+        // model.sellStocks(quantity, companyName, portfolioName);
         break;
     }
   }
