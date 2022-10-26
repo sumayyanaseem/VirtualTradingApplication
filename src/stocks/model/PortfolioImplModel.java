@@ -1,25 +1,25 @@
 package stocks.model;
 
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PortfolioImplModel implements PortfolioModel{
 
- private Map<String, Map<String,List<companyStockStructure>>> portfolioMap;
+ private Map<String, Map<String, List<companyStockStructure>>> portfolioMap;
 
   //TODO:check why is this needed?
   String initialPortfolio;
 
 
   public PortfolioImplModel(){
-
+   portfolioMap = new HashMap<>();
   }
 
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
-  public PortfolioImplModel(String portfolioName, String companyName){
-   if(!portfolioMap.isEmpty()){
+ public PortfolioImplModel(String portfolioName, String companyName){
+  /* if(!portfolioMap.isEmpty()){
      Map<String,List<companyStockStructure.stockInfo>> companyStockList= portfolioMap.get(portfolioName);
      if(!companyStockList.isEmpty()){
        List<companyStockStructure.stockInfo> list =companyStockList.get(companyName);
@@ -40,7 +40,7 @@ public class PortfolioImplModel implements PortfolioModel{
 
    } else {
      //create a new portfolio and add caompany details
-   }
+   }*/
 
 
     //Read from JSON file to map
@@ -49,9 +49,7 @@ public class PortfolioImplModel implements PortfolioModel{
   @Override
   public PortfolioModel buyStocks(String quantity, String CompanyName, String portfolioName) {
 
-
-
-    if(!portfolioMap.isEmpty()){
+    /*if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
       if(!listOfStocks.isEmpty()){
         companyStockStructure c= listOfStocks.stream().filter(str -> str.getCompanyTickerSymbol().equals(CompanyName)).findFirst();
@@ -69,7 +67,9 @@ public class PortfolioImplModel implements PortfolioModel{
       List<companyStockStructure> listOfStocks= new LinkedList<>();
       listOfStocks.add(c);
       portfolioMap.put(portfolioName,listOfStocks);
-    }
+    }*/
+
+     return null;
 
   }
 
@@ -92,8 +92,7 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolio(String portfolioName) {
-
-
+    this.portfolioMap.put(portfolioName,new HashMap<>());
     return null;
 
   }

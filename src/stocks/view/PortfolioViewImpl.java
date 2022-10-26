@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PortfolioViewImpl implements PortfolioView {
   @Override
   public String callToViewToChooseCreateOrView() {
-    System.out.println("Enter 1: To view the portfolio composition 2: To trade a stock");
+    System.out.println("Enter 1: To trade a stock 2: To view the portfolio composition");
     Scanner myObj = new Scanner(System.in);
     return myObj.nextLine();
   }
@@ -56,4 +56,10 @@ public class PortfolioViewImpl implements PortfolioView {
     Scanner myObj = new Scanner(System.in);
     return myObj.nextLine();
   }
+
+  @Override
+  public String askUserIfHeWantsToContinue() {
+    return null;
+  }
+
 }

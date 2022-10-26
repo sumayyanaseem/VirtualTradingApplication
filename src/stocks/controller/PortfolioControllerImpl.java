@@ -31,20 +31,32 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = view.callToViewOnHowToCreatePortfolio();//using Json/XML file or individual inputs
     switch (option) {
       case "1":
-        createPortfolioForCurrentUser();
+        String filePath = view.callToViewToGetFilePath();
+        model = model.createPortfolioUsingFilePath(filePath);
         break;
       case "2":
-        String filePath = view.callToViewToGetFilePath();
-        model.createPortfolioUsingFilePath(filePath);
+        createPortfolioForCurrentUser();
+        stoppingCondition();
         break;
     }
 
   }
 
+  private void stoppingCondition(){
+    String option = view.askUserIfHeWantsToContinue();
+    switch (option) {
+      case "yes":
+        createPortfolioForCurrentUser();
+        break;
+      case "No":
+        break;
+    }
+  }
+
   private void createPortfolioForCurrentUser() {
     String portfolioName = view.callToViewToAskPortfolioName();
     model.createPortfolio(portfolioName);
-    String option = view.callToViewToChoiceOption();
+    String option = view.callToViewToChoiceOption();//Buy or Sell choice
     switch (option) {
       case "1":
         String quantity = view.callToViewToAskQuantity();
