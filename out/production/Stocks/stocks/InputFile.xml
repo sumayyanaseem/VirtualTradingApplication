@@ -1,0 +1,19 @@
+<Portfolios>
+    <Portfolio name="P1">
+        <Companies>
+            <Company name="C1">
+                <quantity value="10"/>
+            </Company>
+            <Company name="C2">
+                <quantity value="10"/>
+            </Company>
+            <Company name="C3">
+                <quantity value="10"/>
+            </Company>
+        </Companies>
+    </Portfolio>
+    <Portfolio name="P2">
+    </Portfolio>
+    <Portfolio name="P3">
+    </Portfolio>
+</Portfolios>

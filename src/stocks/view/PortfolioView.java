@@ -20,5 +20,8 @@ public interface PortfolioView {
 
   String askUserIfHeWantsToContinue();
 
+  String checkIfUserWantsToExit();
+
+  String createOrUpdateExistingPortfolio();
 
 }

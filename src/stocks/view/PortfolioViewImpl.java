@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PortfolioViewImpl implements PortfolioView {
   @Override
   public String callToViewToChooseCreateOrView() {
-    System.out.println("Enter 1: To trade a stock 2: To view the portfolio composition");
+    System.out.println("Enter 1: To trade stocks 2: To view the portfolio composition");
     Scanner myObj = new Scanner(System.in);
     return myObj.nextLine();
   }
@@ -31,7 +31,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public String callToViewToAskPortfolioName() {
-    System.out.println("Enter the name of the Portfolio, you wanna create");
+    System.out.println("Enter the name of the Portfolio");
     Scanner myObj = new Scanner(System.in);
     return myObj.nextLine();
   }
@@ -59,7 +59,23 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public String askUserIfHeWantsToContinue() {
-    return null;
+    System.out.println("Enter yes: To continue trading.  No: To exit");
+    Scanner myObj = new Scanner(System.in);
+    return myObj.nextLine();
+  }
+
+  @Override
+  public String checkIfUserWantsToExit() {
+    System.out.println("Enter yes: To continue trading  with portfolio. No: To exit");
+    Scanner myObj = new Scanner(System.in);
+    return myObj.nextLine();
+  }
+
+  @Override
+  public String createOrUpdateExistingPortfolio() {
+    System.out.println("Enter create: To create a portfolio. update: To update a existing portfolio.");
+    Scanner myObj = new Scanner(System.in);
+    return myObj.nextLine();
   }
 
 }

@@ -7,14 +7,32 @@ import java.util.Map;
 
 public class PortfolioImplModel implements PortfolioModel{
 
- private Map<String, Map<String, List<companyStockStructure>>> portfolioMap;
+ private String portfolioName;
 
-  //TODO:check why is this needed?
-  String initialPortfolio;
+ private CompanyStocksList companyStocksList;
+
+
+
+ public String getPortfolioName() {
+  return this.portfolioName;
+ }
+ public void setPortfolioName(String name) {
+  this.portfolioName = name;
+ }
+ public CompanyStocksList getCompanyStocksList() {
+  return this.companyStocksList;
+ }
+ public void setCompanyStocksList(CompanyStocksList list) {
+  this.companyStocksList = list;
+ }
+
+
+
+
 
 
   public PortfolioImplModel(){
-   portfolioMap = new HashMap<>();
+   //portfolioMap = new HashMap<>();
   }
 
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
@@ -92,7 +110,7 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolio(String portfolioName) {
-    this.portfolioMap.put(portfolioName,new HashMap<>());
+   // this.portfolioMap.put(portfolioName,new HashMap<>());
     return null;
 
   }
@@ -106,6 +124,11 @@ public class PortfolioImplModel implements PortfolioModel{
   public double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
   return 0.0;
   }
+
+ @Override
+ public boolean isPortfolioCreated() {
+  return false;
+ }
 
 
 }
