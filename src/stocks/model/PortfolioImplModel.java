@@ -1,14 +1,13 @@
 package stocks.model;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class PortfolioImpl implements Portfolio{
+public class PortfolioImplModel implements PortfolioModel{
 
-  Map<String, Map<String,List<companyStockStructure.stockInfo>>> portfolioMap = new HashMap<>();
+ private Map<String, Map<String,List<companyStockStructure>>> portfolioMap;
 
 
   //TODO:check why is this needed?
@@ -17,7 +16,7 @@ public class PortfolioImpl implements Portfolio{
 
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
 
-  public PortfolioImpl(String portfolioName,String companyName){
+  public PortfolioImplModel(String portfolioName, String companyName){
    if(!portfolioMap.isEmpty()){
      Map<String,List<companyStockStructure.stockInfo>> companyStockList= portfolioMap.get(portfolioName);
      if(!companyStockList.isEmpty()){
@@ -46,7 +45,7 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public Portfolio buyStocks(int quantity, String CompanyName, String portfolioName) {
+  public PortfolioModel buyStocks(int quantity, String CompanyName, String portfolioName) {
 
 
 
@@ -73,7 +72,7 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public Portfolio sellStocks(int quantity, String CompanyName, String portfolioName) {
+  public PortfolioModel sellStocks(int quantity, String CompanyName, String portfolioName) {
 
    /* if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
@@ -90,7 +89,7 @@ public class PortfolioImpl implements Portfolio{
   }
 
   @Override
-  public Portfolio createPortfolio(String portfolioName) {
+  public PortfolioModel createPortfolio(String portfolioName) {
 
 
   }

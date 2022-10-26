@@ -1,24 +1,20 @@
 package stocks.model;
 
 import java.security.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
 
 public class companyStockStructure {
 
-  private String companyTickerSymbol;
-  
-  List<stockInfo> list;
+  //TODO: annotate with NotNull later for few attributes.
+  private Double purchasedPrice;
 
-  companyStockStructure(String companyTickerSymbol,List<stockInfo> stockInfoList){
-    this.companyTickerSymbol = companyTickerSymbol;
-    if(this.list!=null && !this.list.isEmpty()) {
-      this.list.addAll(stockInfoList);
-    } else {
-      this.list = new LinkedList<>();
-      this.list.addAll(stockInfoList);
-    }
-  }
+  private long quantityBought;
+
+  private Timestamp dateSold;
+
+  private Timestamp datePurchased;
+
+  private long totalValue;
+
   /*TODO:from controller  call should be made similar to this:
   companyStockStructure c = new companyStockStructure();
 
@@ -26,21 +22,7 @@ public class companyStockStructure {
           build();
    c.list.add(s);*/
 
-
-   class stockInfo() {
-
-     //TODO: annotate with NotNull later for few attributes.
-     private Double purchasedPrice;
-
-     private long quantityBought;
-
-     private Timestamp dateSold;
-
-     private Timestamp datePurchased;
-
-     private long totalValue;
-
-     public stockInfo(Double purchasedPrice,Timestamp datePurchased,long quantityBought,long totalValue){
+  public companyStockStructure(Double purchasedPrice,Timestamp datePurchased,long quantityBought,long totalValue){
        this.purchasedPrice =purchasedPrice;
        this.datePurchased = datePurchased;
        this.quantityBought = quantityBought;
@@ -48,8 +30,8 @@ public class companyStockStructure {
 
      }
 
+     private static class companyStockStructureBuilder {
 
-     private static class stockInfoBuilder {
        Double purchasedPrice;
 
        long quantityBought;
@@ -60,28 +42,28 @@ public class companyStockStructure {
 
        long totalValue;
 
-       public stockInfo build(){
-         return new stockInfo(purchasedPrice,datePurchased,quantityBought,totalValue);
+       public companyStockStructure build(){
+         return new companyStockStructure(purchasedPrice,datePurchased,quantityBought,totalValue);
        }
 
 
        //TODO: add other setters here
-       public stockInfoBuilder setPurchasedPrice(Double purchasedPrice) {
+       public companyStockStructureBuilder setPurchasedPrice(Double purchasedPrice) {
          this.purchasedPrice = purchasedPrice;
          return this;
        }
 
-       public stockInfoBuilder setQuantityBought(long quantityBought) {
+       public companyStockStructureBuilder setQuantityBought(long quantityBought) {
          this.quantityBought = quantityBought;
          return this;
        }
 
-       public stockInfoBuilder setTotalValue(long totalValue) {
+       public companyStockStructureBuilder setTotalValue(long totalValue) {
          this.totalValue = totalValue;
          return this;
        }
 
      }
-   }
+
 
 }
