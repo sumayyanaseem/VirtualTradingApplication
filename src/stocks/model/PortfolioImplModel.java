@@ -28,7 +28,7 @@ public class PortfolioImplModel implements PortfolioModel{
   }
 
   @Override
-  public PortfolioModel buyStocks(int quantity, String CompanyName, PortfolioModel portfoliosObj) {
+  public PortfolioModel buyStocks(String quantity, String CompanyName,String portfolioName) {
 
 
     for (Map.Entry<String, Map<String,List<companyStockStructure>>> entry : (PortfolioImplModel)portfoliosObj.allPortfolioMap.entrySet()) {
