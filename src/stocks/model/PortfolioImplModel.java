@@ -1,43 +1,55 @@
 package stocks.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class PortfolioImplModel implements PortfolioModel{
 
- private Map<String, Map<String,List<companyStockStructure>>> allPortfolioMap;
+ private Map<String, Map<String, List<companyStockStructure>>> portfolioMap;
 
   //TODO:check why is this needed?
-  //String initialPortfolio;
+  String initialPortfolio;
 
 
   public PortfolioImplModel(){
-
+   portfolioMap = new HashMap<>();
   }
 
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
+ public PortfolioImplModel(String portfolioName, String companyName){
+  /* if(!portfolioMap.isEmpty()){
+     Map<String,List<companyStockStructure.stockInfo>> companyStockList= portfolioMap.get(portfolioName);
+     if(!companyStockList.isEmpty()){
+       List<companyStockStructure.stockInfo> list =companyStockList.get(companyName);
+       if(!list.isEmpty()){
+         Date currentDate = getCurrentDate();
+         companyStockStructure.stockInfo stock=  list.stream().filter(str -> (str.getDatePurchased()<currentDate).findLast();
+         companyStockStructure.stockInfo newStockInfo =new companyStockStructure.stockInfo();
+         newStockInfo.setQuantity(stock.getQuantity()+quantity);
+//add all other details.
+         list.add(newStockInfo);
 
-  public PortfolioImplModel(String portfolioName){
-    allPortfolioMap = new HashMap<>();
-    Map<String,List<companyStockStructure>> portfolioMapForStocks = new HashMap<>();
-    allPortfolioMap.put(portfolioName,portfolioMapForStocks);
+       } else{
+
+       }
+     } else {
+       //create a new list and add
+     }
+
+   } else {
+     //create a new portfolio and add caompany details
+   }*/
+
+
+    //Read from JSON file to map
   }
 
   @Override
-  public PortfolioModel buyStocks(String quantity, String CompanyName,String portfolioName) {
+  public PortfolioModel buyStocks(String quantity, String CompanyName, String portfolioName) {
 
-
-    for (Map.Entry<String, Map<String,List<companyStockStructure>>> entry : (PortfolioImplModel)portfoliosObj.allPortfolioMap.entrySet()) {
-      System.out.println(entry.getKey() + ":" + entry.getValue());
-    }
-  }
-
-
-    if(!portfolioMap.isEmpty()){
+    /*if(!portfolioMap.isEmpty()){
       List<companyStockStructure> listOfStocks= portfolioMap.get(portfolioName);
       if(!listOfStocks.isEmpty()){
         companyStockStructure c= listOfStocks.stream().filter(str -> str.getCompanyTickerSymbol().equals(CompanyName)).findFirst();
@@ -55,7 +67,9 @@ public class PortfolioImplModel implements PortfolioModel{
       List<companyStockStructure> listOfStocks= new LinkedList<>();
       listOfStocks.add(c);
       portfolioMap.put(portfolioName,listOfStocks);
-    }
+    }*/
+
+     return null;
 
   }
 
@@ -78,8 +92,7 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolio(String portfolioName) {
-
-
+    this.portfolioMap.put(portfolioName,new HashMap<>());
     return null;
 
   }

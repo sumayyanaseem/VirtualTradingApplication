@@ -18,5 +18,7 @@ public interface PortfolioView {
 
   String callToViewToAskCompanyTicker();
 
+  String askUserIfHeWantsToContinue();
+
 
 }
