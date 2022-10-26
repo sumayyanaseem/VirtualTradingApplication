@@ -3,10 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import stocks.controller.TradingController;
 import stocks.model.Portfolio;
 import stocks.model.PortfolioImplModel;
-import stocks.model.TradingModel;
 import stocks.view.TradingView;
 
 public class TradingMVC {

@@ -43,7 +43,8 @@ public class PortfolioControllerImpl implements  PortfolioController{
 
   public void helper(){
     callToViewToAskPortfoliName();
-    model.createPortfolio(portfolioName);
+    //model.createPortfolio(portfolioName);
+    //instead of above line, create object for PortfolioImplModel class.(use this obj for passPortofolioObject below)
     callToViewToChoiceOption();
     Switch(option) {
       case 1:
