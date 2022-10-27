@@ -1,12 +1,6 @@
 package stocks.view;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,9 +8,10 @@ public class PortfolioViewImpl implements PortfolioView {
 
   private InputStream input;
 
-  public PortfolioViewImpl(){
-    input= System.in;
+  public PortfolioViewImpl() {
+    input = System.in;
   }
+
   @Override
   public String callToViewToChooseCreateOrView() {
     System.out.println("Enter 1: To trade stocks 2: To view the portfolio composition");
@@ -61,13 +56,13 @@ public class PortfolioViewImpl implements PortfolioView {
     return quantity;
   }
 
-  private void validateQuantity(String quantity){
+  private void validateQuantity(String quantity) {
     try {
       Integer q = Integer.parseInt(quantity);
-      if(q<=0){
+      if (q <= 0) {
         throw new IllegalArgumentException("Invalid quantity provided");
       }
-    } catch(IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Quantity should be always a whole number");
     }
   }
@@ -119,7 +114,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void displayTotalValue(String date, String val, String portfolioName) {
-    System.out.println("Total Valuation of Portfolio "+portfolioName+" is :"+val);
+    System.out.println("Total Valuation of Portfolio " + portfolioName + " is :" + val);
   }
 
   @Override
@@ -129,40 +124,23 @@ public class PortfolioViewImpl implements PortfolioView {
     return myObj.nextLine();
   }
 
+
   @Override
-  public List<List<String>> readFromCSV(String portfolioName)  {
-    String path = portfolioName+".csv";
-    List<List<String>> records = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      String line = br.readLine();
-      String[] headings =line.split(",");
-      for(int i=0;i<headings.length;i++) {
-        System.out.print(headings[i] + " ");
-      }
-      System.out.print("\n");
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        records.add(Arrays.asList(values));
-      }
-    } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+  public void displayComposition(List<List<String>> records) {
+    for (int i = 0; i < records.size(); i++) {
 
-    for(int i=0;i<records.size();i++){
-
-      for(int j=0;j<records.get(i).size();j++){
+      for (int j = 0; j < records.get(i).size(); j++) {
         System.out.print(records.get(i).get(j));
-        int len = records.get(0).get(j).length();
-        for(int k=0;k<len;k++) {
+        int len1 = records.get(0).get(j).length();
+        int len2 = records.get(i).get(j).length();
+        int len = len1 - len2;
+        for (int k = 0; k < len; k++) {
           System.out.print(" ");
         }
+        System.out.print(" ");
       }
       System.out.println("");
     }
-
-    return records;
   }
 
 

@@ -32,6 +32,6 @@ public interface PortfolioView {
 
  String getPortfolioNameToView();
 
- List<List<String>> readFromCSV(String portfolioName);
+ void displayComposition(List<List<String>> records);
 
 }
