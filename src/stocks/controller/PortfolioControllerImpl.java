@@ -40,8 +40,9 @@ public class PortfolioControllerImpl implements PortfolioController {
         view.readFromCSV(name);
         break;
       case "2":
+        String pName = view.askForPortfolioNameToGetValuation();
         String date = view.getDateForValuation();
-        String val= String.valueOf(model.calculateValuationAsOfDate(date,portfolioName));
+        String val= String.valueOf(model.calculateValuationAsOfDate(date,pName));
         view.displayTotalValue(date,val,portfolioName);
         break;
     }

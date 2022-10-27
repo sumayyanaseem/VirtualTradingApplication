@@ -34,4 +34,5 @@ public interface PortfolioView {
 
  List<List<String>> readFromCSV(String portfolioName);
 
+ String askForPortfolioNameToGetValuation();
 }
