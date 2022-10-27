@@ -29,8 +29,22 @@ public class PortfolioControllerImpl implements PortfolioController {
         createOrUpdatePortfolio();
         break;
       case "2":
-       // String fileName = model.getFileName();
-       // view.callToViewTODisplay(fileName);
+       askUserWhatHeWantsToView();
+        break;
+    }
+  }
+
+  private void askUserWhatHeWantsToView(){
+    String option = view.checkIfUserWantsToViewCompositionOrTotalValue();
+    switch (option) {
+      case "1":
+        String name = view.getPortfolioNameToview();
+        view.viewCompositionOfCurrentPortfolio(name);
+        break;
+      case "2":
+        String date = view.getDateForValuation();
+        String val=model.calculateValuationAsOfDate(date);
+        view.displayTotalValue(date,val);
         break;
     }
   }

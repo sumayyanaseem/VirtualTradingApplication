@@ -60,18 +60,17 @@ public class PortfolioImplModel implements PortfolioModel{
     }
 
     Map<String, Stock> mm= portfolioMap.get(portfolioName);
-    //List<List<String>> l = new ArrayList<>();
     List<String []> temp = new ArrayList<>();
-
+    temp.add(new String[]{"CompanyName","Quantity","PriceBought","DatePurchase","TotalValueOwned"});
     for (Map.Entry<String,Stock> entry : mm.entrySet())
     {
-      String [] s1=new String[6];
+      String [] s1=new String[5];
       s1[0]=entry.getValue().getCompanyTickerSymbol();
       s1[1]=String.valueOf(entry.getValue().getQty());
-      s1[2]=String.valueOf(entry.getValue().getDateBought());
-      s1[3]=String.valueOf(entry.getValue().getDateSold());
-      s1[4]=String.valueOf(entry.getValue().getTotalValue());
-      s1[5]=String.valueOf(entry.getValue().getPriceBought());
+      s1[2]=String.valueOf(entry.getValue().getPriceBought());
+      s1[3]=String.valueOf(entry.getValue().getDateBought());
+      s1[4]=String.format("%.2f",entry.getValue().getTotalValue());
+
       temp.add(s1);
     }
 
