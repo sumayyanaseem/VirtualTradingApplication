@@ -197,8 +197,14 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolioUsingFilePath(String filePath) {
+    //validate filepath is correct or not
     customCSVParser parser = new customCSVParser();
     List<List<String>> listOfStocks = parser.readFromCSV(filePath);
+
+    //if any merging is required do it else
+    //call writeTOCSV function directly
+
+
     return null;
   }
 

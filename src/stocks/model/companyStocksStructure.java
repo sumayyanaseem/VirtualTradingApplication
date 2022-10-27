@@ -65,8 +65,6 @@ public class companyStocksStructure {
          return this;
        }
 
-
-
      }
 
 
