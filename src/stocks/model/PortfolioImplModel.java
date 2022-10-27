@@ -27,7 +27,7 @@ public class PortfolioImplModel implements PortfolioModel{
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
 
   @Override
-  public void buyStocks(String quantity, String CompanyName, String portfolioName) {
+  public void buyStocks(String quantity, String CompanyName, String portfolioName) throws IOException {
 
     String pattern = "yyyy-MM-dd";
     String dateInString =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()-24*60*60*1000));
@@ -63,6 +63,22 @@ public class PortfolioImplModel implements PortfolioModel{
       }
     }
 
+    Map<String, Stock> mm= portfolioMap.get(portfolioName);
+    List<List<String>> l = new ArrayList<>();
+    List<String> temp = new ArrayList<>();
+    for (Map.Entry<String,Stock> entry : mm.entrySet())
+    {
+      temp.add(entry.getValue().getCompanyTickerSymbol());
+      temp.add(String.valueOf(entry.getValue().getQty()));
+      temp.add(String.valueOf(entry.getValue().getDateBought()));
+      temp.add(String.valueOf(entry.getValue().getDateSold()));
+      temp.add(String.valueOf(entry.getValue().getTotalValue()));
+      temp.add(String.valueOf(entry.getValue().getPriceBought()));
+
+    }
+    l.add(temp);
+    customCSVParser cvp=new customCSVParser();
+    cvp.writeTOCSV(l);
 
   }
 
