@@ -1,10 +1,8 @@
 package stocks.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -15,10 +13,6 @@ import java.net.URL;
 public class PortfolioImplModel implements PortfolioModel{
 
  private Map<String, Map<String, Stock>> portfolioMap;
-
-  //TODO:check why is this needed?
-  String initialPortfolio;
-
 
   public PortfolioImplModel(){
    portfolioMap = new HashMap<>();
@@ -62,7 +56,6 @@ public class PortfolioImplModel implements PortfolioModel{
         portfolioMap.put(portfolioName,m1);
       }
     }
-
 
   }
 
@@ -196,6 +189,7 @@ public class PortfolioImplModel implements PortfolioModel{
  public boolean isPortfolioCreated() {
   return false;
  }
+
 
 
 }

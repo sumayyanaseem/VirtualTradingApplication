@@ -27,8 +27,8 @@ public class PortfolioControllerImpl implements PortfolioController {
         createOrUpdatePortfolio();
         break;
       case "2":
-        //Json json = fetchDetailsFromModelToDisplay();
-        //view.callToViewTODisplay(json);
+       // String fileName = model.getFileName();
+       // view.callToViewTODisplay(fileName);
         break;
     }
   }
@@ -64,7 +64,6 @@ public class PortfolioControllerImpl implements PortfolioController {
         break;
       case "2":
         createNewPortfolioForCurrentUser();
-        stoppingCondition(portfolioName);
         break;
     }
 
@@ -95,7 +94,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "1":
         String quantity = view.callToViewToAskQuantity();
         String companyName = view.callToViewToAskCompanyTicker();
-        //model.buyStocks(quantity, companyName, portfolioName);
+        model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(this.portfolioName);
         break;
       case "2":
