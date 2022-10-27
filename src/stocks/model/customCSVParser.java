@@ -41,12 +41,12 @@ public class customCSVParser {
     }
   }
 
-  public void writeTOCSV(List<List<String>> records) throws IOException {
-    List<String[]> dataLines = new ArrayList<>();
-    dataLines.add(new String[]{"CompanyName","Quantity"});
-    for(int i=0;i<records.size();i++)
-      dataLines.add(new String[]{records.get(i).toString()});
-    File csvOutputFile = new File("p1.csv");
+  public void writeTOCSV(List<String[]> dataLines,String fileName) throws IOException {
+   // for(int i=0;i<l.size();i++)
+      //dataLines.add(new String[]{records.get(i).toString()});
+    dataLines.add(new String[]{"CompanyName","Quantity","PriceBought","DatePurchase","TotalValueOwned"});
+    String path = fileName+".csv";
+    File csvOutputFile = new File(path);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       dataLines.stream()
               .map(this::convertToCSV)

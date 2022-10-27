@@ -16,10 +16,6 @@ public class PortfolioImplModel implements PortfolioModel{
 
  private Map<String, Map<String, Stock>> portfolioMap;
 
-  //TODO:check why is this needed?
-  String initialPortfolio;
-
-
   public PortfolioImplModel(){
    portfolioMap = new HashMap<>();
   }
@@ -80,7 +76,7 @@ public class PortfolioImplModel implements PortfolioModel{
     }
 
     customCSVParser cvp=new customCSVParser();
-    cvp.writeTOCSV(temp);
+    cvp.writeTOCSV(temp,portfolioName);
 
   }
 
@@ -214,6 +210,7 @@ public class PortfolioImplModel implements PortfolioModel{
  public boolean isPortfolioCreated() {
   return false;
  }
+
 
 
 }
