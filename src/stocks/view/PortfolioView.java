@@ -24,4 +24,6 @@ public interface PortfolioView {
 
  String createOrUpdateExistingPortfolio();
 
+ String checkIfUserWantsToViewCompositionOrTotalValue();
+
 }

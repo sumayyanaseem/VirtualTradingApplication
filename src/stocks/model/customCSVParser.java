@@ -42,7 +42,8 @@ public class customCSVParser {
   }
 
   public void writeTOCSV(List<String[]> dataLines,String fileName) throws IOException {
-    dataLines.add(new String[]{"CompanyName","Quantity","PriceBought","DatePurchase","TotalValueOwned"});
+
+
     String path = fileName+".csv";
     File csvOutputFile = new File(path);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {

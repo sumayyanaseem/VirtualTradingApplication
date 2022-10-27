@@ -60,21 +60,20 @@ public class PortfolioImplModel implements PortfolioModel{
     }
 
     Map<String, Stock> mm= portfolioMap.get(portfolioName);
-    List<List<String>> l = new ArrayList<>();
-    List<String> temp = new ArrayList<>();
+    List<String []> temp = new ArrayList<>();
+    temp.add(new String[]{"CompanyName","Quantity","PriceBought","DatePurchase","TotalValueOwned"});
     for (Map.Entry<String,Stock> entry : mm.entrySet())
     {
+      String [] s1=new String[5];
+      s1[0]=entry.getValue().getCompanyTickerSymbol();
+      s1[1]=String.valueOf(entry.getValue().getQty());
+      s1[2]=String.valueOf(entry.getValue().getPriceBought());
+      s1[3]=String.valueOf(entry.getValue().getDateBought());
+      s1[4]=String.format("%.2f",entry.getValue().getTotalValue());
 
-      String[] s1= new String[]{};
-      temp.add(entry.getValue().getCompanyTickerSymbol());
-      temp.add(String.valueOf(entry.getValue().getQty()));
-      temp.add(String.valueOf(entry.getValue().getPriceBought()));
-      temp.add(String.valueOf(entry.getValue().getDateBought()));
-      temp.add(String.format("%.2f",entry.getValue().getTotalValue()));
-
-
+      temp.add(s1);
     }
-    l.add(temp);
+
     customCSVParser cvp=new customCSVParser();
    // cvp.writeTOCSV(temp,portfolioName);
 
