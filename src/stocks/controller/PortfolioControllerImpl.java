@@ -36,13 +36,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = view.checkIfUserWantsToViewCompositionOrTotalValue();
     switch (option) {
       case "1":
-        String name = view.getPortfolioNameToview();
-        view.viewCompositionOfCurrentPortfolio(name);
+        String name = view.getPortfolioNameToView();
+        view.readFromCSV(name);
         break;
       case "2":
-        String date = view.getDateForValuation();
-        String val=model.calculateValuationAsOfDate(date);
-        view.displayTotalValue(date,val);
+       // String date = view.getDateForValuation();
+       // String val=model.calculateValuationAsOfDate(date);
+       // view.displayTotalValue(date,val);
         break;
     }
   }
@@ -84,7 +84,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void stoppingCondition(String portfolioName) throws IOException {
-    String option = view.askUserIfHeWantsToContinue();
+    String option = view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     switch (option) {
       case "1":
         BuyOrSellStocks(portfolioName);
@@ -121,11 +121,11 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void finalExitCondition() throws IOException {
-    String option = view.checkIfUserWantsToExit();
+    String option = view.checkIfUserWantsToExitCompletely();
 
     switch(option){
       case "1":
-        createOrUpdatePortfolio();
+        start();
         break;
       case "2":
         //do nothing

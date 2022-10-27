@@ -75,7 +75,7 @@ public class PortfolioImplModel implements PortfolioModel{
     }
 
     customCSVParser cvp=new customCSVParser();
-   // cvp.writeTOCSV(temp,portfolioName);
+    cvp.writeTOCSV(temp,portfolioName);
 
   }
 
@@ -197,6 +197,8 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolioUsingFilePath(String filePath) {
+    customCSVParser parser = new customCSVParser();
+    List<List<String>> listOfStocks = parser.readFromCSV(filePath);
     return null;
   }
 
