@@ -194,6 +194,18 @@ public class PortfolioImplModel implements PortfolioModel{
   public void sellStocks(String quantity, String CompanyName, String portfolioName) {
 
   }
+  @Override
+  public double calculateValuationAsOfDate(String date, String portfolioName)
+  {
+    //Map<String, Map<String, Stock>> portfolioMap;
+    Map<String, Stock> m= portfolioMap.get(portfolioName);
+    double totVal=0.0;
+    for (Map.Entry<String,Stock> entry : m.entrySet()) {
+      String stkName = entry.getKey();
+      totVal=totVal+fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
+    }
+    return totVal;
+  }
 
   @Override
   public PortfolioModel createPortfolioUsingFilePath(String filePath) {

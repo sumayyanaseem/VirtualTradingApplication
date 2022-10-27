@@ -26,4 +26,8 @@ public interface PortfolioView {
 
  String checkIfUserWantsToViewCompositionOrTotalValue();
 
+ void displayTotalValue(String date, String val, String portfolioName);
+
+ String getDateForValuation();
+
 }

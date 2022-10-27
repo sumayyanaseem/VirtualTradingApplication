@@ -43,8 +43,8 @@ public class PortfolioControllerImpl implements PortfolioController {
         break;
       case "2":
         String date = view.getDateForValuation();
-        String val=model.calculateValuationAsOfDate(date);
-        view.displayTotalValue(date,val);
+        String val= String.valueOf(model.calculateValuationAsOfDate(date,portfolioName));
+        view.displayTotalValue(date,val,portfolioName);
         break;
     }
   }

@@ -77,4 +77,21 @@ public class PortfolioViewImpl implements PortfolioView {
     return myObj.nextLine();
   }
 
+  @Override
+  public String checkIfUserWantsToViewCompositionOrTotalValue() {
+    return null;
+  }
+
+  @Override
+  public void displayTotalValue(String date, String val, String portfolioName) {
+    System.out.println("Total Valuation of Portfolio "+portfolioName+" is :"+val);
+  }
+
+  @Override
+  public String getDateForValuation() {
+    System.out.println("Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
+    Scanner myObj = new Scanner(System.in);
+    return myObj.nextLine();
+  }
+
 }
