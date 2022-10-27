@@ -1,14 +1,13 @@
 package stocks.model;
 
 import java.util.Date;
+import java.util.List;
 
 public interface PortfolioModel {
 
-  PortfolioModel buyStocks(String quantity,String CompanyName, String portfolioName);
+  void buyStocks(String quantity,String CompanyName, String portfolioName);
 
-  PortfolioModel sellStocks(String quantity,String CompanyName, String portfolioName);
-
-  PortfolioModel createPortfolio(String portfolioName);
+  void sellStocks(String quantity,String CompanyName, String portfolioName);
 
   PortfolioModel createPortfolioUsingFilePath(String filePath);
 

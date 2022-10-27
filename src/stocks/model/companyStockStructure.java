@@ -30,7 +30,16 @@ public class companyStockStructure {
 
      }
 
-     private static class companyStockStructureBuilder {
+  public long getQuantityBought() {
+    return quantityBought;
+  }
+
+  public double getTotalValue() {
+    return totalValue;
+  }
+
+
+  private static class companyStockStructureBuilder {
 
        Double purchasedPrice;
 
@@ -62,6 +71,8 @@ public class companyStockStructure {
          this.totalValue = totalValue;
          return this;
        }
+
+
 
      }
 

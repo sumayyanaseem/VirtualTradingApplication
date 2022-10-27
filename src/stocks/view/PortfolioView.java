@@ -14,11 +14,14 @@ public interface PortfolioView {
 
  String callToViewToChoiceOption();//Buy or Sell
 
-  String callToViewToAskQuantity();
+ String callToViewToAskQuantity();
 
-  String callToViewToAskCompanyTicker();
+ String callToViewToAskCompanyTicker();
 
-  String askUserIfHeWantsToContinue();
+ String askUserIfHeWantsToContinue();
 
+ String checkIfUserWantsToExit();
+
+ String createOrUpdateExistingPortfolio();
 
 }
