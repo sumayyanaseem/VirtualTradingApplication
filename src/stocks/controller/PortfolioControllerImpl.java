@@ -1,4 +1,6 @@
 package stocks.controller;
+import java.io.IOException;
+
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
@@ -20,7 +22,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
 
-  public void start() {
+  public void start() throws IOException {
     String option = view.callToViewToChooseCreateOrView();
     switch (option) {
       case "1":
@@ -33,7 +35,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void createOrUpdatePortfolio(){
+  private void createOrUpdatePortfolio() throws IOException {
     String option = view.createOrUpdateExistingPortfolio();
     switch (option) {
       case "create":
@@ -46,7 +48,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
 
-  private void UpdatePortfolio(){
+  private void UpdatePortfolio() throws IOException {
     String portfolioName = view.callToViewToAskPortfolioName();
     this.portfolioName = portfolioName;
     BuyOrSellStocks(portfolioName);
@@ -54,7 +56,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
 
-  private void getCreatePortfolioChoice() {
+  private void getCreatePortfolioChoice() throws IOException {
     String option = view.callToViewOnHowToCreatePortfolio();//using Json/XML file or individual inputs
     switch (option) {
       case "1":
@@ -69,7 +71,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
-  private void stoppingCondition(String portfolioName){
+  private void stoppingCondition(String portfolioName) throws IOException {
     String option = view.askUserIfHeWantsToContinue();
     switch (option) {
       case "yes":
@@ -81,14 +83,14 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void createNewPortfolioForCurrentUser() {
+  private void createNewPortfolioForCurrentUser() throws IOException {
     String portfolioName = view.callToViewToAskPortfolioName();
     this.portfolioName = portfolioName;
    // model.createPortfolio(portfolioName);
     BuyOrSellStocks(portfolioName);
   }
 
-  private void BuyOrSellStocks(String portfolioName){
+  private void BuyOrSellStocks(String portfolioName) throws IOException {
     String option = view.callToViewToChoiceOption();//Buy or Sell choice
     switch (option) {
       case "1":
@@ -106,7 +108,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void finalExitCondition(){
+  private void finalExitCondition() throws IOException {
     String option = view.checkIfUserWantsToExit();
 
     switch(option){

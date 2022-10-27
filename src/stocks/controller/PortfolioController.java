@@ -1,7 +1,9 @@
 package stocks.controller;
 
+import java.io.IOException;
+
 public interface PortfolioController {
 
-  void start();
+  void start() throws IOException;
 
 }

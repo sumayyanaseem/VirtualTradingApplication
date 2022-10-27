@@ -1,8 +1,10 @@
 package stocks.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class PortfolioImplModel implements PortfolioModel{
   //TODO:Have one more constructor to read fileInput and remove the below logic to a helper method.
 
   @Override
-  public void buyStocks(String quantity, String CompanyName, String portfolioName) {
+  public void buyStocks(String quantity, String CompanyName, String portfolioName) throws IOException {
 
     String pattern = "yyyy-MM-dd";
     String dateInString =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()-24*60*60*1000));
@@ -56,6 +58,25 @@ public class PortfolioImplModel implements PortfolioModel{
         portfolioMap.put(portfolioName,m1);
       }
     }
+
+    Map<String, Stock> mm= portfolioMap.get(portfolioName);
+    List<List<String>> l = new ArrayList<>();
+    List<String> temp = new ArrayList<>();
+    for (Map.Entry<String,Stock> entry : mm.entrySet())
+    {
+
+      String[] s1= new String[]{};
+      temp.add(entry.getValue().getCompanyTickerSymbol());
+      temp.add(String.valueOf(entry.getValue().getQty()));
+      temp.add(String.valueOf(entry.getValue().getPriceBought()));
+      temp.add(String.valueOf(entry.getValue().getDateBought()));
+      temp.add(String.format("%.2f",entry.getValue().getTotalValue()));
+
+
+    }
+    l.add(temp);
+    customCSVParser cvp=new customCSVParser();
+    cvp.writeTOCSV(temp,portfolioName);
 
   }
 
