@@ -1,10 +1,10 @@
 package stocks.view;
 
+import java.util.List;
+
 public interface PortfolioView {
 
  String  callToViewToChooseCreateOrView();
-
-// void callToViewTODisplay(Json Json);
 
  String callToViewOnHowToCreatePortfolio();
 
@@ -18,9 +18,9 @@ public interface PortfolioView {
 
  String callToViewToAskCompanyTicker();
 
- String askUserIfHeWantsToContinue();
+ String askUserIfHeWantsToContinueTradingInCurrentPortfolio();
 
- String checkIfUserWantsToExit();
+ String checkIfUserWantsToExitCompletely();
 
  String createOrUpdateExistingPortfolio();
 
@@ -29,5 +29,9 @@ public interface PortfolioView {
  void displayTotalValue(String date, String val, String portfolioName);
 
  String getDateForValuation();
+
+ String getPortfolioNameToView();
+
+ List<List<String>> readFromCSV(String portfolioName);
 
 }

@@ -13,13 +13,11 @@ public class PortfolioControllerImpl implements PortfolioController {
   private String portfolioName;
 
 
-
   public PortfolioControllerImpl(PortfolioModel model, PortfolioView view) {
     this.model = model;
     this.view = view;
     this.portfolioName = "";
   }
-
 
 
   public void start() throws IOException {
@@ -38,8 +36,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = view.checkIfUserWantsToViewCompositionOrTotalValue();
     switch (option) {
       case "1":
-        String name = view.getPortfolioNameToview();
-        view.viewCompositionOfCurrentPortfolio(name);
+        String name = view.getPortfolioNameToView();
+        view.readFromCSV(name);
         break;
       case "2":
         String date = view.getDateForValuation();
@@ -52,10 +50,10 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void createOrUpdatePortfolio() throws IOException {
     String option = view.createOrUpdateExistingPortfolio();
     switch (option) {
-      case "create":
+      case "1":
         getCreatePortfolioChoice();
         break;
-      case "update":
+      case "2":
         UpdatePortfolio();
         break;
     }
@@ -86,12 +84,12 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void stoppingCondition(String portfolioName) throws IOException {
-    String option = view.askUserIfHeWantsToContinue();
+    String option = view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     switch (option) {
-      case "yes":
+      case "1":
         BuyOrSellStocks(portfolioName);
         break;
-      case "No":
+      case "2":
         finalExitCondition();
         break;
     }
@@ -108,28 +106,28 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = view.callToViewToChoiceOption();//Buy or Sell choice
     switch (option) {
       case "1":
-        String quantity = view.callToViewToAskQuantity();
         String companyName = view.callToViewToAskCompanyTicker();
+        String quantity = view.callToViewToAskQuantity();
         model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(this.portfolioName);
         break;
       case "2":
-        quantity = view.callToViewToAskQuantity();
-        companyName = view.callToViewToAskCompanyTicker();
+        //companyName = view.callToViewToAskCompanyTicker();
+       // quantity = view.callToViewToAskQuantity();
         // model.sellStocks(quantity, companyName, portfolioName);
-        stoppingCondition(this.portfolioName);
+       // stoppingCondition(this.portfolioName);
         break;
     }
   }
 
   private void finalExitCondition() throws IOException {
-    String option = view.checkIfUserWantsToExit();
+    String option = view.checkIfUserWantsToExitCompletely();
 
     switch(option){
-      case "yes":
-        createOrUpdatePortfolio();
+      case "1":
+        start();
         break;
-      case "No":
+      case "2":
         //do nothing
         break;
     }

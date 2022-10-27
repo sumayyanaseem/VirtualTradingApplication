@@ -15,12 +15,16 @@ import java.util.stream.Stream;
 
 public class customCSVParser {
 
-  public void readFromCSV(String path)  {
+  public List<List<String>> readFromCSV(String portfolioName)  {
+    String path = portfolioName+".csv";
     List<List<String>> records = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
       String[] headings =line.split(",");
-      System.out.println(headings[0]+" "+headings[1]);
+      for(int i=0;i<headings.length;i++) {
+        System.out.print(headings[i] + " ");
+      }
+      System.out.print("\n");
       while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
@@ -35,12 +39,16 @@ public class customCSVParser {
 
       for(int j=0;j<records.get(i).size();j++){
         System.out.print(records.get(i).get(j));
-        System.out.print(" ");
+        int len = records.get(0).get(j).length();
+        for(int k=0;k<len;k++) {
+          System.out.print(" ");
+        }
       }
-      System.out.println(" ");
+      System.out.println("");
     }
-  }
 
+    return records;
+  }
   public void writeTOCSV(List<String[]> dataLines,String fileName) throws IOException {
 
 

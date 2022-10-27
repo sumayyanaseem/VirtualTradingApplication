@@ -15,13 +15,6 @@ public class companyStocksStructure {
 
   private long totalValue;
 
-  /*TODO:from controller  call should be made similar to this:
-  companyStockStructure c = new companyStockStructure();
-
-  stockInfo  s = new stockInfo().setDatePurchased().setQuantityBought().
-          build();
-   c.list.add(s);*/
-
   public companyStocksStructure(Double purchasedPrice, Timestamp datePurchased, long quantityBought, long totalValue){
        this.purchasedPrice =purchasedPrice;
        this.datePurchased = datePurchased;
@@ -71,8 +64,6 @@ public class companyStocksStructure {
          this.totalValue = totalValue;
          return this;
        }
-
-
 
      }
 
