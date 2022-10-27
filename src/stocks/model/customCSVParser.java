@@ -1,7 +1,5 @@
 package stocks.model;
 
-import org.xml.sax.SAXException;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +42,7 @@ public class customCSVParser {
 
   public void writeTOCSV(List<List<String>> records) throws IOException {
     List<String[]> dataLines = new ArrayList<>();
-    dataLines.add(new String[]{"CountryName","Quantity"});
+    dataLines.add(new String[]{"CompanyName","Quantity"});
     for(int i=0;i<records.size();i++)
       dataLines.add(new String[]{records.get(i).toString()});
     File csvOutputFile = new File("p1.csv");
