@@ -2,7 +2,7 @@ package stocks.model;
 
 import java.security.Timestamp;
 
-public class companyStockStructure {
+public class companyStocksStructure {
 
   //TODO: annotate with NotNull later for few attributes.
   private Double purchasedPrice;
@@ -22,7 +22,7 @@ public class companyStockStructure {
           build();
    c.list.add(s);*/
 
-  public companyStockStructure(Double purchasedPrice,Timestamp datePurchased,long quantityBought,long totalValue){
+  public companyStocksStructure(Double purchasedPrice, Timestamp datePurchased, long quantityBought, long totalValue){
        this.purchasedPrice =purchasedPrice;
        this.datePurchased = datePurchased;
        this.quantityBought = quantityBought;
@@ -51,8 +51,8 @@ public class companyStockStructure {
 
        long totalValue;
 
-       public companyStockStructure build(){
-         return new companyStockStructure(purchasedPrice,datePurchased,quantityBought,totalValue);
+       public companyStocksStructure build(){
+         return new companyStocksStructure(purchasedPrice,datePurchased,quantityBought,totalValue);
        }
 
 

@@ -85,7 +85,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void createNewPortfolioForCurrentUser() {
     String portfolioName = view.callToViewToAskPortfolioName();
     this.portfolioName = portfolioName;
-    model.createPortfolio(portfolioName);
+   // model.createPortfolio(portfolioName);
     BuyOrSellStocks(portfolioName);
   }
 

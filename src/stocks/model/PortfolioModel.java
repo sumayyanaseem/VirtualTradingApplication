@@ -13,4 +13,6 @@ public interface PortfolioModel {
 
   double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
 
+  boolean isPortfolioCreated();
+
 }

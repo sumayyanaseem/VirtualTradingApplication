@@ -192,5 +192,10 @@ public class PortfolioImplModel implements PortfolioModel{
   return 0.0;
   }
 
+ @Override
+ public boolean isPortfolioCreated() {
+  return false;
+ }
+
 
 }
