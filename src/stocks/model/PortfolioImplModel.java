@@ -1,5 +1,6 @@
 package stocks.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Map;
 public class PortfolioImplModel implements PortfolioModel{
 
  private String portfolioName;
-
  private CompanyStocksList companyStocksList;
 
 
@@ -22,12 +22,6 @@ public class PortfolioImplModel implements PortfolioModel{
  public CompanyStocksList getCompanyStocksList() {
   return this.companyStocksList;
  }
- public void setCompanyStocksList(CompanyStocksList list) {
-  this.companyStocksList = list;
- }
-
-
-
 
 
 
@@ -110,9 +104,8 @@ public class PortfolioImplModel implements PortfolioModel{
 
   @Override
   public PortfolioModel createPortfolio(String portfolioName) {
-   // this.portfolioMap.put(portfolioName,new HashMap<>());
-    return null;
-
+    setPortfolioName(portfolioName);
+    companyStocksList = new CompanyStocksList();
   }
 
   @Override

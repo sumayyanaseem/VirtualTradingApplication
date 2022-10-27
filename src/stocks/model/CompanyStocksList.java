@@ -24,6 +24,10 @@ public class CompanyStocksList {
           build();
    c.list.add(s);*/
 
+  public CompanyStocksList(){
+
+  }
+
   public CompanyStocksList(Double purchasedPrice, Timestamp datePurchased, long quantityBought, long totalValue){
        this.purchasedPrice =purchasedPrice;
        this.datePurchased = datePurchased;
