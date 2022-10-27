@@ -76,7 +76,7 @@ public class PortfolioImplModel implements PortfolioModel{
     }
     l.add(temp);
     customCSVParser cvp=new customCSVParser();
-    cvp.writeTOCSV(temp,portfolioName);
+   // cvp.writeTOCSV(temp,portfolioName);
 
   }
 

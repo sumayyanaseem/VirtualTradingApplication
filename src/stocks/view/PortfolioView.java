@@ -18,9 +18,9 @@ public interface PortfolioView {
 
  String callToViewToAskCompanyTicker();
 
- String askUserIfHeWantsToContinue();
+ String askUserIfHeWantsToContinueTradingInCurrentPortfolio();
 
- String checkIfUserWantsToExit();
+ String checkIfUserWantsToExitCompletely();
 
  String createOrUpdateExistingPortfolio();
 
