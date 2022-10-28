@@ -85,6 +85,9 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+    String pattern = "yyyy-MM-dd";
+    String todayDate =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
+    String datePrev =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()-24*60*60*1000));
     Map<String, Stock> m= portfolioMap.get(portfolioName);
     double totVal=0.0;
     for (Map.Entry<String,Stock> entry : m.entrySet()) {
