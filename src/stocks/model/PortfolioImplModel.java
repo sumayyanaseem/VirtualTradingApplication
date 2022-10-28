@@ -89,6 +89,11 @@ public class PortfolioImplModel implements PortfolioModel {
     double totVal=0.0;
     for (Map.Entry<String,Stock> entry : m.entrySet()) {
       String stkName = entry.getKey();
+      if(todayDate.equals(date))
+      {
+        totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(datePrev, entry.getKey(), datePrev);
+      }
+      else
       totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
     }
     return totVal;
