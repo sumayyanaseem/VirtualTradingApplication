@@ -10,11 +10,10 @@ public interface PortfolioModel {
 
   void sellStocks(String quantity,String CompanyName, String portfolioName);
 
-  double calculateValuationAsOfDate(String date, String portfolioName);
+  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
   PortfolioModel createPortfolioUsingFilePath(String filePath);
 
-  double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
 
   boolean isPortfolioCreated();
 

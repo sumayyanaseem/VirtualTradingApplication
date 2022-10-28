@@ -78,18 +78,13 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
 
-
-
-
   @Override
   public void sellStocks(String quantity, String CompanyName, String portfolioName) {
 
   }
 
   @Override
-  public double calculateValuationAsOfDate(String date, String portfolioName)
-  {
-    //Map<String, Map<String, Stock>> portfolioMap;
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     Map<String, Stock> m= portfolioMap.get(portfolioName);
     double totVal=0.0;
     for (Map.Entry<String,Stock> entry : m.entrySet()) {
@@ -102,19 +97,11 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public PortfolioModel createPortfolioUsingFilePath(String filePath) {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks =readFromCSV(filePath);
-    //helperMethodToWriteTOCSV(filePath);
-
+    List<List<String>> listOfStocks =customCSVParser.readFromCSV(filePath);
     //TODO:if any merging is required do it else
     //call writeTOCSV function directly
-
-
+    //helperMethodToWriteTOCSV(filePath);
     return null;
-  }
-
-  @Override
-  public double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
-    return 0.0;
   }
 
   @Override
@@ -124,45 +111,10 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public List<List<String>> readFromCSVFile(String portfolioName) {
-    List<List<String>> records = readFromCSV(portfolioName);
+    List<List<String>> records = customCSVParser.readFromCSVAndModifyData(portfolioName);
     //updating the total quantity as of today
     return records;
   }
 
-  private List<List<String>> readFromCSV(String portfolioName)  {
-    String path = portfolioName+".csv";
-    List<List<String>> records = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      String line = br.readLine();
-      String[] headings =line.split(",");
-      records.add(Arrays.asList(headings));
-     /* for(int i=0;i<headings.length;i++) {
-        System.out.print(headings[i] + " ");
-      }
-      System.out.print("\n");*/
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        //For each company calculate TotalValue here and add it to string array
-        records.add(Arrays.asList(values));
-      }
-    } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
 
-   /* for(int i=0;i<records.size();i++){
-
-      for(int j=0;j<records.get(i).size();j++){
-        System.out.print(records.get(i).get(j));
-        int len = records.get(0).get(j).length();
-        for(int k=0;k<len;k++) {
-          System.out.print(" ");
-        }
-      }
-      System.out.println("");
-    }*/
-
-    return records;
-  }
 }

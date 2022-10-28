@@ -44,7 +44,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "2":
         String pName = view.askForPortfolioNameToGetValuation();
         String date = view.getDateForValuation();
-        String val= String.valueOf(model.calculateValuationAsOfDate(date,pName));
+        String val= String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date,pName));
         view.displayTotalValue(date,val,portfolioName);
         break;
     }
