@@ -34,4 +34,5 @@ public interface PortfolioView {
 
  void displayComposition(List<List<String>> records);
 
+ String askForPortfolioNameToGetValuation();
 }

@@ -83,13 +83,14 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public double calculateValuationAsOfDate(String date, String portfolioName) {
+  public double calculateValuationAsOfDate(String date, String portfolioName)
+  {
     //Map<String, Map<String, Stock>> portfolioMap;
-    Map<String, Stock> m = portfolioMap.get(portfolioName);
-    double totVal = 0.0;
-    for (Map.Entry<String, Stock> entry : m.entrySet()) {
+    Map<String, Stock> m= portfolioMap.get(portfolioName);
+    double totVal=0.0;
+    for (Map.Entry<String,Stock> entry : m.entrySet()) {
       String stkName = entry.getKey();
-      totVal = totVal + apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
+      totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
     }
     return totVal;
   }

@@ -1,5 +1,4 @@
 package stocks.controller;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioView view;
 
   private String portfolioName;
+
 
   public PortfolioControllerImpl(PortfolioModel model, PortfolioView view) {
     this.model = model;
@@ -42,9 +42,10 @@ public class PortfolioControllerImpl implements PortfolioController {
         view.displayComposition(records);
         break;
       case "2":
+        String pName = view.askForPortfolioNameToGetValuation();
         String date = view.getDateForValuation();
-        String val = String.valueOf(model.calculateValuationAsOfDate(date, portfolioName));
-        view.displayTotalValue(date, val, portfolioName);
+        String val= String.valueOf(model.calculateValuationAsOfDate(date,pName));
+        view.displayTotalValue(date,val,portfolioName);
         break;
     }
   }
@@ -113,9 +114,9 @@ public class PortfolioControllerImpl implements PortfolioController {
         break;
       case "2":
         //companyName = view.callToViewToAskCompanyTicker();
-        // quantity = view.callToViewToAskQuantity();
+       // quantity = view.callToViewToAskQuantity();
         // model.sellStocks(quantity, companyName, portfolioName);
-        // stoppingCondition(this.portfolioName);
+       // stoppingCondition(this.portfolioName);
         break;
     }
   }

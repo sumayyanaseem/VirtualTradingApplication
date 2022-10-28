@@ -143,5 +143,13 @@ public class PortfolioViewImpl implements PortfolioView {
     }
   }
 
+  @Override
+  public String askForPortfolioNameToGetValuation() {
+    System.out.println("Enter the name of the portfolio you want to get valuation for:");
+    Scanner myObj = new Scanner(input);
+    //validate if this portfolio exists.
+    return myObj.nextLine();
+  }
+
 
 }
