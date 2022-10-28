@@ -1,6 +1,10 @@
 package stocks.model;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -98,8 +102,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public PortfolioModel createPortfolioUsingFilePath(String filePath) {
     //validate filepath is correct or not
-    CustomCSVParser parser = new CustomCSVParser();
-    List<List<String>> listOfStocks = parser.readFromCSV(filePath);
+    List<List<String>> listOfStocks =readFromCSV(filePath);
     //helperMethodToWriteTOCSV(filePath);
 
     //TODO:if any merging is required do it else
@@ -120,9 +123,46 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public List<List<String>> readFromCSV(String portfolioName) {
-    List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
+  public List<List<String>> readFromCSVFile(String portfolioName) {
+    List<List<String>> records = readFromCSV(portfolioName);
     //updating the total quantity as of today
+    return records;
+  }
+
+  private List<List<String>> readFromCSV(String portfolioName)  {
+    String path = portfolioName+".csv";
+    List<List<String>> records = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line = br.readLine();
+      String[] headings =line.split(",");
+      records.add(Arrays.asList(headings));
+     /* for(int i=0;i<headings.length;i++) {
+        System.out.print(headings[i] + " ");
+      }
+      System.out.print("\n");*/
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        //For each company calculate TotalValue here and add it to string array
+        records.add(Arrays.asList(values));
+      }
+    } catch (FileNotFoundException ex) {
+      throw new RuntimeException(ex);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+   /* for(int i=0;i<records.size();i++){
+
+      for(int j=0;j<records.get(i).size();j++){
+        System.out.print(records.get(i).get(j));
+        int len = records.get(0).get(j).length();
+        for(int k=0;k<len;k++) {
+          System.out.print(" ");
+        }
+      }
+      System.out.println("");
+    }*/
+
     return records;
   }
 }

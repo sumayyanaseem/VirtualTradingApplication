@@ -18,6 +18,6 @@ public interface PortfolioModel {
 
   boolean isPortfolioCreated();
 
-  List<List<String>>  readFromCSV(String portfolioName);
+  List<List<String>> readFromCSVFile(String portfolioName);
 
 }

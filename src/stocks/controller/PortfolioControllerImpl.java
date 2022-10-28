@@ -38,7 +38,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     switch (option) {
       case "1":
         String name = view.getPortfolioNameToView();
-        List<List<String>> records = model.readFromCSV(name);
+        List<List<String>> records = model.readFromCSVFile(name);
         view.displayComposition(records);
         break;
       case "2":
