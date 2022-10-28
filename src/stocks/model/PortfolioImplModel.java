@@ -197,11 +197,20 @@ public class PortfolioImplModel implements PortfolioModel{
   @Override
   public double calculateValuationAsOfDate(String date, String portfolioName)
   {
+    String pattern = "yyyy-MM-dd";
+    String todayDate =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
+    String datePrev =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()-24*60*60*1000));
+
     //Map<String, Map<String, Stock>> portfolioMap;
     Map<String, Stock> m= portfolioMap.get(portfolioName);
     double totVal=0.0;
     for (Map.Entry<String,Stock> entry : m.entrySet()) {
       String stkName = entry.getKey();
+      if(todayDate.equals(date))
+      {
+        totVal=totVal+entry.getValue().getQty()*fetchStockPriceAsOfCertainDate(datePrev, entry.getKey(), datePrev);
+      }
+      else
       totVal=totVal+entry.getValue().getQty()*fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
     }
     return totVal;
