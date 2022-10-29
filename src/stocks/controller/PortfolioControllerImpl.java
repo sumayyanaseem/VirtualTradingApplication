@@ -1,7 +1,9 @@
 package stocks.controller;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
+import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
@@ -14,14 +16,15 @@ public class PortfolioControllerImpl implements PortfolioController {
   private String portfolioName;
 
 
-  public PortfolioControllerImpl(PortfolioModel model, PortfolioView view) {
-    this.model = model;
+  public PortfolioControllerImpl(PortfolioView view) {
     this.view = view;
     this.portfolioName = "";
   }
 
 
-  public void start() throws IOException {
+  public void start(PortfolioModel model) throws IOException {
+    Objects.requireNonNull(model);
+    this.model = model;
     String option = view.callToViewToChooseCreateOrView();
     switch (option) {
       case "1":
@@ -44,7 +47,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "2":
         String pName = view.askForPortfolioNameToGetValuation();
         String date = view.getDateForValuation();
-        String val= String.valueOf(model.calculateValuationAsOfDate(date,pName));
+        String val= String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date,pName));
         view.displayTotalValue(date,val,portfolioName);
         break;
     }
@@ -126,7 +129,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     switch (option) {
       case "1":
-        start();
+        start(new PortfolioImplModel());
         break;
       case "2":
         //do nothing

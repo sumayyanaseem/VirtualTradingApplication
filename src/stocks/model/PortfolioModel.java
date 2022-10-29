@@ -1,6 +1,7 @@
 package stocks.model;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +11,10 @@ public interface PortfolioModel {
 
   void sellStocks(String quantity,String CompanyName, String portfolioName);
 
-  double calculateValuationAsOfDate(String date, String portfolioName);
+  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
   void createPortfolioUsingFilePath(String filePath) throws IOException;
 
-  double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
 
   boolean isPortfolioCreated();
 

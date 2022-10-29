@@ -1,0 +1,5 @@
+CompanyName,Quantity,PriceBought,DatePurchase,TotalValueWhenPurchased
+GOOG,30,96.58,2022-10-29,2897.4
+META,2,99.2,2022-10-29,198.4
+GOOG,40,96.58,2022-10-29,3863.2
+Meta,2,99.2,2022-10-29,198.4

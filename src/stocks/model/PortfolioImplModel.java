@@ -1,7 +1,5 @@
 package stocks.model;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +27,7 @@ public class PortfolioImplModel implements PortfolioModel {
   public void buyStocks(String quantity, String CompanyName, String portfolioName) throws IOException {
 
     String pattern = "yyyy-MM-dd";
-    String dateInString = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-    double priceBought = apiCustomClass.fetchStockPriceAsOfToday(dateInString, CompanyName);
+    double priceBought = apiCustomClass.fetchStockPriceAsOfToday(CompanyName);
 
     String todayDateStr = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
 
@@ -78,32 +75,27 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
 
-
-
-
   @Override
   public void sellStocks(String quantity, String CompanyName, String portfolioName) {
 
   }
 
   @Override
-  public double calculateValuationAsOfDate(String date, String portfolioName)
-  {
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     String pattern = "yyyy-MM-dd";
     String todayDate =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     String datePrev =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()-24*60*60*1000));
-
-    //Map<String, Map<String, Stock>> portfolioMap;
     Map<String, Stock> m= portfolioMap.get(portfolioName);
+    //fetch the details from csv file map
     double totVal=0.0;
     for (Map.Entry<String,Stock> entry : m.entrySet()) {
       String stkName = entry.getKey();
       if(todayDate.equals(date))
       {
-        totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(datePrev, entry.getKey(), datePrev);
+        totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), datePrev);
       }
       else
-      totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
+      totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), date);
     }
     return totVal;
   }
@@ -111,12 +103,14 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath) throws IOException {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks =readFromCSV(filePath);
+    List<List<String>> listOfStocks =customCSVParser.readFromCSV(filePath);
     //helperMethodToWriteTOCSV(filePath);
     Map<String,List<String>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     List<String[]> resultList=new ArrayList<>();
+    String[] headers = new String[]{"CompanyName","Quantity","PriceBought","DatePurchase","TotalValueWhenPurchased"};
+    resultList.add(headers);
     for(int i=1;i<listOfStocks.size();i++)
     {
       String[] temp = new String[5];
@@ -124,7 +118,7 @@ public class PortfolioImplModel implements PortfolioModel {
       double sPrice = apiCustomClass.fetchStockPriceAsOfToday(sName);
       if(!mapOfStocks.containsKey(sName)) {
         mapOfStocks.put(sName, listOfStocks.get(i));
-        temp = listOfStocks.get(i).toArray(new String[listOfStocks.get(i).size()]);
+        temp = listOfStocks.get(i).toArray(new String[5]);
         temp[2]= String.valueOf(sPrice);
         temp[3]= todayDate;
         temp[4]= String.valueOf(Long.valueOf(listOfStocks.get(i).get(1))*sPrice);
@@ -139,7 +133,7 @@ public class PortfolioImplModel implements PortfolioModel {
         list1.set(1,totQtyStr);
         //list1.set(4,totVal);
         mapOfStocks.put(sName,list1);
-        temp = list1.toArray(new String[list1.size()]);
+        temp = list1.toArray(new String[5]);
 
         temp[2]= String.valueOf(sPrice);
         temp[3]= todayDate;
@@ -153,56 +147,32 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName) {
-    return 0.0;
-  }
-
-  @Override
   public boolean isPortfolioCreated() {
     return false;
   }
 
   @Override
   public List<List<String>> readFromCSVFile(String portfolioName) {
-    List<List<String>> records = readFromCSV(portfolioName);
-    //updating the total quantity as of today
-    return records;
-  }
-
-  private List<List<String>> readFromCSV(String portfolioName)  {
-    String path = portfolioName+".csv";
-    List<List<String>> records = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      String line = br.readLine();
-      String[] headings =line.split(",");
-      records.add(Arrays.asList(headings));
-     /* for(int i=0;i<headings.length;i++) {
-        System.out.print(headings[i] + " ");
-      }
-      System.out.print("\n");*/
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        //For each company calculate TotalValue here and add it to string array
-        records.add(Arrays.asList(values));
-      }
-    } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    List<List<String>> records = customCSVParser.readFromCSVAndModifyData(portfolioName);
+    List<String> list = records.get(0);
+    String name="TotalValueOwnedAsOfToday";
+    List<String> list1 = new ArrayList<>();
+    list1.addAll(list);
+    list1.add(name);
+    List<List<String>> results = new ArrayList<>();
+    results.add(list1);
+    for(int i=1;i<records.size();i++){
+      list1 = new ArrayList<>();
+     String cName =records.get(i).get(0);
+     String quantity = records.get(i).get(1);
+     Double currentPrice =apiCustomClass.fetchStockPriceAsOfToday(cName);
+     Double currentTotalPrice = Long.parseLong(quantity)*currentPrice;
+     list1.addAll(records.get(i));
+     list1.add(String.valueOf(currentTotalPrice));
+      results.add(list1);
     }
-
-   /* for(int i=0;i<records.size();i++){
-
-      for(int j=0;j<records.get(i).size();j++){
-        System.out.print(records.get(i).get(j));
-        int len = records.get(0).get(j).length();
-        for(int k=0;k<len;k++) {
-          System.out.print(" ");
-        }
-      }
-      System.out.println("");
-    }*/
-
-    return records;
+    return results;
   }
+
+
 }

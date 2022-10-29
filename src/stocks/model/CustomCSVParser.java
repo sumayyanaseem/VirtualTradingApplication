@@ -14,7 +14,44 @@ import java.util.stream.Stream;
 
 public class CustomCSVParser {
 
+  public List<List<String>> readFromCSV(String portfolioName)  {
+    String path = portfolioName+".csv";
+    List<List<String>> records = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line = br.readLine();
+      String[] headings =line.split(",");
+      records.add(Arrays.asList(headings));
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        records.add(Arrays.asList(values));
+      }
+    } catch (FileNotFoundException ex) {
+      throw new RuntimeException(ex);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return records;
+  }
 
+  public List<List<String>> readFromCSVAndModifyData(String portfolioName)  {
+    String path = portfolioName+".csv";
+    List<List<String>> records = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line = br.readLine();
+      String[] headings =line.split(",");
+      records.add(Arrays.asList(headings));
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        //For each company calculate TotalValue here and add it to string array
+        records.add(Arrays.asList(values));
+      }
+    } catch (FileNotFoundException ex) {
+      throw new RuntimeException(ex);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return records;
+  }
   public void writeTOCSV(List<String[]> dataLines,String fileName) throws IOException {
     String path = fileName+".csv";
     File csvOutputFile = new File(path);
@@ -24,7 +61,6 @@ public class CustomCSVParser {
               .forEach(pw::println);
     }
   }
-
 
 
   public  String convertToCSV(String[] data) {
