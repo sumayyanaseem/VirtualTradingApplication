@@ -94,6 +94,7 @@ public class PortfolioControllerImpl implements PortfolioController {
         BuyOrSellStocks(portfolioName);
         break;
       case "2":
+        //create portfolio file here , if it a manual creation bfr
         finalExitCondition();
         break;
     }

@@ -34,16 +34,13 @@ public class APICustomClass {
           flag = true;
           break;
         }
-
-
       }
 
     } catch (ParseException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
     if (!flag) {
-      System.out.println("Market closed on this day. Stock price not available.");
-      throw new IllegalArgumentException();
+      System.out.println("Stock price not available for this input.");
     }
     return res;
 
@@ -56,7 +53,6 @@ public class APICustomClass {
       Date date = new Date();
       SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
       dateFormat.format(date);
-      System.out.println(dateFormat.format(date));
       if (dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("16:10"))) {
         dateInString = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
       } else {
@@ -65,7 +61,6 @@ public class APICustomClass {
     } catch (ParseException e) {
       System.out.println(e.getMessage());
     }
-
     return fetchStockPriceAsOfCertainDate(companyTickerSymbol, dateInString);
 
   }
