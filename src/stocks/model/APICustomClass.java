@@ -11,34 +11,38 @@ import java.util.Locale;
 
 public class APICustomClass {
 
-  public Double fetchStockPriceAsOfCertainDate(String datePurchased, String companyTickerSymbol, String givenDate) throws IllegalArgumentException {
+  public Double fetchStockPriceAsOfCertainDate(String companyTickerSymbol, String givenDate) throws IllegalArgumentException, ParseException {
 
     String output = fetchOutputStringFromURL(companyTickerSymbol);
     double res = 0.0;
     boolean flag = false;
     String lines[] = output.split(System.lineSeparator());
 
-    try {
+   /* try {
       Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-              .parse(datePurchased);
+              .parse(datePurchased);*/
 
       //hardcoded purchasedate for testing
       Date dateForWhichDataIsNeeded = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
               .parse(givenDate);
 
 
-      if (dateForWhichDataIsNeeded.compareTo(purchaseDate) < 0) {
+     /* if (dateForWhichDataIsNeeded.compareTo(purchaseDate) < 0) {
         System.out.println("Stock was bought after the given date. Nothing to display");
         throw new IllegalArgumentException();
-      }
+      }*/
       for (int i = 1; i < lines.length; i++) {
         String stkInfoByDate[] = lines[i].split(",");
         String dateStr = stkInfoByDate[0];
         Date start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(dateStr);
 
-        if (start.compareTo(purchaseDate) < 0) {
+       /* if (start.compareTo(purchaseDate) < 0) {
           break;
+        }*/
+        if(start.compareTo(dateForWhichDataIsNeeded)<0)
+        {
+            break;
         }
         if (start.compareTo(dateForWhichDataIsNeeded) == 0) {
           res = Double.valueOf(stkInfoByDate[4]);
@@ -49,21 +53,32 @@ public class APICustomClass {
 
       }
 
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
     if (!flag) {
       System.out.println("Market closed on this day. Stock price not available.");
       throw new IllegalArgumentException();
     }
     return res;
 
-  }
+    }
 
-  public Double fetchStockPriceAsOfToday(String datePurchased, String companyTickerSymbol) {
+  public Double fetchStockPriceAsOfToday(String companyTickerSymbol)  {
+
+
     String pattern = "yyyy-MM-dd";
-    String dateInString = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-    return fetchStockPriceAsOfCertainDate(datePurchased, companyTickerSymbol, dateInString);
+    String dateInString = null;
+    try {
+      dateInString= new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
+    }catch(ParseException e){
+      throw new ParseException(e.getMessage());
+    }
+
+    try {
+      return fetchStockPriceAsOfCertainDate(companyTickerSymbol, dateInString);
+    }
+    catch(Exception e){
+      throw new ParseException(e.getMessage());
+    }
+
   }
 
 

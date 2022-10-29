@@ -109,16 +109,47 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public PortfolioModel createPortfolioUsingFilePath(String filePath) {
+  public void createPortfolioUsingFilePath(String filePath) throws IOException {
     //validate filepath is correct or not
     List<List<String>> listOfStocks =readFromCSV(filePath);
     //helperMethodToWriteTOCSV(filePath);
+    Map<String,List<String>> mapOfStocks = new HashMap<>();
+    String pattern = "yyyy-MM-dd";
+    String todayDate =new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
+    List<String[]> resultList=new ArrayList<>();
+    for(int i=1;i<listOfStocks.size();i++)
+    {
+      String[] temp = new String[5];
+      String sName= listOfStocks.get(i).get(0);
+      double sPrice = apiCustomClass.fetchStockPriceAsOfToday(sName);
+      if(!mapOfStocks.containsKey(sName)) {
+        mapOfStocks.put(sName, listOfStocks.get(i));
+        temp = listOfStocks.get(i).toArray(new String[listOfStocks.get(i).size()]);
+        temp[2]= String.valueOf(sPrice);
+        temp[3]= todayDate;
+        temp[4]= String.valueOf(Long.valueOf(listOfStocks.get(i).get(1))*sPrice);
+      }
+      else {
+        List<String> list1=mapOfStocks.get(sName);
+        List<String> list2=listOfStocks.get(i);
+        long totQty = Long.valueOf(list1.get(1))+Long.valueOf(list2.get(1));
+        String totQtyStr=String.valueOf(totQty);
+        //String totVal=String.valueOf(Integer.valueOf(list1.get(4))+Integer.valueOf(list2.get(4)));
 
-    //TODO:if any merging is required do it else
-    //call writeTOCSV function directly
+        list1.set(1,totQtyStr);
+        //list1.set(4,totVal);
+        mapOfStocks.put(sName,list1);
+        temp = list1.toArray(new String[list1.size()]);
 
+        temp[2]= String.valueOf(sPrice);
+        temp[3]= todayDate;
+        temp[4]= String.valueOf(totQty*sPrice);
+      }
+      resultList.add(temp);
 
-    return null;
+    }
+    customCSVParser.writeTOCSV(resultList,filePath);
+
   }
 
   @Override

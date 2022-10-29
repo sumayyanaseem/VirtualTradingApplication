@@ -12,7 +12,7 @@ public interface PortfolioModel {
 
   double calculateValuationAsOfDate(String date, String portfolioName);
 
-  PortfolioModel createPortfolioUsingFilePath(String filePath);
+  void createPortfolioUsingFilePath(String filePath) throws IOException;
 
   double getTotalValueOfPortfolioOnCertainDate(Date date, String portfolioName);
 
