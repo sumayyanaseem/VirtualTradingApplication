@@ -1,10 +1,7 @@
 package stocks.model;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +26,7 @@ public class PortfolioImplModel implements PortfolioModel {
   public void buyStocks(String quantity, String CompanyName, String portfolioName) throws IOException {
 
     String pattern = "yyyy-MM-dd";
-    String dateInString = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-    double priceBought = apiCustomClass.fetchStockPriceAsOfToday(dateInString, CompanyName);
+    double priceBought = apiCustomClass.fetchStockPriceAsOfToday(CompanyName);
 
     String todayDateStr = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
 
@@ -94,10 +90,10 @@ public class PortfolioImplModel implements PortfolioModel {
       String stkName = entry.getKey();
       if(todayDate.equals(date))
       {
-        totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(datePrev, entry.getKey(), datePrev);
+        totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), datePrev);
       }
       else
-      totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getValue().getDateBought(), entry.getKey(), date);
+      totVal=totVal+entry.getValue().getQty()*apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), date);
     }
     return totVal;
   }
@@ -107,7 +103,7 @@ public class PortfolioImplModel implements PortfolioModel {
     //validate filepath is correct or not
     List<List<String>> listOfStocks =customCSVParser.readFromCSV(filePath);
     //TODO:if any merging is required do it else
-    //call writeTOCSV function directly
+
     //helperMethodToWriteTOCSV(filePath);
     return null;
   }
@@ -120,8 +116,24 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public List<List<String>> readFromCSVFile(String portfolioName) {
     List<List<String>> records = customCSVParser.readFromCSVAndModifyData(portfolioName);
-    //updating the total quantity as of today
-    return records;
+    List<String> list = records.get(0);
+    String name="TotalValueOwnedAsOfToday";
+    List<String> list1 = new ArrayList<>();
+    list1.addAll(list);
+    list1.add(name);
+    List<List<String>> results = new ArrayList<>();
+    results.add(list1);
+    for(int i=1;i<records.size();i++){
+      list1 = new ArrayList<>();
+     String cName =records.get(i).get(0);
+     String quantity = records.get(i).get(1);
+     Double currentPrice =apiCustomClass.fetchStockPriceAsOfToday(cName);
+     Double currentTotalPrice = Long.parseLong(quantity)*currentPrice;
+     list1.addAll(records.get(i));
+     list1.add(String.valueOf(currentTotalPrice));
+      results.add(list1);
+    }
+    return results;
   }
 
 
