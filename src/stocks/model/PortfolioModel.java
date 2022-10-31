@@ -44,7 +44,7 @@ public interface PortfolioModel {
    * @return
    */
 
-  List<List<String>> readFromCSVFile(String portfolioName);
+  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName);
 
   /**
    *
