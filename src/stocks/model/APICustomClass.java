@@ -1,12 +1,18 @@
 package stocks.model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class APICustomClass {
@@ -20,7 +26,7 @@ public class APICustomClass {
 
     try {
       //hardcoded purchasedate for testing
-      Date dateForWhichDataIsNeeded = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+     Date dateForWhichDataIsNeeded = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
               .parse(givenDate);
 
       for (int i = 1; i < lines.length; i++) {
@@ -45,6 +51,7 @@ public class APICustomClass {
     }
     if (!flag) {
       System.out.println("Stock price not available for this input.");
+      return -1.0;
     }
     return res;
 
@@ -120,4 +127,36 @@ public class APICustomClass {
     return output.toString();
 
   }
+
+  public String fetchOutputStringFromLocal(String companyTickerSymbol) {
+
+    String name =companyTickerSymbol.toUpperCase();
+
+    String path = "csvFiles/"+"daily_"+name+".csv";
+
+    StringBuilder output = new StringBuilder();
+
+    List<List<String>> records = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line = br.readLine();
+      String[] headings =line.split(",");
+      records.add(Arrays.asList(headings));
+      //remove this loop
+      if((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        records.add(Arrays.asList(values));
+      }
+    } catch (FileNotFoundException ex) {
+      throw new RuntimeException(ex);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+
+    return output.toString();
+
+
+
+  }
+
 }

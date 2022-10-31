@@ -1,23 +1,55 @@
 package stocks.model;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
+/**
+ * This interface act as model for virtual-trading application.
+ * It has implemented all trivial operations of trading like creating a portfolio,
+ * buying and selling stocks,total value of portfolio.
+ */
 public interface PortfolioModel {
 
-  void buyStocks(String quantity,String CompanyName, String portfolioName) throws IOException;
+  /**
+   *
+   * @param quantity
+   * @param CompanyName
+   * @param portfolioName
+   * @throws IOException
+   */
+  void buyStocks(String quantity,String CompanyName, String portfolioName);
 
-  void sellStocks(String quantity,String CompanyName, String portfolioName);
+  /* void sellStocks(String quantity,String CompanyName, String portfolioName);*/
+
+  /**
+   *
+   * @param date
+   * @param portfolioName
+   * @return
+   */
 
   double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
-  void createPortfolioUsingFilePath(String filePath) throws IOException;
+  /**
+   *
+   * @param filePath
+   * @throws IOException
+   */
+  void createPortfolioUsingFilePath(String filePath);
 
 
-  boolean isPortfolioCreated();
+  /**
+   *
+   * @param portfolioName
+   * @return
+   */
 
   List<List<String>> readFromCSVFile(String portfolioName);
+
+  /**
+   *
+   * @param portfolioName
+   */
+  void createPortfolioIfCreatedManually(String portfolioName);
 
 }

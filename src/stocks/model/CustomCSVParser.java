@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -52,14 +53,25 @@ public class CustomCSVParser {
     }
     return records;
   }
-  public void writeTOCSV(List<String[]> dataLines,String fileName) throws IOException {
+  public void writeTOCSV(List<String[]> recordLines,String fileName) {
     String path = fileName+".csv";
     File csvOutputFile = new File(path);
-    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-      dataLines.stream()
-              .map(this::convertToCSV)
-              .forEach(pw::println);
+    try {
+      if(csvOutputFile.createNewFile()) {
+        FileWriter fileWriter = new FileWriter(csvOutputFile);
+        for (String[] record : recordLines) {
+          String s = convertToCSV(record);
+
+          fileWriter.write(s);
+          fileWriter.write(System.getProperty("line.separator"));
+        }
+        fileWriter.flush();
+        fileWriter.close();
+      }
+    } catch(IOException e){
+
     }
+
   }
 
 
