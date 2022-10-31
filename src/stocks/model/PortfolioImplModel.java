@@ -125,6 +125,8 @@ public class PortfolioImplModel implements PortfolioModel {
       else {
         List<String> list1=mapOfStocks.get(sName);
         List<String> list2=listOfStocks.get(i);
+        mapOfStocks.remove(sName);
+        listOfStocks.remove(i);
         long totQty = Long.valueOf(list1.get(1))+Long.valueOf(list2.get(1));
         String totQtyStr=String.valueOf(totQty);
         //String totVal=String.valueOf(Integer.valueOf(list1.get(4))+Integer.valueOf(list2.get(4)));
