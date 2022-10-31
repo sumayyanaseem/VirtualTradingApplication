@@ -6,24 +6,28 @@ import java.util.Scanner;
 
 public class PortfolioViewImpl implements PortfolioView {
 
-  private InputStream input;
+  private final InputStream input;
 
-  public PortfolioViewImpl() {
-    input = System.in;
+  public PortfolioViewImpl(InputStream in) {
+    input = in;
   }
 
   @Override
-  public String callToViewToChooseCreateOrView() {
+  public String callToViewToChooseCreateOrView() throws IllegalArgumentException {
     System.out.println("Enter 1: To trade stocks 2: To view the portfolio composition");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String callToViewOnHowToCreatePortfolio() {
+  public String callToViewOnHowToCreatePortfolio() throws IllegalArgumentException {
     System.out.println("Enter 1: To create Portfolio using external file  2: To create manually");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
@@ -41,14 +45,16 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public String callToViewToChoiceOption() {
+  public String callToViewToChoiceOption() throws IllegalArgumentException {
     System.out.println("Enter 1: To buy stocks 2: To sell stocks");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String callToViewToAskQuantity() {
+  public String callToViewToAskQuantity() throws IllegalArgumentException {
     System.out.println("Enter the quantity of the stocks.");
     Scanner myObj = new Scanner(input);
     String quantity = myObj.nextLine();
@@ -58,17 +64,17 @@ public class PortfolioViewImpl implements PortfolioView {
 
   private void validateQuantity(String quantity) {
     try {
-      Integer q = Integer.parseInt(quantity);
+      int q = Integer.parseInt(quantity);
       if (q <= 0) {
         throw new IllegalArgumentException("Invalid quantity provided");
       }
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Quantity should be always a whole number");
+      throw new IllegalArgumentException("Quantity should be always a positive whole number");
     }
   }
 
   @Override
-  public String callToViewToAskCompanyTicker() {
+  public String callToViewToAskCompanyTicker() throws IllegalArgumentException {
     System.out.println("Enter the name of the company");
     Scanner myObj = new Scanner(input);
     String companyName = myObj.nextLine();
@@ -77,35 +83,43 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public String askUserIfHeWantsToContinueTradingInCurrentPortfolio() {
+  public String askUserIfHeWantsToContinueTradingInCurrentPortfolio() throws IllegalArgumentException {
     System.out.println("Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String checkIfUserWantsToExitCompletely() {
+  public String checkIfUserWantsToExitCompletely() throws IllegalArgumentException {
     System.out.println("Enter 1: To continue trading further. 2: To exit from this session.");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String createOrUpdateExistingPortfolio() {
+  public String createOrUpdateExistingPortfolio() throws IllegalArgumentException {
     System.out.println("Enter 1: To create a portfolio. 2: To update a existing portfolio.");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String checkIfUserWantsToViewCompositionOrTotalValue() {
+  public String checkIfUserWantsToViewCompositionOrTotalValue() throws IllegalArgumentException {
     System.out.println("Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio");
     Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
+    String res = myObj.nextLine();
+    validateInputsFromUSer(res);
+    return res;
   }
 
   @Override
-  public String getPortfolioNameToView() {
+  public String getPortfolioNameToView() throws IllegalArgumentException {
     System.out.println("Enter the name of the portfolio you wanna view");
     Scanner myObj = new Scanner(input);
     //validate if this portfolio exists.
@@ -118,9 +132,10 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public String getDateForValuation() {
+  public String getDateForValuation() throws IllegalArgumentException {
     System.out.println("Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
-    Scanner myObj = new Scanner(System.in);
+    Scanner myObj = new Scanner(input);
+    //validate date format
     return myObj.nextLine();
   }
 
@@ -139,16 +154,24 @@ public class PortfolioViewImpl implements PortfolioView {
         }
         System.out.print(" ");
       }
-      System.out.println("");
+      System.out.println();
     }
   }
 
   @Override
-  public String askForPortfolioNameToGetValuation() {
+  public String askForPortfolioNameToGetValuation() throws IllegalArgumentException {
     System.out.println("Enter the name of the portfolio you want to get valuation for:");
     Scanner myObj = new Scanner(input);
     //validate if this portfolio exists.
     return myObj.nextLine();
+  }
+
+  private void validateInputsFromUSer(String input) {
+    if (input.equals("1") || input.equals("2")) {
+      //do nothing
+    } else {
+      throw new IllegalArgumentException("Invalid input provided");
+    }
   }
 
 
