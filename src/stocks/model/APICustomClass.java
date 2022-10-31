@@ -128,35 +128,23 @@ public class APICustomClass {
 
   }
 
-  public String fetchOutputStringFromLocal(String companyTickerSymbol) {
+  public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
+    Double price = Double.valueOf(-1);
     String name =companyTickerSymbol.toUpperCase();
-
     String path = "csvFiles/"+"daily_"+name+".csv";
-
-    StringBuilder output = new StringBuilder();
-
-    List<List<String>> records = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
-      String[] headings =line.split(",");
-      records.add(Arrays.asList(headings));
-      //remove this loop
       if((line = br.readLine()) != null) {
         String[] values = line.split(",");
-        records.add(Arrays.asList(values));
+        price = Double.valueOf(values[4]);
       }
     } catch (FileNotFoundException ex) {
       throw new RuntimeException(ex);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
-
-    return output.toString();
-
-
-
+   return price;
   }
 
 }

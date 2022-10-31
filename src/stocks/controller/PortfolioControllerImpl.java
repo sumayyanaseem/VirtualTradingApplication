@@ -40,7 +40,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     switch (option) {
       case "1":
         String name = view.getPortfolioNameToView();
-        List<List<String>> records = model.readFromCSVFile(name);
+        List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
         view.displayComposition(records);
         break;
       case "2":
@@ -59,7 +59,7 @@ public class PortfolioControllerImpl implements PortfolioController {
         getCreatePortfolioChoice();
         break;
       case "2":
-        UpdatePortfolio();
+        //UpdatePortfolio();
         break;
     }
   }
@@ -103,7 +103,6 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void createNewPortfolioForCurrentUser()  {
     String portfolioName = view.callToViewToAskPortfolioName();
     this.portfolioName = portfolioName;
-    // model.createPortfolio(portfolioName);
     buyOrSellStocks(portfolioName);
   }
 
