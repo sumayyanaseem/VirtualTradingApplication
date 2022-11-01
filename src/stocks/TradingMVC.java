@@ -13,7 +13,6 @@ import stocks.view.PortfolioViewImpl;
  *  factored out into a model,view and controller.
  */
 public class TradingMVC {
-
   public static void main(String[] args) throws IOException {
 
     //Create a view :
