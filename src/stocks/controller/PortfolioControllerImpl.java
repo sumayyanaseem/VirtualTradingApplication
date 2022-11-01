@@ -1,7 +1,7 @@
 package stocks.controller;
+
 import java.io.File;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,9 +21,9 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioView view;
   private Scanner input;
 
-  public PortfolioControllerImpl(InputStream in,PortfolioView view) {
-    this.input =new Scanner(in);
-    this.view=view;
+  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
+    this.input = new Scanner(in);
+    this.view = view;
     this.portfolioName = "";
   }
 
@@ -33,6 +33,9 @@ public class PortfolioControllerImpl implements PortfolioController {
     this.model = model;
     view.callToViewToChooseCreateOrView();
     String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      start(model);
+    }
     switch (option) {
       case "1":
         createOrUpdatePortfolio();
@@ -46,28 +49,48 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void askUserWhatHeWantsToView() {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
     String option = input.nextLine();
-            switch (option) {
+    if(validateInputsFromUSer(option)){
+      askUserWhatHeWantsToView();
+    }
+    switch (option) {
       case "1":
-        view.getPortfolioName();
-        String name = input.nextLine();
+        String name = pNameHelper();
         List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
         view.displayComposition(records);
         break;
       case "2":
-        view.getPortfolioName();
-        String pName = input.nextLine();
-        view.getDateForValuation();
-        String date = input.nextLine();
-        //validateDate(date);
-        String val= String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date,pName));
-        view.displayTotalValue(date,val,portfolioName);
+        String pName = pNameHelper();
+        String date = dateHelper();
+        String val = String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date, pName));
+        view.displayTotalValue(date, val, portfolioName);
         break;
     }
   }
 
-  private void createOrUpdatePortfolio()  {
+  private String pNameHelper(){
+    view.getPortfolioName();
+    String name = input.nextLine();
+    if(validateIfPortfolioExists(name)){
+      return pNameHelper();
+    }
+    return name;
+  }
+
+  private String dateHelper(){
+    view.getDateForValuation();
+    String date = input.nextLine();
+    if(validateDate(date)){
+      return dateHelper();
+    }
+    return date;
+  }
+
+  private void createOrUpdatePortfolio() {
     view.createOrUpdateExistingPortfolio();
     String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      createOrUpdatePortfolio();
+    }
     switch (option) {
       case "1":
         getCreatePortfolioChoice();
@@ -78,8 +101,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void UpdatePortfolio()  {
-     view.getPortfolioName();
+  private void UpdatePortfolio() {
+    view.getPortfolioName();
     String portfolioName = input.nextLine();
     buyOrSellStocks(portfolioName);
   }
@@ -88,10 +111,13 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void getCreatePortfolioChoice() {
     view.askUserOnHowToCreatePortfolio();
     String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      getCreatePortfolioChoice();
+    }
     switch (option) {
       case "1":
-         view.getFilePath();
-         String filePath = input.nextLine();
+        view.getFilePath();
+        String filePath = input.nextLine();
         model.createPortfolioUsingFilePath(filePath);
         finalExitCondition();
         break;
@@ -104,7 +130,10 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void stoppingCondition(String portfolioName) {
     view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
-    String option =  input.nextLine();
+    String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      stoppingCondition(portfolioName);
+    }
     switch (option) {
       case "1":
         buyOrSellStocks(portfolioName);
@@ -117,37 +146,51 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void createNewPortfolioForCurrentUser()  {
+  private void createNewPortfolioForCurrentUser() {
     view.getPortfolioName();
     String portfolioName = input.nextLine();
     this.portfolioName = portfolioName;
     buyOrSellStocks(portfolioName);
   }
 
-  private void buyOrSellStocks(String portfolioName){
+  private void buyOrSellStocks(String portfolioName) {
     view.getBuyOrSellChoiceFromUser();//Buy or Sell choice
     String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      buyOrSellStocks(portfolioName);
+    }
     switch (option) {
       case "1":
         view.getCompanyTicker();
         String companyName = input.nextLine();
-        view.getQuantity();
-        String quantity = input.nextLine();
+        String quantity = quantityHelper();
         model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(portfolioName);
         break;
       case "2":
         //companyName = view.callToViewToAskCompanyTicker();
-       // quantity = view.callToViewToAskQuantity();
+        // quantity = view.callToViewToAskQuantity();
         // model.sellStocks(quantity, companyName, portfolioName);
-       // stoppingCondition(this.portfolioName);
+        // stoppingCondition(this.portfolioName);
         break;
     }
   }
 
-  private void finalExitCondition()  {
+  private String quantityHelper(){
+    view.getQuantity();
+    String quantity = input.nextLine();
+    if(validateQuantity(quantity)){
+      return quantityHelper();
+    }
+    return quantity;
+  }
+
+  private void finalExitCondition() {
     view.checkIfUserWantsToExitCompletely();
     String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      finalExitCondition();
+    }
     switch (option) {
       case "1":
         start(new PortfolioImplModel());
@@ -159,11 +202,11 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
- /* private boolean validateInputsFromUSer(String input) {
+  private boolean validateInputsFromUSer(String input) {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
     } else {
-      out.println("Invalid input provided.Please provide a valid input (either 1 or 2)");
+      System.out.println("Invalid input provided.Please provide a valid input (either 1 or 2)");
       return true;
     }
     return false;
@@ -176,34 +219,37 @@ public class PortfolioControllerImpl implements PortfolioController {
       LocalDate ld = LocalDate.parse(date, formatter);
       String result = ld.format(formatter);
       if (!result.equals(date)) {
-        out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+        System.out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
         return true;
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
-      out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+      System.out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
       return true;
     }
     return false;
   }
 
   private boolean validateIfPortfolioExists(String portfolioName) {
-    String path = portfolioName + ".csv";
+    String path = "userPortfolios/"+portfolioName + ".csv";
     File f = new File(path);
     if (!f.isFile()) {
-      out.println("Given portfolio doesnt exist.Please provide valid portfolioName.");
+      System.out.println("Given portfolio doesnt exist.Please provide valid portfolioName.");
       return true;
     }
     return false;
   }
 
-  private void validateQuantity(String quantity) {
+  private boolean validateQuantity(String quantity) {
     try {
       Double q = Double.parseDouble(quantity);
       if (q <= 0) {
-        out.println("Invalid quantity provided");
+        System.out.println("Invalid quantity provided");
+        return true;
       }
     } catch (IllegalArgumentException e) {
-      out.println("Quantity should be always a positive whole number.");
+      System.out.println("Quantity should be always a positive whole number.");
+      return true;
     }
-  }*/
+    return false;
+  }
 }

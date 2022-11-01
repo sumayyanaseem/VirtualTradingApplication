@@ -8,7 +8,6 @@ public class PortfolioViewImpl implements PortfolioView {
 
   public PortfolioViewImpl(PrintStream out) {
     this.out = out;
-
   }
 
   @Override
@@ -70,7 +69,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void displayTotalValue(String date, String val, String portfolioName) {
-    out.println("Total Valuation of Portfolio " + portfolioName + " is :" + val);
+    out.println("Total Valuation of Portfolio " + portfolioName + "  on "+date+ " is :" + val);
   }
 
   @Override

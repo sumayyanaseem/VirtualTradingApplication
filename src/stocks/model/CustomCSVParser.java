@@ -2,7 +2,6 @@ package stocks.model;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +14,17 @@ import java.util.stream.Stream;
 public class CustomCSVParser {
 
   public List<List<String>> readFromCSV(String portfolioName)  {
-    String path = portfolioName+".csv";
+    String path = "userPortfolios/"+portfolioName+".csv";
+    List<List<String>> records = null;
+    try {
+      records = readFromFileHelper(path);
+    }  catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+    return records;
+  }
+  
+  private List<List<String>> readFromFileHelper(String path) throws IOException {
     List<List<String>> records = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
@@ -25,16 +34,20 @@ public class CustomCSVParser {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
       }
-    } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     }
     return records;
   }
+  
+  public List<List<String>> readFromPathProvidedByUser(String path){
+    try{
+    return readFromFileHelper(path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   public void writeTOCSV(List<String[]> recordLines,String fileName) {
-    String path = fileName+".csv";
+    String path = "userPortfolios/"+fileName+".csv";
     File csvOutputFile = new File(path);
     try {
       if (csvOutputFile.createNewFile()) {
@@ -52,7 +65,6 @@ public class CustomCSVParser {
        throw new IllegalArgumentException("");
     }
   }
-
 
   public  String convertToCSV(String[] data) {
     return Stream.of(data)

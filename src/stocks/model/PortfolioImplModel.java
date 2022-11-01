@@ -106,8 +106,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks = customCSVParser.readFromCSV(filePath);
-    //helperMethodToWriteTOCSV(filePath);
+    List<List<String>> listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     Map<String, List<String>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
@@ -125,7 +124,7 @@ public class PortfolioImplModel implements PortfolioModel {
         List<String> stkInfoList=new ArrayList<>(listOfStocks.get(i));
         stkInfoList.add(String.valueOf(sPrice));
         stkInfoList.add(todayDate);
-        stkInfoList.add(String.format("%.2f",Long.valueOf(listOfStocks.get(i).get(1))*sPrice));
+        stkInfoList.add(String.format("%.2f",Double.valueOf(listOfStocks.get(i).get(1))*sPrice));
 
         mapOfStocks.put(sName, stkInfoList);
 

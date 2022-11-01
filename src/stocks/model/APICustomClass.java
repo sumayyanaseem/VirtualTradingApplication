@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ public class APICustomClass {
 
     Double price = Double.valueOf(-1);
     String name =companyTickerSymbol.toUpperCase();
-    String path = "csvFiles/"+"daily_"+name+".csv";
+    String path = "availableStocks/"+"daily_"+name+".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
       if((line = br.readLine()) != null) {
@@ -29,9 +26,9 @@ public class APICustomClass {
         price = Double.valueOf(values[4]);
       }
     } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
+      System.out.println("file not found in our records for given company "+companyTickerSymbol);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      System.out.println(e.getMessage());
     }
    return price;
   }
