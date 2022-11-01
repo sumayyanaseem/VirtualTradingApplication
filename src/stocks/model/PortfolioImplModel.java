@@ -95,42 +95,10 @@ public class PortfolioImplModel implements PortfolioModel {
     List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
     for(int j=1;j<listOfStkInfoPersisted.size();j++) {
       String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
-      long qty = Long.valueOf(listOfStkInfoPersisted.get(j).get(1));
-      String latestAvailableStkPrice;
+      double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
 
-      String name = companyTickerSymbol.toUpperCase();
-      String path = "availableStocks/" + "daily_" + name + ".csv";
-      try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-        String line= br.readLine();
-        List<List<String>> records = new ArrayList<>();
-        while ((line = br.readLine()) != null) {
-          String[] values = line.split(",");
-          records.add(Arrays.asList(values));
-        }
-        try {
-          Date givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(date);
-          for (int i = 0; i < records.size(); i++) {
-            List<String> infoByDate = new ArrayList<>(records.get(i));
-            String availableDate = infoByDate.get(0);
-            latestAvailableStkPrice = infoByDate.get(4);
-            Date availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                    .parse(availableDate);
-            if (availableDateObj.compareTo(givenDateObj) <= 0) {
-              totValue = totValue + Double.valueOf(latestAvailableStkPrice)*qty;
-              break;
-            }
+      totValue=totValue+apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol,qty,date);
 
-          }
-        }
-        catch(ParseException p){
-          System.out.println("parse exception");
-        }
-      } catch (FileNotFoundException ex) {
-        System.out.println("file not found in our records for given company "+companyTickerSymbol);
-      } catch (IOException e) {
-        System.out.println(e.getMessage());
-      }
     }
     return totValue;
   }
