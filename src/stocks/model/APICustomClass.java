@@ -4,13 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class APICustomClass {
 
@@ -26,9 +19,9 @@ public class APICustomClass {
         price = Double.valueOf(values[4]);
       }
     } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
+      System.out.println("file not found in our records for given company "+companyTickerSymbol);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      System.out.println(e.getMessage());
     }
    return price;
   }

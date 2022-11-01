@@ -127,9 +127,9 @@ public class PortfolioImplModel implements PortfolioModel {
           System.out.println("parse exception");
         }
       } catch (FileNotFoundException ex) {
-        throw new RuntimeException(ex);
+        System.out.println("file not found in our records for given company "+companyTickerSymbol);
       } catch (IOException e) {
-        throw new RuntimeException(e);
+        System.out.println(e.getMessage());
       }
     }
     return totValue;
@@ -157,7 +157,7 @@ public class PortfolioImplModel implements PortfolioModel {
         List<String> stkInfoList=new ArrayList<>(listOfStocks.get(i));
         stkInfoList.add(String.valueOf(sPrice));
         stkInfoList.add(todayDate);
-        stkInfoList.add(String.format("%.2f",Long.valueOf(listOfStocks.get(i).get(1))*sPrice));
+        stkInfoList.add(String.format("%.2f",Double.valueOf(listOfStocks.get(i).get(1))*sPrice));
 
         mapOfStocks.put(sName, stkInfoList);
 
