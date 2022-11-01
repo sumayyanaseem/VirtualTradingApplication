@@ -12,19 +12,18 @@ import java.util.Scanner;
 
 import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
+import stocks.view.PortfolioView;
 
 public class PortfolioControllerImpl implements PortfolioController {
 
   private PortfolioModel model;
   private String portfolioName;
-  private final InputStream input;
+  private PortfolioView view;
+  private Scanner input;
 
-  private final PrintStream out;
-
-
-  public PortfolioControllerImpl(InputStream in,PrintStream out) {
-    this.input =in;
-    this.out=out;
+  public PortfolioControllerImpl(InputStream in,PortfolioView view) {
+    this.input =new Scanner(in);
+    this.view=view;
     this.portfolioName = "";
   }
 
@@ -32,7 +31,8 @@ public class PortfolioControllerImpl implements PortfolioController {
   public void start(PortfolioModel model) {
     Objects.requireNonNull(model);
     this.model = model;
-    String option = callToViewToChooseCreateOrView();
+    view.callToViewToChooseCreateOrView();
+    String option = input.nextLine();
     switch (option) {
       case "1":
         createOrUpdatePortfolio();
@@ -44,24 +44,30 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void askUserWhatHeWantsToView() {
-    String option = checkIfUserWantsToViewCompositionOrTotalValue();
-    switch (option) {
+    view.checkIfUserWantsToViewCompositionOrTotalValue();
+    String option = input.nextLine();
+            switch (option) {
       case "1":
-        String name = getPortfolioNameToViewOrUpdate();
+        view.getPortfolioName();
+        String name = input.nextLine();
         List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
-        displayComposition(records);
+        view.displayComposition(records);
         break;
       case "2":
-        String pName = getPortfolioNameToViewOrUpdate();
-        String date = getDateForValuation();
+        view.getPortfolioName();
+        String pName = input.nextLine();
+        view.getDateForValuation();
+        String date = input.nextLine();
+        //validateDate(date);
         String val= String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date,pName));
-        displayTotalValue(date,val,portfolioName);
+        view.displayTotalValue(date,val,portfolioName);
         break;
     }
   }
 
   private void createOrUpdatePortfolio()  {
-    String option = createOrUpdateExistingPortfolio();
+    view.createOrUpdateExistingPortfolio();
+    String option = input.nextLine();
     switch (option) {
       case "1":
         getCreatePortfolioChoice();
@@ -73,16 +79,19 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void UpdatePortfolio()  {
-    String portfolioName = getPortfolioNameToViewOrUpdate();
+     view.getPortfolioName();
+    String portfolioName = input.nextLine();
     buyOrSellStocks(portfolioName);
   }
 
 
   private void getCreatePortfolioChoice() {
-    String option = askUserOnHowToCreatePortfolio();//using Json/XML file or individual inputs
+    view.askUserOnHowToCreatePortfolio();
+    String option = input.nextLine();
     switch (option) {
       case "1":
-        String filePath = getFilePath();
+         view.getFilePath();
+         String filePath = input.nextLine();
         model.createPortfolioUsingFilePath(filePath);
         finalExitCondition();
         break;
@@ -94,7 +103,8 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void stoppingCondition(String portfolioName) {
-    String option = askUserIfHeWantsToContinueTradingInCurrentPortfolio();
+    view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
+    String option =  input.nextLine();
     switch (option) {
       case "1":
         buyOrSellStocks(portfolioName);
@@ -108,17 +118,21 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void createNewPortfolioForCurrentUser()  {
-    String portfolioName = getPortfolioNameToCreate();
+    view.getPortfolioName();
+    String portfolioName = input.nextLine();
     this.portfolioName = portfolioName;
     buyOrSellStocks(portfolioName);
   }
 
   private void buyOrSellStocks(String portfolioName){
-    String option = getBuyOrSellChoiceFromUser();//Buy or Sell choice
+    view.getBuyOrSellChoiceFromUser();//Buy or Sell choice
+    String option = input.nextLine();
     switch (option) {
       case "1":
-        String companyName = getCompanyTicker();
-        String quantity = getQuantity();
+        view.getCompanyTicker();
+        String companyName = input.nextLine();
+        view.getQuantity();
+        String quantity = input.nextLine();
         model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(portfolioName);
         break;
@@ -132,8 +146,8 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void finalExitCondition()  {
-    String option = checkIfUserWantsToExitCompletely();
-
+    view.checkIfUserWantsToExitCompletely();
+    String option = input.nextLine();
     switch (option) {
       case "1":
         start(new PortfolioImplModel());
@@ -144,173 +158,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
 
   }
-  public String callToViewToChooseCreateOrView()  {
-    out.println("Enter 1: To trade stocks 2: To view the portfolio composition");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return callToViewToChooseCreateOrView();
-    }
-    return res;
-  }
 
-
-  public String askUserOnHowToCreatePortfolio()  {
-    out.println("Enter 1: To create Portfolio using external file  2: To create manually");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return askUserOnHowToCreatePortfolio();
-    }
-    return res;
-  }
-
-
-  public String getFilePath() {
-    out.println("Enter the path of File which is used to create Portfolio");
-    Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
-  }
-
-
-  public String getPortfolioNameToCreate() {
-    out.println("Enter the name of the Portfolio");
-    Scanner myObj = new Scanner(input);
-    return myObj.nextLine();
-  }
-
-
-  public String getBuyOrSellChoiceFromUser()  {
-    out.println("Enter 1: To buy stocks 2: To sell stocks");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return getBuyOrSellChoiceFromUser();
-    }
-    return res;
-  }
-
-
-  public String getQuantity()  {
-    out.println("Enter the quantity of the stocks.");
-    Scanner myObj = new Scanner(input);
-    String quantity = myObj.nextLine();
-    validateQuantity(quantity);
-    return quantity;
-  }
-
-  private void validateQuantity(String quantity) {
-    try {
-      Double q = Double.parseDouble(quantity);
-      if (q <= 0) {
-        out.println("Invalid quantity provided");
-      }
-    } catch (IllegalArgumentException e) {
-      out.println("Quantity should be always a positive whole number.");
-    }
-  }
-
-
-  public String getCompanyTicker()  {
-    out.println("Enter the name of the company");
-    Scanner myObj = new Scanner(input);
-    String companyName = myObj.nextLine();
-    //validateCompanyName(companyName);
-    return companyName;
-  }
-
-
-  public String askUserIfHeWantsToContinueTradingInCurrentPortfolio() {
-    out.println("Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return askUserIfHeWantsToContinueTradingInCurrentPortfolio();
-    }
-    return res;
-  }
-
-
-  public String checkIfUserWantsToExitCompletely()  {
-    out.println("Enter 1: To continue trading further. 2: To exit from this session.");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return checkIfUserWantsToExitCompletely();
-    }
-    return res;
-  }
-
-
-  public String createOrUpdateExistingPortfolio()  {
-    out.println("Enter 1: To create a portfolio. 2: To update a existing portfolio.");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return createOrUpdateExistingPortfolio();
-    }
-    return res;
-  }
-
-
-  public String checkIfUserWantsToViewCompositionOrTotalValue()  {
-    out.println("Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio");
-    Scanner myObj = new Scanner(input);
-    String res = myObj.nextLine();
-    if(validateInputsFromUSer(res)){
-      return checkIfUserWantsToViewCompositionOrTotalValue();
-    }
-    return res;
-  }
-
-
-  public String getPortfolioNameToViewOrUpdate() {
-    out.println("Enter the name of the portfolio");
-    Scanner myObj = new Scanner(input);
-    String name = myObj.nextLine();
-    if(validateIfPortfolioExists(name)){
-      return getPortfolioNameToViewOrUpdate();
-    }
-    return name;
-  }
-
-
-  public void displayTotalValue(String date, String val, String portfolioName) {
-    out.println("Total Valuation of Portfolio " + portfolioName + " is :" + val);
-  }
-
-
-  public String getDateForValuation()  {
-    out.println("Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
-    Scanner myObj = new Scanner(input);
-    String date = myObj.nextLine();
-    if(validateDate(date)){
-      return getDateForValuation();
-    }
-    return date;
-  }
-
-
-
-  public void displayComposition(List<List<String>> records) {
-    for (int i = 0; i < records.size(); i++) {
-
-      for (int j = 0; j < records.get(i).size(); j++) {
-        out.print(records.get(i).get(j));
-        int len1 = records.get(0).get(j).length();
-        int len2 = records.get(i).get(j).length();
-        int len = len1 - len2;
-        for (int k = 0; k < len; k++) {
-          out.print(" ");
-        }
-        out.print(" ");
-      }
-      out.println();
-    }
-  }
-
-
-  private boolean validateInputsFromUSer(String input) {
+ /* private boolean validateInputsFromUSer(String input) {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
     } else {
@@ -346,4 +195,15 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     return false;
   }
+
+  private void validateQuantity(String quantity) {
+    try {
+      Double q = Double.parseDouble(quantity);
+      if (q <= 0) {
+        out.println("Invalid quantity provided");
+      }
+    } catch (IllegalArgumentException e) {
+      out.println("Quantity should be always a positive whole number.");
+    }
+  }*/
 }
