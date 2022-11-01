@@ -14,7 +14,6 @@ public interface PortfolioController {
   /**
    *
    * @param model
-   * @throws IOException
    */
   void start(PortfolioModel model);
 

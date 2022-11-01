@@ -39,12 +39,12 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = view.checkIfUserWantsToViewCompositionOrTotalValue();
     switch (option) {
       case "1":
-        String name = view.getPortfolioNameToView();
+        String name = view.getPortfolioNameToViewOrUpdate();
         List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
         view.displayComposition(records);
         break;
       case "2":
-        String pName = view.askForPortfolioNameToGetValuation();
+        String pName = view.getPortfolioNameToViewOrUpdate();
         String date = view.getDateForValuation();
         String val= String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date,pName));
         view.displayTotalValue(date,val,portfolioName);
@@ -66,16 +66,16 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
   private void UpdatePortfolio()  {
-    String portfolioName = view.callToViewToAskPortfolioName();
+    String portfolioName = view.getPortfolioNameToViewOrUpdate();
     buyOrSellStocks(portfolioName);
   }
 
 
   private void getCreatePortfolioChoice() {
-    String option = view.callToViewOnHowToCreatePortfolio();//using Json/XML file or individual inputs
+    String option = view.askUserOnHowToCreatePortfolio();//using Json/XML file or individual inputs
     switch (option) {
       case "1":
-        String filePath = view.callToViewToGetFilePath();
+        String filePath = view.getFilePath();
         model.createPortfolioUsingFilePath(filePath);
         finalExitCondition();
         break;
@@ -101,17 +101,17 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void createNewPortfolioForCurrentUser()  {
-    String portfolioName = view.callToViewToAskPortfolioName();
+    String portfolioName = view.getPortfolioNameToCreate();
     this.portfolioName = portfolioName;
     buyOrSellStocks(portfolioName);
   }
 
   private void buyOrSellStocks(String portfolioName){
-    String option = view.callToViewToChoiceOption();//Buy or Sell choice
+    String option = view.getBuyOrSellChoiceFromUser();//Buy or Sell choice
     switch (option) {
       case "1":
-        String companyName = view.callToViewToAskCompanyTicker();
-        String quantity = view.callToViewToAskQuantity();
+        String companyName = view.getCompanyTicker();
+        String quantity = view.getQuantity();
         model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(portfolioName);
         break;

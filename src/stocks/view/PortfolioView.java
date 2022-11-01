@@ -4,35 +4,33 @@ import java.util.List;
 
 public interface PortfolioView {
 
-  String callToViewToChooseCreateOrView() throws IllegalArgumentException;
+  String callToViewToChooseCreateOrView();
 
-  String callToViewOnHowToCreatePortfolio() throws IllegalArgumentException;
+  String askUserOnHowToCreatePortfolio();
 
-  String callToViewToGetFilePath();
+  String getFilePath();
 
-  String callToViewToAskPortfolioName();
+  String getPortfolioNameToCreate();
 
-  String callToViewToChoiceOption() throws IllegalArgumentException;
+  String getBuyOrSellChoiceFromUser();
 
-  String callToViewToAskQuantity() throws IllegalArgumentException;
+  String getQuantity();
 
-  String callToViewToAskCompanyTicker() throws IllegalArgumentException;
+  String getCompanyTicker();
 
-  String askUserIfHeWantsToContinueTradingInCurrentPortfolio() throws IllegalArgumentException;
+  String askUserIfHeWantsToContinueTradingInCurrentPortfolio();
 
-  String checkIfUserWantsToExitCompletely() throws IllegalArgumentException;
+  String checkIfUserWantsToExitCompletely();
 
-  String createOrUpdateExistingPortfolio() throws IllegalArgumentException;
+  String createOrUpdateExistingPortfolio();
 
-  String checkIfUserWantsToViewCompositionOrTotalValue() throws IllegalArgumentException;
+  String checkIfUserWantsToViewCompositionOrTotalValue();
 
   void displayTotalValue(String date, String val, String portfolioName);
 
-  String getDateForValuation() throws IllegalArgumentException;
+  String getDateForValuation();
 
-  String getPortfolioNameToView() throws IllegalArgumentException;
+  String getPortfolioNameToViewOrUpdate();
 
   void displayComposition(List<List<String>> records);
-
-  String askForPortfolioNameToGetValuation() throws IllegalArgumentException;
 }

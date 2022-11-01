@@ -32,9 +32,10 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public List<List<String>> readFromCSVFile(String portfolioName) {
+    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
       return null;
     }
+
 
     @Override
     public void createPortfolioIfCreatedManually(String portfolioName) {
@@ -92,39 +93,33 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public String callToViewOnHowToCreatePortfolio() {
-      setChoice(input);
-      return choice;
+    public String askUserOnHowToCreatePortfolio() {
+      return null;
     }
 
     @Override
-    public String callToViewToGetFilePath() {
-      setFilePath(input);
-      return filePath;
+    public String getFilePath() {
+      return null;
     }
 
     @Override
-    public String callToViewToAskPortfolioName() {
-      setPName(input);
-      return pName;
+    public String getPortfolioNameToCreate() {
+      return null;
     }
 
     @Override
-    public String callToViewToChoiceOption() {
-      setChoice(input);
-      return choice;
+    public String getBuyOrSellChoiceFromUser() {
+      return null;
     }
 
     @Override
-    public String callToViewToAskQuantity() {
-      setQuantity(input);
-      return quantity;
+    public String getQuantity() {
+      return null;
     }
 
     @Override
-    public String callToViewToAskCompanyTicker() {
-      setCompanyName(input);
-      return companyName;
+    public String getCompanyTicker() {
+      return null;
     }
 
     @Override
@@ -163,7 +158,7 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public String getPortfolioNameToView() {
+    public String getPortfolioNameToViewOrUpdate() {
       setPName(input);
       return pName;
     }
@@ -171,12 +166,6 @@ public class PortfolioControllerImplTest {
     @Override
     public void displayComposition(List<List<String>> records) {
 
-    }
-
-    @Override
-    public String askForPortfolioNameToGetValuation() {
-      setPName(input);
-      return pName;
     }
   }
 

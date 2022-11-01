@@ -1,6 +1,4 @@
 package stocks.model;
-
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,18 +9,16 @@ import java.util.List;
 public interface PortfolioModel {
 
   /**
-   *
    * @param quantity
    * @param CompanyName
    * @param portfolioName
-   * @throws IOException
    */
-  void buyStocks(String quantity,String CompanyName, String portfolioName);
+  void buyStocks(String quantity, String CompanyName, String portfolioName);
+
 
   /* void sellStocks(String quantity,String CompanyName, String portfolioName);*/
 
   /**
-   *
    * @param date
    * @param portfolioName
    * @return
@@ -31,15 +27,12 @@ public interface PortfolioModel {
   double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
   /**
-   *
    * @param filePath
-   * @throws IOException
    */
   void createPortfolioUsingFilePath(String filePath);
 
 
   /**
-   *
    * @param portfolioName
    * @return
    */
@@ -47,7 +40,6 @@ public interface PortfolioModel {
   List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName);
 
   /**
-   *
    * @param portfolioName
    */
   void createPortfolioIfCreatedManually(String portfolioName);
