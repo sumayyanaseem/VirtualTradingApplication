@@ -134,13 +134,19 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(expected));
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test
   public void testInvalidInputs2(){
-    String expected="Enter the path of File which is used to create Portfolio";
+    String expected="Enter 1: To create Portfolio using external file  2: To create manually\n" +
+            "Invalid input provided.Please provide a valid input (either 1 or 2)\n" +
+            "Enter 1: To create Portfolio using external file  2: To create manually";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
     in = new ByteArrayInputStream("1\n1\n4\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in,view);
-    portfolioController.start(new MockModel());
+    try {
+      portfolioController.start(new MockModel());
+    } catch(NoSuchElementException e){
+
+    }
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
@@ -156,13 +162,15 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(expected));
   }
 
+
+
   @Test
-  public void testStoppingCondition(){
+  public void testCreateNewPortfolioForCurrentUser(){
 
   }
 
   @Test
-  public void testCreateNewPortfolioForCurrentUser(){
+  public void testStoppingCondition(){
 
   }
 
