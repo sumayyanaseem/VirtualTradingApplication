@@ -70,7 +70,6 @@ public class PortfolioImplModel implements PortfolioModel {
     List<String[]> temp = new ArrayList<>();
     temp.add(new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueOwned"});
     Map<String, Stock> mm = portfolioMap.get(portfolioName);
-    System.out.println("map size"+mm.size());
     for (Map.Entry<String, Stock> entry : mm.entrySet()) {
       String[] s1 = new String[5];
       s1[0] = entry.getValue().getCompanyTickerSymbol();
@@ -175,7 +174,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
 
-    List<List<String>> records = customCSVParser.readFromCSVAndModifyData(portfolioName);
+    List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
     List<String> list = records.get(0);
     String name = "TotalValueOwnedAsOfToday";
     List<String> list1 = new ArrayList<>();

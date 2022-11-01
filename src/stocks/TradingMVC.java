@@ -13,10 +13,11 @@ import stocks.view.PortfolioViewImpl;
  *  factored out into a model,view and controller.
  */
 public class TradingMVC {
-  public static void main(String[] args) throws IOException {
+
+  public static void main(String[] args)  {
 
     //Create a view :
-    PortfolioView view = new PortfolioViewImpl(System.in);
+    PortfolioView view = new PortfolioViewImpl(System.in,System.out);
 
     PortfolioController controller = new PortfolioControllerImpl(view);
 

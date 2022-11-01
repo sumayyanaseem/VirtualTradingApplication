@@ -9,15 +9,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class APICustomClass {
 
-  public Double fetchStockPriceAsOfCertainDate(String companyTickerSymbol, String givenDate) throws IllegalArgumentException {
+  public Double fetchStockPriceAsOfCertainDate(String companyTickerSymbol, String givenDate)  {
 
     String output = fetchOutputStringFromURL(companyTickerSymbol);
     double res = 0.0;
