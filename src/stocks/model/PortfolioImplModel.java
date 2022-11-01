@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -103,8 +105,48 @@ public class PortfolioImplModel implements PortfolioModel {
         totVal = totVal + entry.getValue().getQty() * apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), date);
     }
     return totVal;*/
+    double totValue=0.0;
+    List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
+    for(int j=1;j<listOfStkInfoPersisted.size();j++) {
+      String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
+      long qty = Long.valueOf(listOfStkInfoPersisted.get(j).get(1));
+      String latestAvailableStkPrice;
 
+      String name = companyTickerSymbol.toUpperCase();
+      String path = "csvFiles/" + "daily_" + name + ".csv";
+      try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        String line= br.readLine();
+        List<List<String>> records = new ArrayList<>();
+        while ((line = br.readLine()) != null) {
+          String[] values = line.split(",");
+          records.add(Arrays.asList(values));
+        }
+        try {
+          Date givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(date);
+          for (int i = 0; i < records.size(); i++) {
+            List<String> infoByDate = new ArrayList<>(records.get(i));
+            String availableDate = infoByDate.get(0);
+            latestAvailableStkPrice = infoByDate.get(4);
+            Date availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    .parse(availableDate);
+            if (availableDateObj.compareTo(givenDateObj) <= 0) {
+              totValue = totValue + Double.valueOf(latestAvailableStkPrice)*qty;
+              break;
+            }
 
+          }
+        }
+        catch(ParseException p){
+          System.out.println("parse exception");
+        }
+      } catch (FileNotFoundException ex) {
+        throw new RuntimeException(ex);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return totValue;
   }
 
   @Override
