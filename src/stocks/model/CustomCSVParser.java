@@ -43,6 +43,7 @@ public class CustomCSVParser {
     return readFromFileHelper(path);
     } catch (IOException e) {
       throw new RuntimeException(e);
+
     }
   }
 

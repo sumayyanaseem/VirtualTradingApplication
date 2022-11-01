@@ -41,7 +41,7 @@ public class APICustomClass {
     String latestAvailableStkPrice="0.0";
 
     String name = companyTickerSymbol.toUpperCase();
-    String path = "csvFiles/" + "daily_" + name + ".csv";
+    String path = "availableStocks/" + "daily_" + name + ".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line= br.readLine();
       List<List<String>> records = new ArrayList<>();

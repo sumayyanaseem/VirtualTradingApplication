@@ -57,12 +57,14 @@ public class PortfolioControllerImpl implements PortfolioController {
         String name = pNameHelper();
         List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
         view.displayComposition(records);
+        finalExitCondition();
         break;
       case "2":
         String pName = pNameHelper();
         String date = dateHelper();
         String val = String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date, pName));
         view.displayTotalValue(date, val, portfolioName);
+        finalExitCondition();
         break;
     }
   }
@@ -114,18 +116,28 @@ public class PortfolioControllerImpl implements PortfolioController {
     if(validateInputsFromUSer(option)){
       getCreatePortfolioChoice();
     }
+    getCreatePortfolioChoiceHelper(option);
+
+  }
+
+  private void getCreatePortfolioChoiceHelper(String option){
     switch (option) {
       case "1":
         view.getFilePath();
         String filePath = input.nextLine();
-        model.createPortfolioUsingFilePath(filePath);
+        try {
+          model.createPortfolioUsingFilePath(filePath);
+        }
+        catch(RuntimeException e){
+          System.out.println("FilePath Doesn't exist. Try again with correct path.");
+          getCreatePortfolioChoiceHelper(option);
+        }
         finalExitCondition();
         break;
       case "2":
         createNewPortfolioForCurrentUser();
         break;
     }
-
   }
 
   private void stoppingCondition(String portfolioName) {

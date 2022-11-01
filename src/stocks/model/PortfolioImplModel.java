@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -106,7 +107,13 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
+    List<List<String>> listOfStocks;
+    try {
+      listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
+    }
+    catch (RuntimeException e) {
+      throw new RuntimeException(e);
+    }
     Map<String, List<String>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
