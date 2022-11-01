@@ -9,7 +9,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class APICustomClass {
@@ -31,6 +34,49 @@ public class APICustomClass {
       throw new RuntimeException(e);
     }
    return price;
+  }
+
+
+
+
+  public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )
+  {
+    String latestAvailableStkPrice="0.0";
+
+    String name = companyTickerSymbol.toUpperCase();
+    String path = "csvFiles/" + "daily_" + name + ".csv";
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line= br.readLine();
+      List<List<String>> records = new ArrayList<>();
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        records.add(Arrays.asList(values));
+      }
+      try {
+        Date givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date);
+        for (int i = 0; i < records.size(); i++) {
+          List<String> infoByDate = new ArrayList<>(records.get(i));
+          String availableDate = infoByDate.get(0);
+          latestAvailableStkPrice = infoByDate.get(4);
+          Date availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(availableDate);
+          if (availableDateObj.compareTo(givenDateObj) <= 0) {
+            break;
+
+          }
+
+        }
+      }
+      catch(ParseException p){
+        System.out.println("parse exception");
+      }
+    } catch (FileNotFoundException ex) {
+      throw new RuntimeException(ex);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return Double.valueOf(latestAvailableStkPrice)*qty;
   }
 
 }
