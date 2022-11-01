@@ -17,10 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PortfolioControllerImplTest {
 
-
   class MockModel implements PortfolioModel {
-
-    private StringBuilder log;
 
     @Override
     public void buyStocks(String quantity, String CompanyName, String portfolioName)  {

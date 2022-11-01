@@ -201,7 +201,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void validateQuantity(String quantity) {
     try {
-      int q = Integer.parseInt(quantity);
+      Double q = Double.parseDouble(quantity);
       if (q <= 0) {
         out.println("Invalid quantity provided");
       }

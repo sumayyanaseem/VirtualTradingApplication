@@ -6,14 +6,13 @@ import stocks.model.PortfolioImplModel;
 
 /**
  * Demonstrates a virtual trading Application. The application is
- *  factored out into a model,view and controller.
+ * factored out into a model and controller.
  */
 public class TradingMVC {
 
-  public static void main(String[] args)  {
+  public static void main(String[] args) {
 
-    PortfolioController controller = new PortfolioControllerImpl(System.in,System.out);
-
+    PortfolioController controller = new PortfolioControllerImpl(System.in, System.out);
     controller.start(new PortfolioImplModel());
   }
 }
