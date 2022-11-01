@@ -32,7 +32,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     Objects.requireNonNull(model);
     this.model = model;
     view.callToViewToChooseCreateOrView();
-    String option = input.nextLine();
+    String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
       start(model);
     }
@@ -48,7 +48,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void askUserWhatHeWantsToView() {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
-    String option = input.nextLine();
+    String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
       askUserWhatHeWantsToView();
     }
@@ -87,7 +87,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void createOrUpdatePortfolio() {
     view.createOrUpdateExistingPortfolio();
-    String option = input.nextLine();
+    String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
       createOrUpdatePortfolio();
     }
@@ -110,7 +110,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void getCreatePortfolioChoice() {
     view.askUserOnHowToCreatePortfolio();
-    String option = input.nextLine();
+    String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
       getCreatePortfolioChoice();
     }
@@ -241,7 +241,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private boolean validateQuantity(String quantity) {
     try {
-      Double q = Double.parseDouble(quantity);
+      Integer q = Integer.parseInt(quantity);
       if (q <= 0) {
         System.out.println("Invalid quantity provided");
         return true;
