@@ -1,7 +1,5 @@
 package stocks.controller;
 
-import java.io.IOException;
-
 import stocks.model.PortfolioModel;
 
 
@@ -12,8 +10,8 @@ import stocks.model.PortfolioModel;
 public interface PortfolioController {
 
   /**
-   *
-   * @param model
+   * This is the starting point of this application.
+   * @param model model of this application.
    */
   void start(PortfolioModel model);
 

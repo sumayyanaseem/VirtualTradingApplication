@@ -2,7 +2,7 @@ package stocks.model;
 
 public class Stock {
   String companyTickerSymbol;
-  long qty;
+  Double qty;
   double priceBought;
 
   String dateBought;
@@ -10,14 +10,13 @@ public class Stock {
   String dateSold;
   double totalValue;
 
-  public Stock(String companyTickerSymbol, long qty, String dateBought, String dateSold, double priceBought, double totalValue)
-  {
-    this.companyTickerSymbol=companyTickerSymbol;
-    this.qty=qty;
-    this.dateBought=dateBought;
-    this.dateSold=dateSold;
-    this.priceBought=priceBought;
-    this.totalValue=totalValue;
+  public Stock(String companyTickerSymbol, double qty, String dateBought, String dateSold, double priceBought, double totalValue) {
+    this.companyTickerSymbol = companyTickerSymbol;
+    this.qty = qty;
+    this.dateBought = dateBought;
+    this.dateSold = dateSold;
+    this.priceBought = priceBought;
+    this.totalValue = totalValue;
   }
 
   public double getPriceBought() {
@@ -28,7 +27,7 @@ public class Stock {
     return totalValue;
   }
 
-  public long getQty() {
+  public double getQty() {
     return qty;
   }
 
