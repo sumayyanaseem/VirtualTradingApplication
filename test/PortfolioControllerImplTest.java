@@ -1,19 +1,20 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
 import stocks.model.PortfolioModel;
-
-import static org.junit.Assert.assertEquals;
+import stocks.view.PortfolioView;
+import stocks.view.PortfolioViewImpl;
+import static org.junit.Assert.assertTrue;
 
 public class PortfolioControllerImplTest {
 
@@ -46,168 +47,113 @@ public class PortfolioControllerImplTest {
     }
   }
 
-  /*class MockView implements PortfolioView {
 
-    public String choice="1";
-    public String pName;
-    public String dateToViewTotalValue;
-    public String filePath;
-    public String quantity;
+  private InputStream in;
 
-    public String companyName;
+  private PortfolioView view;
 
-    InputStream in;
+  private PrintStream out;
 
-    String input;
-    public MockView(InputStream in){
-      this.in = in;
-      input = in.toString();
-    }
+  private PortfolioController portfolioController;
 
-    public void setPName(String pName) {
-      this.pName = pName;
-    }
+  private OutputStream bytes;
 
-    public void setDateToViewTotalValue(String dateToViewTotalValue) {
-      this.dateToViewTotalValue = dateToViewTotalValue;
-    }
-
-    public void setFilePath(String filePath) {
-      this.filePath = filePath;
-    }
-
-    public void setQuantity(String quantity) {
-      this.quantity = quantity;
-    }
-
-    public void setCompanyName(String companyName) {
-      this.companyName = companyName;
-    }
-
-    public void setChoice(String choice){
-      this.choice=choice;
-    }
+  @Before
+  public void setUp(){
+    in = new ByteArrayInputStream("1\n".getBytes());
+    bytes = new ByteArrayOutputStream();
+    out = new PrintStream(bytes);
+    view = new PortfolioViewImpl(out);
+    portfolioController = new PortfolioControllerImpl(in,view);
+  }
 
 
-    @Override
-    public String callToViewToChooseCreateOrView() {
-      setChoice(input);
-      return choice;
-    }
+  @Test(expected = NoSuchElementException.class)
+  public void initialState(){
+    String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
+    in = new ByteArrayInputStream("".getBytes());
+    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+  }
 
-    @Override
-    public String askUserOnHowToCreatePortfolio() {
-      return null;
-    }
+  @Test(expected = NoSuchElementException.class)
+  public void testInvalidInputs(){
+    String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
+    String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
+    in = new ByteArrayInputStream("1\n4\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
+  }
 
-    @Override
-    public String getFilePath() {
-      return null;
-    }
+  @Test(expected = NoSuchElementException.class)
+  public void testStart(){
+    String expected="Enter 1: To create Portfolio using external file  2: To create manually";
+    in = new ByteArrayInputStream("1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+  }
 
-    @Override
-    public String getPortfolioNameToCreate() {
-      return null;
-    }
+  @Test(expected = NoSuchElementException.class)
+  public void testAskUserWhatHeWantsToView(){
+    in = new ByteArrayInputStream("2\n".getBytes());
+    String expected="Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
+    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+  }
 
-    @Override
-    public String getBuyOrSellChoiceFromUser() {
-      return null;
-    }
-
-    @Override
-    public String getQuantity() {
-      return null;
-    }
-
-    @Override
-    public String getCompanyTicker() {
-      return null;
-    }
-
-    @Override
-    public String askUserIfHeWantsToContinueTradingInCurrentPortfolio() {
-      setChoice(input);
-      return String.valueOf(choice);
-    }
-
-    @Override
-    public String checkIfUserWantsToExitCompletely() {
-      setChoice(input);
-      return choice;
-    }
-
-    @Override
-    public String createOrUpdateExistingPortfolio() {
-      setChoice(input);
-      return choice;
-    }
-
-    @Override
-    public String checkIfUserWantsToViewCompositionOrTotalValue() {
-      setChoice(input);
-      return choice;
-    }
-
-    @Override
-    public void displayTotalValue(String date, String val, String portfolioName) {
-
-    }
-
-    @Override
-    public String getDateForValuation() {
-      setDateToViewTotalValue(input);
-      return dateToViewTotalValue;
-    }
-
-    @Override
-    public String getPortfolioNameToViewOrUpdate() {
-      setPName(input);
-      return pName;
-    }
-
-    @Override
-    public void displayComposition(List<List<String>> records) {
-
-    }
+ /* @Test(expected = NoSuchElementException.class)
+  public void testCreateOrUpdatePortfolio() {
+    String expected = "Enter 1: To create Portfolio using external file  2: To create manually";
+    in = new ByteArrayInputStream("1\n1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
   }*/
 
-
-
-
-
-  @Test
-  public void initialState(){
-
-   // model.createPortfolioIfCreatedManually("P3");
-
-  }
-
-  @Test
-  public void testStart(){
-    /*InputStream in = new ByteArrayInputStream("1".getBytes());
-    OutputStream out  new BufferedOutputStream();
-    PortfolioController portfolioController = new PortfolioControllerImpl(in,);
-    portfolioController.start(new MockModel());*/
-  }
-
-  @Test
-  public void testAskUserWhatHeWantsToView(){
-  }
-
-  @Test
-  public void testCreateOrUpdatePortfolio(){
-
-  }
-
-  @Test
-  public void testUpdatePortfolio(){
-
-  }
-
-  @Test
+  @Test(expected = NoSuchElementException.class)
   public void testGetCreatePortfolioChoice(){
+    String expected = "Enter 1: To create Portfolio using external file  2: To create manually";
+    in = new ByteArrayInputStream("1\n1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+  }
 
+  @Test(expected = NoSuchElementException.class)
+  public void testCreatePortfolioUsingFilePath(){
+    String expected = "Enter the path of File which is used to create Portfolio";
+    in = new ByteArrayInputStream("1\n1\n1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    //System.out.println(out.toString());
+    assertTrue(bytes.toString().contains(expected));
+  }
+
+  @Test(expected = NoSuchElementException.class)
+  public void testInvalidInputs2(){
+    String expected="Enter the path of File which is used to create Portfolio";
+    String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
+    in = new ByteArrayInputStream("1\n1\n4\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController.start(new MockModel());
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
+
+  }
+
+  @Test(expected = NoSuchElementException.class)
+  public void testCreatePortfolioManuallyEndToEnd(){
+    String expected = "Enter the name of the Portfolio";
+    in = new ByteArrayInputStream("1\n1\n2\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
   }
 
   @Test
