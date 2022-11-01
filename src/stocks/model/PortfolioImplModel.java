@@ -91,20 +91,6 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-   /* String pattern = "yyyy-MM-dd";
-    String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
-    String datePrev = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-    Map<String, Stock> m = portfolioMap.get(portfolioName);
-    //fetch the details from csv file map
-    double totVal = 0.0;
-    for (Map.Entry<String, Stock> entry : m.entrySet()) {
-      String stkName = entry.getKey();
-      if (todayDate.equals(date)) {
-        totVal = totVal + entry.getValue().getQty() * apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), datePrev);
-      } else
-        totVal = totVal + entry.getValue().getQty() * apiCustomClass.fetchStockPriceAsOfCertainDate(entry.getKey(), date);
-    }
-    return totVal;*/
     double totValue=0.0;
     List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
     for(int j=1;j<listOfStkInfoPersisted.size();j++) {
@@ -163,7 +149,7 @@ public class PortfolioImplModel implements PortfolioModel {
     for (int i = 1; i < listOfStocks.size(); i++) {
       //String[] temp = new String[5];
       String sName = listOfStocks.get(i).get(0);
-      double sPrice = apiCustomClass.fetchStockPriceAsOfToday(sName);
+      double sPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(sName);
 
 
       if(!mapOfStocks.containsKey(sName)) {
@@ -175,10 +161,6 @@ public class PortfolioImplModel implements PortfolioModel {
 
         mapOfStocks.put(sName, stkInfoList);
 
-        //temp = listOfStocks.get(i).toArray(new String[5]);
-        //temp[2]= String.valueOf(sPrice);
-        //temp[3]= todayDate;
-        //temp[4]= String.valueOf(Long.valueOf(listOfStocks.get(i).get(1))*sPrice);
       }
       else {
         List<String> list1=mapOfStocks.get(sName);
@@ -193,14 +175,8 @@ public class PortfolioImplModel implements PortfolioModel {
         stkInfoList.add(String.valueOf(sPrice));
         stkInfoList.add(todayDate);
         stkInfoList.add(String.format("%.2f",Long.valueOf(listOfStocks.get(i).get(1))*sPrice));
-        //list1.set(1,totQtyStr);
-        //list1.set(4,totVal);
-        mapOfStocks.put(sName,stkInfoList);
-        //temp = list1.toArray(new String[5]);
 
-        //temp[2]= String.valueOf(sPrice);
-        //temp[3]= todayDate;
-        //temp[4]= String.valueOf(totQty*sPrice);
+        mapOfStocks.put(sName,stkInfoList);
       }
 
     }
