@@ -99,7 +99,7 @@ public class PortfolioImplModel implements PortfolioModel {
       String latestAvailableStkPrice;
 
       String name = companyTickerSymbol.toUpperCase();
-      String path = "csvFiles/" + "daily_" + name + ".csv";
+      String path = "availableStocks/" + "daily_" + name + ".csv";
       try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         String line= br.readLine();
         List<List<String>> records = new ArrayList<>();
@@ -138,8 +138,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks = customCSVParser.readFromCSV(filePath);
-    //helperMethodToWriteTOCSV(filePath);
+    List<List<String>> listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     Map<String, List<String>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));

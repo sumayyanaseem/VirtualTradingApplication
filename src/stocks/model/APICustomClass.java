@@ -11,7 +11,7 @@ public class APICustomClass {
 
     Double price = Double.valueOf(-1);
     String name =companyTickerSymbol.toUpperCase();
-    String path = "csvFiles/"+"daily_"+name+".csv";
+    String path = "availableStocks/"+"daily_"+name+".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
       if((line = br.readLine()) != null) {
