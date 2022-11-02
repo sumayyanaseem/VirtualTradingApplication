@@ -1,6 +1,8 @@
 package stocks.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -97,7 +99,7 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName)  {
     validateDate(date);
     double totValue=0.0;
     if(portfolioName.equals("currentInstance")){
@@ -107,7 +109,7 @@ public class PortfolioImplModel implements PortfolioModel {
         totValue=totValue+s.getTotalValue();
       }
     } else {
-      validateIfPortfolioAlreadyExists(portfolioName);
+      validateIfPortfolioDoesntExists(portfolioName);
       List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
       for(int j=1;j<listOfStkInfoPersisted.size();j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
@@ -172,7 +174,7 @@ public class PortfolioImplModel implements PortfolioModel {
         results.add(temp);
       }
     } else {
-      validateIfPortfolioAlreadyExists(portfolioName);
+      validateIfPortfolioDoesntExists(portfolioName);
       List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
@@ -249,12 +251,21 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   public void validateIfPortfolioAlreadyExists(String portfolioName) {
-    String path = "userPortfolios/"+portfolioName + ".csv";
+    String path = "userPortfolios/"+portfolioName +"_output"+ ".csv";
     File f = new File(path);
-    if (!f.isFile() && !f.exists()) {
+    if (f.isFile() && f.exists()) {
+      throw new IllegalArgumentException("Given portfolio exist.Please provide valid portfolioName.");
+    }
+  }
+
+  public void validateIfPortfolioDoesntExists(String portfolioName) {
+    String path = "userPortfolios/"+portfolioName +"_output"+ ".csv";
+    File f = new File(path);
+    if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist.Please provide valid portfolioName.");
     }
   }
+
 
   private void validateDate(String date) {
     String format = "yyyy-MM-dd";
@@ -281,11 +292,12 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   private void validateFilePath(String path){
+
     if(path==null){
       throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
     }
     File f = new File(path);
-    if (!f.isFile() && !f.exists()) {
+    if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
     }
   }

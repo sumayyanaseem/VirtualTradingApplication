@@ -3,7 +3,6 @@ package stocks;
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
 import stocks.model.PortfolioImplModel;
-import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 

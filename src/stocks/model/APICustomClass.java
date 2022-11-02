@@ -36,8 +36,7 @@ public class APICustomClass {
 
 
 
-  public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )
-  {
+  public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
     String latestAvailableStkPrice="0.0";
 
     String name = companyTickerSymbol.toUpperCase();
@@ -69,9 +68,9 @@ public class APICustomClass {
         System.out.println("parse exception");
       }
     } catch (FileNotFoundException ex) {
-      throw new RuntimeException(ex);
+      System.out.println("File Path doesnt for "+companyTickerSymbol);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      System.out.println("File Path doesnt for "+companyTickerSymbol);
     }
     return Double.valueOf(latestAvailableStkPrice)*qty;
   }

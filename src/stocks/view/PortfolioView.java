@@ -34,5 +34,6 @@ public interface PortfolioView {
 
   void displayErrorMessage(String message);
 
-  void checkIfUserWantsToGetCurrentPortfolioDetailsOrOthers();
+  void callExitFromLoad();
+  void askUserIfheWantsTOContinueViewing();
 }
