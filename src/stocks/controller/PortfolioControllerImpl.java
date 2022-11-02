@@ -1,6 +1,5 @@
 package stocks.controller;
 
-import java.io.File;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,10 +11,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
-
-import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
+
 
 public class PortfolioControllerImpl implements PortfolioController {
 
