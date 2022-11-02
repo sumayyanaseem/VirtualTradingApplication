@@ -98,10 +98,11 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     double totValue=0.0;
+    List<List<String>> records = new ArrayList<>();
     if(!portfolioName.equals(this.portfolioName)){
       records =customCSVParser.readFromCSV(portfolioName);
     }
-    List<List<String>> listOfStkInfoPersisted=records;
+    List<List<String>> listOfStkInfoPersisted= ;
     for(int j=1;j<listOfStkInfoPersisted.size();j++) {
       String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
       double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
@@ -177,15 +178,14 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
 
+    List<List<String>> results = new ArrayList<>();
     if(!portfolioName.equals(this.portfolioName)){
-      records =customCSVParser.readFromCSV(portfolioName);
-    }
+      List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
       List<String> list1 = new ArrayList<>();
       list1.addAll(list);
       list1.add(name);
-      List<List<String>> results = new ArrayList<>();
       results.add(list1);
       for (int i = 1; i < records.size(); i++) {
         list1 = new ArrayList<>();
@@ -199,7 +199,22 @@ public class PortfolioImplModel implements PortfolioModel {
           results.add(list1);
         }
       }
+    } else {
+      Map<String,Stock> map = portfolioMap.get(this.portfolioName);
+      String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueWhenPurchased"};
+      results.add(List.of(headers));
+      for(Map.Entry<String,Stock> entry:map.entrySet()){
+        List<String> temp = new ArrayList<>();
+        Stock s =  entry.getValue();
+        temp.add(s.getCompanyTickerSymbol());
+        temp.add(String.valueOf(s.getQty()));
+        temp.add(String.valueOf(s.getPriceBought()));
+        temp.add(s.getDateBought());
+        temp.add(String.valueOf(s.getTotalValue()));
+        results.add(temp);
+        }
       return results;
+    }
 
   }
 
