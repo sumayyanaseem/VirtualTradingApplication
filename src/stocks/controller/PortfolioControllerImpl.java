@@ -63,7 +63,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "2":
         String pName = pNameHelper();
         String date = dateHelper();
-        String val = String.valueOf(model.getTotalValueOfPortfolioOnCertainDate(date, pName));
+        String val = String.format("%.2f",model.getTotalValueOfPortfolioOnCertainDate(date, pName));
         view.displayTotalValue(date, val, portfolioName);
         finalExitCondition();
         break;

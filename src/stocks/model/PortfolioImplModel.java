@@ -27,11 +27,15 @@ public class PortfolioImplModel implements PortfolioModel {
   private APICustomClass apiCustomClass;
 
   private CustomCSVParser customCSVParser;
+  private String portfolioName;
+
+
 
   public PortfolioImplModel() {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
     customCSVParser = new CustomCSVParser();
+    portfolioName ="";
   }
 
   @Override
@@ -82,6 +86,7 @@ public class PortfolioImplModel implements PortfolioModel {
       s1[4] = String.format("%.2f", entry.getValue().getTotalValue());
       temp.add(s1);
     }
+    this.portfolioName =portfolioName;
     customCSVParser.writeTOCSV(temp, portfolioName);
   }
 
@@ -93,7 +98,10 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     double totValue=0.0;
-    List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
+    if(!portfolioName.equals(this.portfolioName)){
+      records =customCSVParser.readFromCSV(portfolioName);
+    }
+    List<List<String>> listOfStkInfoPersisted=records;
     for(int j=1;j<listOfStkInfoPersisted.size();j++) {
       String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
       double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
@@ -107,15 +115,15 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks;
+    List<List<String>> listOfStocks = new ArrayList<>();
     try {
-      listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
+     listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
     catch (Exception e) {
       System.out.println(e.getStackTrace());
       throw new RuntimeException(e);
     }
-    Map<String, List<String>> mapOfStocks = new HashMap<>();
+    Map<String, List<Stock>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     List<String[]> resultList = new ArrayList<>();
@@ -138,11 +146,11 @@ public class PortfolioImplModel implements PortfolioModel {
 
       }
       else {
-        List<String> list1=mapOfStocks.get(sName);
+        List<Stock> list1=mapOfStocks.get(sName);
         List<String> list2=listOfStocks.get(i);
         mapOfStocks.remove(sName);
         //listOfStocks.remove(i);
-        long totQty = Long.valueOf(list1.get(1))+Long.valueOf(list2.get(1));
+        long totQty = Long.valueOf(list1.get(i).getQty())+Long.valueOf(list2.get(1));
         String totQtyStr=String.valueOf(totQty);
         listOfStocks.get(i).set(1,totQtyStr);
         //String totVal=String.valueOf(Integer.valueOf(list1.get(4))+Integer.valueOf(list2.get(4)));
@@ -161,33 +169,38 @@ public class PortfolioImplModel implements PortfolioModel {
       temp = e.getValue().toArray(new String[5]);
       resultList.add(temp);
     }
-    customCSVParser.writeTOCSV(resultList,filePath);
+
+
+
   }
 
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
 
-    List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
-    List<String> list = records.get(0);
-    String name = "TotalValueOwnedAsOfToday";
-    List<String> list1 = new ArrayList<>();
-    list1.addAll(list);
-    list1.add(name);
-    List<List<String>> results = new ArrayList<>();
-    results.add(list1);
-    for (int i = 1; i < records.size(); i++) {
-      list1 = new ArrayList<>();
-      String cName = records.get(i).get(0);
-      String quantity = records.get(i).get(1);
-      double currentPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
-      if (currentPrice != -1) {
-        double currentTotalPrice = Double.parseDouble(quantity) * currentPrice;
-        list1.addAll(records.get(i));
-        list1.add(String.format("%.2f",currentTotalPrice));
-        results.add(list1);
-      }
+    if(!portfolioName.equals(this.portfolioName)){
+      records =customCSVParser.readFromCSV(portfolioName);
     }
-    return results;
+      List<String> list = records.get(0);
+      String name = "TotalValueOwnedAsOfToday";
+      List<String> list1 = new ArrayList<>();
+      list1.addAll(list);
+      list1.add(name);
+      List<List<String>> results = new ArrayList<>();
+      results.add(list1);
+      for (int i = 1; i < records.size(); i++) {
+        list1 = new ArrayList<>();
+        String cName = records.get(i).get(0);
+        String quantity = records.get(i).get(1);
+        double currentPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
+        if (currentPrice != -1) {
+          double currentTotalPrice = Double.parseDouble(quantity) * currentPrice;
+          list1.addAll(records.get(i));
+          list1.add(String.format("%.2f", currentTotalPrice));
+          results.add(list1);
+        }
+      }
+      return results;
+
   }
 
 
