@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class PortfolioImplModel implements PortfolioModel {
 
-  private Map<String, Map<String, Stock>> portfolioMap;
+  private Map<String, Map<String, List<String>>> portfolioMap;
 
   private APICustomClass apiCustomClass;
 
@@ -102,7 +102,7 @@ public class PortfolioImplModel implements PortfolioModel {
     if(!portfolioName.equals(this.portfolioName)){
       records =customCSVParser.readFromCSV(portfolioName);
     }
-    List<List<String>> listOfStkInfoPersisted= ;
+    List<List<String>> listOfStkInfoPersisted;
     for(int j=1;j<listOfStkInfoPersisted.size();j++) {
       String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
       double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
@@ -116,15 +116,15 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
-    List<List<String>> listOfStocks = new ArrayList<>();
+    List<List<String>> listOfStocks;
     try {
-     listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
+      listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
     catch (Exception e) {
       System.out.println(e.getStackTrace());
       throw new RuntimeException(e);
     }
-    Map<String, List<Stock>> mapOfStocks = new HashMap<>();
+    Map<String, List<String>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     List<String[]> resultList = new ArrayList<>();
@@ -147,11 +147,11 @@ public class PortfolioImplModel implements PortfolioModel {
 
       }
       else {
-        List<Stock> list1=mapOfStocks.get(sName);
+        List<String> list1=mapOfStocks.get(sName);
         List<String> list2=listOfStocks.get(i);
         mapOfStocks.remove(sName);
         //listOfStocks.remove(i);
-        long totQty = Long.valueOf(list1.get(i).getQty())+Long.valueOf(list2.get(1));
+        long totQty = Long.valueOf(list1.get(1))+Long.valueOf(list2.get(1));
         String totQtyStr=String.valueOf(totQty);
         listOfStocks.get(i).set(1,totQtyStr);
         //String totVal=String.valueOf(Integer.valueOf(list1.get(4))+Integer.valueOf(list2.get(4)));
@@ -170,9 +170,8 @@ public class PortfolioImplModel implements PortfolioModel {
       temp = e.getValue().toArray(new String[5]);
       resultList.add(temp);
     }
-
-
-
+    portfolioMap.put(portfolioName,mapOfStocks);
+    //customCSVParser.writeTOCSV(resultList,filePath+"output");
   }
 
   @Override
