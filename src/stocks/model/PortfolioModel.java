@@ -1,4 +1,5 @@
 package stocks.model;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -49,6 +50,8 @@ public interface PortfolioModel {
   void validateIfCompanyExists(String companyName);
 
   void validateIfPortfolioAlreadyExists(String portfolioName);
+
+  void validateIfPortfolioDoesntExists(String name);
 
   PortfolioModel getInstance();
 

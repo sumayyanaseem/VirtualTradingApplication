@@ -73,6 +73,11 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
+    public void validateIfPortfolioDoesntExists(String name) {
+
+    }
+
+    @Override
     public PortfolioModel getInstance() {
       return new MockModel(new StringBuilder());
     }
@@ -392,7 +397,7 @@ public class PortfolioControllerImplTest {
   @Test
   public void testBuyMultipleStocks(){
     String expected = "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.";
-    in = new ByteArrayInputStream("1\n2\ntest\nmeta\n10\n1\ndash\n20\n".getBytes());
+    in = new ByteArrayInputStream("1\n2\ntest.csv\nmeta\n10\n1\ndash\n20\n".getBytes());
     portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
       portfolioController.start();
@@ -400,7 +405,7 @@ public class PortfolioControllerImplTest {
 
     }
     assertTrue(bytes.toString().contains(expected));
-    File file = new File("UserPortfolios/test.csv");
+    File file = new File("UserPortfolios/test.csv.csv");
     assertFalse(file.exists());
 
   }
@@ -439,7 +444,7 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
     String error ="Given portfolio doesnt exist.Please provide valid portfolioName.\n" +
             "Enter the name of the Portfolio";
-    in = new ByteArrayInputStream("2\n1\ntest\n".getBytes());
+    in = new ByteArrayInputStream("2\n1\ntest.csv\n".getBytes());
     portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
       portfolioController.start();
@@ -497,7 +502,7 @@ public class PortfolioControllerImplTest {
     String error ="Invalid quantity provided\n"+"Enter the quantity of the stocks\n";
     String error2="Quantity should be always a positive whole number.\n" +
             "Enter the quantity of the stocks";
-    in = new ByteArrayInputStream("1\n2\ntest\nmeta\n-100\n0.5\nabc\n".getBytes());
+    in = new ByteArrayInputStream("1\n2\ntest.csv\nmeta\n-100\n0.5\nabc\n".getBytes());
     portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
       portfolioController.start();

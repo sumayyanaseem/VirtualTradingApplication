@@ -211,7 +211,7 @@ public class PortfolioImplModelTest {
     }
     assertEquals(actual,expected);
 
-    path ="P2.csv";
+    path ="P2_output.csv";
     actual ="";
     try {
       model.createPortfolioUsingFilePath(path);

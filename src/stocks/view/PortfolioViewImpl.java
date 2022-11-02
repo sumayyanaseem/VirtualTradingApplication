@@ -11,8 +11,8 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void callToViewToChooseCreateOrView()  {
-    out.println("Enter 1: To trade stocks 2: To query the portfolio details");
+  public void callToViewToChooseCreateOrView() {
+    out.println("Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio");
   }
 
 
@@ -24,7 +24,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void getFilePath() {
-    out.println("Enter the path of File which is used to create Portfolio");
+    out.println("Enter the path of File to load Portfolio");
   }
 
   @Override
@@ -63,23 +63,23 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void checkIfUserWantsToGetCurrentPortfolioDetailsOrOthers(){
-    out.println("Enter 1: To view current portfolio details  2: To view other persisted portfolios details");
-  }
-
-  @Override
   public void checkIfUserWantsToViewCompositionOrTotalValue() {
     out.println("Enter 1: To view composition  2: To get TotalValue of portfolio");
   }
 
   @Override
   public void displayTotalValue(String date, String val, String portfolioName) {
-    out.println("Total Valuation of Portfolio " + portfolioName + "  on "+date+ " is :" + val);
+    out.println("Total Valuation of Portfolio " + portfolioName + " on " + date + " is :" + val);
   }
 
   @Override
   public void getDateForValuation() {
     out.println("Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
+  }
+
+  @Override
+  public void askUserIfheWantsTOContinueViewing(){
+    out.println("Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios ");
   }
 
 
@@ -104,6 +104,11 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void displayErrorMessage(String message) {
     out.println(message);
+  }
+
+  @Override
+  public void callExitFromLoad() {
+    out.println("Enter 1: To view details of this portfolio.  2: To exit and continue further trading.");
   }
 
 }
