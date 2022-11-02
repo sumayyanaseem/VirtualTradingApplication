@@ -40,7 +40,7 @@ public class PortfolioControllerImplTest {
     bytes = new ByteArrayOutputStream();
     out = new PrintStream(bytes);
     view = new PortfolioViewImpl(out);
-    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
   }
 
 
@@ -48,8 +48,8 @@ public class PortfolioControllerImplTest {
   public void initialState(){
     String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
     in = new ByteArrayInputStream("".getBytes());
-    portfolioController = new PortfolioControllerImpl(in,view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -58,8 +58,8 @@ public class PortfolioControllerImplTest {
     String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
     in = new ByteArrayInputStream("1\n4\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in,view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
   }
@@ -68,8 +68,8 @@ public class PortfolioControllerImplTest {
   public void testStart(){
     String expected="Enter 1: To create Portfolio using external file  2: To create manually";
     in = new ByteArrayInputStream("1\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in,view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -77,8 +77,8 @@ public class PortfolioControllerImplTest {
   public void testAskUserWhatHeWantsToView(){
     in = new ByteArrayInputStream("2\n".getBytes());
     String expected="Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
-    portfolioController = new PortfolioControllerImpl(in,view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -86,8 +86,8 @@ public class PortfolioControllerImplTest {
   public void testGetCreatePortfolioChoice(){
     String expected = "Enter 1: To create Portfolio using external file  2: To create manually";
     in = new ByteArrayInputStream("1\n1\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -96,8 +96,8 @@ public class PortfolioControllerImplTest {
     String expected = "Enter the path of File which is used to create Portfolio";
     String error ="FilePath Doesn't exist. Try again with correct path.\n";
     in = new ByteArrayInputStream("1\n1\npath\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
   }
@@ -109,9 +109,9 @@ public class PortfolioControllerImplTest {
             "Enter 1: To create Portfolio using external file  2: To create manually";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
     in = new ByteArrayInputStream("1\n4\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in,view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
@@ -130,9 +130,8 @@ public class PortfolioControllerImplTest {
             "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.\n" +
             "Enter 1: To continue trading further. 2: To exit from this session.";
     in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n2\n2\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    MockModel m = new MockModel();
-    portfolioController.start(m);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     File file = new File("UserPortfolios/sample.csv");
     assertTrue(file.isFile());
@@ -144,8 +143,8 @@ public class PortfolioControllerImplTest {
   public void testCreateNewPortfolioForCurrentUser(){
     String expected = "Enter the name of the Portfolio";
     in = new ByteArrayInputStream("1\n2\nsample\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -164,8 +163,8 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To buy stocks 2: To sell stocks";
     String e ="Enter the quantity of the stocks.\n"+"Enter the quantity of the stocks.\n";
     in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(e));
   }
@@ -174,9 +173,9 @@ public class PortfolioControllerImplTest {
   public void testBuyMultipleStocks(){
     String expected = "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.";
     in = new ByteArrayInputStream("1\n2\ntest\nmeta\n10\n1\ndash\n20\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
@@ -192,9 +191,9 @@ public class PortfolioControllerImplTest {
     String error ="Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.\n" +
             "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
     in = new ByteArrayInputStream("2\n2\nP2\n2022\n1234\n22-10-11\n2022-1".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e ){
 
     }
@@ -221,9 +220,9 @@ public class PortfolioControllerImplTest {
     String error ="Given portfolio doesnt exist.Please provide valid portfolioName.\n" +
             "Enter the name of the Portfolio";
     in = new ByteArrayInputStream("2\n1\ntest\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
@@ -240,14 +239,15 @@ public class PortfolioControllerImplTest {
   public void testViewCompositionOfAPortfolio(){
     String expected = "Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
     String output = "CompanyName Quantity PriceBought DatePurchase TotalValueOwned TotalValueOwnedAsOfToday \n" +
-            "META        10.00    99.2        2022-11-01   992.00          992.00 ";
+            "META        10.00    99.2        2022-11-02   992.00          992.00   ";
     in = new ByteArrayInputStream("2\n1\nsample\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
+    System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(output));
   }
@@ -257,9 +257,9 @@ public class PortfolioControllerImplTest {
     String expected = "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
     String output = "Total Valuation of Portfolio   on 2022-10-01 is :1356.80";
     in = new ByteArrayInputStream("2\n2\nsample\n2022-10-01\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
@@ -274,19 +274,17 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testInvalidQuantity(){
-    String expected = "Enter the name of the company to be added to portfolio\n "+"Enter the quantity of the stocks\n";
     String error ="Invalid quantity provided\n"+"Enter the quantity of the stocks\n";
     String error2="Quantity should be always a positive whole number.\n" +
             "Enter the quantity of the stocks";
     in = new ByteArrayInputStream("1\n2\ntest\nmeta\n-100\n0.5\nabc\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
-      portfolioController.start(new MockModel());
+      portfolioController.start();
     } catch(NoSuchElementException e){
 
     }
     System.out.println(bytes.toString());
-    assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
     assertTrue(bytes.toString().contains(error2));
   }
