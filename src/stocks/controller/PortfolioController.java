@@ -13,6 +13,6 @@ public interface PortfolioController {
    * This is the starting point of this application.
    * @param model model of this application.
    */
-  void start(PortfolioModel model);
+  void start();
 
 }

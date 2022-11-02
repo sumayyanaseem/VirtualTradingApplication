@@ -21,20 +21,20 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioView view;
   private Scanner input;
 
-  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
+  public PortfolioControllerImpl(PortfolioModel model,InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
+    this.model =model;
   }
 
 
-  public void start(PortfolioModel model) {
+  public void start() {
     Objects.requireNonNull(model);
-    this.model = model;
     view.callToViewToChooseCreateOrView();
     String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
-      start(model);
+      start();
     }
     switch (option) {
       case "1":
@@ -176,7 +176,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        start(model);
+        start();
         break;
       case "2":
         //do nothing
