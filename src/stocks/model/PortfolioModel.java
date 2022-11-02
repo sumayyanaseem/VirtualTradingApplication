@@ -44,4 +44,10 @@ public interface PortfolioModel {
    */
   void createPortfolioIfCreatedManually(String portfolioName);
 
+  int size();
+
+  void validateIfCompanyExists(String companyName);
+
+  void validateIfPortfolioAlreadyExists(String portfolioName);
+
 }
