@@ -7,21 +7,64 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
 import stocks.model.PortfolioImplModel;
+import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PortfolioControllerImplTest {
 
-  class MockModel extends PortfolioImplModel{
+  class MockModel implements PortfolioModel {
 
+    private StringBuilder log;
+
+    MockModel(StringBuilder log){
+      this.log=log;
+    }
+
+    @Override
+    public void buyStocks(String quantity, String CompanyName, String portfolioName) {
+      log.append("inputs for buyStocks: "+quantity+" "+CompanyName+" "+portfolioName+"\n");
+
+    }
+
+    @Override
+    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: "+date+" "+portfolioName+"\n");
+      return 0.0;
+    }
+
+    @Override
+    public void createPortfolioUsingFilePath(String filePath) {
+      log.append("inputs for createPortfolioUsingFilePath: "+filePath+"\n");
+    }
+
+    @Override
+    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
+      List<List<String>> dummy=new ArrayList<>();
+      log.append("inputs for viewCompositionOfCurrentPortfolio: "+portfolioName+"\n");
+      return dummy;
+    }
+
+    @Override
+    public void createPortfolioIfCreatedManually(String portfolioName) {
+      log.append("inputs for createPortfolioIfCreatedManually: "+portfolioName+"\n");
+    }
+
+    @Override
+    public PortfolioModel getInstance() {
+      return new MockModel(new StringBuilder());
+    }
   }
 
   private InputStream in;
@@ -34,26 +77,190 @@ public class PortfolioControllerImplTest {
 
   private OutputStream bytes;
 
+  PortfolioModel model;
+
   @Before
   public void setUp(){
     in = new ByteArrayInputStream("1\n".getBytes());
     bytes = new ByteArrayOutputStream();
     out = new PrintStream(bytes);
     view = new PortfolioViewImpl(out);
-    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
+    StringBuilder mockLog = new StringBuilder();
+    model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
   }
 
 
-  @Test(expected = NoSuchElementException.class)
-  public void initialState(){
-    String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
+ /* @Test
+  public void testInitialState(){
+    String expected="Enter 1: To trade stocks 2: To view the portfolio composition\n";
     in = new ByteArrayInputStream("".getBytes());
-    portfolioController = new PortfolioControllerImpl(new MockModel(),in,view);
-    portfolioController.start();
+    StringBuilder mockLog = new StringBuilder();
+    //String expected = "Adding inputs: "+a+" "+b+"\n";
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    System.out.println("begin");
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+
+    }
+    System.out.println("end");
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().equals(expected));
+  }
+
+  @Test
+  public void testInvalidInputs(){
+    String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
+    String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
+    in = new ByteArrayInputStream("1\n4\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    //String expected = "Adding inputs: "+a+" "+b+"\n";
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+
+    }
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
+  }
+
+
+  @Test
+  public void testStart(){
+    String expected="Enter 1: To create Portfolio using external file  2: To create manually";
+    in = new ByteArrayInputStream("1\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    //String expected = "Adding inputs: "+a+" "+b+"\n";
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+    }
     assertTrue(bytes.toString().contains(expected));
   }
 
-  @Test(expected = NoSuchElementException.class)
+
+  @Test
+  public void testAskUserWhatHeWantsToView(){
+    in = new ByteArrayInputStream("2\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    //String expected = "Adding inputs: "+a+" "+b+"\n";
+    PortfolioModel model = new MockModel(mockLog);
+    String expected="Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+    }
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().contains(expected));
+  }
+
+  @Test
+  public void testGetCreatePortfolioChoice(){
+    String expected = "Enter 1: To create Portfolio using external file  2: To create manually\n" +
+            "Enter the path of File which is used to create Portfolio\n";
+    in = new ByteArrayInputStream("1\n1\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in, view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+    }
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().contains(expected));
+  }
+
+  @Test
+  public void testCreatePortfolioUsingFilePath(){
+    String expected = "Enter the path of File which is used to create Portfolio\n";
+    String error ="FilePath Doesn't exist. Try again with correct path.";
+    in = new ByteArrayInputStream("1\n1\npath\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in, view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+    }
+
+    System.out.println(bytes.toString());
+
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
+  }
+
+  @Test
+  public void testInvalidInputs2(){
+    String expected="Enter 1: To create Portfolio using external file  2: To create manually\n" +
+            "Invalid input provided.Please provide a valid input (either 1 or 2)\n" +
+            "Enter 1: To create Portfolio using external file  2: To create manually";
+    String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
+    in = new ByteArrayInputStream("1\n4\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start();
+    } catch(NoSuchElementException e){
+
+    }
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
+
+
+  }*/
+
+
+  @Test
+  public void testCreatePortfolioManuallyEndToEnd(){
+    String expected = "Enter 1: To trade stocks 2: To view the portfolio composition\n" +
+            "Enter 1: To create Portfolio using external file  2: To create manually\n" +
+            "Enter the name of the Portfolio\n" +
+            "Enter the name of the company to be added to portfolio\n" +
+            "Enter the quantity of the stocks\n" +
+            "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.\n" +
+            "Enter 1: To continue trading further. 2: To exit from this session.";
+    in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n2\n2\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    model = new MockModel(mockLog);
+    String quantity="10";
+    String companyName="meta";
+    String portfolioName="sample";
+    String exp="inputs for buyStocks: "+quantity+" "+companyName+" "+portfolioName+"\n";
+    //model.buyStocks(quantity,companyName,portfolioName);
+   // System.out.println(mockLog.toString().length());
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start(model);
+    } catch(NoSuchElementException e){
+
+    }
+
+    System.out.println(mockLog.toString().length());
+   // assertEquals(exp,mockLog.toString());
+    assertTrue(mockLog.toString().contains(exp));
+    System.out.println(bytes.toString());
+    assertTrue(bytes.toString().contains(expected));
+    //remove below two lines
+    //File file = new File("UserPortfolios/sample.csv");
+    //assertTrue(file.isFile());
+  }
+
+}
+
+
+
+
+
+ /* @Test(expected = NoSuchElementException.class)
   public void testInvalidInputs(){
     String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
@@ -118,6 +325,7 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
 
+
   }
 
   @Test
@@ -133,6 +341,7 @@ public class PortfolioControllerImplTest {
     portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
+    //remove below two lines
     File file = new File("UserPortfolios/sample.csv");
     assertTrue(file.isFile());
   }
@@ -287,8 +496,6 @@ public class PortfolioControllerImplTest {
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(error));
     assertTrue(bytes.toString().contains(error2));
-  }
+  }*/
 
 
-
-}

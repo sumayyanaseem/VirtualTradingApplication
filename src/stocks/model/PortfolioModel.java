@@ -44,4 +44,6 @@ public interface PortfolioModel {
    */
   void createPortfolioIfCreatedManually(String portfolioName);
 
+  PortfolioModel getInstance();
+
 }

@@ -16,8 +16,7 @@ public class TradingMVC {
   public static void main(String[] args) {
 
     PortfolioView view = new PortfolioViewImpl(System.out);
-    PortfolioModel model = new PortfolioImplModel();
-    PortfolioController controller = new PortfolioControllerImpl(model,System.in, view);
-    controller.start();
+    PortfolioController controller = new PortfolioControllerImpl(System.in, view);
+    controller.start(new PortfolioImplModel());
   }
 }

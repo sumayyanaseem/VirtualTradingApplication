@@ -20,7 +20,7 @@ public class PortfolioImplModel implements PortfolioModel {
   private APICustomClass apiCustomClass;
 
   private CustomCSVParser customCSVParser;
-  private  String pName;
+  private String pName;
 
 
 
@@ -82,6 +82,11 @@ public class PortfolioImplModel implements PortfolioModel {
     }
     this.pName =portfolioName;
     customCSVParser.writeTOCSV(temp, portfolioName);
+  }
+
+  @Override
+  public PortfolioModel getInstance() {
+    return new PortfolioImplModel();
   }
 
   /* @Override
