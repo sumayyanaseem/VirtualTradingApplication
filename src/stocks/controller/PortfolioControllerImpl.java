@@ -19,7 +19,6 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioModel model;
   private String portfolioName;
   private PortfolioView view;
-
   private Scanner input;
 
   public PortfolioControllerImpl(InputStream in, PortfolioView view) {
@@ -111,6 +110,7 @@ public class PortfolioControllerImpl implements PortfolioController {
         view.getFilePath();
         String filePath = input.nextLine();
         try {
+          this.model = new PortfolioImplModel();
           model.createPortfolioUsingFilePath(filePath);
         }
         catch(RuntimeException e){
@@ -120,6 +120,7 @@ public class PortfolioControllerImpl implements PortfolioController {
         finalExitCondition();
         break;
       case "2":
+        this.model = new PortfolioImplModel();
         createNewPortfolioForCurrentUser();
         break;
     }
@@ -175,7 +176,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        start(new PortfolioImplModel());
+        start(model);
         break;
       case "2":
         //do nothing

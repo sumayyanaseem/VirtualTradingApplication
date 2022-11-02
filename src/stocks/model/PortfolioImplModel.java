@@ -1,18 +1,11 @@
 package stocks.model;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -27,7 +20,7 @@ public class PortfolioImplModel implements PortfolioModel {
   private APICustomClass apiCustomClass;
 
   private CustomCSVParser customCSVParser;
-  private String pName="";
+  private static String pName;
 
 
 
@@ -86,7 +79,6 @@ public class PortfolioImplModel implements PortfolioModel {
       temp.add(s1);
     }
     this.pName =portfolioName;
-    System.out.println("zjbjkzbgkjzx "+this.pName);
     customCSVParser.writeTOCSV(temp, portfolioName);
   }
 
@@ -179,7 +171,6 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
-    System.out.println("current "+this.pName);
     List<List<String>> results = new ArrayList<>();
     if(!portfolioName.equals(this.pName)){
       List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
