@@ -62,6 +62,22 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
+    public int size() {
+      log.append("no inputs for size method");
+      return 0;
+    }
+
+    @Override
+    public void validateIfCompanyExists(String companyName) {
+      log.append("inputs for validateIfCompanyExists: "+companyName+"\n");
+    }
+
+    @Override
+    public void validateIfPortfolioAlreadyExists(String portfolioName) {
+      log.append("inputs for validateIfPortfolioAlreadyExists: "+portfolioName+"\n");
+    }
+
+    @Override
     public PortfolioModel getInstance() {
       return new MockModel(new StringBuilder());
     }
@@ -91,7 +107,7 @@ public class PortfolioControllerImplTest {
   }
 
 
- /* @Test
+  @Test
   public void testInitialState(){
     String expected="Enter 1: To trade stocks 2: To view the portfolio composition\n";
     in = new ByteArrayInputStream("".getBytes());
@@ -101,7 +117,7 @@ public class PortfolioControllerImplTest {
     portfolioController = new PortfolioControllerImpl(in,view);
     System.out.println("begin");
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
 
     }
@@ -120,7 +136,7 @@ public class PortfolioControllerImplTest {
     PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(in,view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
 
     }
@@ -139,7 +155,7 @@ public class PortfolioControllerImplTest {
     PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(in,view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
     }
     assertTrue(bytes.toString().contains(expected));
@@ -155,7 +171,7 @@ public class PortfolioControllerImplTest {
     String expected="Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
     portfolioController = new PortfolioControllerImpl(in,view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
     }
     System.out.println(bytes.toString());
@@ -171,7 +187,7 @@ public class PortfolioControllerImplTest {
     PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
     }
     System.out.println(bytes.toString());
@@ -187,7 +203,7 @@ public class PortfolioControllerImplTest {
     PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
     }
 
@@ -208,7 +224,7 @@ public class PortfolioControllerImplTest {
     PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(in,view);
     try {
-      portfolioController.start();
+      portfolioController.start(model);
     } catch(NoSuchElementException e){
 
     }
@@ -216,7 +232,7 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(error));
 
 
-  }*/
+  }
 
 
   @Test
@@ -235,8 +251,6 @@ public class PortfolioControllerImplTest {
     String companyName="meta";
     String portfolioName="sample";
     String exp="inputs for buyStocks: "+quantity+" "+companyName+" "+portfolioName+"\n";
-    //model.buyStocks(quantity,companyName,portfolioName);
-   // System.out.println(mockLog.toString().length());
     portfolioController = new PortfolioControllerImpl(in,view);
     try {
       portfolioController.start(model);
@@ -245,14 +259,60 @@ public class PortfolioControllerImplTest {
     }
 
     System.out.println(mockLog.toString().length());
-   // assertEquals(exp,mockLog.toString());
     assertTrue(mockLog.toString().contains(exp));
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
-    //remove below two lines
-    //File file = new File("UserPortfolios/sample.csv");
-    //assertTrue(file.isFile());
   }
+
+  @Test
+  public void testCreateNewPortfolioForCurrentUser(){
+    String expected = "Enter the name of the Portfolio";
+    in = new ByteArrayInputStream("1\n2\nsample\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start(model);
+    } catch(NoSuchElementException e){
+
+    }
+    assertTrue(bytes.toString().contains(expected));
+  }
+
+  @Test
+  public void testStoppingCondition(){
+
+  }
+
+  @Test
+  public void testFinalExitCondition(){
+
+  }
+
+  @Test
+  public void testBuyStocks(){
+    String expected = "Enter the name of the Portfolio\n" +
+            "Enter the name of the company to be added to portfolio\n" +
+            "Enter the quantity of the stocks\n" +
+            "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.";
+
+    //String e ="Enter the quantity of the stocks.\n"+"Enter the quantity of the stocks.\n";
+    in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in,view);
+    try {
+      portfolioController.start(model);
+    } catch(NoSuchElementException ex){
+
+    }
+    String mockExpected = "inputs for buyStocks: 10 meta sample";
+    System.out.println(bytes.toString());
+    assertTrue(mockLog.toString().contains(mockExpected));
+    assertTrue(bytes.toString().contains(expected));
+
+  }
+
 
 }
 

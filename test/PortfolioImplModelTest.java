@@ -22,6 +22,7 @@ public class PortfolioImplModelTest {
   private int generateRandomNumber() {
     return (int) (Math.random() * (max - min + 1) + min);
   }
+
   @Test
   public void testCreatePortfolio(){
     //model.createPortfolioIfCreatedManually();
@@ -247,7 +248,6 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testInvalidPortfolioNameToView(){
-
 
   }
 
