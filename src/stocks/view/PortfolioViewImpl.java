@@ -39,12 +39,12 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void getQuantity() {
-    out.println("Enter the quantity of the stocks.");
+    out.println("Enter the quantity of the stocks");
   }
 
   @Override
   public void getCompanyTicker() {
-    out.println("Enter the name of the company");
+    out.println("Enter the name of the company to be added to portfolio");
   }
 
   @Override

@@ -38,7 +38,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        createOrUpdatePortfolio();
+        getCreatePortfolioChoice();
         break;
       case "2":
         askUserWhatHeWantsToView();
@@ -85,22 +85,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       return dateHelper();
     }
     return date;
-  }
-
-  private void createOrUpdatePortfolio() {
-    view.createOrUpdateExistingPortfolio();
-    String option = String.valueOf(input.nextLine());
-    if(validateInputsFromUSer(option)){
-      createOrUpdatePortfolio();
-    }
-    switch (option) {
-      case "1":
-        getCreatePortfolioChoice();
-        break;
-      case "2":
-        //UpdatePortfolio();
-        break;
-    }
   }
 
   private void UpdatePortfolio() {
@@ -166,26 +150,11 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void buyOrSellStocks(String portfolioName) {
-    view.getBuyOrSellChoiceFromUser();//Buy or Sell choice
-    String option = input.nextLine();
-    if(validateInputsFromUSer(option)){
-      buyOrSellStocks(portfolioName);
-    }
-    switch (option) {
-      case "1":
         view.getCompanyTicker();
         String companyName = input.nextLine();
         String quantity = quantityHelper();
         model.buyStocks(quantity, companyName, portfolioName);
         stoppingCondition(portfolioName);
-        break;
-      case "2":
-        //companyName = view.callToViewToAskCompanyTicker();
-        // quantity = view.callToViewToAskQuantity();
-        // model.sellStocks(quantity, companyName, portfolioName);
-        // stoppingCondition(this.portfolioName);
-        break;
-    }
   }
 
   private String quantityHelper(){

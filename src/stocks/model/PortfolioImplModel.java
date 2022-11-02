@@ -111,7 +111,8 @@ public class PortfolioImplModel implements PortfolioModel {
     try {
       listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
-    catch (RuntimeException e) {
+    catch (Exception e) {
+      System.out.println(e.getStackTrace());
       throw new RuntimeException(e);
     }
     Map<String, List<String>> mapOfStocks = new HashMap<>();

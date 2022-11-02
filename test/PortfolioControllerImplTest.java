@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -124,26 +125,31 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(expected));
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test
   public void testCreatePortfolioUsingFilePath(){
     String expected = "Enter the path of File which is used to create Portfolio";
     in = new ByteArrayInputStream("1\n1\n1\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
-    //System.out.println(out.toString());
+    try {
+      portfolioController.start(new MockModel());
+    }catch(NoSuchElementException e ){
+
+    }
+    System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
   }
 
   @Test(expected = NoSuchElementException.class)
-  public void testInvalidInputs2(){
+  public void testInvalidInputs2() throws IOException {
     String expected="Enter the path of File which is used to create Portfolio";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
     in = new ByteArrayInputStream("1\n1\n4\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in,view);
     portfolioController.start(new MockModel());
-    System.out.println(bytes.toString());
+   // System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
+    bytes.flush();
 
   }
 
