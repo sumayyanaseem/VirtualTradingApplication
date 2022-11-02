@@ -153,7 +153,7 @@ public class PortfolioImplModel implements PortfolioModel {
       temp = e.getValue().toArray(new String[5]);
       resultList.add(temp);
     }
-    customCSVParser.writeTOCSV(resultList,filePath+" output");
+    customCSVParser.writeTOCSV(resultList,filePath+"output");
   }
 
   @Override

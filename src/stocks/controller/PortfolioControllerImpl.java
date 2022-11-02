@@ -2,7 +2,6 @@ package stocks.controller;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,7 +13,6 @@ import java.util.Scanner;
 import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
-import stocks.view.PortfolioViewImpl;
 
 public class PortfolioControllerImpl implements PortfolioController {
 

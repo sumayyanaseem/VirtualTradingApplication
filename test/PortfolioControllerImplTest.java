@@ -23,6 +23,7 @@ public class PortfolioControllerImplTest {
     @Override
     public void buyStocks(String quantity, String CompanyName, String portfolioName)  {
 
+
     }
 
     @Override
@@ -106,15 +107,6 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().contains(expected));
   }
 
- /* @Test(expected = NoSuchElementException.class)
-  public void testCreateOrUpdatePortfolio() {
-    String expected = "Enter 1: To create Portfolio using external file  2: To create manually";
-    in = new ByteArrayInputStream("1\n1\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(new MockModel());
-    assertTrue(bytes.toString().contains(expected));
-  }*/
-
   @Test(expected = NoSuchElementException.class)
   public void testGetCreatePortfolioChoice(){
     String expected = "Enter 1: To create Portfolio using external file  2: To create manually";
@@ -147,7 +139,6 @@ public class PortfolioControllerImplTest {
     } catch(NoSuchElementException e){
 
     }
-    System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
 
@@ -164,9 +155,13 @@ public class PortfolioControllerImplTest {
 
 
 
-  @Test
+  @Test(expected = NoSuchElementException.class)
   public void testCreateNewPortfolioForCurrentUser(){
-
+    String expected = "Enter the name of the Portfolio";
+    in = new ByteArrayInputStream("1\n1\n2\nsample\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
   }
 
   @Test
@@ -179,198 +174,67 @@ public class PortfolioControllerImplTest {
 
   }
 
-  @Test
-  public void testBuyOrSellStocks(){
-
+  @Test(expected = NoSuchElementException.class)
+  public void testBuyStocks(){
+    String expected = "Enter 1: To buy stocks 2: To sell stocks";
+    String e ="Enter the quantity of the stocks.\n"+"Enter the quantity of the stocks.\n";
+    in = new ByteArrayInputStream("1\n1\n2\nsample\n1\nmeta\n10\n1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(e));
   }
 
-  /*PortfolioView portfolioView;
-  InputStream in;
-
-  PrintStream out;
-
-  @Before
-  public void set(){
-    in = new ByteArrayInputStream("1".getBytes());
-    OutputStream bytes = new ByteArrayOutputStream();
-    out = new PrintStream(bytes);
-    portfolioView = new PortfolioViewImpl(in,out);
+  @Test(expected = NoSuchElementException.class)
+  public void testBuyMultipleStocks(){
+    String expected = "Enter 1: To buy stocks 2: To sell stocks";
+    String e ="Enter the quantity of the stocks.\n"+"Enter the quantity of the stocks.\n";
+    in = new ByteArrayInputStream("1\n1\n2\nsample\n1\nmeta\n10\n1\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(e));
   }
 
+  @Test(expected = NoSuchElementException.class)
+  public void testInvalidDate(){
+    String expected = "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
+    String error ="Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.\n" +
+            "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
+    in = new ByteArrayInputStream("2\n2\nP2\n2022\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController.start(new MockModel());
+    assertTrue(bytes.toString().contains(expected));
+    assertTrue(bytes.toString().contains(error));
 
-  @Test
-  public void testCallToViewToChooseCreateOrView(){
-    String output =portfolioView.callToViewToChooseCreateOrView();
-    assertEquals(output,"1");
-  }
-
-  @Test
-  public void testCallToViewOnHowToCreatePortfolio(){
-    String output =portfolioView.askUserOnHowToCreatePortfolio();
-    assertEquals(output,"1");
-  }
-
-  @Test
-  public void testCallToViewToChoiceOption(){
-    in = new ByteArrayInputStream("2".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getBuyOrSellChoiceFromUser();
-    assertEquals(output,"2");
-  }
-
-  @Test
-  public void testCallToViewToGetFilePath(){
-    in = new ByteArrayInputStream("src/stocks/view/".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getFilePath();
-    assertEquals(output,"src/stocks/view/");
-  }
-
-  @Test
-  public void testCallToViewToAskQuantity(){
-    in = new ByteArrayInputStream("100".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getQuantity();
-    assertEquals(output,"100");
-  }
-
-  @Test
-  public void testInvalidQuantity(){
-    in = new ByteArrayInputStream("0".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String expected="Quantity should be always a positive whole number";
-    String actual="";
-    try {
-      portfolioView.getQuantity();
-    } catch(IllegalArgumentException e){
-      actual=e.getMessage();
-    }
-    assertEquals(expected,actual);
-    actual="";
-    in = new ByteArrayInputStream("-10".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    try {
-      portfolioView.getQuantity();
-    } catch(IllegalArgumentException e){
-      actual=e.getMessage();
-    }
-    assertEquals(expected,actual);
-  }
-
-  @Test
-  public void testCallToViewToAskCompanyTicker(){
-    in = new ByteArrayInputStream("GOOG".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getCompanyTicker();
-    assertEquals(output,"GOOG");
-  }
-
-  @Test
-  public void testAskUserIfHeWantsToContinueTradingInCurrentPortfolio(){
-    String output =portfolioView.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
-    assertEquals(output,"1");
-  }
-
-  @Test
-  public void testCheckIfUserWantsToExitCompletely(){
-    String output =portfolioView.checkIfUserWantsToExitCompletely();
-    assertEquals(output,"1");
-  }
-
-  @Test
-  public void testCreateOrUpdateExistingPortfolio(){
-    String output =portfolioView.createOrUpdateExistingPortfolio();
-    assertEquals(output,"1");
-  }
-
-  @Test
-  public void testGetPortfolioNameToCreate(){
-    in = new ByteArrayInputStream("P2".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getPortfolioNameToViewOrUpdate();
-    assertEquals(output,"P2");
-  }
-
-  @Test
-  public void testGetPortfolioNameToView(){
-    in = new ByteArrayInputStream("P2".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getPortfolioNameToViewOrUpdate();
-    assertEquals(output,"P2");
-  }
-
-  @Test
-  public void testInValidPortfolioNameToView(){
-    in = new ByteArrayInputStream("sample".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String expected="Given portfolio doesnt exist";
-    String actual="";
-    try {
-      portfolioView.getPortfolioNameToViewOrUpdate();
-    } catch(IllegalArgumentException e){
-      actual = e.getMessage();
-    }
-    assertEquals(expected,actual);
 
   }
 
   @Test
-  public void testDisplayTotalValue(){
+  public void testInvalidPath(){
 
   }
 
   @Test
-  public void  testGetDateForValuation(){
-    in = new ByteArrayInputStream("2022-10-10".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String output =portfolioView.getDateForValuation();
-    assertEquals(output,"2022-10-10");
-  }
-
-  @Test
-  public void  testInValidDateForValuation(){
-    in = new ByteArrayInputStream("20-10-10".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String expected ="Invalid dateFormat provided.";
-    String actual="";
-    try {
-      portfolioView.getDateForValuation();
-    } catch(IllegalArgumentException e){
-      actual = e.getMessage();
-    }
-    assertEquals(actual,expected);
-    actual="";
-    in = new ByteArrayInputStream("20-10".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    try {
-      portfolioView.getDateForValuation();
-    } catch(IllegalArgumentException e){
-      actual = e.getMessage();
-    }
-    assertEquals(actual,expected);
-    actual="";
-    in = new ByteArrayInputStream("sample".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    try {
-      portfolioView.getDateForValuation();
-    } catch(IllegalArgumentException e){
-      actual = e.getMessage();
-    }
-    assertEquals(actual,expected);
+  public void testInvalidPortfolioNameToView(){
 
   }
 
   @Test
-  public void testDisplayComposition(){
+  public void testMultiplePortfoliosCreated(){
 
   }
 
   @Test
-  public void testInvalidUserInputs(){
-    in = new ByteArrayInputStream("3".getBytes());
-    portfolioView = new PortfolioViewImpl(in,out);
-    String expected = "Invalid input provided";
-    portfolioView.getBuyOrSellChoiceFromUser();
-    assertEquals(expected,out.toString());
-  }*/
+  public void testViewCompositionOfAPortfolio(){
+
+  }
+
+  @Test
+  public void testViewTotalValueOfAPortfolioOnaCertainDate(){
+
+  }
+
+
+
 }

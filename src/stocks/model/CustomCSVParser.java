@@ -50,7 +50,7 @@ public class CustomCSVParser {
     String path = "userPortfolios/"+fileName+".csv";
     File csvOutputFile = new File(path);
     try {
-      if (csvOutputFile.createNewFile()) {
+
         FileWriter fileWriter = new FileWriter(csvOutputFile);
         for (String[] record : recordLines) {
           String s = convertToCSV(record);
@@ -60,9 +60,9 @@ public class CustomCSVParser {
         }
         fileWriter.flush();
         fileWriter.close();
-      }
+
     } catch(IOException e){
-       throw new IllegalArgumentException("");
+      System.out.println(e.getMessage());
     }
   }
 
