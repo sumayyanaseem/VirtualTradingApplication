@@ -115,19 +115,18 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     //validate filepath is correct or not
+    List<List<String>> listOfStocks = new ArrayList<>();
     try {
-      records = customCSVParser.readFromPathProvidedByUser(filePath);
+     listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
     catch (Exception e) {
       System.out.println(e.getStackTrace());
       throw new RuntimeException(e);
     }
-    Map<String, List<String>> mapOfStocks = new HashMap<>();
+    Map<String, List<Stock>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     List<String[]> resultList = new ArrayList<>();
-    String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueWhenPurchased"};
-    resultList.add(headers);
     for (int i = 1; i < listOfStocks.size(); i++) {
       //String[] temp = new String[5];
       String sName = listOfStocks.get(i).get(0);
@@ -140,16 +139,15 @@ public class PortfolioImplModel implements PortfolioModel {
         stkInfoList.add(String.valueOf(sPrice));
         stkInfoList.add(todayDate);
         stkInfoList.add(String.format("%.2f",Double.valueOf(listOfStocks.get(i).get(1))*sPrice));
-
         mapOfStocks.put(sName, stkInfoList);
 
       }
       else {
-        List<String> list1=mapOfStocks.get(sName);
+        List<Stock> list1=mapOfStocks.get(sName);
         List<String> list2=listOfStocks.get(i);
         mapOfStocks.remove(sName);
         //listOfStocks.remove(i);
-        long totQty = Long.valueOf(list1.get(1))+Long.valueOf(list2.get(1));
+        long totQty = Long.valueOf(list1.get(i).getQty())+Long.valueOf(list2.get(1));
         String totQtyStr=String.valueOf(totQty);
         listOfStocks.get(i).set(1,totQtyStr);
         //String totVal=String.valueOf(Integer.valueOf(list1.get(4))+Integer.valueOf(list2.get(4)));
@@ -168,7 +166,9 @@ public class PortfolioImplModel implements PortfolioModel {
       temp = e.getValue().toArray(new String[5]);
       resultList.add(temp);
     }
-    //customCSVParser.writeTOCSV(resultList,filePath+"output");
+
+
+
   }
 
   @Override
