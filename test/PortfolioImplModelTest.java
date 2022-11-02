@@ -299,6 +299,21 @@ public class PortfolioImplModelTest {
     //model.viewCompositionOfCurrentPortfolio();
   }
 
+  @Test
+  public void testLoadFile(){
+
+  }
+
+  @Test
+  public void testViewCompositionForCurrentPortfolio(){
+    //model.viewCompositionOfCurrentPortfolio();
+  }
+
+
+  @Test
+  public void testViewTotalValueForCurrentPortfolio(){
+    //model.viewCompositionOfCurrentPortfolio();
+  }
   private void buyStocks(String quantity,String cName,String pfName){
     model.buyStocks(quantity,cName,pfName);
   }

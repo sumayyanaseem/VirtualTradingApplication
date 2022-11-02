@@ -12,7 +12,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void callToViewToChooseCreateOrView()  {
-    out.println("Enter 1: To trade stocks 2: To view the portfolio composition");
+    out.println("Enter 1: To trade stocks 2: To query the portfolio details");
   }
 
 
@@ -63,8 +63,13 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
+  public void checkIfUserWantsToGetCurrentPortfolioDetailsOrOthers(){
+    out.println("Enter 1: To view current portfolio details  2: To view other persisted portfolios details");
+  }
+
+  @Override
   public void checkIfUserWantsToViewCompositionOrTotalValue() {
-    out.println("Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio");
+    out.println("Enter 1: To view composition  2: To get TotalValue of portfolio");
   }
 
   @Override

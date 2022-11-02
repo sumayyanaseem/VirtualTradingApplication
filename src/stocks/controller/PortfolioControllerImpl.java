@@ -70,8 +70,6 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
-
-
   private void startHelper(PortfolioModel model){
     getCreatePortfolioChoice(model);
   }
@@ -131,6 +129,10 @@ public class PortfolioControllerImpl implements PortfolioController {
       getCreatePortfolioChoice(model);
     }
     getCreatePortfolioChoiceHelper(option,model);
+
+  }
+
+  private void viewHelper(){
 
   }
 

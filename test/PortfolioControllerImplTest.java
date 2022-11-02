@@ -3,7 +3,6 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -13,13 +12,10 @@ import java.util.NoSuchElementException;
 
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
-import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PortfolioControllerImplTest {
@@ -59,6 +55,21 @@ public class PortfolioControllerImplTest {
     @Override
     public void createPortfolioIfCreatedManually(String portfolioName) {
       log.append("inputs for createPortfolioIfCreatedManually: "+portfolioName+"\n");
+    }
+
+    @Override
+    public int size() {
+      return 0;
+    }
+
+    @Override
+    public void validateIfCompanyExists(String companyName) {
+
+    }
+
+    @Override
+    public void validateIfPortfolioAlreadyExists(String portfolioName) {
+
     }
 
     @Override
