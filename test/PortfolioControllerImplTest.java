@@ -399,7 +399,7 @@ public class PortfolioControllerImplTest {
     String expected = "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
     String error ="Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.\n" +
             "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
-    in = new ByteArrayInputStream("2\n2\nP2\n2022\n1234\n22-10-11\n2022-1".getBytes());
+    in = new ByteArrayInputStream("2\n2\nP2\n2022\n1234\n22-10-11\n2022-1\n2023-20-10\n".getBytes());
     portfolioController = new PortfolioControllerImpl(new MockModel(),in, view);
     try {
       portfolioController.start();

@@ -2,9 +2,12 @@ package stocks.controller;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -228,24 +231,22 @@ public class PortfolioControllerImpl implements PortfolioController {
       String result = ld.format(formatter);
       if (!result.equals(date)) {
         view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
-
+        return true;
+      } else {
+        String todayDateStr = new SimpleDateFormat(format).format(new Date(System.currentTimeMillis()));
+        Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(todayDateStr);
+        Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date);
+        if(givenDate.compareTo(todayDate)>0)
+          view.displayErrorMessage("Future Date provided.Please provide date less then or equal to today");
         return true;
       }
-    } catch (IllegalArgumentException | DateTimeParseException e) {
+
+    } catch (IllegalArgumentException | DateTimeParseException | ParseException e) {
       view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
       return true;
     }
-    return false;
-  }
-
-  private boolean validateIfPortfolioExists(String portfolioName) {
-    String path = "userPortfolios/"+portfolioName + ".csv";
-    File f = new File(path);
-    if (!f.isFile() && !f.exists()) {
-      view.displayErrorMessage("Given portfolio doesnt exist.Please provide valid portfolioName.");
-      return true;
-    }
-    return false;
   }
 
   private boolean validateQuantity(String quantity) {
@@ -257,6 +258,26 @@ public class PortfolioControllerImpl implements PortfolioController {
       }
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage("Quantity should be always a positive whole number.");
+      return true;
+    }
+    return false;
+  }
+
+  public boolean validateIfPortfolioExists(String portfolioName){
+    try{
+      model.validateIfPortfolioAlreadyExists(portfolioName);
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
+      return true;
+    }
+    return false;
+  }
+
+  public boolean validateIfCompanyExists(String companyName){
+    try{
+      model.validateIfCompanyExists(companyName);
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
       return true;
     }
     return false;
