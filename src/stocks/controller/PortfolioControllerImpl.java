@@ -19,6 +19,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioModel model;
   private String portfolioName;
   private PortfolioView view;
+
   private Scanner input;
 
   public PortfolioControllerImpl(InputStream in, PortfolioView view) {
@@ -187,7 +188,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
     } else {
-      System.out.println("Invalid input provided.Please provide a valid input (either 1 or 2)");
+     view.displayErrorMessage("Invalid input provided.Please provide a valid input (either 1 or 2)");
       return true;
     }
     return false;
@@ -200,11 +201,12 @@ public class PortfolioControllerImpl implements PortfolioController {
       LocalDate ld = LocalDate.parse(date, formatter);
       String result = ld.format(formatter);
       if (!result.equals(date)) {
-        System.out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+        view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+
         return true;
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
-      System.out.println("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+      view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
       return true;
     }
     return false;
@@ -214,7 +216,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     String path = "userPortfolios/"+portfolioName + ".csv";
     File f = new File(path);
     if (!f.isFile()) {
-      System.out.println("Given portfolio doesnt exist.Please provide valid portfolioName.");
+      view.displayErrorMessage("Given portfolio doesnt exist.Please provide valid portfolioName.");
       return true;
     }
     return false;
@@ -224,11 +226,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     try {
       Integer q = Integer.parseInt(quantity);
       if (q <= 0) {
-        System.out.println("Invalid quantity provided");
+        view.displayErrorMessage("Invalid quantity provided");
         return true;
       }
     } catch (IllegalArgumentException e) {
-      System.out.println("Quantity should be always a positive whole number.");
+      view.displayErrorMessage("Quantity should be always a positive whole number.");
       return true;
     }
     return false;

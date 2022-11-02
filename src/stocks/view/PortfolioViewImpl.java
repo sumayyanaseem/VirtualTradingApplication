@@ -96,4 +96,9 @@ public class PortfolioViewImpl implements PortfolioView {
     }
   }
 
+  @Override
+  public void displayErrorMessage(String message) {
+    out.println(message);
+  }
+
 }

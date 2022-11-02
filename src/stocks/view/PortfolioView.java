@@ -32,4 +32,6 @@ public interface PortfolioView {
 
   void displayComposition(List<List<String>> records);
 
+  void displayErrorMessage(String message);
+
 }
