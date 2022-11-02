@@ -22,7 +22,6 @@ public class PortfolioImplModelTest {
   private int generateRandomNumber() {
     return (int) (Math.random() * (max - min + 1) + min);
   }
-
   @Test
   public void testCreatePortfolio(){
     //model.createPortfolioIfCreatedManually();
@@ -184,7 +183,42 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testInvalidFilePath(){
+    String path ="";
+    String expected="Given path doesnt exist.Please provide valid path.";
+    String actual ="";
+    try {
+      model.createPortfolioUsingFilePath(path);
+    } catch(IllegalArgumentException e){
+      actual = e.getMessage();
+    }
+    assertEquals(actual,expected);
 
+    path =null;
+    actual ="";
+    try {
+      model.createPortfolioUsingFilePath(path);
+    } catch(IllegalArgumentException e){
+      actual = e.getMessage();
+    }
+    assertEquals(actual,expected);
+
+    path ="123";
+    actual ="";
+    try {
+      model.createPortfolioUsingFilePath(path);
+    } catch(IllegalArgumentException e){
+      actual = e.getMessage();
+    }
+    assertEquals(actual,expected);
+
+    path ="P2.csv";
+    actual ="";
+    try {
+      model.createPortfolioUsingFilePath(path);
+    } catch(IllegalArgumentException e){
+      actual = e.getMessage();
+    }
+    assertEquals(actual,expected);
   }
 
   @Test
@@ -248,6 +282,15 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testInvalidPortfolioNameToView(){
+   String pName ="";
+    String expected="Given portfolio doesnt exist.Please provide valid portfolioName.";
+    String actual ="";
+   try{
+     model.viewCompositionOfCurrentPortfolio(pName);
+   } catch(IllegalArgumentException e){
+     actual = e.getMessage();
+   }
+   assertEquals(actual,expected);
 
   }
 
@@ -256,6 +299,21 @@ public class PortfolioImplModelTest {
     //model.viewCompositionOfCurrentPortfolio();
   }
 
+  @Test
+  public void testLoadFile(){
+
+  }
+
+  @Test
+  public void testViewCompositionForCurrentPortfolio(){
+    //model.viewCompositionOfCurrentPortfolio();
+  }
+
+
+  @Test
+  public void testViewTotalValueForCurrentPortfolio(){
+    //model.viewCompositionOfCurrentPortfolio();
+  }
   private void buyStocks(String quantity,String cName,String pfName){
     model.buyStocks(quantity,cName,pfName);
   }

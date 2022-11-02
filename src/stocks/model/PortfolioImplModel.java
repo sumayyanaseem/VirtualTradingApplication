@@ -31,7 +31,6 @@ public class PortfolioImplModel implements PortfolioModel {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
     customCSVParser = new CustomCSVParser();
-    this.pName ="currentInstance";
   }
 
   @Override
@@ -97,22 +96,16 @@ public class PortfolioImplModel implements PortfolioModel {
     return new PortfolioImplModel();
   }
 
-  /* @Override
-  public void sellStocks(String quantity, String CompanyName, String portfolioName) {
-
-  }*/
-
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     validateDate(date);
     double totValue=0.0;
-    if(this.pName.equals("currentInstance")){
+    if(portfolioName.equals("currentInstance")){
       Map<String,Stock> map = portfolioMap.get(this.pName);
       for(Map.Entry<String,Stock> entry:map.entrySet()){
         Stock s =  entry.getValue();
         totValue=totValue+s.getTotalValue();
       }
-      return totValue;
     } else {
       validateIfPortfolioAlreadyExists(portfolioName);
       List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
@@ -123,12 +116,13 @@ public class PortfolioImplModel implements PortfolioModel {
         totValue=totValue+apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol,qty,date);
 
       }
-      return totValue;
     }
+    return totValue;
   }
 
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
+    validateFilePath(filePath);
     List<List<String>> listOfStocks;
     try {
       listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
@@ -163,7 +157,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
     List<List<String>> results = new ArrayList<>();
-    if(this.pName.equals("currentInstance")){
+    if(portfolioName.equals("currentInstance")){
       Map<String,Stock> map = portfolioMap.get(this.pName);
       String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueWhenPurchased"};
       results.add(List.of(headers));
@@ -177,7 +171,6 @@ public class PortfolioImplModel implements PortfolioModel {
         temp.add(String.valueOf(s.getTotalValue()));
         results.add(temp);
       }
-      return results;
     } else {
       validateIfPortfolioAlreadyExists(portfolioName);
       List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
@@ -199,8 +192,8 @@ public class PortfolioImplModel implements PortfolioModel {
           results.add(list1);
         }
       }
-      return results;
     }
+    return results;
 
   }
 
@@ -284,6 +277,16 @@ public class PortfolioImplModel implements PortfolioModel {
       throw new IllegalArgumentException("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
     } catch (ParseException e) {
       throw new RuntimeException(e.getMessage());
+    }
+  }
+
+  private void validateFilePath(String path){
+    if(path==null){
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
+    }
+    File f = new File(path);
+    if (!f.isFile() && !f.exists()) {
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
     }
   }
 
