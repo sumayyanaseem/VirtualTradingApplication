@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class CustomCSVParser {
 
   public List<List<String>> readFromCSV(String portfolioName)  {
-    String path = "userPortfolios/"+portfolioName+".csv";
+    String path = "userPortfolios/"+portfolioName+"_output.csv";
     List<List<String>> records = null;
     try {
       records = readFromFileHelper(path);
@@ -48,7 +48,10 @@ public class CustomCSVParser {
   }
 
   public void writeTOCSV(List<String[]> recordLines,String fileName) {
-    String path = "userPortfolios/"+fileName+".csv";
+    //String[] splitPath = fileName.split(".",2);
+    String[] splitPath = fileName.split("\\.(?=[^\\.]+$)");
+    String[] splitFileName = splitPath[0].split("/");
+    String path = "userPortfolios/"+splitFileName[splitFileName.length-1]+"_output.csv";
     File csvOutputFile = new File(path);
     try {
 

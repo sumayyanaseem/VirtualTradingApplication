@@ -215,7 +215,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private boolean validateIfPortfolioExists(String portfolioName) {
     String path = "userPortfolios/"+portfolioName + ".csv";
     File f = new File(path);
-    if (!f.isFile()) {
+    if (!f.isFile() && !f.exists()) {
       view.displayErrorMessage("Given portfolio doesnt exist.Please provide valid portfolioName.");
       return true;
     }
