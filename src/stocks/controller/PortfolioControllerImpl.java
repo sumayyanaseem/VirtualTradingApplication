@@ -24,29 +24,56 @@ public class PortfolioControllerImpl implements PortfolioController {
   private PortfolioView view;
   private Scanner input;
 
-  public PortfolioControllerImpl(PortfolioModel model,InputStream in, PortfolioView view) {
+
+  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
-    this.model =model;
   }
 
 
-  public void start() {
+  public void start(PortfolioModel model) {
     Objects.requireNonNull(model);
+    this.model = model;
     view.callToViewToChooseCreateOrView();
     String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
-      start();
+      start(model);
     }
     switch (option) {
       case "1":
-        getCreatePortfolioChoice();
+        getCreatePortfolioChoice(model);
         break;
       case "2":
         askUserWhatHeWantsToView();
         break;
     }
+
+  }
+
+  public void startCopy(PortfolioModel model) {
+    Objects.requireNonNull(model);
+    view.callToViewToChooseCreateOrView();
+    String option = String.valueOf(input.nextLine());
+    if(validateInputsFromUSer(option)){
+      startCopy(model);
+    }
+    switch (option) {
+      case "1":
+        startHelper(model.getInstance());
+        break;
+      case "2":
+        //this.model = model;
+        askUserWhatHeWantsToView();
+        break;
+    }
+
+  }
+
+
+
+  private void startHelper(PortfolioModel model){
+    getCreatePortfolioChoice(model);
   }
 
   private void askUserWhatHeWantsToView() {
@@ -97,33 +124,31 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
 
-  private void getCreatePortfolioChoice() {
+  private void getCreatePortfolioChoice(PortfolioModel model) {
     view.askUserOnHowToCreatePortfolio();
     String option = String.valueOf(input.nextLine());
     if(validateInputsFromUSer(option)){
-      getCreatePortfolioChoice();
+      getCreatePortfolioChoice(model);
     }
-    getCreatePortfolioChoiceHelper(option);
+    getCreatePortfolioChoiceHelper(option,model);
 
   }
 
-  private void getCreatePortfolioChoiceHelper(String option){
+  private void getCreatePortfolioChoiceHelper(String option,PortfolioModel model){
     switch (option) {
       case "1":
         view.getFilePath();
         String filePath = input.nextLine();
         try {
-          this.model = new PortfolioImplModel();
           model.createPortfolioUsingFilePath(filePath);
         }
         catch(RuntimeException e){
-          System.out.println("FilePath Doesn't exist. Try again with correct path.");
-          getCreatePortfolioChoiceHelper(option);
+          view.displayErrorMessage("FilePath Doesn't exist. Try again with correct path.");
+          getCreatePortfolioChoiceHelper(option,model);
         }
         finalExitCondition();
         break;
       case "2":
-        this.model = new PortfolioImplModel();
         createNewPortfolioForCurrentUser();
         break;
     }
@@ -179,7 +204,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        start();
+        startCopy(this.model);
         break;
       case "2":
         //do nothing

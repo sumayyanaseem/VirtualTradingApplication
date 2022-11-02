@@ -92,6 +92,11 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
+  public PortfolioModel getInstance() {
+    return new PortfolioImplModel();
+  }
+
+  @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     validateDate(date);
     double totValue=0.0;

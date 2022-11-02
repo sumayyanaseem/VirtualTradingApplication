@@ -50,4 +50,6 @@ public interface PortfolioModel {
 
   void validateIfPortfolioAlreadyExists(String portfolioName);
 
+  PortfolioModel getInstance();
+
 }
