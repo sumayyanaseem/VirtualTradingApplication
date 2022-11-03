@@ -1,0 +1,126 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class APICustomClass {
+  + fetchLatestStockPriceOfThisCompany(String): Double
+  + getStockPriceAsOfCertainDate(String, double, String): double
+}
+class CustomCSVParser {
+  + readFromPathProvidedByUser(String): List<List<String>>
+  + writeTOCSV(List<String[]>, String): void
+  + convertToCSV(String[]): String
+  + readFromCSV(String): List<List<String>>
+  - readFromFileHelper(String): List<List<String>>
+}
+interface PortfolioController << interface >> {
+  + start(PortfolioModel): void
+}
+class PortfolioControllerImpl {
+  + validateIfPortfolioExists(String): boolean
+  - viewHelper(String): void
+  - UpdatePortfolio(): void
+  - quantityHelper(): String
+  - validateInitialInputsFromUser(String): boolean
+  - companyHelper(): String
+  - dateHelper(): String
+  - createNewPortfolioForCurrentUser(PortfolioModel): void
+  - validateDate(String): boolean
+  - validateInputsFromUSer(String): boolean
+  + validateIfCompanyExists(String): boolean
+  - pNameHelper(): String
+  - buyOrSellStocks(String): void
+  - stoppingCondition(String): void
+  - exitFromLoadPortfolio(): void
+  - validateQuantity(String): boolean
+  + startCopy(PortfolioModel): void
+  - loadPortfolio(): void
+  - askUserWhatHeWantsToView(): void
+  + validateIfPortfolioDoesntExists(String): boolean
+  - viewHelper2(String): void
+  - finalExitCondition(): void
+  + start(PortfolioModel): void
+}
+class PortfolioImplModel {
+  + viewCompositionOfCurrentPortfolio(String): List<List<String>>
+  + createPortfolioUsingFilePath(String): void
+  + getTotalValueOfPortfolioOnCertainDate(String, String): double
+  - validateFilePath(String): void
+  + validateIfPortfolioDoesntExists(String): void
+  + createPortfolioIfCreatedManually(String): void
+  + toString(): String
+  + validateIfCompanyExists(String): void
+  - validateDate(String): void
+  - validateQuantity(String): void
+  + buyStocks(String, String, String): void
+  + getInstance(): PortfolioModel
+  + validateIfPortfolioAlreadyExists(String): void
+}
+interface PortfolioModel << interface >> {
+  + validateIfPortfolioDoesntExists(String): void
+  + getInstance(): PortfolioModel
+  + validateIfCompanyExists(String): void
+  + buyStocks(String, String, String): void
+  + createPortfolioUsingFilePath(String): void
+  + validateIfPortfolioAlreadyExists(String): void
+  + createPortfolioIfCreatedManually(String): void
+  + getTotalValueOfPortfolioOnCertainDate(String, String): double
+  + viewCompositionOfCurrentPortfolio(String): List<List<String>>
+}
+interface PortfolioView << interface >> {
+  + askUserIfHeWantsToContinueTradingInCurrentPortfolio(): void
+  + callToViewToChooseCreateOrView(): void
+  + askUserIfheWantsTOContinueViewing(): void
+  + getDateForValuation(): void
+  + getCompanyTicker(): void
+  + checkIfUserWantsToExitCompletely(): void
+  + getPortfolioName(): void
+  + displayErrorMessage(String): void
+  + createOrUpdateExistingPortfolio(): void
+  + displayTotalValue(String, String, String): void
+  + callExitFromLoad(): void
+  + getFilePath(): void
+  + checkIfUserWantsToViewCompositionOrTotalValue(): void
+  + displayComposition(List<List<String>>): void
+  + askUserOnHowToCreatePortfolio(): void
+  + getBuyOrSellChoiceFromUser(): void
+  + getQuantity(): void
+}
+class PortfolioViewImpl {
+  + askUserIfheWantsTOContinueViewing(): void
+  + checkIfUserWantsToViewCompositionOrTotalValue(): void
+  + getQuantity(): void
+  + displayTotalValue(String, String, String): void
+  + getBuyOrSellChoiceFromUser(): void
+  + getDateForValuation(): void
+  + displayComposition(List<List<String>>): void
+  + getCompanyTicker(): void
+  + askUserOnHowToCreatePortfolio(): void
+  + callExitFromLoad(): void
+  + checkIfUserWantsToExitCompletely(): void
+  + getFilePath(): void
+  + createOrUpdateExistingPortfolio(): void
+  + callToViewToChooseCreateOrView(): void
+  + getPortfolioName(): void
+  + askUserIfHeWantsToContinueTradingInCurrentPortfolio(): void
+  + displayErrorMessage(String): void
+}
+class Stock {
+  + getTotalValue(): double
+  + getDateBought(): String
+  + getDateSold(): String
+  + getPriceBought(): double
+  + getCompanyTickerSymbol(): String
+  + getQty(): double
+  + toString(): String
+}
+class TradingMVC {
+  + main(String[]): void
+}
+
+PortfolioControllerImpl  -[#008200,dashed]-^  PortfolioController     
+PortfolioImplModel       -[#008200,dashed]-^  PortfolioModel          
+PortfolioViewImpl        -[#008200,dashed]-^  PortfolioView           
+@enduml

@@ -1,0 +1,4 @@
+CompanyName,Quantity,PriceBought,DatePurchase,TotalValueOwned
+META,10.00,99.2,2022-11-03,992.00
+DASH,20.00,47.06,2022-11-03,941.20
+AMZN,200.00,102.44,2022-11-03,20488.00

@@ -289,7 +289,7 @@ public class PortfolioControllerImplTest {
   @Test
   public void testBuyMultipleStocks() {
     String expected = "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.";
-    in = new ByteArrayInputStream("1\n2\ntest.csv\nmeta\n10\n1\ndash\n20\n".getBytes());
+    in = new ByteArrayInputStream("1\ntest\nmeta\n10\n1\ndash\n20\n1\namzn\n200\n2\n1\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start(model);
@@ -351,7 +351,7 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testViewCompositionOfAPortfolio() {
-    String expected = "Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio";
+    String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
     String output = "inputs for viewCompositionOfCurrentPortfolio: sample\n";
     in = new ByteArrayInputStream("2\nsample\n1\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
@@ -367,14 +367,15 @@ public class PortfolioControllerImplTest {
   @Test
   public void testViewTotalValueOfAPortfolioOnaCertainDate() {
     String expected = "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)";
-    String output = "Total Valuation of Portfolio   on 2022-10-01 is :1356.80";
-    in = new ByteArrayInputStream("2\n2\nsample\n2022-10-01\n".getBytes());
+    String output = "Total Valuation of Portfolio  on 2022-10-01 is";
+    in = new ByteArrayInputStream("2\nsample\n2\n2022-10-01\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start(model);
     } catch (NoSuchElementException e) {
 
     }
+    System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(output));
   }
@@ -399,6 +400,19 @@ public class PortfolioControllerImplTest {
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(error));
     assertTrue(bytes.toString().contains(error2));
+  }
+
+  @Test
+  public void testCreatePortfolioWithMultipleStocks(){
+    String expected = "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.";
+    in = new ByteArrayInputStream("1\ntest\nmeta\n10\n1\ndash\n20\n1\namzn\n200\n2\n1\n1\ntest2\nshop\n20\n1\nnu\n10\n2\n2\n".getBytes());
+    portfolioController = new PortfolioControllerImpl(in, view);
+    try {
+      portfolioController.start(model);
+    } catch (NoSuchElementException e) {
+
+    }
+    assertTrue(bytes.toString().contains(expected));
   }
 }
 
