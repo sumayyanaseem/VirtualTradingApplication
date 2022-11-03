@@ -28,6 +28,13 @@ public class PortfolioImplModelTest {
   }
 
   @Test
+  public void testdummy(){
+    String path = "res/availableStocks/" + "daily_" + "DASH" + ".csv";
+    File file = new File(path);
+   System.out.println(file.exists());
+  }
+
+  @Test
   public void testCreatePortfolio() {
     String pname="";
     String expected="Invalid portfolioName provided";
@@ -365,7 +372,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio1";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("userPortfolios/"+pName+"_output.csv");
+    File f = new File("res/userPortfolios/" +pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";
@@ -380,7 +387,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio2";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("userPortfolios/"+pName+"_output.csv");
+    File f = new File("res/userPortfolios/" +pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";

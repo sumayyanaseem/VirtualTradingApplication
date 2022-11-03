@@ -1,6 +1,7 @@
 package stocks.model;
 
 import java.io.File;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,7 +25,6 @@ public class PortfolioImplModel implements PortfolioModel {
 
   private final CustomCSVParser customCSVParser;
   private String pName;
-
 
   /**
    * Constructs a PortfolioImplModel object and initializes a portfolio map and custom class references.
@@ -262,14 +262,15 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public void validateIfCompanyExists(String companyName){
-    if(companyName ==null){
+  public void validateIfCompanyExists(String companyName) {
+    if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
     String name = companyName.toUpperCase();
-    String path = "availableStocks/" + "daily_" + name + ".csv";
-    File file = new File(path);
-    if (!file.isFile() && !file.exists()) {
+    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
+    ClassLoader classLoader = getClass().getClassLoader();
+    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
+    if (is == null) {
       throw new IllegalArgumentException("Given company doesnt exist in our records.Please provide valid  companyTicker symbol.");
     }
 
@@ -280,12 +281,12 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
+    String path = "res/userPortfolios/" + portfolioName + "_output" + ".csv";
+    InputStream is = getClass().getClassLoader().getResourceAsStream(path);
     File f = new File(path);
     if (f.isFile() && f.exists()) {
       throw new IllegalArgumentException("Given portfolio exist.Please provide valid portfolioName.");
     }
-
   }
 
   @Override
@@ -293,7 +294,8 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName == null) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
+
+    String path = "res/userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist.Please provide valid portfolioName.");

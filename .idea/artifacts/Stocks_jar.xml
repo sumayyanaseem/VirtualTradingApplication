@@ -1,8 +1,10 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="Stocks:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Stocks_jar</output-path>
+    <output-path>$PROJECT_DIR$/res</output-path>
     <root id="archive" name="Stocks.jar">
       <element id="module-output" name="Stocks" />
+      <element id="dir-copy" path="$PROJECT_DIR$/recourses" />
+      <element id="dir-copy" path="$PROJECT_DIR$/res" />
     </root>
   </artifact>
 </component>

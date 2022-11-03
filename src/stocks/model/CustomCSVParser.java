@@ -23,7 +23,7 @@ class CustomCSVParser {
    * @return the info read from csv file as a list of each stock's data.
    */
   public List<List<String>> readFromCSV(String portfolioName)  {
-    String path = "userPortfolios/"+portfolioName+"_output.csv";
+    String path = "res/userPortfolios/" +portfolioName+"_output.csv";
     List<List<String>> records = null;
     try {
       records = readFromFileHelper(path);
@@ -65,10 +65,9 @@ class CustomCSVParser {
    * writes the contents in a list into a csv file.
    */
   public void writeTOCSV(List<String[]> recordLines,String fileName) {
-    //String[] splitPath = fileName.split(".",2);
     String[] splitPath = fileName.split("\\.(?=[^\\.]+$)");
     String[] splitFileName = splitPath[0].split("/");
-    String path = "userPortfolios/"+splitFileName[splitFileName.length-1]+"_output.csv";
+    String path = "res/userPortfolios/" +splitFileName[splitFileName.length-1]+"_output.csv";
     File csvOutputFile = new File(path);
     try {
 
