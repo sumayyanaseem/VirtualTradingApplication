@@ -91,22 +91,23 @@ public class PortfolioControllerImpl implements PortfolioController {
         viewHelper2(name);
         break;
       case "2":
-        String date = dateHelper();
-        String val;
-        try {
-          val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
-        }
-        catch (IllegalArgumentException e) {
-          System.out.println("dfbdf");
-          view.displayErrorMessage(e.getMessage());
-
-          break;
-
-      }
-        view.displayTotalValue(date, val, portfolioName);
+        dateNotFoundHelper(name);
         viewHelper2(name);
         break;
     }
+  }
+
+  private void dateNotFoundHelper(String name){
+    String date = dateHelper();
+    String val=null;
+    try {
+      val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
+    }
+    catch (IllegalArgumentException e) {
+      view.displayErrorMessage(e.getMessage());
+      dateNotFoundHelper(name);
+    }
+    view.displayTotalValue(date, val, portfolioName);
   }
 
   private void viewHelper2(String name) {

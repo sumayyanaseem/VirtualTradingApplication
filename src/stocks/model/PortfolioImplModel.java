@@ -115,9 +115,8 @@ public class PortfolioImplModel implements PortfolioModel {
             temp=apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
           }
           catch(IllegalArgumentException e){
-            throw new IllegalArgumentException("Stock Price is not available for this past date");
+            throw new IllegalArgumentException(e.getMessage());
           }
-
           totValue = totValue + temp;
         }
       }
@@ -131,7 +130,7 @@ public class PortfolioImplModel implements PortfolioModel {
           totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
         }
         catch(IllegalArgumentException e){
-          throw new IllegalArgumentException("Stock Price is not available for this past date");
+          throw new IllegalArgumentException(e.getMessage());
         }
 
       }
