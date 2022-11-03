@@ -20,7 +20,8 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void callToViewToChooseCreateOrView() {
-    out.println("Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio");
+    out.println("Enter 1: To create a Portfolio "
+            + "2: To query the portfolio details 3: To load a Portfolio");
   }
 
 
@@ -57,7 +58,8 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void askUserIfHeWantsToContinueTradingInCurrentPortfolio() {
-    out.println("Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio.");
+    out.println("Enter 1: To continue trading in current portfolio.  " +
+            "2: To exit from current Portfolio.");
   }
 
   @Override
@@ -86,14 +88,15 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void askUserIfheWantsTOContinueViewing(){
-    out.println("Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios");
+  public void askUserIfheWantsTOContinueViewing() {
+    out.println("Enter 1: To continue querying loaded portfolio   " +
+            "2: To perform actions on other portfolios");
   }
 
 
   @Override
   public void displayComposition(List<List<String>> records) {
-    if(records!=null && !records.isEmpty()) {
+    if (records != null && !records.isEmpty()) {
       for (int i = 0; i < records.size(); i++) {
 
         for (int j = 0; j < records.get(i).size(); j++) {
@@ -118,7 +121,8 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void callExitFromLoad() {
-    out.println("Enter 1: To view details of this portfolio.  2: To exit and continue further trading.");
+    out.println("Enter 1: To view details of this portfolio. " +
+            " 2: To exit and continue further trading.");
   }
 
 }

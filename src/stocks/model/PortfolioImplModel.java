@@ -27,7 +27,8 @@ public class PortfolioImplModel implements PortfolioModel {
   private String pName;
 
   /**
-   * Constructs a PortfolioImplModel object and initializes a portfolio map and custom class references.
+   * Constructs a PortfolioImplModel object and initializes
+   * a portfolio map and custom class references.
    */
   public PortfolioImplModel() {
     portfolioMap = new HashMap<>();
@@ -37,7 +38,8 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public void buyStocks(String quantity, String cName, String portfolioName) throws IllegalArgumentException {
+  public void buyStocks(String quantity, String cName, String portfolioName)
+          throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
     validateIfPortfolioAlreadyExists(portfolioName);
@@ -45,7 +47,8 @@ public class PortfolioImplModel implements PortfolioModel {
     double priceBought = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
       String pattern = "yyyy-MM-dd";
-      String todayDateStr = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
+      String todayDateStr = new SimpleDateFormat(pattern).format(
+              new Date(System.currentTimeMillis()));
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
@@ -114,7 +117,8 @@ public class PortfolioImplModel implements PortfolioModel {
           Stock s = entry.getValue();
           double temp;
           try {
-            temp = apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(), s.getQty(), date);
+            temp = apiCustomClass.getStockPriceAsOfCertainDate(
+                    s.getCompanyTickerSymbol(), s.getQty(), date);
           } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
           }
@@ -128,7 +132,8 @@ public class PortfolioImplModel implements PortfolioModel {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
         double qty = Double.parseDouble(listOfStkInfoPersisted.get(j).get(1));
         try {
-          totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
+          totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(
+                  companyTickerSymbol, qty, date);
         } catch (IllegalArgumentException e) {
           throw new IllegalArgumentException(e.getMessage());
         }
@@ -156,7 +161,8 @@ public class PortfolioImplModel implements PortfolioModel {
       if (sPrice != -1) {
         if (!mapOfStocks.containsKey(sName)) {
           double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-          Stock st = new Stock(listOfStocks.get(i).get(0), Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
+          Stock st = new Stock(listOfStocks.get(i).get(0),
+                  Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
           mapOfStocks.put(sName, st);
         } else {
           Stock list1 = mapOfStocks.get(sName);
@@ -185,7 +191,8 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
       if (!portfolioMap.isEmpty()) {
         Map<String, Stock> map = portfolioMap.get(this.pName);
-        String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueWhenPurchased"};
+        String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase",
+                "TotalValueWhenPurchased"};
         results.add(List.of(headers));
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           List<String> temp = new ArrayList<>();
@@ -271,7 +278,8 @@ public class PortfolioImplModel implements PortfolioModel {
     ClassLoader classLoader = getClass().getClassLoader();
     InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
     if (is == null) {
-      throw new IllegalArgumentException("Given company doesnt exist in our records.Please provide valid  companyTicker symbol.");
+      throw new IllegalArgumentException("Given company doesnt exist in our records."
+              + "Please provide valid  companyTicker symbol.");
     }
 
   }
@@ -285,7 +293,8 @@ public class PortfolioImplModel implements PortfolioModel {
     InputStream is = getClass().getClassLoader().getResourceAsStream(path);
     File f = new File(path);
     if (f.isFile() && f.exists()) {
-      throw new IllegalArgumentException("Given portfolio exist.Please provide valid portfolioName.");
+      throw new IllegalArgumentException("Given portfolio exist."
+              + "Please provide valid portfolioName.");
     }
   }
 
@@ -298,7 +307,8 @@ public class PortfolioImplModel implements PortfolioModel {
     String path = "res/userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
-      throw new IllegalArgumentException("Given portfolio doesnt exist.Please provide valid portfolioName.");
+      throw new IllegalArgumentException("Given portfolio doesnt exist."
+              + "Please provide valid portfolioName.");
     }
   }
 
@@ -310,18 +320,23 @@ public class PortfolioImplModel implements PortfolioModel {
       LocalDate ld = LocalDate.parse(date, formatter);
       String result = ld.format(formatter);
       if (!result.equals(date)) {
-        throw new IllegalArgumentException("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+        throw new IllegalArgumentException("Invalid dateFormat provided."
+                + "Please provide date in YYYY-MM-DD format only.");
       } else {
-        String todayDateStr = new SimpleDateFormat(format).format(new Date(System.currentTimeMillis()));
+        String todayDateStr = new SimpleDateFormat(format).format(
+                new Date(System.currentTimeMillis()));
         Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(todayDateStr);
         Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date);
-        if (givenDate.compareTo(todayDate) > 0)
-          throw new IllegalArgumentException("Future Date provided.Please provide date less then or equal to today");
+        if (givenDate.compareTo(todayDate) > 0) {
+          throw new IllegalArgumentException("Future Date provided." +
+                  "Please provide date less then or equal to today");
+        }
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+      throw new IllegalArgumentException("Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.");
     } catch (ParseException e) {
       throw new RuntimeException(e.getMessage());
     }

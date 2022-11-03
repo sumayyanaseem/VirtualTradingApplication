@@ -3,7 +3,6 @@ package stocks.model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,7 +33,7 @@ class APICustomClass {
     String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
     ClassLoader classLoader = getClass().getClassLoader();
     InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
-    if(is!=null) {
+    if (is != null) {
       try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
         String line = br.readLine();
         if ((line = br.readLine()) != null) {
@@ -42,9 +41,11 @@ class APICustomClass {
           price = Double.valueOf(values[4]);
         }
       } catch (FileNotFoundException ex) {
-        System.out.println("file not found in our records for given company " + companyTickerSymbol);
+        System.out.println("file not found in our records for " +
+                "given company " + companyTickerSymbol);
       } catch (IOException e) {
-        System.out.println("file not found in our records for given company " + companyTickerSymbol);
+        System.out.println("file not found in our records for " +
+                "given company " + companyTickerSymbol);
       }
     }
     return price;
@@ -93,7 +94,8 @@ class APICustomClass {
 
       }
     } catch (ParseException e) {
-      throw new IllegalArgumentException("file not found in our records for given company " + companyTickerSymbol);
+      throw new IllegalArgumentException("file not found in our records "
+              + "for given company " + companyTickerSymbol);
     }
 
 
