@@ -98,7 +98,9 @@ public class PortfolioControllerImpl implements PortfolioController {
           val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
         }
         catch (IllegalArgumentException e) {
+          System.out.println("dfbdf");
           view.displayErrorMessage(e.getMessage());
+
           break;
 
       }

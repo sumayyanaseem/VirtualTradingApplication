@@ -110,7 +110,15 @@ public class PortfolioImplModel implements PortfolioModel {
         Map<String, Stock> map = portfolioMap.get(this.pName);
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           Stock s = entry.getValue();
-          totValue = totValue + s.getTotalValue();
+          double temp;
+          try {
+            temp=apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
+          }
+          catch(IllegalArgumentException e){
+            throw new IllegalArgumentException("Stock Price is not available for this past date");
+          }
+
+          totValue = totValue + temp;
         }
       }
     } else {
@@ -123,7 +131,7 @@ public class PortfolioImplModel implements PortfolioModel {
           totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
         }
         catch(IllegalArgumentException e){
-          throw new IllegalArgumentException(e.getMessage());
+          throw new IllegalArgumentException("Stock Price is not available for this past date");
         }
 
       }
@@ -229,13 +237,6 @@ public class PortfolioImplModel implements PortfolioModel {
     return res.toString();
   }
 
-  @Override
-  public int size(){
-    if(portfolioMap!=null && !portfolioMap.isEmpty()){
-       return portfolioMap.get(this.pName).size();
-    }
-    return 0;
-  }
 
   private void validateQuantity(String quantity) {
     if(quantity ==null){

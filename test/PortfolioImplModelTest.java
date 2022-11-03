@@ -57,7 +57,6 @@ public class PortfolioImplModelTest {
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
     assertTrue(model.toString().contains("testPortfolio"));
-    assertEquals(1, model.size());
   }
 
   @Test
@@ -68,7 +67,6 @@ public class PortfolioImplModelTest {
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
     assertTrue(model.toString().contains("testPortfolio"));
-    assertEquals(1, model.size());
   }
 
   @Test
@@ -82,7 +80,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
     actual = "";
@@ -92,7 +89,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
 
@@ -103,7 +99,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
     actual = "";
@@ -113,7 +108,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
 
@@ -125,7 +119,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
   }
 
@@ -141,7 +134,7 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
+
     assertEquals(actual, expected);
 
     //when company name is empty
@@ -152,7 +145,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
     //when company name is null
@@ -164,7 +156,6 @@ public class PortfolioImplModelTest {
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
-    assertEquals(0, model.size());
     assertEquals(actual, expected);
 
   }
@@ -199,7 +190,6 @@ public class PortfolioImplModelTest {
 
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
-    assertEquals(4, model.size());
 
   }
 
@@ -403,13 +393,12 @@ public class PortfolioImplModelTest {
   @Test
   public void testLoadFile() {
      model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/test.csv");
-     assertEquals(model.size(),2);
+     assertFalse(model.toString().isEmpty());
   }
 
   @Test
   public void testLoadAndViewCompositionAndTotalValue(){
     model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/test.csv");
-    assertEquals(model.size(),2);
     List<List<String>> results=model.viewCompositionOfCurrentPortfolio("currentInstance");
     assertFalse(results.isEmpty());
     Double res=model.getTotalValueOfPortfolioOnCertainDate("2022-10-01","currentInstance");
@@ -487,6 +476,5 @@ public class PortfolioImplModelTest {
 
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
-    assertEquals(4, model.size());
   }
 }

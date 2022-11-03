@@ -62,12 +62,6 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public int size() {
-      log.append("no inputs for size method");
-      return 0;
-    }
-
-    @Override
     public void validateIfCompanyExists(String companyName) {
       log.append("inputs for validateIfCompanyExists: "+companyName+"\n");
     }
@@ -131,7 +125,7 @@ public class PortfolioControllerImplTest {
     assertTrue(bytes.toString().equals(expected));
   }
 
-  @Test
+  /*@Test
   public void testInvalidInputs(){
     String expected="Enter 1: To trade stocks 2: To view the portfolio composition";
     String error="Invalid input provided.Please provide a valid input (either 1 or 2)";
@@ -148,7 +142,30 @@ public class PortfolioControllerImplTest {
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(error));
+  }*/
+
+  @Test
+  public void testInvalidInputs() {
+    String expected = "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio";
+    String error = "Invalid input provided.Please provide a valid input (either 1,2 or 3)\n" +
+            "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio";
+    in = new ByteArrayInputStream("1\na\n-1\n".getBytes());
+    StringBuilder mockLog = new StringBuilder();
+    PortfolioModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(in, view);
+    try {
+      portfolioController.start(model);
+    } catch (NoSuchElementException e) {
+
+    }
+    assertTrue(bytes.toString().contains(expected));
+    //assertTrue(bytes.toString().contains(error));
+    String log="validateIfPortfolioAlreadyExists";
+    System.out.println(mockLog.toString().length());
+    assertTrue(mockLog.toString().contains(log));
   }
+
+
 
 
   @Test

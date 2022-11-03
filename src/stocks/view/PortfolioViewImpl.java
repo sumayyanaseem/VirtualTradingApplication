@@ -79,25 +79,27 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void askUserIfheWantsTOContinueViewing(){
-    out.println("Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios ");
+    out.println("Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios");
   }
 
 
   @Override
   public void displayComposition(List<List<String>> records) {
-    for (int i = 0; i < records.size(); i++) {
+    if(records!=null && !records.isEmpty()) {
+      for (int i = 0; i < records.size(); i++) {
 
-      for (int j = 0; j < records.get(i).size(); j++) {
-        out.print(records.get(i).get(j));
-        int len1 = records.get(0).get(j).length();
-        int len2 = records.get(i).get(j).length();
-        int len = len1 - len2;
-        for (int k = 0; k < len; k++) {
+        for (int j = 0; j < records.get(i).size(); j++) {
+          out.print(records.get(i).get(j));
+          int len1 = records.get(0).get(j).length();
+          int len2 = records.get(i).get(j).length();
+          int len = len1 - len2;
+          for (int k = 0; k < len; k++) {
+            out.print(" ");
+          }
           out.print(" ");
         }
-        out.print(" ");
+        out.println();
       }
-      out.println();
     }
   }
 
