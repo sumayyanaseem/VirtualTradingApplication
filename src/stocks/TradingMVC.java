@@ -13,7 +13,6 @@ import stocks.view.PortfolioViewImpl;
 public class TradingMVC {
 
   public static void main(String[] args) {
-
     PortfolioView view = new PortfolioViewImpl(System.out);
     PortfolioController controller = new PortfolioControllerImpl(System.in, view);
     controller.start(new PortfolioImplModel());

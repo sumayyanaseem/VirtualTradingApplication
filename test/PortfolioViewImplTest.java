@@ -19,15 +19,13 @@ public class PortfolioViewImplTest {
 
   private PortfolioView portfolioView;
 
-  private PrintStream out;
-
   private OutputStream bytes;
 
 
   @Before
   public void setUp() {
     bytes = new ByteArrayOutputStream();
-    out = new PrintStream(bytes);
+    PrintStream out = new PrintStream(bytes);
     portfolioView = new PortfolioViewImpl(out);
   }
 
@@ -142,7 +140,7 @@ public class PortfolioViewImplTest {
     records = new ArrayList<>();
     portfolioView.displayComposition(records);
     assertTrue(bytes.toString().isEmpty());
-    List<String> l = Arrays.asList(new String[]{"foo", "bar"});
+    List<String> l = Arrays.asList("foo", "bar");
     records.add(l);
     portfolioView.displayComposition(records);
     assertTrue(bytes.toString().contains("foo"));

@@ -22,7 +22,7 @@ public class PortfolioControllerImplTest {
 
   class MockModel implements PortfolioModel {
 
-    private StringBuilder log;
+    private final StringBuilder log;
 
     MockModel(StringBuilder log) {
       this.log = log;
@@ -81,8 +81,6 @@ public class PortfolioControllerImplTest {
 
   private PortfolioView view;
 
-  private PrintStream out;
-
   private PortfolioController portfolioController;
 
   private OutputStream bytes;
@@ -95,7 +93,7 @@ public class PortfolioControllerImplTest {
   public void setUp() {
     in = new ByteArrayInputStream("1\n".getBytes());
     bytes = new ByteArrayOutputStream();
-    out = new PrintStream(bytes);
+    PrintStream out = new PrintStream(bytes);
     view = new PortfolioViewImpl(out);
     mockLog = new StringBuilder();
     model = new MockModel(mockLog);

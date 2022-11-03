@@ -19,8 +19,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private PortfolioModel model;
   private String portfolioName;
-  private PortfolioView view;
-  private Scanner input;
+  private final PortfolioView view;
+  private final Scanner input;
 
 
   public PortfolioControllerImpl(InputStream in, PortfolioView view) {
@@ -97,13 +97,12 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void dateNotFoundHelper(String name){
+  private void dateNotFoundHelper(String name) {
     String date = dateHelper();
-    String val=null;
+    String val = null;
     try {
       val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       view.displayErrorMessage(e.getMessage());
       dateNotFoundHelper(name);
     }
@@ -296,8 +295,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private boolean validateQuantity(String quantity) {
     try {
-      Integer q = Integer.parseInt(quantity);
-      if (q <= 0) {
+      long q = Long.parseLong(quantity);
+      if (q <= 0 || q > Integer.MAX_VALUE) {
         view.displayErrorMessage("Invalid quantity provided");
         return true;
       }

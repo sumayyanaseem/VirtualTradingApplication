@@ -401,7 +401,7 @@ public class PortfolioImplModelTest {
     model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/test.csv");
     List<List<String>> results=model.viewCompositionOfCurrentPortfolio("currentInstance");
     assertFalse(results.isEmpty());
-    Double res=model.getTotalValueOfPortfolioOnCertainDate("2022-10-01","currentInstance");
+    double res=model.getTotalValueOfPortfolioOnCertainDate("2022-10-01","currentInstance");
     assertFalse(res==0.0);
   }
 
@@ -435,7 +435,7 @@ public class PortfolioImplModelTest {
   public void testViewTotalValueForCurrentPortfolio() {
     String date="2020-10-10";
     String pName = "currentInstance";
-    Double res=model.getTotalValueOfPortfolioOnCertainDate(date,pName);
+    double res=model.getTotalValueOfPortfolioOnCertainDate(date,pName);
     assertTrue(res==0.0);
 
   }
