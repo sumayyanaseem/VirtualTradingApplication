@@ -29,7 +29,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
    *
-   * @param in  the input stream.
+   * @param in   the input stream.
    * @param view the view object.
    */
   public PortfolioControllerImpl(InputStream in, PortfolioView view) {
@@ -38,7 +38,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     this.portfolioName = "";
   }
 
-
+  @Override
   public void start(PortfolioModel model) {
     Objects.requireNonNull(model);
     this.model = model;
@@ -56,6 +56,8 @@ public class PortfolioControllerImpl implements PortfolioController {
         break;
       case "3":
         loadPortfolio();
+        break;
+      default:
         break;
     }
 
@@ -78,6 +80,8 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "3":
         loadPortfolio();
         break;
+      default:
+        break;
     }
 
   }
@@ -93,17 +97,15 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (validateInputsFromUSer(option)) {
       viewHelper(name);
     }
-    switch (option) {
-      case "1":
-        List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
-        view.displayComposition(records);
-        viewHelper2(name);
-        break;
-      case "2":
-        dateNotFoundHelper(name);
-        viewHelper2(name);
-        break;
+    if (option.equals("1")) {
+      List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
+      view.displayComposition(records);
+      viewHelper2(name);
+    } else {
+      dateNotFoundHelper(name);
+      viewHelper2(name);
     }
+
   }
 
   private void dateNotFoundHelper(String name) {
@@ -115,22 +117,20 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayErrorMessage(e.getMessage());
       dateNotFoundHelper(name);
     }
-    if(val!=null)
-    view.displayTotalValue(date, val, portfolioName);
+    if (val != null) {
+      view.displayTotalValue(date, val, portfolioName);
+    }
   }
 
   private void viewHelper2(String name) {
     view.askUserIfheWantsTOContinueViewing();
     String option = input.nextLine();
-
-    switch (option) {
-      case "1":
-        viewHelper(name);
-        break;
-      case "2":
-        finalExitCondition();
-        break;
+    if (option.equals("1")) {
+      viewHelper(name);
+    } else {
+      finalExitCondition();
     }
+
   }
 
   private String pNameHelper() {
@@ -151,12 +151,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     return date;
   }
 
-  private void UpdatePortfolio() {
-    view.getPortfolioName();
-    String portfolioName = input.nextLine();
-    buyOrSellStocks(portfolioName);
-  }
-
   private void loadPortfolio() {
     view.getFilePath();
     String filePath = input.nextLine();
@@ -172,13 +166,10 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void exitFromLoadPortfolio() {
     view.callExitFromLoad();
     String option = input.nextLine();
-    switch (option) {
-      case "1":
-        viewHelper("currentInstance");
-        break;
-      case "2":
-        finalExitCondition();
-        break;
+    if (option.equals("1")) {
+      viewHelper("currentInstance");
+    } else {
+      finalExitCondition();
     }
   }
 
@@ -188,16 +179,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (validateInputsFromUSer(option)) {
       stoppingCondition(portfolioName);
     }
-    switch (option) {
-      case "1":
-        buyOrSellStocks(portfolioName);
-        break;
-      case "2":
-        //create portfolio file here , if it is a manual creation bfr
-        model.createPortfolioIfCreatedManually(portfolioName);
-        finalExitCondition();
-        break;
+    if (option.equals("1")) {
+      buyOrSellStocks(portfolioName);
+    } else {
+      model.createPortfolioIfCreatedManually(portfolioName);
+      finalExitCondition();
     }
+
   }
 
   private void createNewPortfolioForCurrentUser(PortfolioModel model) {
@@ -244,13 +232,10 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (validateInputsFromUSer(option)) {
       finalExitCondition();
     }
-    switch (option) {
-      case "1":
-        startCopy(this.model);
-        break;
-      case "2":
-        //do nothing
-        break;
+    if (option.equals("1")) {
+      startCopy(this.model);
+    } else if (option.equals("1")) {
+      //do nothing
     }
 
   }
@@ -259,7 +244,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
     } else {
-      view.displayErrorMessage("Invalid input provided.Please provide a valid input (either 1 or 2)");
+      view.displayErrorMessage("Invalid input provided." +
+              "Please provide a valid input (either 1 or 2)");
       return true;
     }
     return false;
@@ -269,7 +255,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (input.equals("1") || input.equals("2") || input.equals("3")) {
       //do nothing
     } else {
-      view.displayErrorMessage("Invalid input provided.Please provide a valid input (either 1,2 or 3)");
+      view.displayErrorMessage("Invalid input provided."
+              + "Please provide a valid input (either 1,2 or 3)");
       return true;
     }
     return false;
@@ -282,22 +269,26 @@ public class PortfolioControllerImpl implements PortfolioController {
       LocalDate ld = LocalDate.parse(date, formatter);
       String result = ld.format(formatter);
       if (!result.equals(date)) {
-        view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+        view.displayErrorMessage("Invalid dateFormat provided."
+                + "Please provide date in YYYY-MM-DD format only.");
         return true;
       } else {
-        String todayDateStr = new SimpleDateFormat(format).format(new Date(System.currentTimeMillis()));
+        String todayDateStr = new SimpleDateFormat(format).format(
+                new Date(System.currentTimeMillis()));
         Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(todayDateStr);
         Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date);
         if (givenDate.compareTo(todayDate) > 0) {
-          view.displayErrorMessage("Future Date provided.Please provide date less then or equal to today");
+          view.displayErrorMessage("Future Date provided."
+                  + "Please provide date less then or equal to today");
           return true;
         }
       }
 
     } catch (IllegalArgumentException | DateTimeParseException | ParseException e) {
-      view.displayErrorMessage("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
+      view.displayErrorMessage("Invalid dateFormat provided." +
+              "Please provide date in YYYY-MM-DD format only.");
       return true;
     }
     return false;
@@ -317,7 +308,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     return false;
   }
 
-  public boolean validateIfPortfolioExists(String portfolioName) {
+  private boolean validateIfPortfolioExists(String portfolioName) {
     try {
       model.validateIfPortfolioAlreadyExists(portfolioName);
     } catch (IllegalArgumentException e) {

@@ -44,7 +44,6 @@ class CustomCSVParser {
         records.add(Arrays.asList(values));
       }
     }
-
     return records;
   }
 
@@ -88,7 +87,7 @@ class CustomCSVParser {
   }
 
   /**
-   * converts the data in array format to string format
+   * converts the data in array format to string format.
    *
    * @return data converted as a string.
    */
