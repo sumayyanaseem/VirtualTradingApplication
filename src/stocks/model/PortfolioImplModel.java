@@ -110,7 +110,8 @@ public class PortfolioImplModel implements PortfolioModel {
         Map<String, Stock> map = portfolioMap.get(this.pName);
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           Stock s = entry.getValue();
-          totValue = totValue + s.getTotalValue();
+          double temp = apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
+          totValue = totValue + temp;
         }
       }
     } else {

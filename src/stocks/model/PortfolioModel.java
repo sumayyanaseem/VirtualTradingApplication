@@ -11,15 +11,12 @@ public interface PortfolioModel {
 
   void buyStocks(String quantity, String CompanyName, String portfolioName);
 
-
-
   double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
   /**
    * @param filePath
    */
   void createPortfolioUsingFilePath(String filePath);
-
 
 
   List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName);
