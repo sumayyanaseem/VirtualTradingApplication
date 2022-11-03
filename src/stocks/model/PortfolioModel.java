@@ -9,21 +9,9 @@ import java.util.List;
  */
 public interface PortfolioModel {
 
-  /**
-   * @param quantity
-   * @param CompanyName
-   * @param portfolioName
-   */
   void buyStocks(String quantity, String CompanyName, String portfolioName);
 
 
-  /* void sellStocks(String quantity,String CompanyName, String portfolioName);*/
-
-  /**
-   * @param date
-   * @param portfolioName
-   * @return
-   */
 
   double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
 
@@ -33,19 +21,11 @@ public interface PortfolioModel {
   void createPortfolioUsingFilePath(String filePath);
 
 
-  /**
-   * @param portfolioName
-   * @return
-   */
 
   List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName);
 
-  /**
-   * @param portfolioName
-   */
-  void createPortfolioIfCreatedManually(String portfolioName);
 
-  int size();
+  void createPortfolioIfCreatedManually(String portfolioName);
 
   void validateIfCompanyExists(String companyName);
 

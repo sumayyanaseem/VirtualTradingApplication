@@ -225,13 +225,6 @@ public class PortfolioImplModel implements PortfolioModel {
     return res.toString();
   }
 
-  @Override
-  public int size(){
-    if(portfolioMap!=null && !portfolioMap.isEmpty()){
-       return portfolioMap.get(this.pName).size();
-    }
-    return 0;
-  }
 
   private void validateQuantity(String quantity) {
     if(quantity ==null){

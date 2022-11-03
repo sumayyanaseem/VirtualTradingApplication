@@ -58,11 +58,6 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public int size() {
-      return 0;
-    }
-
-    @Override
     public void validateIfCompanyExists(String companyName) {
 
     }
