@@ -7,9 +7,9 @@ CURRENT ASSUMPTIONS:
 ******************************************************************************************************************************************************************
 1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.
    ( AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
-2. Stock prices for the above companies are available only for a specific range of dates ( date range starts from current day ).
+2. Stock prices for the above companies are available only for a specific range of dates ( From 2022-11-03 to 2022-06-15 ).
    Hence the user will be able to get any kind of values from his portfolio only within this range.
-   ( for example: Stock prices for AAPL are availble from today's date to 2022-06-09 )
+   ( for example: Stock prices for AAPL are availble from 2022-11-03 date to 2022-06-09 )
 3. We are currently using CSV format to save the files. Reading/writing in done from csv formatted files.
 4. Once the user is done inputting the stocks related data for the current portfolio he is trading in, we are persisting the portfolio as a csv file in local.
    ( sample portfolio path from project root directory : userPortfolios/portfolio_name.csv )
@@ -25,13 +25,14 @@ TradingMVC.java is the starting point of application.
 Objects of model, view and controller are created as described below:
 View object is used to display output messages to user. It uses System.out stream.
 Controller takes user input and uses view Object to display messages to user. Hence, controller Object is created using System.in stream and view Object.
-Controller has model object as one of the parameters(Here we are using the composition technique)
+Controller has model object as one of the parameters(Here we are using the composition technique).
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 PortfolioController.java is Controller interface
 
 Role of Controller:
 Takes user input and delegates the actions to Model and View accordingly.
+One controller object will create multiple instances of Portfolio(when creating more than one portfolio).
 
 Methods in Controller Class:
 start:  a)start method which takes a new model object to trigger the start of our application.
@@ -40,6 +41,8 @@ start:  a)start method which takes a new model object to trigger the start of ou
         internally again with a different new model object when the user wants to create a new portfolio.
 
         c)start method internally makes calls to methods in model and view depending on user inputs taken by controller.
+
+(Note:Controller has a validation to stop the user entering fractional stocks.)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 PortfolioView.java is view Interface.
@@ -68,13 +71,14 @@ category 'a':
 14) askUserIfheWantsTOContinueViewing
 
 category 'b':
-15) displayTotalValue ---- belongs to category 'b'
-16) displayComposition ---- belongs to category 'b'
+15) displayTotalValue
+16) displayComposition
 
 category 'c':
-17) displayErrorMessage ---- belongs to category 'c'
+17) displayErrorMessage
 --------------------------------------------------------------------------------------------------------------------------------------
 PortfolioModel.java is model interface
+One Portfolio object holds the info of only one Portfolio.
 
 Role of Model:
 We have below 2 categories for methods of view.
@@ -94,8 +98,7 @@ category 'b':
 7) validateIfCompanyExists
 8) validateIfPortfolioAlreadyExists(String portfolioName);
 9) validateIfPortfolioDoesntExists(String name);
-
-
+10)validateQuantity(Quantity) (Note:Model will accept fractional Quantity of stocks as well).
 ******************************************************************************************************************************************************************
 CUSTOM CLASSES
 ******************************************************************************************************************************************************************
