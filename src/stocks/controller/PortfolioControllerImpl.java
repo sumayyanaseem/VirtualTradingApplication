@@ -61,7 +61,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        System.out.println(model);
+        //System.out.println(model);
         createNewPortfolioForCurrentUser(model.getInstance());
         break;
       case "2":

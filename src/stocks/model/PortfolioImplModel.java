@@ -125,7 +125,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     validateFilePath(filePath);
-    List<List<String>> listOfStocks;
+    List<List<String>> listOfStocks ;
     try {
       listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
