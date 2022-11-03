@@ -18,12 +18,12 @@ import java.util.Map;
  */
 public class PortfolioImplModel implements PortfolioModel {
 
-  private Map<String, Map<String, Stock>> portfolioMap;
+  private final Map<String, Map<String, Stock>> portfolioMap;
 
-  private APICustomClass apiCustomClass;
+  private final APICustomClass apiCustomClass;
 
-  private CustomCSVParser customCSVParser;
-  private  String pName;
+  private final CustomCSVParser customCSVParser;
+  private String pName;
 
 
   /**
@@ -33,19 +33,20 @@ public class PortfolioImplModel implements PortfolioModel {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
     customCSVParser = new CustomCSVParser();
-    this.pName="";
+    this.pName = "";
   }
 
   @Override
-  public void buyStocks(String quantity, String cName, String portfolioName) throws IllegalArgumentException{
+  public void buyStocks(String quantity, String cName, String portfolioName) throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
-    this.pName=portfolioName;
-    double priceBought =apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
+    validateIfPortfolioAlreadyExists(portfolioName);
+    this.pName = portfolioName;
+    double priceBought = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
       String pattern = "yyyy-MM-dd";
       String todayDateStr = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
-      Double qty = Double.valueOf(quantity);
+      double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
       Stock s = new Stock(companyName, qty, todayDateStr, null, priceBought, totalVal);
@@ -71,7 +72,6 @@ public class PortfolioImplModel implements PortfolioModel {
     }
 
   }
-
 
 
   @Override
@@ -101,39 +101,36 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName)  {
-    if(portfolioName==null || portfolioName.equals("")){
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+    if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     validateDate(date);
-    double totValue=0.0;
-    if(portfolioName.equals("currentInstance") || this.pName.equals(portfolioName) ){
-      if(!portfolioMap.isEmpty()) {
+    double totValue = 0.0;
+    if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
+      if (!portfolioMap.isEmpty()) {
         Map<String, Stock> map = portfolioMap.get(this.pName);
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           Stock s = entry.getValue();
           double temp;
           try {
-            temp=apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
+            temp = apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(), s.getQty(), date);
+          } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
           }
-          catch(IllegalArgumentException e){
-            throw new IllegalArgumentException("Stock Price is not available for this past date");
-          }
-
           totValue = totValue + temp;
         }
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> listOfStkInfoPersisted=customCSVParser.readFromCSV(portfolioName);
-      for(int j=1;j<listOfStkInfoPersisted.size();j++) {
+      List<List<String>> listOfStkInfoPersisted = customCSVParser.readFromCSV(portfolioName);
+      for (int j = 1; j < listOfStkInfoPersisted.size(); j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
-        double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
+        double qty = Double.parseDouble(listOfStkInfoPersisted.get(j).get(1));
         try {
           totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
-        }
-        catch(IllegalArgumentException e){
-          throw new IllegalArgumentException("Stock Price is not available for this past date");
+        } catch (IllegalArgumentException e) {
+          throw new IllegalArgumentException(e.getMessage());
         }
 
       }
@@ -142,15 +139,13 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public void createPortfolioUsingFilePath(String filePath)  {
+  public void createPortfolioUsingFilePath(String filePath) {
     validateFilePath(filePath);
-    List<List<String>> listOfStocks ;
+    List<List<String>> listOfStocks;
     try {
       listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
-    }
-    catch (Exception e) {
-      System.out.println(e.getStackTrace());
-      throw new RuntimeException(e);
+    } catch (Exception e) {
+      throw new RuntimeException(e.getMessage());
     }
     Map<String, Stock> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
@@ -158,31 +153,37 @@ public class PortfolioImplModel implements PortfolioModel {
     for (int i = 1; i < listOfStocks.size(); i++) {
       String sName = listOfStocks.get(i).get(0);
       double sPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(sName);
-      if(!mapOfStocks.containsKey(sName)) {
-        Stock st=new Stock(listOfStocks.get(i).get(0), Double.valueOf(listOfStocks.get(i).get(1)),todayDate,null,sPrice,Double.valueOf(listOfStocks.get(i).get(1))*sPrice);
-        mapOfStocks.put(sName, st);
+      if (sPrice != -1) {
+        if (!mapOfStocks.containsKey(sName)) {
+          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(listOfStocks.get(i).get(0), Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
+          mapOfStocks.put(sName, st);
+        } else {
+          Stock list1 = mapOfStocks.get(sName);
+          List<String> list2 = listOfStocks.get(i);
+          mapOfStocks.remove(sName);
+          double totQty = list1.getQty() + Double.parseDouble(list2.get(1));
+          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(listOfStocks.get(i).get(0), totQty, todayDate, null, sPrice, value);
+          mapOfStocks.put(sName, st);
+        }
       }
-      else {
-        Stock list1=  mapOfStocks.get(sName);
-        List<String> list2=listOfStocks.get(i);
-        mapOfStocks.remove(sName);
-        double totQty = Double.valueOf(list1.getQty())+Double.valueOf(list2.get(1));
-        Stock st=new Stock(listOfStocks.get(i).get(0),totQty ,todayDate,null,sPrice,Double.valueOf(listOfStocks.get(i).get(1))*sPrice);
-        mapOfStocks.put(sName,st);
-      }
-
     }
-    this.pName="currentInstance";
-    portfolioMap.put(pName,mapOfStocks);
+
+    this.pName = "currentInstance";
+    portfolioMap.put(pName, mapOfStocks);
+
+
   }
+
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
-    if(portfolioName==null || portfolioName.equals("")){
+    if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     List<List<String>> results = new ArrayList<>();
-    if(portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)){
-      if(!portfolioMap.isEmpty()) {
+    if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
+      if (!portfolioMap.isEmpty()) {
         Map<String, Stock> map = portfolioMap.get(this.pName);
         String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueWhenPurchased"};
         results.add(List.of(headers));
@@ -230,14 +231,14 @@ public class PortfolioImplModel implements PortfolioModel {
    * @return a string constructed using the portfolio map.
    */
   @Override
-  public String toString(){
-    StringBuilder res= new StringBuilder();
+  public String toString() {
+    StringBuilder res = new StringBuilder();
 
-    if(portfolioMap!=null && !portfolioMap.isEmpty()){
-      res.append("PortfolioName : "+this.pName);
+    if (portfolioMap != null && !portfolioMap.isEmpty()) {
+      res.append("PortfolioName : ").append(this.pName);
       res.append("\n");
-      Map<String,Stock> temp = portfolioMap.get(this.pName);
-      for(Map.Entry<String,Stock> entry: temp.entrySet()){
+      Map<String, Stock> temp = portfolioMap.get(this.pName);
+      for (Map.Entry<String, Stock> entry : temp.entrySet()) {
         res.append(entry.getValue().toString());
       }
 
@@ -247,12 +248,12 @@ public class PortfolioImplModel implements PortfolioModel {
 
 
   private void validateQuantity(String quantity) {
-    if(quantity ==null){
+    if (quantity == null) {
       throw new IllegalArgumentException("Invalid quantity provided");
     }
     try {
-      Double q = Double.parseDouble(quantity);
-      if (q <= 0) {
+      double q = Double.parseDouble(quantity);
+      if (q <= 0 || q > Integer.MAX_VALUE) {
         throw new IllegalArgumentException("Invalid quantity provided");
       }
     } catch (IllegalArgumentException e) {
@@ -276,22 +277,23 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public void validateIfPortfolioAlreadyExists(String portfolioName) {
-    if(portfolioName==null || portfolioName.equals("")){
+    if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/"+portfolioName +"_output"+ ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (f.isFile() && f.exists()) {
       throw new IllegalArgumentException("Given portfolio exist.Please provide valid portfolioName.");
     }
+
   }
 
   @Override
   public void validateIfPortfolioDoesntExists(String portfolioName) {
-    if(portfolioName==null){
+    if (portfolioName == null) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/"+portfolioName +"_output"+ ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist.Please provide valid portfolioName.");
@@ -313,8 +315,8 @@ public class PortfolioImplModel implements PortfolioModel {
                 .parse(todayDateStr);
         Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date);
-        if(givenDate.compareTo(todayDate)>0)
-        throw new IllegalArgumentException("Future Date provided.Please provide date less then or equal to today");
+        if (givenDate.compareTo(todayDate) > 0)
+          throw new IllegalArgumentException("Future Date provided.Please provide date less then or equal to today");
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
       throw new IllegalArgumentException("Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.");
@@ -323,9 +325,9 @@ public class PortfolioImplModel implements PortfolioModel {
     }
   }
 
-  private void validateFilePath(String path){
+  private void validateFilePath(String path) {
 
-    if(path==null){
+    if (path == null) {
       throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
     }
     File f = new File(path);

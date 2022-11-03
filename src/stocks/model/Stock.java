@@ -88,13 +88,13 @@ public class Stock {
   @Override
   public String toString(){
     StringBuilder res= new StringBuilder();
-    res.append("company : "+getCompanyTickerSymbol());
+    res.append("company : ").append(getCompanyTickerSymbol());
     res.append(", ");
-    res.append("quantity : " +String.format("%.2f",getQty()));
+    res.append("quantity : ").append(String.format("%.2f", getQty()));
     res.append(", ");
-    res.append("buyPrice : "+String.format("%.2f",getPriceBought()));
+    res.append("buyPrice : ").append(String.format("%.2f", getPriceBought()));
     res.append(", ");
-    res.append("TotalValue : "+String.format("%.2f",getTotalValue()));
+    res.append("TotalValue : ").append(String.format("%.2f", getTotalValue()));
     res.append("\n");
     return res.toString();
   }

@@ -22,8 +22,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private PortfolioModel model;
   private String portfolioName;
-  private PortfolioView view;
-  private Scanner input;
+  private final PortfolioView view;
+  private final Scanner input;
 
 
   /**
@@ -100,22 +100,23 @@ public class PortfolioControllerImpl implements PortfolioController {
         viewHelper2(name);
         break;
       case "2":
-        String date = dateHelper();
-        String val;
-        try {
-          val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
-        }
-        catch (IllegalArgumentException e) {
-          System.out.println("dfbdf");
-          view.displayErrorMessage(e.getMessage());
-
-          break;
-
-      }
-        view.displayTotalValue(date, val, portfolioName);
+        dateNotFoundHelper(name);
         viewHelper2(name);
         break;
     }
+  }
+
+  private void dateNotFoundHelper(String name) {
+    String date = dateHelper();
+    String val = null;
+    try {
+      val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name));
+    } catch (IllegalArgumentException e) {
+      view.displayErrorMessage(e.getMessage());
+      dateNotFoundHelper(name);
+    }
+    if(val!=null)
+    view.displayTotalValue(date, val, portfolioName);
   }
 
   private void viewHelper2(String name) {
@@ -304,8 +305,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private boolean validateQuantity(String quantity) {
     try {
-      Integer q = Integer.parseInt(quantity);
-      if (q <= 0) {
+      long q = Long.parseLong(quantity);
+      if (q <= 0 || q > Integer.MAX_VALUE) {
         view.displayErrorMessage("Invalid quantity provided");
         return true;
       }

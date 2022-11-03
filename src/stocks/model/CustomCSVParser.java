@@ -56,7 +56,7 @@ class CustomCSVParser {
     try{
     return readFromFileHelper(path);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new RuntimeException("Path provided doesnt exist");
 
     }
   }
