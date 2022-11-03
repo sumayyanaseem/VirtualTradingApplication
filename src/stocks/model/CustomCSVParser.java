@@ -10,8 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+/**
+ * This class represents all the parser functions w.r.t csv files reading/writing.
+ */
+
 class CustomCSVParser {
 
+  /**
+   * reads from csv file of corresponding portfolio.
+   *
+   * @return the info read from csv file as a list of each stock's data.
+   */
   public List<List<String>> readFromCSV(String portfolioName)  {
     String path = "userPortfolios/"+portfolioName+"_output.csv";
     List<List<String>> records = null;
@@ -36,7 +46,12 @@ class CustomCSVParser {
     }
     return records;
   }
-  
+
+  /**
+   * reads the csv file from path provided.
+   *
+   * @return the info read from csv file as a list of each stock's data.
+   */
   public List<List<String>> readFromPathProvidedByUser(String path){
     try{
     return readFromFileHelper(path);
@@ -46,6 +61,9 @@ class CustomCSVParser {
     }
   }
 
+  /**
+   * writes the contents in a list into a csv file.
+   */
   public void writeTOCSV(List<String[]> recordLines,String fileName) {
     //String[] splitPath = fileName.split(".",2);
     String[] splitPath = fileName.split("\\.(?=[^\\.]+$)");
@@ -69,6 +87,10 @@ class CustomCSVParser {
     }
   }
 
+  /**
+   * converts the data in array format to string format
+   * @return data converted as a string.
+   */
   public  String convertToCSV(String[] data) {
     return Stream.of(data)
             .collect(Collectors.joining(","));

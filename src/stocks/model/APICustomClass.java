@@ -12,8 +12,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This class represents a custom class for all the APIs related to fetching stock price.
+ */
 class APICustomClass {
 
+
+  /**
+   * gives the latest available stock price for the given company ticker.
+   *
+   * @return the stock price of company.
+   */
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
     Double price = Double.valueOf(-1);
@@ -35,7 +44,11 @@ class APICustomClass {
 
 
 
-
+  /**
+   * gives the stock price for the given company ticker as of a certain given date.
+   *
+   * @return the stock price of company for the given date.
+   */
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
     String latestAvailableStkPrice="0.0";
     Date availableDateObj = null;

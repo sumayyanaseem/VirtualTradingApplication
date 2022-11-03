@@ -5,7 +5,8 @@ import stocks.model.PortfolioModel;
 
 /**
  * This interface act as Controller for virtual-trading application.
- * The main objective of this interface is to review inputs from the view and call the corresponding model functions accordingly.
+ * The main objective of this interface is to get inputs from the user and call the corresponding model functions accordingly.
+ * and display output to user via view.
  */
 public interface PortfolioController {
 

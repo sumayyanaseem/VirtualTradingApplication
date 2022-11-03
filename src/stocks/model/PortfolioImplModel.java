@@ -26,7 +26,9 @@ public class PortfolioImplModel implements PortfolioModel {
   private  String pName;
 
 
-
+  /**
+   * Constructs a PortfolioImplModel object and initializes a portfolio map and custom class references.
+   */
   public PortfolioImplModel() {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
@@ -221,6 +223,12 @@ public class PortfolioImplModel implements PortfolioModel {
 
   }
 
+
+  /**
+   * gives the portfolio info in string format.
+   *
+   * @return a string constructed using the portfolio map.
+   */
   @Override
   public String toString(){
     StringBuilder res= new StringBuilder();
@@ -252,6 +260,7 @@ public class PortfolioImplModel implements PortfolioModel {
     }
   }
 
+  @Override
   public void validateIfCompanyExists(String companyName){
     if(companyName ==null){
       throw new IllegalArgumentException("Invalid companyName provided");
@@ -265,6 +274,7 @@ public class PortfolioImplModel implements PortfolioModel {
 
   }
 
+  @Override
   public void validateIfPortfolioAlreadyExists(String portfolioName) {
     if(portfolioName==null || portfolioName.equals("")){
       throw new IllegalArgumentException("Invalid portfolioName provided");
@@ -276,6 +286,7 @@ public class PortfolioImplModel implements PortfolioModel {
     }
   }
 
+  @Override
   public void validateIfPortfolioDoesntExists(String portfolioName) {
     if(portfolioName==null){
       throw new IllegalArgumentException("Invalid portfolioName provided");

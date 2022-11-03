@@ -15,6 +15,9 @@ import java.util.Scanner;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
+/**
+ * This class implements the methods of Portfolio Controller.
+ */
 public class PortfolioControllerImpl implements PortfolioController {
 
   private PortfolioModel model;
@@ -23,6 +26,12 @@ public class PortfolioControllerImpl implements PortfolioController {
   private Scanner input;
 
 
+  /**
+   * Constructs PortfolioControllerImpl with given input stream and view objects.
+   *
+   * @param in  the input stream.
+   * @param view the view object.
+   */
   public PortfolioControllerImpl(InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
@@ -52,7 +61,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
-  public void startCopy(PortfolioModel model) {
+  private void startCopy(PortfolioModel model) {
     Objects.requireNonNull(model);
     view.callToViewToChooseCreateOrView();
     String option = String.valueOf(input.nextLine());
@@ -317,7 +326,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     return false;
   }
 
-  public boolean validateIfPortfolioDoesntExists(String portfolioName) {
+  private boolean validateIfPortfolioDoesntExists(String portfolioName) {
     try {
       model.validateIfPortfolioDoesntExists(portfolioName);
     } catch (IllegalArgumentException e) {
@@ -327,7 +336,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     return false;
   }
 
-  public boolean validateIfCompanyExists(String companyName) {
+  private boolean validateIfCompanyExists(String companyName) {
     try {
       model.validateIfCompanyExists(companyName);
     } catch (IllegalArgumentException e) {

@@ -3,9 +3,17 @@ package stocks.view;
 import java.io.PrintStream;
 import java.util.List;
 
+/**
+ * This class implements the methods of PortfolioView.
+ */
 public class PortfolioViewImpl implements PortfolioView {
   private final PrintStream out;
 
+  /**
+   * Constructs PortfolioViewImpl object with given output stream object.
+   *
+   * @param out the output stream.
+   */
   public PortfolioViewImpl(PrintStream out) {
     this.out = out;
   }
