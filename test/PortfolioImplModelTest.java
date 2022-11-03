@@ -372,7 +372,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio1";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("res/userPortfolios/" +pName+"_output.csv");
+    File f = new File("userPortfolios/" +pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";
@@ -387,7 +387,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio2";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("res/userPortfolios/" +pName+"_output.csv");
+    File f = new File("userPortfolios/" +pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";
@@ -404,7 +404,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadAndViewCompositionAndTotalValue(){
-    model.createPortfolioUsingFilePath("test/test.csv");
+    model.createPortfolioUsingFilePath("userPortfolios/test.csv");
     List<List<String>> results=model.viewCompositionOfCurrentPortfolio("currentInstance");
     assertFalse(results.isEmpty());
     double res=model.getTotalValueOfPortfolioOnCertainDate("2022-10-01","currentInstance");

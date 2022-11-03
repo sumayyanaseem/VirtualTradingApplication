@@ -22,28 +22,29 @@ class CustomCSVParser {
    *
    * @return the info read from csv file as a list of each stock's data.
    */
-  public List<List<String>> readFromCSV(String portfolioName)  {
-    String path = "res/userPortfolios/" +portfolioName+"_output.csv";
+  public List<List<String>> readFromCSV(String portfolioName) {
+    String path = "userPortfolios/" + portfolioName + "_output.csv";
     List<List<String>> records = null;
     try {
       records = readFromFileHelper(path);
-    }  catch (IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
     }
     return records;
   }
-  
+
   private List<List<String>> readFromFileHelper(String path) throws IOException {
     List<List<String>> records = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
-      String[] headings =line.split(",");
+      String[] headings = line.split(",");
       records.add(Arrays.asList(headings));
       while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
       }
     }
+
     return records;
   }
 
@@ -52,9 +53,9 @@ class CustomCSVParser {
    *
    * @return the info read from csv file as a list of each stock's data.
    */
-  public List<List<String>> readFromPathProvidedByUser(String path){
-    try{
-    return readFromFileHelper(path);
+  public List<List<String>> readFromPathProvidedByUser(String path) {
+    try {
+      return readFromFileHelper(path);
     } catch (IOException e) {
       throw new RuntimeException("Path provided doesnt exist");
 
@@ -64,33 +65,34 @@ class CustomCSVParser {
   /**
    * writes the contents in a list into a csv file.
    */
-  public void writeTOCSV(List<String[]> recordLines,String fileName) {
+  public void writeTOCSV(List<String[]> recordLines, String fileName) {
     String[] splitPath = fileName.split("\\.(?=[^\\.]+$)");
     String[] splitFileName = splitPath[0].split("/");
-    String path = "res/userPortfolios/" +splitFileName[splitFileName.length-1]+"_output.csv";
+    String path = "userPortfolios/" + splitFileName[splitFileName.length - 1] + "_output.csv";
     File csvOutputFile = new File(path);
     try {
 
-        FileWriter fileWriter = new FileWriter(csvOutputFile);
-        for (String[] record : recordLines) {
-          String s = convertToCSV(record);
+      FileWriter fileWriter = new FileWriter(csvOutputFile);
+      for (String[] record : recordLines) {
+        String s = convertToCSV(record);
 
-          fileWriter.write(s);
-          fileWriter.write(System.getProperty("line.separator"));
-        }
-        fileWriter.flush();
-        fileWriter.close();
+        fileWriter.write(s);
+        fileWriter.write(System.getProperty("line.separator"));
+      }
+      fileWriter.flush();
+      fileWriter.close();
 
-    } catch(IOException e){
+    } catch (IOException e) {
       System.out.println(e.getMessage());
     }
   }
 
   /**
    * converts the data in array format to string format
+   *
    * @return data converted as a string.
    */
-  public  String convertToCSV(String[] data) {
+  public String convertToCSV(String[] data) {
     return Stream.of(data)
             .collect(Collectors.joining(","));
   }
