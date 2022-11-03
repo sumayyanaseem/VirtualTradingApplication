@@ -38,7 +38,7 @@ class APICustomClass {
 
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
     String latestAvailableStkPrice="0.0";
-
+int flag=0;
     String name = companyTickerSymbol.toUpperCase();
     String path = "availableStocks/" + "daily_" + name + ".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -57,11 +57,17 @@ class APICustomClass {
           latestAvailableStkPrice = infoByDate.get(4);
           Date availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                   .parse(availableDate);
-          if (availableDateObj.compareTo(givenDateObj) <= 0) {
+          if (availableDateObj.compareTo(givenDateObj) == 0) {
+
+            flag=1;
             break;
 
           }
+          if (availableDateObj.compareTo(givenDateObj) < 0) {
 
+            break;
+
+          }
         }
       }
       catch(ParseException p){
@@ -72,7 +78,11 @@ class APICustomClass {
     } catch (IOException e) {
       System.out.println("File Path doesnt for "+companyTickerSymbol);
     }
+    if(flag==0)
+      throw new IllegalArgumentException("Stock Price is not available for this past date");
     return Double.valueOf(latestAvailableStkPrice)*qty;
+
+
   }
 
 }

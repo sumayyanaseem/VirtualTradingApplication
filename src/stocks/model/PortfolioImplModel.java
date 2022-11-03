@@ -119,8 +119,12 @@ public class PortfolioImplModel implements PortfolioModel {
       for(int j=1;j<listOfStkInfoPersisted.size();j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
         double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
-
-        totValue=totValue+apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol,qty,date);
+        try {
+          totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
+        }
+        catch(IllegalArgumentException e){
+          throw new IllegalArgumentException(e.getMessage());
+        }
 
       }
     }
