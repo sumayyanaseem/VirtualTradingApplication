@@ -4,7 +4,6 @@
     <root id="archive" name="Stocks.jar">
       <element id="module-output" name="Stocks" />
       <element id="dir-copy" path="$PROJECT_DIR$/resourses" />
-      <element id="dir-copy" path="$PROJECT_DIR$/res" />
     </root>
   </artifact>
 </component>
