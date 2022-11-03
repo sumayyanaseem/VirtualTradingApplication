@@ -79,7 +79,10 @@ public class PortfolioImplModel implements PortfolioModel {
 
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
-    validateIfPortfolioAlreadyExists(portfolioName);
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+   // validateIfPortfolioAlreadyExists(portfolioName);
     List<String[]> temp = new ArrayList<>();
     temp.add(new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueOwned"});
     if (!portfolioMap.isEmpty()) {
@@ -289,8 +292,7 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "res/userPortfolios/" + portfolioName + "_output" + ".csv";
-    InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (f.isFile() && f.exists()) {
       throw new IllegalArgumentException("Given portfolio exist."
@@ -303,8 +305,7 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName == null) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-
-    String path = "res/userPortfolios/" + portfolioName + "_output" + ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist."
