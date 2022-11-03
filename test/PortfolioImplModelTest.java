@@ -365,7 +365,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio1";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/userPortfolios/"+pName+"_output.csv");
+    File f = new File("userPortfolios/"+pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";
@@ -380,7 +380,7 @@ public class PortfolioImplModelTest {
     String pName ="testPortfolio2";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/userPortfolios/"+pName+"_output.csv");
+    File f = new File("userPortfolios/"+pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date="2022-10-01";
@@ -391,13 +391,13 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadFile() {
-     model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/test.csv");
+     model.createPortfolioUsingFilePath("test/test.csv");
      assertFalse(model.toString().isEmpty());
   }
 
   @Test
   public void testLoadAndViewCompositionAndTotalValue(){
-    model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/test.csv");
+    model.createPortfolioUsingFilePath("test/test.csv");
     List<List<String>> results=model.viewCompositionOfCurrentPortfolio("currentInstance");
     assertFalse(results.isEmpty());
     double res=model.getTotalValueOfPortfolioOnCertainDate("2022-10-01","currentInstance");
@@ -441,7 +441,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadLengthyFileAndView(){
-    model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/testLongFile.csv");
+    model.createPortfolioUsingFilePath("test/testLongFile.csv");
     String name = "currentInstance";
     String date="2022-08-01";
     double res1=model.getTotalValueOfPortfolioOnCertainDate(date,name);
