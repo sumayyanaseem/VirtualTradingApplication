@@ -38,7 +38,8 @@ class APICustomClass {
 
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
     String latestAvailableStkPrice="0.0";
-
+    Date availableDateObj = null;
+    Date givenDateObj = null;
     String name = companyTickerSymbol.toUpperCase();
     String path = "availableStocks/" + "daily_" + name + ".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -48,31 +49,31 @@ class APICustomClass {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
       }
-      try {
-        Date givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date);
         for (int i = 0; i < records.size(); i++) {
           List<String> infoByDate = new ArrayList<>(records.get(i));
           String availableDate = infoByDate.get(0);
           latestAvailableStkPrice = infoByDate.get(4);
-          Date availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+          availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                   .parse(availableDate);
           if (availableDateObj.compareTo(givenDateObj) <= 0) {
             break;
-
           }
 
         }
-      }
-      catch(ParseException p){
-        System.out.println("parse exception");
-      }
-    } catch (FileNotFoundException ex) {
-      System.out.println("File Path doesnt for "+companyTickerSymbol);
-    } catch (IOException e) {
+
+    } catch (Exception ex) {
       System.out.println("File Path doesnt for "+companyTickerSymbol);
     }
+    if (availableDateObj.compareTo(givenDateObj) > 0) {
+      throw new IllegalArgumentException("Stock Price is not available for this past date");
+    }
+
+
     return Double.valueOf(latestAvailableStkPrice)*qty;
+
+
   }
 
 }

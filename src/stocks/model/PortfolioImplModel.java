@@ -110,7 +110,14 @@ public class PortfolioImplModel implements PortfolioModel {
         Map<String, Stock> map = portfolioMap.get(this.pName);
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           Stock s = entry.getValue();
-          double temp = apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
+          double temp;
+          try {
+            temp=apiCustomClass.getStockPriceAsOfCertainDate(s.getCompanyTickerSymbol(),s.getQty(),date);
+          }
+          catch(IllegalArgumentException e){
+            throw new IllegalArgumentException("Stock Price is not available for this past date");
+          }
+
           totValue = totValue + temp;
         }
       }
@@ -120,8 +127,12 @@ public class PortfolioImplModel implements PortfolioModel {
       for(int j=1;j<listOfStkInfoPersisted.size();j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
         double qty = Double.valueOf(listOfStkInfoPersisted.get(j).get(1));
-
-        totValue=totValue+apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol,qty,date);
+        try {
+          totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(companyTickerSymbol, qty, date);
+        }
+        catch(IllegalArgumentException e){
+          throw new IllegalArgumentException("Stock Price is not available for this past date");
+        }
 
       }
     }
@@ -131,7 +142,7 @@ public class PortfolioImplModel implements PortfolioModel {
   @Override
   public void createPortfolioUsingFilePath(String filePath)  {
     validateFilePath(filePath);
-    List<List<String>> listOfStocks;
+    List<List<String>> listOfStocks ;
     try {
       listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
     }
