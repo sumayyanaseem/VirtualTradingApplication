@@ -1,9 +1,13 @@
 package stocks.model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,21 +31,24 @@ class APICustomClass {
 
     Double price = Double.valueOf(-1);
     String name = companyTickerSymbol.toUpperCase();
-    String path = "availableStocks/" + "daily_" + name + ".csv";
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      String line = br.readLine();
-      if ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        price = Double.valueOf(values[4]);
+    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
+    ClassLoader classLoader = getClass().getClassLoader();
+    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
+    if(is!=null) {
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+        String line = br.readLine();
+        if ((line = br.readLine()) != null) {
+          String[] values = line.split(",");
+          price = Double.valueOf(values[4]);
+        }
+      } catch (FileNotFoundException ex) {
+        System.out.println("file not found in our records for given company " + companyTickerSymbol);
+      } catch (IOException e) {
+        System.out.println("file not found in our records for given company " + companyTickerSymbol);
       }
-    } catch (FileNotFoundException ex) {
-      System.out.println("file not found in our records for given company " + companyTickerSymbol);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
     }
     return price;
   }
-
 
 
   /**
@@ -54,15 +61,20 @@ class APICustomClass {
     Date availableDateObj = null;
     Date givenDateObj = null;
     String name = companyTickerSymbol.toUpperCase();
-    String path = "availableStocks/" + "daily_" + name + ".csv";
+    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
+    ClassLoader classLoader = getClass().getClassLoader();
+    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
     List<List<String>> records = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
       String line = br.readLine();
       while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
       }
-    } catch (IOException ex) {
+    } catch (UnsupportedEncodingException e) {
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
+      return 0.0;
+    } catch (IOException e) {
       System.out.println("file not found in our records for given company " + companyTickerSymbol);
       return 0.0;
     }
