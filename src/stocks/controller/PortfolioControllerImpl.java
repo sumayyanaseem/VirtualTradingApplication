@@ -61,7 +61,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        System.out.println(model);
         createNewPortfolioForCurrentUser(model.getInstance());
         break;
       case "2":
@@ -83,7 +82,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
     String option = String.valueOf(input.nextLine());
     if (validateInputsFromUSer(option)) {
-      askUserWhatHeWantsToView();
+      viewHelper(name);
     }
     switch (option) {
       case "1":
@@ -100,11 +99,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void viewHelper2(String name){
+  private void viewHelper2(String name) {
     view.askUserIfheWantsTOContinueViewing();
     String option = input.nextLine();
 
-    switch(option){
+    switch (option) {
       case "1":
         viewHelper(name);
         break;
@@ -117,7 +116,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private String pNameHelper() {
     view.getPortfolioName();
     String name = input.nextLine();
-   if(validateIfPortfolioDoesntExists(name)) {
+    if (validateIfPortfolioDoesntExists(name)) {
       return pNameHelper();
     }
     return name;
@@ -185,11 +184,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     view.getPortfolioName();
 
     String portfolioName = input.nextLine();
-    if(validateIfPortfolioExists(portfolioName)){
+    if (validateIfPortfolioExists(portfolioName)) {
       createNewPortfolioForCurrentUser(model);
     }
     this.portfolioName = portfolioName;
-    this.model= model;
+    this.model = model;
     buyOrSellStocks(portfolioName);
   }
 
@@ -201,14 +200,15 @@ public class PortfolioControllerImpl implements PortfolioController {
     stoppingCondition(portfolioName);
   }
 
-  private String companyHelper(){
+  private String companyHelper() {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if(validateIfCompanyExists(companyName)){
+    if (validateIfCompanyExists(companyName)) {
       return companyHelper();
     }
     return companyName;
   }
+
   private String quantityHelper() {
     view.getQuantity();
     String quantity = input.nextLine();
@@ -316,8 +316,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     return false;
   }
-
-
 
   public boolean validateIfCompanyExists(String companyName) {
     try {
