@@ -9,6 +9,11 @@ import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PortfolioViewImplTest {
 
@@ -36,7 +41,7 @@ public class PortfolioViewImplTest {
   @Test
   public void testCallToViewToChooseCreateOrView() {
     portfolioView.callToViewToChooseCreateOrView();
-    assertEquals(bytes.toString(), "Enter 1: To trade stocks 2: To view the portfolio composition\n");
+    assertEquals(bytes.toString(), "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio\n");
   }
 
 
@@ -50,7 +55,7 @@ public class PortfolioViewImplTest {
   @Test
   public void testGetFilePath() {
     portfolioView.getFilePath();
-    assertEquals(bytes.toString(), "Enter the path of File which is used to create Portfolio\n");
+    assertEquals(bytes.toString(), "Enter the path of File to load Portfolio\n");
   }
 
   @Test
@@ -94,20 +99,20 @@ public class PortfolioViewImplTest {
   @Test
   public void testCheckIfUserWantsToViewCompositionOrTotalValue() {
     portfolioView.checkIfUserWantsToViewCompositionOrTotalValue();
-    assertEquals(bytes.toString(), "Enter 1: To view composition of existing portfolio . 2: To get TotalValue of a portfolio\n");
+    assertEquals(bytes.toString(), "Enter 1: To view composition  2: To get TotalValue of portfolio\n");
   }
 
   @Test
   public void testDisplayTotalValue() {
     portfolioView.displayTotalValue("2022-10-01", "100.12", "dummy");
-    assertEquals(bytes.toString(), "Total Valuation of Portfolio " + "dummy" + "  on " + "2022-10-01" + " is :" + "100.12" + "\n");
+    assertEquals(bytes.toString(), "Total Valuation of Portfolio " + "dummy" + " on " + "2022-10-01" + " is :" + "100.12" + "\n");
 
   }
 
   @Test
   public void testGetDateForValuation() {
     portfolioView.getDateForValuation();
-    assertEquals(bytes.toString(), "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
+    assertEquals(bytes.toString(), "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)\n");
   }
 
 
@@ -115,6 +120,32 @@ public class PortfolioViewImplTest {
   public void testDisplayErrorMessage() {
     portfolioView.displayErrorMessage("dummy message");
     assertEquals(bytes.toString(), "dummy message\n");
+  }
+
+  @Test
+  public void testAskUserIfheWantsTOContinueViewing() {
+    portfolioView.askUserIfheWantsTOContinueViewing();
+    assertEquals(bytes.toString(), "Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios\n");
+  }
+
+  @Test
+  public void testCallExitFromLoad() {
+    portfolioView.callExitFromLoad();
+    assertEquals(bytes.toString(), "Enter 1: To view details of this portfolio.  2: To exit and continue further trading.\n");
+  }
+
+  @Test
+  public void testDisplayComposition() {
+    List<List<String>> records = null;
+    portfolioView.displayComposition(records);
+    assertTrue(bytes.toString().isEmpty());
+    records = new ArrayList<>();
+    portfolioView.displayComposition(records);
+    assertTrue(bytes.toString().isEmpty());
+    List<String> l = Arrays.asList(new String[]{"foo", "bar"});
+    records.add(l);
+    portfolioView.displayComposition(records);
+    assertTrue(bytes.toString().contains("foo"));
 
   }
 
