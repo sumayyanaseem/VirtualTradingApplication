@@ -174,7 +174,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     if (option.equals("1")) {
       viewHelper("currentInstance");
-    } else if(option.equals("2")){
+    } else if (option.equals("2")) {
       finalExitCondition();
     }
   }
