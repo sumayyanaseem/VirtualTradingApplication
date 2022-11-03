@@ -37,6 +37,7 @@ public class PortfolioImplModel implements PortfolioModel {
   public void buyStocks(String quantity, String cName, String portfolioName) throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
+    validateIfPortfolioAlreadyExists(portfolioName);
     this.pName = portfolioName;
     double priceBought = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
@@ -149,23 +150,27 @@ public class PortfolioImplModel implements PortfolioModel {
     for (int i = 1; i < listOfStocks.size(); i++) {
       String sName = listOfStocks.get(i).get(0);
       double sPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(sName);
-      if (!mapOfStocks.containsKey(sName)) {
-        double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-        Stock st = new Stock(listOfStocks.get(i).get(0), Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
-        mapOfStocks.put(sName, st);
-      } else {
-        Stock list1 = mapOfStocks.get(sName);
-        List<String> list2 = listOfStocks.get(i);
-        mapOfStocks.remove(sName);
-        double totQty = list1.getQty() + Double.parseDouble(list2.get(1));
-        double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-        Stock st = new Stock(listOfStocks.get(i).get(0), totQty, todayDate, null, sPrice, value);
-        mapOfStocks.put(sName, st);
+      if (sPrice != -1) {
+        if (!mapOfStocks.containsKey(sName)) {
+          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(listOfStocks.get(i).get(0), Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
+          mapOfStocks.put(sName, st);
+        } else {
+          Stock list1 = mapOfStocks.get(sName);
+          List<String> list2 = listOfStocks.get(i);
+          mapOfStocks.remove(sName);
+          double totQty = list1.getQty() + Double.parseDouble(list2.get(1));
+          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(listOfStocks.get(i).get(0), totQty, todayDate, null, sPrice, value);
+          mapOfStocks.put(sName, st);
+        }
       }
-
     }
+
     this.pName = "currentInstance";
     portfolioMap.put(pName, mapOfStocks);
+
+
   }
 
   @Override
@@ -269,6 +274,7 @@ public class PortfolioImplModel implements PortfolioModel {
     if (f.isFile() && f.exists()) {
       throw new IllegalArgumentException("Given portfolio exist.Please provide valid portfolioName.");
     }
+
   }
 
   public void validateIfPortfolioDoesntExists(String portfolioName) {

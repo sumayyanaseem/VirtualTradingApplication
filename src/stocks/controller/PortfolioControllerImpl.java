@@ -106,6 +106,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayErrorMessage(e.getMessage());
       dateNotFoundHelper(name);
     }
+    if(val!=null)
     view.displayTotalValue(date, val, portfolioName);
   }
 
