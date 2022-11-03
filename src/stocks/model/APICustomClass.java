@@ -17,40 +17,38 @@ class APICustomClass {
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
     Double price = Double.valueOf(-1);
-    String name =companyTickerSymbol.toUpperCase();
-    String path = "availableStocks/"+"daily_"+name+".csv";
+    String name = companyTickerSymbol.toUpperCase();
+    String path = "availableStocks/" + "daily_" + name + ".csv";
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       String line = br.readLine();
-      if((line = br.readLine()) != null) {
+      if ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         price = Double.valueOf(values[4]);
       }
     } catch (FileNotFoundException ex) {
-      System.out.println("file not found in our records for given company "+companyTickerSymbol);
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-   return price;
+    return price;
   }
 
 
-
-
-  public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
-    String latestAvailableStkPrice="0.0";
+  public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {
+    String latestAvailableStkPrice = "0.0";
     Date availableDateObj = null;
     Date givenDateObj = null;
     String name = companyTickerSymbol.toUpperCase();
     String path = "availableStocks/" + "daily_" + name + ".csv";
     List<List<String>> records = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      String line= br.readLine();
+      String line = br.readLine();
       while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         records.add(Arrays.asList(values));
       }
     } catch (IOException ex) {
-      System.out.println("File records doesnt exists for "+companyTickerSymbol);
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
       return 0.0;
     }
     try {
@@ -67,15 +65,15 @@ class APICustomClass {
         }
 
       }
-    } catch(ParseException e ){
-      throw new IllegalArgumentException("File records doesnt exists for "+companyTickerSymbol);
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("file not found in our records for given company " + companyTickerSymbol);
     }
 
 
-    if (availableDateObj!=null && availableDateObj.compareTo(givenDateObj) > 0) {
+    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
       throw new IllegalArgumentException("Stock Price is not available for this past date");
     }
-    return Double.valueOf(latestAvailableStkPrice)*qty;
+    return Double.valueOf(latestAvailableStkPrice) * qty;
   }
 
 }

@@ -383,10 +383,9 @@ public class PortfolioImplModelTest {
     File f = new File("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/userPortfolios/"+pName+"_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
-    String date="2009-10-01";
+    String date="2022-10-01";
     double res =model.getTotalValueOfPortfolioOnCertainDate(date,pName);
     assertTrue(res>0.0);
-
     f.deleteOnExit();
   }
 
@@ -415,7 +414,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testViewTotalValueForPersistedPortfolio() {
-    String date="2020-10-10";
+    String date="2022-10-10";
     String pName = "P3";
     Double res=model.getTotalValueOfPortfolioOnCertainDate(date,pName);
     System.out.println(res);
@@ -438,6 +437,20 @@ public class PortfolioImplModelTest {
     double res=model.getTotalValueOfPortfolioOnCertainDate(date,pName);
     assertTrue(res==0.0);
 
+  }
+
+  @Test
+  public void testLoadLengthyFileAndView(){
+    model.createPortfolioUsingFilePath("/Users/achennak/2022/fall/pdp/Group Projects/Stocks/test/testLongFile.csv");
+    String name = "currentInstance";
+    String date="2022-08-01";
+    double res1=model.getTotalValueOfPortfolioOnCertainDate(date,name);
+    System.out.println(res1);
+    date="2022-09-01";
+    double res2=model.getTotalValueOfPortfolioOnCertainDate(date,name);
+    System.out.println(res2);
+    model.viewCompositionOfCurrentPortfolio(name);
+    System.out.println(model.toString());
   }
 
   private void buyStocks(String quantity, String cName, String pfName) {
