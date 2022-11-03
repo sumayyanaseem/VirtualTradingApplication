@@ -194,13 +194,21 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private void buyOrSellStocks(String portfolioName) {
-    view.getCompanyTicker();
-    String companyName = input.nextLine();
+
+    String companyName = companyHelper();
     String quantity = quantityHelper();
     model.buyStocks(quantity, companyName, portfolioName);
     stoppingCondition(portfolioName);
   }
 
+  private String companyHelper(){
+    view.getCompanyTicker();
+    String companyName = input.nextLine();
+    if(validateIfCompanyExists(companyName)){
+      return companyHelper();
+    }
+    return companyName;
+  }
   private String quantityHelper() {
     view.getQuantity();
     String quantity = input.nextLine();
