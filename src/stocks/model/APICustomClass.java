@@ -49,8 +49,6 @@ class APICustomClass {
    *
    * @return the stock price of company for the given date.
    */
-  public double getStockPriceAsOfCertainDate(String companyTickerSymbol,double qty,String date )  {
-    String latestAvailableStkPrice="0.0";
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {
     String latestAvailableStkPrice = "0.0";
     Date availableDateObj = null;
