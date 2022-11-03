@@ -42,16 +42,16 @@ public class PortfolioViewImplTest {
   @Test
   public void testCallToViewToChooseCreateOrView() {
     portfolioView.callToViewToChooseCreateOrView();
-    assertEquals(bytes.toString(), "Enter 1: To create a Portfolio " +
-            "2: To query the portfolio details 3: To load a Portfolio\n");
+    assertEquals(bytes.toString(), "Enter 1: To create a Portfolio "
+            + "2: To query the portfolio details 3: To load a Portfolio\n");
   }
 
 
   @Test
   public void testAskUserOnHowToCreatePortfolio() {
     portfolioView.askUserOnHowToCreatePortfolio();
-    assertEquals(bytes.toString(), "Enter 1: To create Portfolio using external file  " +
-            "2: To create manually\n");
+    assertEquals(bytes.toString(), "Enter 1: To create Portfolio using external file  "
+            + "2: To create manually\n");
   }
 
 
@@ -83,45 +83,45 @@ public class PortfolioViewImplTest {
   @Test
   public void getAskUserIfHeWantsToContinueTradingInCurrentPortfolio() {
     portfolioView.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
-    assertEquals(bytes.toString(), "Enter 1: To continue trading in current portfolio.  " +
-            "2: To exit from current Portfolio.\n");
+    assertEquals(bytes.toString(), "Enter 1: To continue trading in current portfolio.  "
+            + "2: To exit from current Portfolio.\n");
   }
 
   @Test
   public void getCheckIfUserWantsToExitCompletely() {
     portfolioView.checkIfUserWantsToExitCompletely();
-    assertEquals(bytes.toString(), "Enter 1: To continue trading further. " +
-            "2: To exit from this session.\n");
+    assertEquals(bytes.toString(), "Enter 1: To continue trading further. "
+            + "2: To exit from this session.\n");
 
   }
 
   @Test
   public void testCreateOrUpdateExistingPortfolio() {
     portfolioView.createOrUpdateExistingPortfolio();
-    assertEquals(bytes.toString(), "Enter 1: To create a portfolio. " +
-            "2: To update a existing portfolio.\n");
+    assertEquals(bytes.toString(), "Enter 1: To create a portfolio. "
+            + "2: To update a existing portfolio.\n");
   }
 
   @Test
   public void testCheckIfUserWantsToViewCompositionOrTotalValue() {
     portfolioView.checkIfUserWantsToViewCompositionOrTotalValue();
-    assertEquals(bytes.toString(), "Enter 1: To view composition " +
-            " 2: To get TotalValue of portfolio\n");
+    assertEquals(bytes.toString(), "Enter 1: To view composition "
+            + " 2: To get TotalValue of portfolio\n");
   }
 
   @Test
   public void testDisplayTotalValue() {
     portfolioView.displayTotalValue("2022-10-01", "100.12", "dummy");
-    assertEquals(bytes.toString(), "Total Valuation of Portfolio " +
-            "dummy" + " on " + "2022-10-01" + " is :" + "100.12" + "\n");
+    assertEquals(bytes.toString(), "Total Valuation of Portfolio "
+            + "dummy" + " on " + "2022-10-01" + " is :" + "100.12" + "\n");
 
   }
 
   @Test
   public void testGetDateForValuation() {
     portfolioView.getDateForValuation();
-    assertEquals(bytes.toString(), "Enter date as of which you need " +
-            "portfolio valuation( YYYY-MM-DD format only)\n");
+    assertEquals(bytes.toString(), "Enter date as of which you need "
+            + "portfolio valuation( YYYY-MM-DD format only)\n");
   }
 
 
@@ -134,15 +134,15 @@ public class PortfolioViewImplTest {
   @Test
   public void testAskUserIfheWantsTOContinueViewing() {
     portfolioView.askUserIfheWantsTOContinueViewing();
-    assertEquals(bytes.toString(), "Enter 1: To continue querying loaded portfolio   " +
-            "2: To perform actions on other portfolios\n");
+    assertEquals(bytes.toString(), "Enter 1: To continue querying loaded portfolio   "
+            + "2: To perform actions on other portfolios\n");
   }
 
   @Test
   public void testCallExitFromLoad() {
     portfolioView.callExitFromLoad();
-    assertEquals(bytes.toString(), "Enter 1: To view details of this portfolio. " +
-            " 2: To exit and continue further trading.\n");
+    assertEquals(bytes.toString(), "Enter 1: To view details of this portfolio. "
+            + " 2: To exit and continue further trading.\n");
   }
 
   @Test

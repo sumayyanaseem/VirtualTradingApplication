@@ -3,8 +3,7 @@
     <output-path>$PROJECT_DIR$/res</output-path>
     <root id="archive" name="Stocks.jar">
       <element id="module-output" name="Stocks" />
-      <element id="dir-copy" path="$PROJECT_DIR$/recourses" />
-      <element id="dir-copy" path="$PROJECT_DIR$/res" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resourses" />
     </root>
   </artifact>
 </component>

@@ -168,7 +168,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     String option = input.nextLine();
     if (option.equals("1")) {
       viewHelper("currentInstance");
-    } else {
+    } else if(option.equals("2")){
       finalExitCondition();
     }
   }
@@ -234,8 +234,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     if (option.equals("1")) {
       startCopy(this.model);
-    } else if (option.equals("1")) {
-      //do nothing
     }
 
   }
@@ -244,8 +242,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
     } else {
-      view.displayErrorMessage("Invalid input provided." +
-              "Please provide a valid input (either 1 or 2)");
+      view.displayErrorMessage("Invalid input provided."
+              + "Please provide a valid input (either 1 or 2)");
       return true;
     }
     return false;
@@ -287,8 +285,8 @@ public class PortfolioControllerImpl implements PortfolioController {
       }
 
     } catch (IllegalArgumentException | DateTimeParseException | ParseException e) {
-      view.displayErrorMessage("Invalid dateFormat provided." +
-              "Please provide date in YYYY-MM-DD format only.");
+      view.displayErrorMessage("Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.");
       return true;
     }
     return false;

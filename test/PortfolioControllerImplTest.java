@@ -248,8 +248,8 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testCreatePortfolioManuallyEndToEnd() {
-    String expected = "Enter 1: To create a Portfolio " +
-            "2: To query the portfolio details 3: To load a Portfolio\n"
+    String expected = "Enter 1: To create a Portfolio "
+            + "2: To query the portfolio details 3: To load a Portfolio\n"
             + "Enter the name of the Portfolio\n"
             + "Enter the name of the company to be added to portfolio\n"
             + "Enter the quantity of the stocks\n"
@@ -313,14 +313,14 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testInvalidDate() {
-    String expected = "Enter date as of which you need portfolio " +
-            "valuation( YYYY-MM-DD format only)";
-    String error = "Invalid dateFormat provided.Please " +
-            "provide date in YYYY-MM-DD format only.\n"
-            + "Enter date as of which you need portfolio " +
-            "valuation( YYYY-MM-DD format only)";
-    in = new ByteArrayInputStream(("2\nP2\n2\n2022\n1234\n22-10-11" +
-            "\n2022-1\n2023-20-10\n").getBytes());
+    String expected = "Enter date as of which you need portfolio "
+            + "valuation( YYYY-MM-DD format only)";
+    String error = "Invalid dateFormat provided.Please "
+            + "provide date in YYYY-MM-DD format only.\n"
+            + "Enter date as of which you need portfolio "
+            + "valuation( YYYY-MM-DD format only)";
+    in = new ByteArrayInputStream(("2\nP2\n2\n2022\n1234\n22-10-11"
+            + "\n2022-1\n2023-20-10\n").getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start(model);

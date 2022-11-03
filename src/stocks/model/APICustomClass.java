@@ -41,11 +41,11 @@ class APICustomClass {
           price = Double.valueOf(values[4]);
         }
       } catch (FileNotFoundException ex) {
-        System.out.println("file not found in our records for " +
-                "given company " + companyTickerSymbol);
+        System.out.println("file not found in our records for "
+                + "given company " + companyTickerSymbol);
       } catch (IOException e) {
-        System.out.println("file not found in our records for " +
-                "given company " + companyTickerSymbol);
+        System.out.println("file not found in our records for "
+                + "given company " + companyTickerSymbol);
       }
     }
     return price;
@@ -66,43 +66,48 @@ class APICustomClass {
     ClassLoader classLoader = getClass().getClassLoader();
     InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
     List<List<String>> records = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-      String line = br.readLine();
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        records.add(Arrays.asList(values));
-      }
-    } catch (UnsupportedEncodingException e) {
-      System.out.println("file not found in our records for given company " + companyTickerSymbol);
-      return 0.0;
-    } catch (IOException e) {
-      System.out.println("file not found in our records for given company " + companyTickerSymbol);
-      return 0.0;
-    }
-    try {
-      givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-              .parse(date);
-      for (int i = 0; i < records.size(); i++) {
-        List<String> infoByDate = new ArrayList<>(records.get(i));
-        String availableDate = infoByDate.get(0);
-        latestAvailableStkPrice = infoByDate.get(4);
-        availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(availableDate);
-        if (availableDateObj.compareTo(givenDateObj) <= 0) {
-          break;
+    if (is != null) {
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+        String line = br.readLine();
+        while ((line = br.readLine()) != null) {
+          String[] values = line.split(",");
+          records.add(Arrays.asList(values));
         }
-
+      } catch (UnsupportedEncodingException e) {
+        System.out.println("file not found in our records for given company "
+                + companyTickerSymbol);
+        return 0.0;
+      } catch (IOException e) {
+        System.out.println("file not found in our records for given company "
+                + companyTickerSymbol);
+        return 0.0;
       }
-    } catch (ParseException e) {
-      throw new IllegalArgumentException("file not found in our records "
-              + "for given company " + companyTickerSymbol);
-    }
+      try {
+        givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date);
+        for (int i = 0; i < records.size(); i++) {
+          List<String> infoByDate = new ArrayList<>(records.get(i));
+          String availableDate = infoByDate.get(0);
+          latestAvailableStkPrice = infoByDate.get(4);
+          availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(availableDate);
+          if (availableDateObj.compareTo(givenDateObj) <= 0) {
+            break;
+          }
+
+        }
+      } catch (ParseException e) {
+        throw new IllegalArgumentException("file not found in our records "
+                + "for given company " + companyTickerSymbol);
+      }
 
 
-    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
-      throw new IllegalArgumentException("Stock Price is not available for this past date");
+      if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
+        throw new IllegalArgumentException("Stock Price is not available for this past date");
+      }
     }
     return Double.valueOf(latestAvailableStkPrice) * qty;
   }
+
 
 }

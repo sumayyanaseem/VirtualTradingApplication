@@ -82,9 +82,14 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-   // validateIfPortfolioAlreadyExists(portfolioName);
     List<String[]> temp = new ArrayList<>();
-    temp.add(new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase", "TotalValueOwned"});
+    String[] t = new String[5];
+    t[0] = "CompanyName";
+    t[1] = "Quantity";
+    t[2] = "PriceBought";
+    t[3] = "DatePurchase";
+    t[4] = "TotalValueOwned";
+    temp.add(t);
     if (!portfolioMap.isEmpty()) {
       Map<String, Stock> mm = portfolioMap.get(portfolioName);
       for (Map.Entry<String, Stock> entry : mm.entrySet()) {
@@ -194,9 +199,13 @@ public class PortfolioImplModel implements PortfolioModel {
     if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
       if (!portfolioMap.isEmpty()) {
         Map<String, Stock> map = portfolioMap.get(this.pName);
-        String[] headers = new String[]{"CompanyName", "Quantity", "PriceBought", "DatePurchase",
-                "TotalValueWhenPurchased"};
-        results.add(List.of(headers));
+        String[] t = new String[5];
+        t[0] = "CompanyName";
+        t[1] = "Quantity";
+        t[2] = "PriceBought";
+        t[3] = "DatePurchase";
+        t[4] = "TotalValueOwned";
+        results.add(List.of(t));
         for (Map.Entry<String, Stock> entry : map.entrySet()) {
           List<String> temp = new ArrayList<>();
           Stock s = entry.getValue();
@@ -204,7 +213,7 @@ public class PortfolioImplModel implements PortfolioModel {
           temp.add(String.valueOf(s.getQty()));
           temp.add(String.valueOf(s.getPriceBought()));
           temp.add(s.getDateBought());
-          temp.add(String.valueOf(s.getTotalValue()));
+          temp.add(String.format("%.2f",s.getTotalValue()));
           results.add(temp);
         }
       }
@@ -331,8 +340,8 @@ public class PortfolioImplModel implements PortfolioModel {
         Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date);
         if (givenDate.compareTo(todayDate) > 0) {
-          throw new IllegalArgumentException("Future Date provided." +
-                  "Please provide date less then or equal to today");
+          throw new IllegalArgumentException("Future Date provided."
+                  + "Please provide date less then or equal to today");
         }
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {

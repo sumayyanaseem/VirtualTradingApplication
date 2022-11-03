@@ -19,8 +19,8 @@ public class PortfolioImplModelTest {
 
   private PortfolioModel model;
 
-  int min = 1;
-  int max = 100;
+  private final int min = 1;
+  private final int max = 100;
 
   @Before
   public void setUp() {
@@ -132,8 +132,8 @@ public class PortfolioImplModelTest {
 
     String cName = "goog";
     String quantity = String.valueOf(100);
-    String expected = "Given company doesnt exist in our records." +
-            "Please provide valid  companyTicker symbol.";
+    String expected = "Given company doesnt exist in our records."
+            + "Please provide valid  companyTicker symbol.";
     String actual = "";
     try {
       buyStocks(quantity, cName, "testPortfolio");
@@ -371,7 +371,7 @@ public class PortfolioImplModelTest {
     String pName = "testPortfolio1";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("userPortfolios/" +pName+"_output.csv");
+    File f = new File("userPortfolios/" + pName + "_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date = "2022-10-01";
@@ -386,7 +386,7 @@ public class PortfolioImplModelTest {
     String pName = "testPortfolio2";
     buyMultipleStocks(pName);
     model.createPortfolioIfCreatedManually(pName);
-    File f = new File("userPortfolios/" +pName+"_output.csv");
+    File f = new File("userPortfolios/" + pName + "_output.csv");
     assertTrue(f.exists());
     model.viewCompositionOfCurrentPortfolio(pName);
     String date = "2022-10-01";
@@ -402,9 +402,9 @@ public class PortfolioImplModelTest {
   }
 
   @Test
-  public void testLoadAndViewCompositionAndTotalValue(){
+  public void testLoadAndViewCompositionAndTotalValue() {
     model.createPortfolioUsingFilePath("userPortfolios/test.csv");
-    List<List<String>> results=model.viewCompositionOfCurrentPortfolio("currentInstance");
+    List<List<String>> results = model.viewCompositionOfCurrentPortfolio("currentInstance");
     assertFalse(results.isEmpty());
     double res = model.getTotalValueOfPortfolioOnCertainDate("2022-10-01", "currentInstance");
     assertFalse(res == 0.0);

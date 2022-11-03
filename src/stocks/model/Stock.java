@@ -7,14 +7,14 @@ package stocks.model;
  */
 
 public class Stock {
-  String companyTickerSymbol;
-  Double qty;
-  double priceBought;
+  private final String companyTickerSymbol;
+  private final Double qty;
+  private final double priceBought;
 
-  String dateBought;
+  private final String dateBought;
 
-  String dateSold;
-  double totalValue;
+  private final String dateSold;
+  private final double totalValue;
 
   /**
    * Constructs a Stock object and initializes all the relevant fields for a stock.
