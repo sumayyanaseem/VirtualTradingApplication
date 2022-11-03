@@ -134,7 +134,7 @@ public class PortfolioViewImplTest {
   @Test
   public void testAskUserIfheWantsTOContinueViewing() {
     portfolioView.askUserIfheWantsTOContinueViewing();
-    assertEquals(bytes.toString(), "Enter 1: To continue querying loaded portfolio   "
+    assertEquals(bytes.toString(), "Enter 1: To continue querying loaded portfolio  "
             + "2: To perform actions on other portfolios\n");
   }
 

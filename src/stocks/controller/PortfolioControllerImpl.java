@@ -125,6 +125,9 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void viewHelper2(String name) {
     view.askUserIfheWantsTOContinueViewing();
     String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      viewHelper2(name);
+    }
     if (option.equals("1")) {
       viewHelper(name);
     } else {
@@ -166,6 +169,9 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void exitFromLoadPortfolio() {
     view.callExitFromLoad();
     String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      exitFromLoadPortfolio();
+    }
     if (option.equals("1")) {
       viewHelper("currentInstance");
     } else if(option.equals("2")){
