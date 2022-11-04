@@ -397,7 +397,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadFile() {
-    model.createPortfolioUsingFilePath("test/test.csv");
+    model.createPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
     assertFalse(model.toString().isEmpty());
   }
 
@@ -447,7 +447,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadLengthyFileAndView() {
-    model.createPortfolioUsingFilePath("test/testLongFile.csv");
+    model.createPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
     String name = "currentInstance";
     String date = "2022-08-01";
     double res1 = model.getTotalValueOfPortfolioOnCertainDate(date, name);

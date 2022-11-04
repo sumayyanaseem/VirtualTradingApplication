@@ -1,11 +1,30 @@
                                 VIRTUAL TRADING APPLICATION SETUP
 *********************************************************************************************************************
+steps for the user to follow:
+
+Note:
+1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.
+( AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
+2.Dates acceptable(From 2022-11-03 to 2022-06-15).
+
+Note:
+1.Jar file is located in res folder.
+2.Along with jar file, we need userPortfolios folder to be present in the same folder.
+3.Jar must include resources folder along with src folder.
+
+Run the jar file.
+
+There are three flows in this Application:
+A)Create one or more Portfolios.
+B)View the composition/View the Total Value of a Portfolio.
+C)Load a Portfolio into the application.
 
 
 *********************************************************************************************************************
 how to run our program to create a portfolio with 3 different stocks, a second portfolio with 2 different stocks and query their value on a specific date.
 *********************************************************************************************************************
-Run the jar
+Run the jar file.
+
 1) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
    User input: 1
 2) UI: "Enter the name of the Portfolio"
@@ -76,9 +95,6 @@ Run the jar
     User input: 2
 
 
-
-
-
 *********************************************************************************************************************
 generic steps for the user to follow:
 *********************************************************************************************************************
@@ -106,11 +122,11 @@ creating a portfolio:
     a) Type 1 and press enter to keep adding stocks of multiple companies. Steps 5 to 9 will repeat for each stock that you add.
     b) Once you are done adding all your stocks to the current portfolio that you created, type 2 and press enter.
     (Note: If you press 2 to exit from current portfolio, your portfolio will be persisted as a csv.)
-10) If 2 is pressed to exit from current portfolio, then text displayed after pressing enter:
+10) If 2 is pressed to exit from current portfolio, then below text is displayed after pressing enter:
     "Enter 1: To continue trading further. 2: To exit from this session"
-    a) Type 2 and press enter to exit the program completely.
-    b) If you dont want to exit but continue exploring further in this session then enter 1 and press enter.
-13) If 1 is pressed then text displayed after pressing enter:
+11) Type 2 and press enter to exit the program completely.
+12) If you dont want to exit but continue exploring further in this session then enter 1 and press enter.
+13) If 1 is entered, then text displayed after pressing enter:
     "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
     a) type 1 and press enter to create a new portfolio. steps 1  to 13 will repeat.
     b) Steps to query the existing portfolio details and steps to load a portfolio by user are explained in further sections below.
@@ -126,18 +142,18 @@ Query the portfolio details:
 16) Text displayed after pressing enter:
     "Enter 1: To view composition  2: To get TotalValue of portfolio"
 17) Type 1 and press enter to view composition.
-18) Composition is diplayed as below:
+18) Composition is displayed as below in table format:
     CompanyName Quantity PriceBought DatePurchase TotalValueWhenPurchased
 19) After displaying composition, text displayed on the UI:
     "Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios"
-20) If you want to get the total value of the portfolio as well then type 1 and press enter to continue querying the portfolio which you just loaded before this step.
+20) If you want to get the total value of the portfolio as well ,then type 1 and press enter to continue querying the portfolio which you just loaded before this step.
 21) text displayed after pressing enter:
     "Enter 1: To view composition  2: To get TotalValue of portfolio"
-22) since you already tried view compostion option for this portfolio, you can now type 2 and press enter to get total value of this portfolio.
+22) since you already tried view composition option for this portfolio, you can now type 2 and press enter to get total value of this portfolio.
 23) Text displayed after pressing enter.
     "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)"
 24) Type date in given format and press enter.
-    (Note: stock prices are available only for a certain date range ( today's date to some past date)
+    (Note: stock prices are available only for a certain date range.
 25) total valuation is displayed after entering the correct date.
 26) Text displayed after displaying total valuation is:
      "Enter 1: To continue querying loaded portfolio   2: To perform actions on other portfolios"
@@ -145,7 +161,7 @@ Query the portfolio details:
     type 2 and press enter.
 28) text displayed after pressing enter:
     "Enter 1: To continue trading further. 2: To exit from this session."
-    a) type 1 and press enter if you want to try loading a csv file with stocks info( comapany name and quantity)
+    a) type 1 and press enter if you want to try loading a csv file with stocks info( company name and quantity)
         into the application.
     b) type 2 and press enter if you want to close the application.
 
@@ -153,7 +169,7 @@ loading a portfolio:
 ---------------------
 29) In step 28, if you typed 1 and pressed enter, text displayed is:
     "Enter the path of File to load Portfolio"
-30) Enter the absolute path of the file stored in your local and press enter.
+30) Enter the path of the file stored in your local and press enter.
 31) After pressing enter, text displayed is:
     "Enter 1: To view details of this portfolio.  2: To exit and continue further trading."
     a) Type 1 and press enter to view results computed using this loaded file.
