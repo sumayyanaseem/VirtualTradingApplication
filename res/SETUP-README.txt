@@ -1,8 +1,87 @@
                                 VIRTUAL TRADING APPLICATION SETUP
 *********************************************************************************************************************
 
-steps for the user to follow:
 
+*********************************************************************************************************************
+how to run our program to create a portfolio with 3 different stocks, a second portfolio with 2 different stocks and query their value on a specific date.
+*********************************************************************************************************************
+Run the jar
+1) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
+   User input: 1
+2) UI: "Enter the name of the Portfolio"
+   User input: p1
+3) UI: "Enter the name of the company to be added to portfolio"
+   User input: AAPL
+4) UI: "Enter the quantity of the stocks"
+   User input: 10
+5) UI: "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio."
+   User input: 1
+6) UI: "Enter the name of the company to be added to portfolio"
+   User input: AMZN
+7) UI: "Enter the quantity of the stocks"
+   User input: 20
+8) UI: "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio."
+   User input: 1
+9) UI: "Enter the name of the company to be added to portfolio"
+   User input: TWTR
+10) UI: "Enter the quantity of the stocks"
+    User input: 50
+11) UI: "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio."
+    User input: 2
+12) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 1
+13) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
+    User input: 1
+14) UI: "Enter the name of the Portfolio"
+    User input: p2
+15) UI: "Enter the name of the company to be added to portfolio"
+    User input: dash
+16) UI: "Enter the quantity of the stocks"
+    User input: 11
+17) UI: "Enter 1: To continue trading in current portfolio.  2: To exit from current Portfolio."
+    User input: 1
+18) UI: "Enter the name of the company to be added to portfolio"
+    User input: NVDA
+19) UI: "Enter the quantity of the stocks"
+    User input: 30
+20) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 1
+21) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 1
+22) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
+    User input: 2
+23) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio"
+    User input: 2
+24) UI: "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)"
+    User input: "2022-10-10"
+25) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 2
+26) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 1
+27) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
+    User input: 2
+28) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio"
+    User input: 2
+29) UI: "Enter the name of the Portfolio"
+    User input: p8
+30) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio"
+    User input: 2
+31) UI: "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)"
+    User input: 2022-04-05
+32) UI: "Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)"
+    User input: 2022-09-09
+33) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 2
+34) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 2
+
+
+
+
+
+*********************************************************************************************************************
+generic steps for the user to follow:
+*********************************************************************************************************************
 Run the jar file.
 
 creating a portfolio:
@@ -82,3 +161,4 @@ loading a portfolio:
 32) If you typed 1 and pressed enter then text displayed is:
     "Enter 1: To view composition  2: To get TotalValue of portfolio"
 33) steps 16 to 28 will be repeated based on whether you enter 1 or 2.
+

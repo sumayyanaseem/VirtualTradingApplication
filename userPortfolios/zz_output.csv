@@ -1,0 +1,4 @@
+CompanyName,Quantity,PriceBought,DatePurchase,TotalValueOwned
+AAPL,10.00,138.88,2022-11-03,1388.80
+ABNB,10.00,92.02,2022-11-03,920.20
+AMZN,10.00,89.3,2022-11-03,893.00
