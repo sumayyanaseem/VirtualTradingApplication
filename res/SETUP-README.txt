@@ -1,11 +1,16 @@
                                 VIRTUAL TRADING APPLICATION SETUP
 *********************************************************************************************************************
+steps for the user to follow:
+
 Note:
 1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.
 ( AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
 2.Dates acceptable(From 2022-11-03 to 2022-06-15).
 
-steps for the user to follow:
+Note:
+1.Jar file is located in res folder.
+2.Along with jar file, we need userPortfolios folder to be present in the same folder.
+3.Jar must include resources folder along with src folder.
 
 Run the jar file.
 
