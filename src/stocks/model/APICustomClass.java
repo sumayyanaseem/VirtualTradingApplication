@@ -3,6 +3,7 @@ package stocks.model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,23 +31,17 @@ class APICustomClass {
 
     Double price = Double.valueOf(-1);
     String name = companyTickerSymbol.toUpperCase();
-    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
-    if (is != null) {
-      try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-        String line = br.readLine();
-        if ((line = br.readLine()) != null) {
-          String[] values = line.split(",");
-          price = Double.valueOf(values[4]);
-        }
-      } catch (FileNotFoundException ex) {
-        System.out.println("file not found in our records for "
-                + "given company " + companyTickerSymbol);
-      } catch (IOException e) {
-        System.out.println("file not found in our records for "
-                + "given company " + companyTickerSymbol);
+    String path = "./availableStocks/" + "daily_" + name + ".csv";
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+      String line = br.readLine();
+      if ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        price = Double.valueOf(values[4]);
       }
+    } catch (FileNotFoundException ex) {
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
     }
     return price;
   }
@@ -66,48 +61,42 @@ class APICustomClass {
     ClassLoader classLoader = getClass().getClassLoader();
     InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
     List<List<String>> records = new ArrayList<>();
-    if (is != null) {
-      try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-        String line = br.readLine();
-        while ((line = br.readLine()) != null) {
-          String[] values = line.split(",");
-          records.add(Arrays.asList(values));
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+      String line = br.readLine();
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+        records.add(Arrays.asList(values));
+      }
+    } catch (UnsupportedEncodingException e) {
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
+      return 0.0;
+    } catch (IOException e) {
+      System.out.println("file not found in our records for given company " + companyTickerSymbol);
+      return 0.0;
+    }
+    try {
+      givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(date);
+      for (int i = 0; i < records.size(); i++) {
+        List<String> infoByDate = new ArrayList<>(records.get(i));
+        String availableDate = infoByDate.get(0);
+        latestAvailableStkPrice = infoByDate.get(4);
+        availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(availableDate);
+        if (availableDateObj.compareTo(givenDateObj) <= 0) {
+          break;
         }
-      } catch (UnsupportedEncodingException e) {
-        System.out.println("file not found in our records for given company "
-                + companyTickerSymbol);
-        return 0.0;
-      } catch (IOException e) {
-        System.out.println("file not found in our records for given company "
-                + companyTickerSymbol);
-        return 0.0;
-      }
-      try {
-        givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(date);
-        for (int i = 0; i < records.size(); i++) {
-          List<String> infoByDate = new ArrayList<>(records.get(i));
-          String availableDate = infoByDate.get(0);
-          latestAvailableStkPrice = infoByDate.get(4);
-          availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(availableDate);
-          if (availableDateObj.compareTo(givenDateObj) <= 0) {
-            break;
-          }
 
-        }
-      } catch (ParseException e) {
-        throw new IllegalArgumentException("file not found in our records "
-                + "for given company " + companyTickerSymbol);
       }
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("file not found in our records for given company " + companyTickerSymbol);
+    }
 
 
-      if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
-        throw new IllegalArgumentException("Stock Price is not available for this past date");
-      }
+    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
+      throw new IllegalArgumentException("Stock Price is not available for this past date");
     }
     return Double.valueOf(latestAvailableStkPrice) * qty;
   }
-
 
 }
