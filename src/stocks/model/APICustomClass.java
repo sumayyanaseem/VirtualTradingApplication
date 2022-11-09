@@ -1,12 +1,6 @@
 package stocks.model;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -35,9 +29,6 @@ class APICustomClass implements APICustomInterface{
     String name = companyTickerSymbol.toUpperCase();
     String output = fetchOutputStringFromURL(companyTickerSymbol);
     String lines[] = output.split(System.lineSeparator());
-    //String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    //ClassLoader classLoader = getClass().getClassLoader();
-    //InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
     String[] values = lines[1].split(",");
     price = Double.valueOf(values[4]);
 
@@ -56,9 +47,7 @@ class APICustomClass implements APICustomInterface{
     Date availableDateObj = null;
     Date givenDateObj = null;
     String name = companyTickerSymbol.toUpperCase();
-    //String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    //ClassLoader classLoader = getClass().getClassLoader();
-    //InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
+
     String output = fetchOutputStringFromURL(companyTickerSymbol);
     String lines[] = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();

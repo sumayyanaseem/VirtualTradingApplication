@@ -44,6 +44,7 @@ public class PortfolioImplModel implements PortfolioModel {
     validateIfCompanyExists(cName);
     validateIfPortfolioAlreadyExists(portfolioName);
     this.pName = portfolioName;
+    String action="add";
     double priceBought = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
       String pattern = "yyyy-MM-dd";
@@ -52,7 +53,7 @@ public class PortfolioImplModel implements PortfolioModel {
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
-      Stock s = new Stock(companyName, qty, todayDateStr, null, priceBought, totalVal);
+      Stock s = new Stock(companyName, qty, todayDateStr, null, priceBought, totalVal, action);
       if (portfolioMap.isEmpty()) {
         Map<String, Stock> m = new HashMap<>();
         m.put(companyName, s);
@@ -67,7 +68,7 @@ public class PortfolioImplModel implements PortfolioModel {
           Stock s1 = m1.get(companyName);
           double totQty = s1.getQty() + qty;
           double val = s1.getTotalValue() + totalVal;
-          Stock s2 = new Stock(companyName, totQty, todayDateStr, null, priceBought, val);
+          Stock s2 = new Stock(companyName, totQty, todayDateStr, null, priceBought, val, action);
           m1.put(companyName, s2);
           portfolioMap.put(portfolioName, m1);
         }
@@ -160,6 +161,7 @@ public class PortfolioImplModel implements PortfolioModel {
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
     }
+    String action="add";
     Map<String, Stock> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
@@ -170,7 +172,7 @@ public class PortfolioImplModel implements PortfolioModel {
         if (!mapOfStocks.containsKey(sName)) {
           double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
           Stock st = new Stock(listOfStocks.get(i).get(0),
-                  Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value);
+                  Double.parseDouble(listOfStocks.get(i).get(1)), todayDate, null, sPrice, value, action);
           mapOfStocks.put(sName, st);
         } else {
           Stock list1 = mapOfStocks.get(sName);
@@ -178,7 +180,7 @@ public class PortfolioImplModel implements PortfolioModel {
           mapOfStocks.remove(sName);
           double totQty = list1.getQty() + Double.parseDouble(list2.get(1));
           double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-          Stock st = new Stock(listOfStocks.get(i).get(0), totQty, todayDate, null, sPrice, value);
+          Stock st = new Stock(listOfStocks.get(i).get(0), totQty, todayDate, null, sPrice, value, action);
           mapOfStocks.put(sName, st);
         }
       }

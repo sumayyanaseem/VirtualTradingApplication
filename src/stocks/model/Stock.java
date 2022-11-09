@@ -9,40 +9,38 @@ package stocks.model;
 public class Stock {
   private final String companyTickerSymbol;
   private final Double qty;
-  private final double priceBought;
-
-  private final String dateBought;
-
-  private final String dateSold;
   private final double totalValue;
+  private final String action;
+
+  private final double priceOfStockAsOfGivenDate;
+
+  private final String dateOfAction;
 
   /**
    * Constructs a Stock object and initializes all the relevant fields for a stock.
    */
-  public Stock(String companyTickerSymbol, double qty, String dateBought,
-               String dateSold, double priceBought, double totalValue) {
+  public Stock(String companyTickerSymbol, double qty, double totalValue, String action, double priceOfStockAsOfGivenDate, String dateOfAction) {
     this.companyTickerSymbol = companyTickerSymbol;
     this.qty = qty;
-    this.dateBought = dateBought;
-    this.dateSold = dateSold;
-    this.priceBought = priceBought;
     this.totalValue = totalValue;
+    this.action = action;
+    this.priceOfStockAsOfGivenDate = priceOfStockAsOfGivenDate;
+    this.dateOfAction = dateOfAction;
   }
 
-  /**
-   * gives the price at which stock was bought.
-   *
-   * @return the buy price of the stock.
-   */
-  public double getPriceBought() {
-    return priceBought;
+  public double getPriceOfStockAsOfGivenDate() {
+    return priceOfStockAsOfGivenDate;
   }
 
-  /**
-   * gives the total value of the stock based on quantity and stock price.
-   *
-   * @return the total value calculated.
-   */
+  public String getAction() {
+    return action;
+  }
+
+  public String getDateOfAction() {
+    return dateOfAction;
+  }
+
+
   public double getTotalValue() {
     return totalValue;
   }
@@ -66,26 +64,6 @@ public class Stock {
   }
 
 
-  /**
-   * gives the date on which the stock was bought.
-   *
-   * @return buy date of the stock.
-   */
-  public String getDateBought() {
-    return dateBought;
-  }
-
-
-  /**
-   * gives the date on which the stock was sold.
-   *
-   * @return sell date of the stock.
-   */
-  public String getDateSold() {
-    return dateSold;
-  }
-
-
   @Override
   public String toString() {
     StringBuilder res = new StringBuilder();
@@ -93,9 +71,6 @@ public class Stock {
     res.append(", ");
     res.append("quantity : ").append(String.format("%.2f", getQty()));
     res.append(", ");
-    res.append("buyPrice : ").append(String.format("%.2f", getPriceBought()));
-    res.append(", ");
-    res.append("TotalValue : ").append(String.format("%.2f", getTotalValue()));
     res.append("\n");
     return res.toString();
   }
