@@ -1,5 +1,6 @@
 package stocks.model;
 
+//not needed now
 public class SellStocks extends Stock {
   private final double priceSold;
   private final String dateSold;

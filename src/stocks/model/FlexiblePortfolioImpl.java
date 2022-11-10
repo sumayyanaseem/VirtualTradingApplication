@@ -3,7 +3,6 @@ package stocks.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -133,66 +132,60 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   public FlexiblePortfolio sellStocks(String companyName, int quantity, String date, String portfolioName) {
     action = "sell";
     validateInputs(action);
-//validate if company exists in the current portfolio
-
-    //if company exits, then compare dates
-
-    //collections.sort(compareTo(//based on date))
-//validate if company exists in the current portfolio
-    double priceSold = apiCustomClass.getStockPriceAsOfCertainDate(companyName, quantity, date);
-    if (priceSold != -1) {
-      String cName = companyName.toUpperCase();
-      if (stockMap.isEmpty()) {
+    Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
+    if(!m1.containsKey(companyName)){
+      //throw error
+    } else if (stockMap.isEmpty()) {
         //then throw error that you cant sell without buying.
-      } else {
+    } else {
         //if sellMap is not empty, then validate if entry of this company exists or not.
-        Map<String, List<SellStocks>> m1 = .get(portfolioName);
-        if (!m1.containsKey(companyName)) {
-          //entry of this company doesnt exists in sellMap
-          int netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
+      int netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
           if (netQuantity < quantity) {
             //then throw error , that its not valid.
           } else {
-            SellStocks s = new SellStocks(cName, quantity, 0.0, priceSold, date);
-            Map<String, List<SellStocks>> map = new HashMap<>();
-            List<SellStocks> list1 = new ArrayList<>();
-            list1.add(s);
-            map.put(companyName, list1);
-            sellMap.put(portfolioName, map);
-          }
-        } else {
-          //entry of this company exists in sellMap
-          //validate the chronological order of the sells
-          int netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
-          if (netQuantity < quantity) {
-            //then throw error , that its not valid.
-          } else {
-            String lastSellDate = getLastSellDate();
-            if (lastSellDate <= date) {
-              //add to list
+            String lastSellDate = getLastSellDate(companyName);
+            if(lastSellDate>date) {
+              //throw error
             } else {
-              //throw its invalid operation.
+              Stock s = new Stock(companyName, quantity, 0.0,action, 0.0, date);
+              List<Stock> stockList = m1.get(companyName);
+              stockList.add(s);
+              m1.put(companyName, stockList);
+              stockMap.put(portfolioName, m1);
             }
-          }
         }
-
-
-      }
-
     }
-
-
     return null;
   }
 
+
+  private String getLastSellDate(String companyName){
+    Map<String, List<Stock>> m = stockMap.get(portfolioName);
+    List<Stock> list = m.get(companyName);
+    String date = currentDate();
+    String date2 = null;
+    for(int i=0;i<list.size();i++){
+      if (list.get(i).getAction().equals("sell")) {
+        date2=list.get(i).getDateOfAction();
+        if(date2<=date){
+          date=date2;
+        }
+      }
+    }
+    return date;
+  }
   private int getQuantityOnThisDateForGivenCompanyName(String date, String companyName) {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     int quantity = 0;
     for (int i = 0; i < list.size(); i++) {
-      String datePresent = list.get(i).getDateBought();
+      String datePresent = list.get(i).getDateOfAction();
       if (datePresent <= date) {
-        quantity += list.get(i).getQty();
+        if (list.get(i).getAction().equals("buy")) {
+          quantity += list.get(i).getQty();
+        } else if(list.get(i).getAction().equals("sell")){
+          quantity -= list.get(i).getQty();
+        }
       }
     }
     return quantity;

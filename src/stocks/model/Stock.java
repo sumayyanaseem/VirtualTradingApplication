@@ -11,7 +11,6 @@ public class Stock {
   private final Double qty;
   private final double totalValue;
   private final String action;
-
   private final double priceOfStockAsOfGivenDate;
 
   private final String dateOfAction;
