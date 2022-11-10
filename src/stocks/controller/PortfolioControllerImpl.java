@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
+import stocks.model.FlexiblePortfolioImpl;
+import stocks.model.PortfolioImplModel;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
@@ -24,6 +26,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
+  private boolean isFlexible;
 
 
   /**
@@ -36,6 +39,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
+    this.isFlexible = false;
   }
 
   @Override
@@ -49,13 +53,16 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        createNewPortfolioForCurrentUser(model);
+        create();
         break;
       case "2":
         askUserWhatHeWantsToView();
         break;
       case "3":
         loadPortfolio();
+        break;
+      case "4":
+        updatePortfolio();
         break;
       default:
         break;
@@ -80,11 +87,75 @@ public class PortfolioControllerImpl implements PortfolioController {
       case "3":
         loadPortfolio();
         break;
+      case "4":
+        PortfolioModel model = new FlexiblePortfolioImpl();
+        updatePortfolio(model);
+        break;
       default:
         break;
     }
-
   }
+
+  private void create(){
+    view.createFlexibleOrInFlexiblePortfolio();
+    String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      create();
+    }
+    if(option.equals("1")){
+      //flexible
+      PortfolioModel model = new FlexiblePortfolioImpl();
+      createNewPortfolioForCurrentUser(model.getInstance());
+    } else if(option.equals("2")){
+      //inFlexible
+      PortfolioModel model = new PortfolioImplModel();
+      createNewPortfolioForCurrentUser(model.getInstance());
+    }
+  }
+
+  private void updatePortfolio(PortfolioModel model){
+   // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
+    view.getPortfolioName();
+    String name = input.nextLine();
+    if (validateIfPortfolioDoesntExists(name)) {
+      updatePortfolio(model);
+    }
+    this.portfolioName = name;
+    if(isFlexible) {
+      updateStocks(portfolioName,model);
+    }
+  }
+
+  private void updateStocks(String portfolioName){
+    view.displayMessageToBuyOrSell();
+    String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      updateStocks(portfolioName);
+    }
+    if(option.equals("1")){
+      //1 for buy
+    } else if(option.equals("2")){
+      //2 for sell
+    }
+    continueUpdatingPortfolio(portfolioName);
+  }
+
+  private void continueUpdatingPortfolio(String portfolioName){
+    view.checkIfUserWantsToContinueUpdatingPortfolio();
+    String option = input.nextLine();
+    if(validateInputsFromUSer(option)){
+      continueUpdatingPortfolio(portfolioName);
+    }
+    if(option.equals("1")){
+      //1 for continue
+      updateStocks(portfolioName);
+    } else if(option.equals("2")){
+      //continue further
+      finalExitCondition();
+    }
+  }
+
+
 
   private void askUserWhatHeWantsToView() {
     String name = pNameHelper();
@@ -196,7 +267,6 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void createNewPortfolioForCurrentUser(PortfolioModel model) {
     view.getPortfolioName();
-
     String portfolioName = input.nextLine();
     if (validateIfPortfolioExists(portfolioName)) {
       createNewPortfolioForCurrentUser(model);

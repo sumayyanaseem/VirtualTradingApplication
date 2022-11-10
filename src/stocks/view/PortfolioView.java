@@ -108,4 +108,10 @@ public interface PortfolioView {
    * displays the message to user asking if he wants to continue view.
    */
   void askUserIfheWantsTOContinueViewing();
+
+  void displayMessageToBuyOrSell();
+
+  void checkIfUserWantsToContinueUpdatingPortfolio();
+
+  void createFlexibleOrInFlexiblePortfolio();
 }

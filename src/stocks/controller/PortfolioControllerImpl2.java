@@ -6,7 +6,7 @@ import java.util.Scanner;
 import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
-public class portfolioControllerImpl2 implements PortfolioController{
+public class PortfolioControllerImpl2 implements PortfolioController{
 
   private PortfolioModel model;
   private String portfolioName;
@@ -14,7 +14,7 @@ public class portfolioControllerImpl2 implements PortfolioController{
   private final Scanner input;
 
 
-  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
+  public PortfolioControllerImpl2(InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
@@ -22,12 +22,7 @@ public class portfolioControllerImpl2 implements PortfolioController{
   @Override
   public void start(PortfolioModel model) {
 
-    while(input.hasNext()){
-      String option = String.valueOf(input.nextLine());
-      switch (option){
 
-      }
-    }
 
   }
 }
