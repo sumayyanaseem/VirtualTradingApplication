@@ -60,47 +60,200 @@ public class PortfolioPerformance {
     return quarters;
   }
 
-  public void display(String portfolioName, String date1, String date2)
+  Map<String,Double> generateMapWithMonthKeys(String date1, String date2)
   {
-    long months=`monthsBetween`(date1,date2);
+
+    Map<String,Double> m = new HashMap<>();
+    int year1=Integer.valueOf(date1.substring(0,4));
+    int year2=Integer.valueOf(date2.substring(0,4));
+    int month1=Integer.valueOf(date1.substring(5,7));
+    int month2=Integer.valueOf(date2.substring(5,7));
+
+    if(year1==year2)
+    {
+      for(int i=month1;i<=month2;i++)
+      {
+        String key=date1.substring(0,4);
+        int d=i/10;
+        if(d==0)
+        {
+          key=key+"-0"+String.valueOf(i);
+        }
+        else
+        {
+          key=key+"-"+String.valueOf(i);
+        }
+        m.put(key,0.0);
+
+      }
+    }
+    else
+    {
+      int n=year2-year1;
+      String yr= date1.substring(0,4);
+      for(int i=month1;i<=12;i++)
+      {
+        String key=date1.substring(0,4);
+        int d=i/10;
+        if(d==0)
+        {
+          key=key+"-0"+String.valueOf(i);
+        }
+        else
+        {
+          key=key+"-"+String.valueOf(i);
+        }
+        m.put(key,0.0);
+
+      }
+      int nextYr=0;
+      while(n-1>0)
+      {
+        nextYr=Integer.valueOf(yr);
+        nextYr=nextYr+1;
+
+        for(int i=1;i<=12;i++)
+        {
+          String key=String.valueOf(nextYr);
+          int d=i/10;
+          if(d==0)
+          {
+            key=key+"-0"+String.valueOf(i);
+          }
+          else
+          {
+            key=key+"-"+String.valueOf(i);
+          }
+          m.put(key,0.0);
+
+        }
+        n--;
+
+      }
+
+      int lastYr= nextYr+1;
+
+      for(int i=1;i<=month2;i++)
+      {
+        String key=String.valueOf(nextYr);
+        int d=i/10;
+        if(d==0)
+        {
+          key=key+"-0"+String.valueOf(i);
+        }
+        else
+        {
+          key=key+"-"+String.valueOf(i);
+        }
+        m.put(key,0.0);
+
+      }
+
+
+    }
+    return m;
+  }
+  public void displayCopy(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2) {
+    long months = monthsBetween(date1, date2);
+    Map<Integer,Integer> noOfDays = new HashMap<>();
+    noOfDays.put(1,31);
+    noOfDays.put(2,29);
+    noOfDays.put(3,31);
+    noOfDays.put(4,30);
+    noOfDays.put(5,31);
+    noOfDays.put(6,30);
+    noOfDays.put(7,31);
+    noOfDays.put(8,31);
+    noOfDays.put(9,30);
+    noOfDays.put(10,31);
+    noOfDays.put(11,30);
+    noOfDays.put(12,31);
+
+    if (months >= 5 && months <= 30) {
+      Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
+
+      // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
+      Map<String,Double> mapOfMonths =generateMapWithMonthKeys(date1,date2);
+
+      // for every month in given range by user, get the last date of month and for that date iterate
+      // over all the stocks in portfolio and get the netquantity of that stock as of the last date
+      // of the month and multiply the new quantity with stock price of that month
+      String monthEndDate;
+      for (Map.Entry<String, Double> entry : mapOfMonths.entrySet()) {
+        String dt=entry.getKey();
+        int mnth = Integer.valueOf(dt.substring(5,7));
+        int daysInMonth = noOfDays.get(mnth);
+        monthEndDate = dt + String.valueOf(daysInMonth);
+
+        Map<String, List<Stock>> portfolioValueMap = mp.get(portfolioName);
+        double totalValueOfPortfolioMonthEnd=0.0;
+        for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
+
+          double netQty=getQuantityOnThisDateForGivenCompanyName(monthEndDate,companyInfo.getKey());
+          double stkValueMonthEnd = getStockPriceAsOfCertainDate(companyInfo.getKey(),netQty,monthEndDate);
+          totalValueOfPortfolioMonthEnd=totalValueOfPortfolioMonthEnd+stkValueMonthEnd;
+        }
+
+        monthWiseTotalValues.put(monthEndDate,totalValueOfPortfolioMonthEnd);
+
+      }
+    }
+
+  public void display(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2)
+  {
+    long months=monthsBetween(date1,date2);
     if(months>=5 && months<=30) {
       Map<String, Double> m = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       //iterate over the portfolio
       //get each stock's list
       //get stock name of each and stock qty
-      for (int i = 0; i < m[portfolio].size(); i++) {
-        List listofmonths;
-        for (int j = 0; j < m[portfolio][stk].size(); j++) {
-          String stkname=m[portfolio][stk][j].getstkname();
-          String qty=m[portfolio][stk][j].getqty();
-          String yymm = m[portfolio][stk][j].getdate().getyymm();
-          String action = m[portfolio][stk][j].getdate().getbuysell();
-          listofmonths.add(yymm);
-          String output = fetchOutputStringFromURL(stkname, "TIME_SERIES_MONTHLY");
+
+
+        Map<String,List<Stock>> listOfCompanies = mp.get(portfolioName);
+
+      for (Map.Entry<String, List<Stock>> entry : listOfCompanies.entrySet()) {
+        String companyName = entry.getKey();
+        List<Stock> stockTransactions = entry.getValue();
+        List listofmonths = new ArrayList<>();
+        for (int j = 0; j < stockTransactions.size(); j++) {
+
+          String actionDate = stockTransactions.get(j).getDateOfAction();
+          String subDate = actionDate.substring(0, 7);
+          listofmonths.add(subDate);
+        }
+          String output = fetchOutputStringFromURL(companyName, "TIME_SERIES_MONTHLY");
           System.out.println(output);
           String lines[] = output.split(System.lineSeparator());
-          map<yymm,val> mm;
-          int flag = 0;
+          Map<String,Double> mm=new HashMap<>();
+
           for(int k=0;k<listofmonths.size();k++) {
 
             for (int i = 1; i < lines.length; i++) {
               String[] values = lines[i].split(",");
-              if (values[0].contains(listofmonths[k]) {
-                mm[listofmonths[k]] = Double.valueOf(values[4]);
+              if (values[0].substring(0,7).equals(listofmonths.get(k))){
+                mm.put(values[0].substring(0,7),Double.valueOf(values[4]));
                 break;
               }
 
             }
           }
+
+        for (int j = 0; j < stockTransactions.size(); j++) {
+
+          double qty=stockTransactions.get(j).getQty();
+          String actiionDate = stockTransactions.get(j).getDateOfAction();
+          String action = stockTransactions.get(j).getAction();
+          if(stockTransactions.get(j).getAction().equals("buy"))
+          m.put(actiionDate.substring(0,7),qty*mm.get(actiionDate));
+         else {
+           //double val=stockTransactions.get(j).
+            //m.put(actiionDate.substring(0, 7), qty * mm.get(actiionDate));
+           // -qty * mm[yymm];
+          }
+
         }
 
-        for (int j = 0; j < m[portfolio][stk].size(); j++) {
-          String stkname=m[portfolio][stk][j].getstkname();
-          String qty=m[portfolio][stk][j].getqty();
-          String yymm = m[portfolio][stk][j].getdate().getyymm();
-          String action = m[portfolio][stk][j].getdate().getbuysell();
-          m[yymm]=qty*mm[yymm] if buy else -qty*mm[yymm];
         }
 
 
