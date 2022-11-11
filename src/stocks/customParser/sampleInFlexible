@@ -1,0 +1,70 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "P1",
+      "Actions": [
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-11-11",
+          "Quantity": "10",
+          "action": "add"
+        },
+        {
+          "date": "2022-11-12",
+          "Quantity": "100",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "P2",
+      "Actions": [
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-10-10",
+          "Quantity": 12,
+          "action": "add"
+        },
+        {
+          "date": "2022-10-01",
+          "Quantity": "100",
+          "action": "add"
+        },
+        {
+          "date": "2022-10-01",
+          "Quantity": "100",
+          "action": "add"
+        },
+        {
+          "date": "2022-10-11",
+          "Quantity": "100",
+          "action": "add"
+        }
+      ]
+    }
+  ],
+  "type": "Inflexible"
+}
