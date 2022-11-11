@@ -1,4 +1,4 @@
-package stocks.model;
+package stocks.customAPI;
 
 public interface APICustomInterface {
   Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol);

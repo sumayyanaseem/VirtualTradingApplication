@@ -10,22 +10,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customAPI.APICustomClass;
+
 public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfolio {
 
   private String action;
 
-  private APICustomClass apiCustomClass;
-
-  private final String portfolioName;
-
-
-  private final Map<String, Map<String, List<Stock>>> stockMap;
-
-
-  public FlexiblePortfolioImpl() {
-    this.portfolioName = "";
-    stockMap = new HashMap<>();
-  }
 
   class StockComparator implements Comparator<Stock> {
     public int compare(Stock o1, Stock o2) {
@@ -57,7 +47,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     action = "buy";
     validateInputs(action);
     //TODO:check if this API call is needed here
-    double priceBought = apiCustomClass.getStockPriceAsOfCertainDate(companyName, Double.parseDouble(quantity), date);
+    double priceBought = apiCustomInterface.getStockPriceAsOfCertainDate(companyName, Double.parseDouble(quantity), date);
     if (priceBought != -1) {
       String cName = companyName.toUpperCase();
       double q = Double.valueOf(quantity);

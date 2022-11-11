@@ -2,10 +2,31 @@ package stocks.model;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stocks.customAPI.APICustomClass;
+import stocks.customAPI.APICustomInterface;
+import stocks.customParser.JsonParserImplementation;
+import stocks.customParser.Parser;
+
 abstract class AbstractPortfolio implements Portfolio{
+
+  protected String portfolioName;
+
+  protected final Map<String, Map<String, List<Stock>>> stockMap;
+
+  protected final APICustomInterface apiCustomInterface;
+  protected final Parser parser;
+
+  public AbstractPortfolio() {
+    this.portfolioName = "";
+    this.stockMap = new HashMap<>();
+    this.apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    this.parser = new JsonParserImplementation();
+  }
+
   @Override
   public void addStocks(String quantity, String companyName, String portfolioName) {
 

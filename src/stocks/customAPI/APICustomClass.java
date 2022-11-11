@@ -1,4 +1,4 @@
-package stocks.model;
+package stocks.customAPI;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -14,8 +14,14 @@ import java.util.Locale;
 /**
  * This class represents a custom class for all the APIs related to fetching stock price.
  */
-class APICustomClass implements APICustomInterface{
+public class APICustomClass implements APICustomInterface {
 
+ private static String apiKey = "5KFQLJAEXPPU6DJ9";
+  private String urlString;
+
+  public APICustomClass(String url){
+    this.urlString= url;
+  }
 
   /**
    * gives the latest available stock price for the given company ticker.
@@ -118,9 +124,9 @@ class APICustomClass implements APICustomInterface{
   public String fetchOutputStringFromURLByInterval( String companyTickerSymbol, String interval) {
 
 
-    String apiKey = "5KFQLJAEXPPU6DJ9";
+
     String stockSymbol = companyTickerSymbol; //ticker symbol for Google
-    URL url = null;
+    URL url =null;
 
     try {
       /*
@@ -130,12 +136,12 @@ class APICustomClass implements APICustomInterface{
       data (comma-separated values:csv). This service also supports JSON
       which you are welcome to use.
        */
-      url = new URL("https://www.alphavantage"
-              + ".co/query?function=TIME_SERIES_"
+      url =new URL(this.urlString
               + interval
               + "&outputsize=full"
               + "&symbol"
               + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
+
     } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "
               + "no longer works");

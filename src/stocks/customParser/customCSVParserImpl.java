@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class customCSVParserImpl implements parser {
+public class customCSVParserImpl implements Parser {
 
   @Override
   public List<List<String>> readFromFile(String portFolioName) {

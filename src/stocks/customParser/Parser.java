@@ -7,7 +7,7 @@ import java.util.List;
  * This class represents all the parser functions w.r.t files reading/writing.
  */
 
-public interface parser {
+public interface Parser {
 
 
   /**

@@ -13,30 +13,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customParser.customCSVParserImpl;
-
 /**
  * This class implements PortfolioModel.
  */
 public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfolio {
 
-  private final Map<String, Map<String, List<Stock>>> portfolioMap;
-
-  private final APICustomClass apiCustomClass;
-
-  private final customCSVParserImpl customCSVParser;
-  private String pName;
-
-  /**
-   * Constructs a PortfolioImplModel object and initializes
-   * a portfolio map and custom class references.
-   */
-  public InFlexiblePortfolioImpl() {
-    portfolioMap = new HashMap<>();
-    apiCustomClass = new APICustomClass();
-    customCSVParser = new customCSVParserImpl();
-    this.pName = "";
-  }
+  private static final String action="add";
 
   @Override
   public void addStocks(String quantity, String cName, String portfolioName)
@@ -44,8 +26,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
     validateIfPortfolioAlreadyExists(portfolioName);
-    this.pName = portfolioName;
-    double priceBought = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
+    portfolioName = portfolioName;
+    double priceBought = apiCustomInterface.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
       String pattern = "yyyy-MM-dd";
       String todayDateStr = new SimpleDateFormat(pattern).format(
@@ -56,16 +38,16 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
       Stock s = new Stock(companyName, qty, totalVal,null,priceBought,todayDateStr);
       List<Stock> listOfOneStock = new ArrayList<>();
       listOfOneStock.add(s);
-      if (portfolioMap.isEmpty()) {
+      if (stockMap.isEmpty()) {
         Map<String, List<Stock>> m = new HashMap<>();
         m.put(companyName, listOfOneStock);
-        portfolioMap.put(portfolioName, m);
+        stockMap.put(portfolioName, m);
 
       } else {
-        Map<String, List<Stock>> m1 = portfolioMap.get(portfolioName);
+        Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
         if (!m1.containsKey(companyName)) {
           m1.put(companyName, listOfOneStock);
-          portfolioMap.put(portfolioName, m1);
+          stockMap.put(portfolioName, m1);
         } else {
           List<Stock> s1 = m1.get(companyName);
           double totQty = s1.get(0).getQty() + qty;
@@ -74,7 +56,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
           List<Stock> ls=new ArrayList<>();
           ls.add(s2);
           m1.put(companyName, ls);
-          portfolioMap.put(portfolioName, m1);
+          stockMap.put(portfolioName, m1);
         }
       }
     }
@@ -95,8 +77,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
     t[3] = "DatePurchase";
     t[4] = "TotalValueOwned";
     temp.add(t);
-    if (!portfolioMap.isEmpty()) {
-      Map<String, List<Stock>> mm = portfolioMap.get(portfolioName);
+    if (!stockMap.isEmpty()) {
+      Map<String, List<Stock>> mm = stockMap.get(portfolioName);
       for (Map.Entry<String, List<Stock>> entry : mm.entrySet()) {
         String[] s1 = new String[5];
         s1[0] = entry.getValue().get(0).getCompanyTickerSymbol();
@@ -106,8 +88,9 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
         s1[4] = String.format("%.2f", entry.getValue().get(0).getTotalValue());
         temp.add(s1);
       }
-      this.pName = portfolioName;
-      customCSVParser.writeIntoFile(temp, portfolioName);
+      this.portfolioName = portfolioName;
+      //TODO:check this
+      parser.write(temp, portfolioName);
     }
   }
 
@@ -143,14 +126,14 @@ return null;
     }
     validateDate(date);
     double totValue = 0.0;
-    if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
-      if (!portfolioMap.isEmpty()) {
-        Map<String, List<Stock>> map = portfolioMap.get(this.pName);
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        Map<String, List<Stock>> map = stockMap.get(this.portfolioName);
         for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
           List<Stock> s = entry.getValue();
           double temp;
           try {
-            temp = apiCustomClass.getStockPriceAsOfCertainDate(
+            temp =  apiCustomInterface.getStockPriceAsOfCertainDate(
                     s.get(0).getCompanyTickerSymbol(), s.get(0).getQty(), date);
           } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -160,12 +143,12 @@ return null;
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> listOfStkInfoPersisted = customCSVParser.readFromFile(portfolioName);
+      List<List<String>> listOfStkInfoPersisted = parser.readFromFile(portfolioName);
       for (int j = 1; j < listOfStkInfoPersisted.size(); j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
         double qty = Double.parseDouble(listOfStkInfoPersisted.get(j).get(1));
         try {
-          totValue = totValue + apiCustomClass.getStockPriceAsOfCertainDate(
+          totValue = totValue + apiCustomInterface.getStockPriceAsOfCertainDate(
                   companyTickerSymbol, qty, date);
         } catch (IllegalArgumentException e) {
           throw new IllegalArgumentException(e.getMessage());
@@ -181,7 +164,7 @@ return null;
     validateFilePath(filePath);
     List<List<String>> listOfStocks;
     try {
-      listOfStocks = customCSVParser.readFromPathProvidedByUser(filePath);
+      listOfStocks = parser.readFromPathProvidedByUser(filePath);
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
     }
@@ -191,7 +174,7 @@ return null;
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
     for (int i = 1; i < listOfStocks.size(); i++) {
       String sName = listOfStocks.get(i).get(0);
-      double sPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(sName);
+      double sPrice = apiCustomInterface.fetchLatestStockPriceOfThisCompany(sName);
       if (sPrice != -1) {
         if (!mapOfStocks.containsKey(sName)) {
           double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
@@ -214,8 +197,8 @@ return null;
       }
     }
 
-    this.pName = "currentInstance";
-    portfolioMap.put(pName, mapOfStocks);
+    this.portfolioName = "currentInstance";
+    stockMap.put(portfolioName, mapOfStocks);
 
 
   }
@@ -226,9 +209,9 @@ return null;
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     List<List<String>> results = new ArrayList<>();
-    if (portfolioName.equals("currentInstance") || this.pName.equals(portfolioName)) {
-      if (!portfolioMap.isEmpty()) {
-        Map<String, List<Stock>> map = portfolioMap.get(this.pName);
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        Map<String, List<Stock>> map = stockMap.get(this.portfolioName);
         String[] t = new String[5];
         t[0] = "CompanyName";
         t[1] = "Quantity";
@@ -249,7 +232,7 @@ return null;
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> records = customCSVParser.readFromFile(portfolioName);
+      List<List<String>> records = parser.readFromFile(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
       List<String> list1 = new ArrayList<>();
@@ -260,7 +243,7 @@ return null;
         list1 = new ArrayList<>();
         String cName = records.get(i).get(0);
         String quantity = records.get(i).get(1);
-        double currentPrice = apiCustomClass.fetchLatestStockPriceOfThisCompany(cName);
+        double currentPrice = apiCustomInterface.fetchLatestStockPriceOfThisCompany(cName);
         if (currentPrice != -1) {
           double currentTotalPrice = Double.parseDouble(quantity) * currentPrice;
           list1.addAll(records.get(i));
@@ -283,10 +266,10 @@ return null;
   public String toString() {
     StringBuilder res = new StringBuilder();
 
-    if (portfolioMap != null && !portfolioMap.isEmpty()) {
+    if (stockMap != null && !stockMap.isEmpty()) {
       res.append("PortfolioName : ").append(this.pName);
       res.append("\n");
-      Map<String, Stock> temp = portfolioMap.get(this.pName);
+      Map<String, Stock> temp = stockMap.get(this.pName);
       for (Map.Entry<String, Stock> entry : temp.entrySet()) {
         res.append(entry.getValue().toString());
       }
