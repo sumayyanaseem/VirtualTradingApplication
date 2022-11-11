@@ -17,6 +17,10 @@ import java.util.Locale;
 class APICustomClass implements APICustomInterface{
 
 
+public APICustomClass(String series)
+{
+
+}
   /**
    * gives the latest available stock price for the given company ticker.
    *
@@ -27,7 +31,7 @@ class APICustomClass implements APICustomInterface{
 
     Double price = Double.valueOf(-1);
     String name = companyTickerSymbol.toUpperCase();
-    String output = fetchOutputStringFromURL(companyTickerSymbol);
+    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
     String lines[] = output.split(System.lineSeparator());
     String[] values = lines[1].split(",");
     price = Double.valueOf(values[4]);
@@ -48,7 +52,7 @@ class APICustomClass implements APICustomInterface{
     Date givenDateObj = null;
     String name = companyTickerSymbol.toUpperCase();
 
-    String output = fetchOutputStringFromURL(companyTickerSymbol);
+    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"DAILY");
     String lines[] = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
     for(int i=1;i<lines.length;i++)
@@ -82,9 +86,41 @@ class APICustomClass implements APICustomInterface{
     return Double.valueOf(latestAvailableStkPrice) * qty;
   }
 
+  double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty)
+  {
+
+    String name = companyTickerSymbol.toUpperCase();
+
+    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"MONTHLY");
+    String lines[] = output.split(System.lineSeparator());
+    List<List<String>> records = new ArrayList<>();
+    Double value=0.0;
+    for(int i=1;i<lines.length;i++)
+    {
+      String[] values = lines[i].split(",");
+      records.add(Arrays.asList(values));
+    }
+
+
+      for (int i = 0; i < records.size(); i++) {
+        List<String> infoByDate = new ArrayList<>(records.get(i));
+        String availableDate = infoByDate.get(0);
+
+        if (availableDate.substring(0,7).equals(yearMonth) ) {
+          value=Double.valueOf(infoByDate.get(4));
+          break;
+        }
+
+      }
+    return Double.valueOf(value) * qty;
+  }
+
+
+
 
   @Override
-  public String fetchOutputStringFromURL( String companyTickerSymbol) {
+  public String fetchOutputStringFromURLByInterval( String companyTickerSymbol, String interval) {
+
 
     String apiKey = "5KFQLJAEXPPU6DJ9";
     String stockSymbol = companyTickerSymbol; //ticker symbol for Google
@@ -99,7 +135,8 @@ class APICustomClass implements APICustomInterface{
       which you are welcome to use.
        */
       url = new URL("https://www.alphavantage"
-              + ".co/query?function=TIME_SERIES_DAILY"
+              + ".co/query?function=TIME_SERIES_"
+              + interval
               + "&outputsize=full"
               + "&symbol"
               + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");

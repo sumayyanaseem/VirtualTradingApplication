@@ -6,7 +6,7 @@ public interface FlexiblePortfolio {
 
   FlexiblePortfolio sellStocks(String companyName,int quantity,String date,String portfolioName);
 
-  void getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
+  double getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
 
   void getTotalValueOfPortfolioOnCertainDate(String date,String portfolioName);
 

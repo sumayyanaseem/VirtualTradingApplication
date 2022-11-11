@@ -174,7 +174,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     return date;
   }
-  private int getQuantityOnThisDateForGivenCompanyName(String date, String companyName) {
+  private int getQuantityOnThisDateForGivenCompanyName(String date, String companyName {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     int quantity = 0;
@@ -192,18 +192,48 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   }
 
   @Override
-  public void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+  public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+    Map<String, List<Stock>> m = stockMap.get(portfolioName);
+    double totalCostBasis = 0.0;
+    for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+
+      List<Stock> listOfStocks=entry.getValue();
+      for (int i = 0; i < listOfStocks.size(); i++) {
+       String dateBought=listOfStocks.get(i).getDateOfAction();
+        Date dateBoughtObj,givenDateObj;
+       try {
+         dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
+         givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
+       }
+       catch(ParseException e) {
+          throw new IllegalArgumentException("unable to parse date");
+        }
+        if(listOfStocks.get(i).getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj)<=0)
+       {
+         totalCostBasis = totalCostBasis + listOfStocks.get(i).getQty()*listOfStocks.get(i).getPriceOfStockAsOfGivenDate();
+       }
+      }
+    }
+    return totalCostBasis;
 
   }
 
   @Override
   public void getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+    Map<String, List<Stock>> m = stockMap.get(portfolioName);
+    double totalValue = 0.0;
+    for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+      String stkName=entry.getKey();
+      double netQty=getQuantityOnThisDateForGivenCompanyName(date,stkName);
+      totalValue=totalValue+getStockPriceAsOfCertainDate(stkName,netQty,date);
+    }
+    return totalValue;
+
 
   }
 
   @Override
   public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-
 
   }
 

@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class PortfolioPerformance {
@@ -155,51 +159,143 @@ public class PortfolioPerformance {
   }
   public void displayCopy(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2) {
     long months = monthsBetween(date1, date2);
-    Map<Integer,Integer> noOfDays = new HashMap<>();
-    noOfDays.put(1,31);
-    noOfDays.put(2,29);
-    noOfDays.put(3,31);
-    noOfDays.put(4,30);
-    noOfDays.put(5,31);
-    noOfDays.put(6,30);
-    noOfDays.put(7,31);
-    noOfDays.put(8,31);
-    noOfDays.put(9,30);
-    noOfDays.put(10,31);
-    noOfDays.put(11,30);
-    noOfDays.put(12,31);
+    long days = daysBetween(date1, date2);
+    long weeks = weeksBetween(date1, date2);
+    Map<String, List<Stock>> portfolioValueMap = mp.get(portfolioName);
+    Map<Integer, Integer> noOfDays = new HashMap<>();
+    noOfDays.put(1, 31);
+    noOfDays.put(2, 29);
+    noOfDays.put(3, 31);
+    noOfDays.put(4, 30);
+    noOfDays.put(5, 31);
+    noOfDays.put(6, 30);
+    noOfDays.put(7, 31);
+    noOfDays.put(8, 31);
+    noOfDays.put(9, 30);
+    noOfDays.put(10, 31);
+    noOfDays.put(11, 30);
+    noOfDays.put(12, 31);
+
 
     if (months >= 5 && months <= 30) {
       Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
-      Map<String,Double> mapOfMonths =generateMapWithMonthKeys(date1,date2);
+      Map<String, Double> mapOfMonths = generateMapWithMonthKeys(date1, date2);
 
       // for every month in given range by user, get the last date of month and for that date iterate
       // over all the stocks in portfolio and get the netquantity of that stock as of the last date
       // of the month and multiply the new quantity with stock price of that month
       String monthEndDate;
       for (Map.Entry<String, Double> entry : mapOfMonths.entrySet()) {
-        String dt=entry.getKey();
-        int mnth = Integer.valueOf(dt.substring(5,7));
+        String dt = entry.getKey();
+        int mnth = Integer.valueOf(dt.substring(5, 7));
         int daysInMonth = noOfDays.get(mnth);
-        monthEndDate = dt + String.valueOf(daysInMonth);
+        monthEndDate = dt + "-" + String.valueOf(daysInMonth);
 
-        Map<String, List<Stock>> portfolioValueMap = mp.get(portfolioName);
-        double totalValueOfPortfolioMonthEnd=0.0;
+
+        double totalValueOfPortfolioMonthEnd = 0.0;
         for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
 
-          double netQty=getQuantityOnThisDateForGivenCompanyName(monthEndDate,companyInfo.getKey());
-          double stkValueMonthEnd = getStockPriceAsOfCertainDate(companyInfo.getKey(),netQty,monthEndDate);
-          totalValueOfPortfolioMonthEnd=totalValueOfPortfolioMonthEnd+stkValueMonthEnd;
+          double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+          double stkValueMonthEnd = getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty);
+          totalValueOfPortfolioMonthEnd = totalValueOfPortfolioMonthEnd + stkValueMonthEnd;
         }
 
-        monthWiseTotalValues.put(monthEndDate,totalValueOfPortfolioMonthEnd);
+        monthWiseTotalValues.put(monthEndDate, totalValueOfPortfolioMonthEnd);
 
       }
+
+
     }
 
-  public void display(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2)
+    else if(weeks>=5 && weeks<=30) {
+      Map<String, Double> weekWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
+
+      // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
+      Map<String, Double> mapOfWeeks = generateMapWithMonthKeys(date1, date2);
+
+
+
+    }
+
+
+    else if (days >= 5 && days <= 30) {
+      Map<String, Double> dayWiseTotalValues = new HashMap<>();
+
+      for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
+        String data = fetchOutputStringFromURLByInterval(companyInfo.getKey());
+
+        if(dayWiseTotalValues.size()==0)
+        {
+          dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+        }
+        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
+        {
+          double netQty = getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
+          double stkValueMonthEnd = getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
+
+          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
+        }
+
+      }
+
+    }
+  }
+
+  private Map<String, Double> generateMapWithMonthKeys(String date1, String date2, String data)
+  {
+
+  }
+  private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data)
+  {
+    Map<String,Double> result=new HashMap<>();
+    String lines[] = data.split(System.lineSeparator());
+    Date givenDateObj1;
+    Date givenDateObj2;
+    Date availableDateObj;
+    List<List<String>> records = new ArrayList<>();
+    for(int i=1;i<lines.length;i++)
+    {
+      String[] values = lines[i].split(",");
+      records.add(Arrays.asList(values));
+    }
+    try {
+      givenDateObj1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(date1);
+      givenDateObj2 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(date2);
+      int i;
+      for (i = 0; i < records.size(); i++) {
+        List<String> infoByDate = new ArrayList<>(records.get(i));
+        String availableDate = infoByDate.get(0);
+        availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(availableDate);
+        if (availableDateObj.compareTo(givenDateObj2) <= 0) {
+          result.put(availableDate,0.0);
+          break;
+        }
+
+      }
+      for(int j=i;j<records.size();j++)
+      {
+        List<String> infoByDate = new ArrayList<>(records.get(j));
+        String availableDate = infoByDate.get(0);
+        result.put(availableDate,0.0);
+        availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(availableDate);
+        if (availableDateObj.compareTo(givenDateObj1) <= 0) {
+          break;
+        }
+      }
+
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("file not found in our records "
+              + "for given company " + companyTickerSymbol);
+    }
+
+  }
+ /* public void display(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2)
   {
     long months=monthsBetween(date1,date2);
     if(months>=5 && months<=30) {
@@ -260,61 +356,7 @@ public class PortfolioPerformance {
       }
     }
 
-  }
-
-
-
-  public String fetchOutputStringFromURL( String companyTickerSymbol, String delta) {
-
-    String apiKey = "5KFQLJAEXPPU6DJ9";
-    String stockSymbol = companyTickerSymbol; //ticker symbol for Google
-    URL url = null;
-
-    try {
-      /*
-      create the URL. This is the query to the web service. The query string
-      includes the type of query (DAILY stock prices), stock symbol to be
-      looked up, the API key and the format of the returned
-      data (comma-separated values:csv). This service also supports JSON
-      which you are welcome to use.
-       */
-      url = new URL("https://www.alphavantage"
-              + ".co/query?function="
-              + delta
-              + "&outputsize=full"
-              + "&symbol"
-              + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
-    } catch (MalformedURLException e) {
-      throw new RuntimeException("the alphavantage API has either changed or "
-              + "no longer works");
-    }
-
-    InputStream in = null;
-    StringBuilder output = new StringBuilder();
-
-    try {
-      /*
-      Execute this query. This returns an InputStream object.
-      In the csv format, it returns several lines, each line being separated
-      by commas. Each line contains the date, price at opening time, highest
-      price for that date, lowest price for that date, price at closing time
-      and the volume of trade (no. of shares bought/sold) on that date.
-
-      This is printed below.
-       */
-      in = url.openStream();
-      int b;
-
-      while ((b = in.read()) != -1) {
-        output.append((char) b);
-      }
-    } catch (IOException e) {
-      throw new IllegalArgumentException("No price data found for " + stockSymbol);
-    }
-
-    return output.toString();
-
-  }
+  }*/
 
 
 
