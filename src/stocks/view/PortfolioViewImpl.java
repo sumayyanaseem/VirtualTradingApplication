@@ -2,6 +2,7 @@ package stocks.view;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements the methods of PortfolioView.
@@ -21,7 +22,7 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void callToViewToChooseCreateOrView() {
     out.println("Enter 1: To create a Portfolio "
-            + "2: To query the portfolio details 3: To load a Portfolio");
+            + "2: To query the portfolio details 3: To load a Portfolio  4: To update a portfolio");
   }
 
 
@@ -74,7 +75,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void checkIfUserWantsToViewCompositionOrTotalValue() {
-    out.println("Enter 1: To view composition  2: To get TotalValue of portfolio");
+    out.println("Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio");
   }
 
   @Override
@@ -109,6 +110,17 @@ public class PortfolioViewImpl implements PortfolioView {
   public void createFlexibleOrInFlexiblePortfolio() {
     out.println("Enter 1: To create flexible portfolio  "
             + "2: To create inflexible  portfolio");
+  }
+
+  @Override
+  public void displayTheTotalCost(double totalCost,String date,String portfolioName) {
+    //first display the commision you have charged for each transaction.
+    out.println("Total cost basis from this portfolioName");
+  }
+
+  @Override
+  public void displayPortfolioPerformance(Map<String, Double> result, String startDate, String endDate, String portfolioName) {
+    //determine scale from the first entry of the result map
   }
 
 

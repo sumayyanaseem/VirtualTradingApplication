@@ -1,6 +1,7 @@
 package stocks.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * This interface acts as model for virtual-trading application.
@@ -82,8 +83,8 @@ public interface Portfolio {
 
   void sellStocks(String companyName,String quantity,String date,String portfolioName);
 
-  void getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
+  double getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
 
-  void getPortfolioPerformanceOvertime(String startTime,String endTime,String portfolioName);
+  Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName);
 
 }

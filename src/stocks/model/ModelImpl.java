@@ -1,6 +1,7 @@
 package stocks.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class ModelImpl implements IModel {
 
@@ -16,8 +17,8 @@ public class ModelImpl implements IModel {
   }
 
   @Override
-  public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
-    portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
+  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
+    return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
   }
 
   @Override
@@ -36,18 +37,17 @@ public class ModelImpl implements IModel {
   }
 
   @Override
-  public void validateIfCompanyExists(String companyName) {
-
+  public void validateIfCompanyExists(String companyName,Portfolio portfolio) {
     portfolio.validateIfCompanyExists(companyName);
   }
 
   @Override
-  public void validateIfPortfolioAlreadyExists(String portfolioName) {
+  public void validateIfPortfolioAlreadyExists(String portfolioName,Portfolio portfolio) {
     portfolio.validateIfPortfolioAlreadyExists(portfolioName);
   }
 
   @Override
-  public void validateIfPortfolioDoesntExists(String name) {
+  public void validateIfPortfolioDoesntExists(String name,Portfolio portfolio) {
     portfolio.validateIfPortfolioDoesntExists(name);
   }
 
@@ -67,8 +67,8 @@ public class ModelImpl implements IModel {
   }
 
   @Override
-  public void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
-    portfolio.getTotalMoneyInvestedOnCertainDate(date, portfolioName);
+  public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+    return portfolio.getTotalMoneyInvestedOnCertainDate(date, portfolioName);
   }
 
 }

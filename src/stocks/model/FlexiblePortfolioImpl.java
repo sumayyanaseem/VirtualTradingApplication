@@ -57,10 +57,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     action = "buy";
     validateInputs(action);
     //TODO:check if this API call is needed here
-    double priceBought = apiCustomClass.getStockPriceAsOfCertainDate(companyName, quantity, date);
+    double priceBought = apiCustomClass.getStockPriceAsOfCertainDate(companyName, Double.parseDouble(quantity), date);
     if (priceBought != -1) {
       String cName = companyName.toUpperCase();
-      Stock s = new Stock(cName, quantity, 0.0, action, priceBought, date);
+      double q = Double.valueOf(quantity);
+      Stock s = new Stock(cName, q, 0.0, action, priceBought, date);
       if (stockMap.isEmpty()) {
         Map<String, List<Stock>> m = new HashMap<>();
         List<Stock> list = new ArrayList<>();
@@ -81,7 +82,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
           for (int i = 0; i < stockList.size(); i++) {
             String dateBought = stockList.get(i).getDateOfAction();
             if (areDatesEqual(dateBought, date)) {
-              double totQty = stockList.get(i).getQty() + quantity;
+              double totQty = Double.parseDouble(stockList.get(i).getQty() + quantity);
               s = new Stock(companyName, totQty, 0.0, action, priceBought, date);
               stockList.remove(i);
               stockList.add(s);
@@ -139,14 +140,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     } else {
         //if sellMap is not empty, then validate if entry of this company exists or not.
       double netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
-          if (netQuantity < quantity) {
+      double q = Double.valueOf(quantity);
+          if (netQuantity < q) {
             //then throw error , that its not valid.
           } else {
             String lastSellDate = getLastSellDate(companyName);
             if(lastSellDate>date) {
               //throw error
             } else {
-              Stock s = new Stock(companyName, quantity, 0.0,action, 0.0, date);
+              Stock s = new Stock(companyName, q, 0.0,action, 0.0, date);
               List<Stock> stockList = m1.get(companyName);
               stockList.add(s);
               m1.put(companyName, stockList);

@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-public class AbstractPortfolio implements Portfolio{
+abstract class AbstractPortfolio implements Portfolio{
   @Override
   public void addStocks(String quantity, String companyName, String portfolioName) {
 
@@ -105,28 +105,8 @@ public class AbstractPortfolio implements Portfolio{
   }
 
 
-  @Override
-  public Portfolio getInstance() {
-    return null;
-  }
 
-  @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
 
-  }
 
-  @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
 
-  }
-
-  @Override
-  public void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-
-  }
-
-  @Override
-  public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-
-  }
 }

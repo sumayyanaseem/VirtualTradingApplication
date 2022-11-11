@@ -1,6 +1,7 @@
 package stocks.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IModel {
 
@@ -49,21 +50,21 @@ public interface IModel {
    *
    * @param companyName the stock name to be validated.
    */
-  void validateIfCompanyExists(String companyName);
+  void validateIfCompanyExists(String companyName,Portfolio portfolio);
 
   /**
    * validate if the given portfolio is already persisted.
    *
    * @param portfolioName the portfolio to be validated.
    */
-  void validateIfPortfolioAlreadyExists(String portfolioName);
+  void validateIfPortfolioAlreadyExists(String portfolioName,Portfolio portfolio);
 
   /**
    * validate if the given portfolio is not already present.
    *
    * @param name the name of the portfolio to be validated.
    */
-  void validateIfPortfolioDoesntExists(String name);
+  void validateIfPortfolioDoesntExists(String name,Portfolio portfolio);
 
   /**
    * gives the instance of Model object.
@@ -76,8 +77,8 @@ public interface IModel {
 
   void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio);
 
-  void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
+  double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
 
-  void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio);
+  Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio);
 
 }

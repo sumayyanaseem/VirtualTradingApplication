@@ -1,6 +1,7 @@
 package stocks.view;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -114,4 +115,8 @@ public interface PortfolioView {
   void checkIfUserWantsToContinueUpdatingPortfolio();
 
   void createFlexibleOrInFlexiblePortfolio();
+
+void displayTheTotalCost(double totalCost,String date,String portfolioName);
+
+void displayPortfolioPerformance(Map<String,Double> result,String startDate,String endDate,String portfolioName);
 }

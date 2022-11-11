@@ -1,7 +1,6 @@
 package stocks.model;
 
 import java.io.File;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -14,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customParser.customCSVParserImpl;
+
 /**
  * This class implements PortfolioModel.
  */
@@ -23,7 +24,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
 
   private final APICustomClass apiCustomClass;
 
-  private final CustomCSVParser customCSVParser;
+  private final customCSVParserImpl customCSVParser;
   private String pName;
 
   /**
@@ -33,7 +34,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
   public InFlexiblePortfolioImpl() {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
-    customCSVParser = new CustomCSVParser();
+    customCSVParser = new customCSVParserImpl();
     this.pName = "";
   }
 
@@ -106,7 +107,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
         temp.add(s1);
       }
       this.pName = portfolioName;
-      customCSVParser.writeTOCSV(temp, portfolioName);
+      customCSVParser.writeIntoFile(temp, portfolioName);
     }
   }
 
@@ -126,13 +127,13 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
   }
 
   @Override
-  public void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-
+  public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+return 0.0;
   }
 
   @Override
-  public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-
+  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+return null;
   }
 
   @Override
@@ -159,7 +160,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> listOfStkInfoPersisted = customCSVParser.readFromCSV(portfolioName);
+      List<List<String>> listOfStkInfoPersisted = customCSVParser.readFromFile(portfolioName);
       for (int j = 1; j < listOfStkInfoPersisted.size(); j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
         double qty = Double.parseDouble(listOfStkInfoPersisted.get(j).get(1));
@@ -248,7 +249,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> records = customCSVParser.readFromCSV(portfolioName);
+      List<List<String>> records = customCSVParser.readFromFile(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
       List<String> list1 = new ArrayList<>();
