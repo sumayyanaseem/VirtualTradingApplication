@@ -183,13 +183,13 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper();
       String quantity = quantityHelper();
       String date = dateHelper();
-      portfolio.buyStocks(companyName, quantity, date, portfolioName);
+      model.buyStocks(companyName, quantity, date, portfolioName,portfolio);
     } else if (option.equals("2")) {
       //2 for sell
       String companyName = companyHelper();
       String quantity = quantityHelper();
       String date = dateHelper();
-      portfolio.sellStocks(companyName,quantity,date,portfolioName);
+      model.sellStocks(companyName,quantity,date,portfolioName,portfolio);
     }
     continueUpdatingPortfolio(portfolio, portfolioName);
   }
