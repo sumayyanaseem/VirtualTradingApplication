@@ -7,7 +7,7 @@ import java.util.List;
  * It has implemented all trivial operations of trading like creating a portfolio by
  * buying stocks/loading file ,getting total value of portfolio, view composition.
  */
-public interface PortfolioModel {
+public interface Portfolio {
 
   /**
    * Buy stocks of a company and add to the portfolio.
@@ -16,7 +16,7 @@ public interface PortfolioModel {
    * @param companyName   company of which stocks need to be bought.
    * @param portfolioName portfolio to which bought stocks need to be added.
    */
-  void buyStocks(String quantity, String companyName, String portfolioName);
+  void addStocks(String quantity, String companyName, String portfolioName);
 
   /**
    * Gives the valuation of the given portfolio as of a certain given date.
@@ -32,7 +32,7 @@ public interface PortfolioModel {
    *
    * @param filePath the path of the file where the stocks data is entered by the user.
    */
-  void createPortfolioUsingFilePath(String filePath);
+  void loadPortfolioUsingFilePath(String filePath);
 
   /**
    * gives the information about the given portfolio's composition.
@@ -75,6 +75,15 @@ public interface PortfolioModel {
    *
    * @return the model object.
    */
-  PortfolioModel getInstance();
+  Portfolio getInstance();
+
+
+  void buyStocks(String companyName,String quantity,String date,String portfolioName);
+
+  void sellStocks(String companyName,String quantity,String date,String portfolioName);
+
+  void getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
+
+  void getPortfolioPerformanceOvertime(String startTime,String endTime,String portfolioName);
 
 }

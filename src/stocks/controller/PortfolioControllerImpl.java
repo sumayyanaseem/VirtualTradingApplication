@@ -9,12 +9,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Scanner;
 
 import stocks.model.FlexiblePortfolioImpl;
-import stocks.model.PortfolioImplModel;
-import stocks.model.PortfolioModel;
+import stocks.model.IModel;
+import stocks.model.InFlexiblePortfolioImpl;
+import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
 /**
@@ -22,12 +22,15 @@ import stocks.view.PortfolioView;
  */
 public class PortfolioControllerImpl implements PortfolioController {
 
-  private PortfolioModel model;
+  private IModel model;
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
   private boolean isFlexible;
 
+  private Portfolio flexiblePortfolio;
+
+  private Portfolio inflexiblePortfolio;
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
@@ -35,21 +38,20 @@ public class PortfolioControllerImpl implements PortfolioController {
    * @param in   the input stream.
    * @param view the view object.
    */
-  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
+  public PortfolioControllerImpl(IModel model, InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
     this.isFlexible = false;
+    this.model = model;
   }
 
   @Override
-  public void start(PortfolioModel model) {
-    Objects.requireNonNull(model);
-    this.model = model;
+  public void start() {
     view.callToViewToChooseCreateOrView();
     String option = String.valueOf(input.nextLine());
     if (validateInitialInputsFromUser(option)) {
-      start(model);
+      start();
     }
     switch (option) {
       case "1":
@@ -67,94 +69,141 @@ public class PortfolioControllerImpl implements PortfolioController {
       default:
         break;
     }
-
   }
 
-  private void startCopy(PortfolioModel model) {
-    Objects.requireNonNull(model);
-    view.callToViewToChooseCreateOrView();
-    String option = String.valueOf(input.nextLine());
-    if (validateInitialInputsFromUser(option)) {
-      startCopy(model);
-    }
-    switch (option) {
-      case "1":
-        createNewPortfolioForCurrentUser(model.getInstance());
-        break;
-      case "2":
-        askUserWhatHeWantsToView();
-        break;
-      case "3":
-        loadPortfolio();
-        break;
-      case "4":
-        PortfolioModel model = new FlexiblePortfolioImpl();
-        updatePortfolio(model);
-        break;
-      default:
-        break;
-    }
-  }
-
-  private void create(){
+  private void create() {
     view.createFlexibleOrInFlexiblePortfolio();
     String option = input.nextLine();
-    if(validateInputsFromUSer(option)){
+    if (validateInputsFromUSer(option)) {
       create();
     }
-    if(option.equals("1")){
+    if (option.equals("1")) {
       //flexible
-      PortfolioModel model = new FlexiblePortfolioImpl();
-      createNewPortfolioForCurrentUser(model.getInstance());
-    } else if(option.equals("2")){
+      flexiblePortfolio = new FlexiblePortfolioImpl();
+      isFlexible = true;
+      createFlexiblePortfolioForCurrentUser(flexiblePortfolio);
+    } else if (option.equals("2")) {
       //inFlexible
-      PortfolioModel model = new PortfolioImplModel();
-      createNewPortfolioForCurrentUser(model.getInstance());
+      inflexiblePortfolio = new InFlexiblePortfolioImpl();
+      createInFlexiblePortfolioForCurrentUser(inflexiblePortfolio);
     }
   }
 
-  private void updatePortfolio(PortfolioModel model){
-   // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
+  private void createFlexiblePortfolioForCurrentUser(Portfolio portfolio) {
     view.getPortfolioName();
-    String name = input.nextLine();
-    if (validateIfPortfolioDoesntExists(name)) {
-      updatePortfolio(model);
+    String portfolioName = input.nextLine();
+    if (validateIfPortfolioExists(portfolioName)) {
+      createFlexiblePortfolioForCurrentUser(portfolio);
     }
-    this.portfolioName = name;
-    if(isFlexible) {
-      updateStocks(portfolioName,model);
-    }
+    this.portfolioName = portfolioName;
+    buyOrSellStocksHelper(portfolio, portfolioName);
   }
 
-  private void updateStocks(String portfolioName){
+
+  private void buyOrSellStocksHelper(Portfolio portfolio, String portfolioName) {
     view.displayMessageToBuyOrSell();
     String option = input.nextLine();
-    if(validateInputsFromUSer(option)){
-      updateStocks(portfolioName);
+    if (validateInputsFromUSer(option)) {
+      buyOrSellStocksHelper(portfolio, portfolioName);
     }
-    if(option.equals("1")){
-      //1 for buy
-    } else if(option.equals("2")){
-      //2 for sell
+    if (option.equals("1")) {
+      String companyName = companyHelper();
+      String quantity = quantityHelper();
+      String date = dateHelper();
+      portfolio.buyStocks(companyName, quantity, date, portfolioName);
+    } else if (option.equals("2")) {
+      String companyName = companyHelper();
+      String quantity = quantityHelper();
+      String date = dateHelper();//should add more validations
+      portfolio.sellStocks(companyName, quantity, date, portfolioName);
     }
-    continueUpdatingPortfolio(portfolioName);
+    continueBuyingOrSellingInPortfolio(portfolio, portfolioName);
+
   }
 
-  private void continueUpdatingPortfolio(String portfolioName){
-    view.checkIfUserWantsToContinueUpdatingPortfolio();
+  private void continueBuyingOrSellingInPortfolio(Portfolio portfolio, String portfolioName) {
+    view.checkIfUserWantsToContinueBuyingOrSellingPortfolio();
     String option = input.nextLine();
-    if(validateInputsFromUSer(option)){
-      continueUpdatingPortfolio(portfolioName);
+    if (validateInputsFromUSer(option)) {
+      continueBuyingOrSellingInPortfolio(portfolio, portfolioName);
     }
-    if(option.equals("1")){
+    if (option.equals("1")) {
       //1 for continue
-      updateStocks(portfolioName);
-    } else if(option.equals("2")){
+      buyOrSellStocksHelper(portfolio, portfolioName);
+    } else if (option.equals("2")) {
       //continue further
       finalExitCondition();
     }
   }
 
+
+  private void createInFlexiblePortfolioForCurrentUser(Portfolio portfolio) {
+    view.getPortfolioName();
+    String portfolioName = input.nextLine();
+    if (validateIfPortfolioExists(portfolioName)) {
+      createInFlexiblePortfolioForCurrentUser(portfolio);
+    }
+    this.portfolioName = portfolioName;
+    addStocks(portfolio, portfolioName);
+  }
+
+  private void addStocks(Portfolio portfolio, String portfolioName) {
+
+    String companyName = companyHelper();
+    String quantity = quantityHelper();
+    model.addStocks(quantity, companyName, portfolioName, portfolio);
+    stoppingCondition(portfolio,portfolioName);
+  }
+
+
+  private void updatePortfolio() {
+    // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
+    view.getPortfolioName();
+    String name = input.nextLine();
+    if (validateIfPortfolioDoesntExists(name)) {
+      updatePortfolio();
+    }
+    this.portfolioName = name;
+    Portfolio portfolio = new FlexiblePortfolioImpl();
+    updateStocks(portfolio, portfolioName);
+  }
+
+  private void updateStocks(Portfolio portfolio, String portfolioName) {
+    view.displayMessageToBuyOrSell();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      updateStocks(portfolio, portfolioName);
+    }
+    if(option.equals("1")){
+      //1 for buy
+      String companyName = companyHelper();
+      String quantity = quantityHelper();
+      String date = dateHelper();
+      portfolio.buyStocks(companyName, quantity, date, portfolioName);
+    } else if (option.equals("2")) {
+      //2 for sell
+      String companyName = companyHelper();
+      String quantity = quantityHelper();
+      String date = dateHelper();
+      portfolio.sellStocks(companyName,quantity,date,portfolioName);
+    }
+    continueUpdatingPortfolio(portfolio, portfolioName);
+  }
+
+  private void continueUpdatingPortfolio(Portfolio portfolio, String portfolioName) {
+    view.checkIfUserWantsToContinueUpdatingPortfolio();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      continueUpdatingPortfolio(portfolio, portfolioName);
+    }
+    if (option.equals("1")) {
+      //1 for continue
+      updateStocks(portfolio, portfolioName);
+    } else if (option.equals("2")) {
+      //continue further
+      finalExitCondition();
+    }
+  }
 
 
   private void askUserWhatHeWantsToView() {
@@ -172,9 +221,13 @@ public class PortfolioControllerImpl implements PortfolioController {
       List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name);
       view.displayComposition(records);
       viewHelper2(name);
-    } else {
+    } else if(option.equals("2")){
       dateNotFoundHelper(name);
       viewHelper2(name);
+    } else if(option.equals("3")){
+
+    } else if(option.equals("4")){
+
     }
 
   }
@@ -229,7 +282,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     view.getFilePath();
     String filePath = input.nextLine();
     try {
-      model.createPortfolioUsingFilePath(filePath);
+      model.loadPortfolioUsingFilePath(filePath);
     } catch (RuntimeException e) {
       view.displayErrorMessage(e.getMessage());
       loadPortfolio();
@@ -250,39 +303,21 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void stoppingCondition(String portfolioName) {
+  private void stoppingCondition(Portfolio portfolio, String portfolioName) {
     view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     String option = input.nextLine();
     if (validateInputsFromUSer(option)) {
-      stoppingCondition(portfolioName);
+      stoppingCondition(portfolio, portfolioName);
     }
     if (option.equals("1")) {
-      buyOrSellStocks(portfolioName);
+      addStocks(portfolio, portfolioName);
     } else {
-      model.createPortfolioIfCreatedManually(portfolioName);
+      model.createPortfolioIfCreatedManually(portfolioName, portfolio);
       finalExitCondition();
     }
 
   }
 
-  private void createNewPortfolioForCurrentUser(PortfolioModel model) {
-    view.getPortfolioName();
-    String portfolioName = input.nextLine();
-    if (validateIfPortfolioExists(portfolioName)) {
-      createNewPortfolioForCurrentUser(model);
-    }
-    this.portfolioName = portfolioName;
-    this.model = model;
-    buyOrSellStocks(portfolioName);
-  }
-
-  private void buyOrSellStocks(String portfolioName) {
-
-    String companyName = companyHelper();
-    String quantity = quantityHelper();
-    model.buyStocks(quantity, companyName, portfolioName);
-    stoppingCondition(portfolioName);
-  }
 
   private String companyHelper() {
     view.getCompanyTicker();
@@ -309,7 +344,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       finalExitCondition();
     }
     if (option.equals("1")) {
-      startCopy(this.model);
+      start();
     }
 
   }

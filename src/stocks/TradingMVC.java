@@ -1,8 +1,8 @@
 package stocks;
-
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
-import stocks.model.PortfolioImplModel;
+import stocks.model.IModel;
+import stocks.model.ModelImpl;
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
@@ -20,7 +20,8 @@ public class TradingMVC {
    */
   public static void main(String[] args) {
     PortfolioView view = new PortfolioViewImpl(System.out);
-    PortfolioController controller = new PortfolioControllerImpl(System.in, view);
-    controller.start(new PortfolioImplModel());
+    IModel model = new ModelImpl();
+    PortfolioController controller = new PortfolioControllerImpl(model,System.in, view);
+    controller.start();
   }
 }

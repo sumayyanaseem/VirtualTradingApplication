@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class FlexiblePortfolioImpl implements FlexiblePortfolio {
+public class FlexiblePortfolioImpl implements Portfolio {
 
   private String action;
 
@@ -22,8 +22,8 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   private final Map<String, Map<String, List<Stock>>> stockMap;
 
 
-  public FlexiblePortfolioImpl(String portfolioName) {
-    this.portfolioName = portfolioName;
+  public FlexiblePortfolioImpl() {
+    this.portfolioName = "";
     stockMap = new HashMap<>();
   }
 
@@ -53,7 +53,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
 
 
   @Override
-  public FlexiblePortfolio buyStocks(String companyName, int quantity, String date, String portfolioName) {
+  public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
     action = "buy";
     validateInputs(action);
     //TODO:check if this API call is needed here
@@ -98,7 +98,6 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         }
       }
     }
-    return null;
   }
 
 
@@ -129,7 +128,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   }
 
   @Override
-  public FlexiblePortfolio sellStocks(String companyName, int quantity, String date, String portfolioName) {
+  public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
     action = "sell";
     validateInputs(action);
     Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
@@ -139,7 +138,7 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
         //then throw error that you cant sell without buying.
     } else {
         //if sellMap is not empty, then validate if entry of this company exists or not.
-      int netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
+      double netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
           if (netQuantity < quantity) {
             //then throw error , that its not valid.
           } else {
@@ -155,7 +154,6 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
             }
         }
     }
-    return null;
   }
 
 
@@ -174,10 +172,10 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
     }
     return date;
   }
-  private int getQuantityOnThisDateForGivenCompanyName(String date, String companyName) {
+  private double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
-    int quantity = 0;
+    double quantity = 0;
     for (int i = 0; i < list.size(); i++) {
       String datePresent = list.get(i).getDateOfAction();
       if (datePresent <= date) {
@@ -197,8 +195,48 @@ public class FlexiblePortfolioImpl implements FlexiblePortfolio {
   }
 
   @Override
-  public void getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+  public void addStocks(String quantity, String companyName, String portfolioName) {
 
+  }
+
+  @Override
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+
+  }
+
+  @Override
+  public void loadPortfolioUsingFilePath(String filePath) {
+
+  }
+
+  @Override
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
+    return null;
+  }
+
+  @Override
+  public void createPortfolioIfCreatedManually(String portfolioName) {
+
+  }
+
+  @Override
+  public void validateIfCompanyExists(String companyName) {
+
+  }
+
+  @Override
+  public void validateIfPortfolioAlreadyExists(String portfolioName) {
+
+  }
+
+  @Override
+  public void validateIfPortfolioDoesntExists(String name) {
+
+  }
+
+  @Override
+  public Portfolio getInstance() {
+    return null;
   }
 
   @Override
