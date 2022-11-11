@@ -36,17 +36,18 @@ public class ModelImpl implements IModel {
   }
 
   @Override
-  public void validateIfCompanyExists(String companyName, Portfolio portfolio) {
+  public void validateIfCompanyExists(String companyName) {
+
     portfolio.validateIfCompanyExists(companyName);
   }
 
   @Override
-  public void validateIfPortfolioAlreadyExists(String portfolioName, Portfolio portfolio) {
+  public void validateIfPortfolioAlreadyExists(String portfolioName) {
     portfolio.validateIfPortfolioAlreadyExists(portfolioName);
   }
 
   @Override
-  public void validateIfPortfolioDoesntExists(String name, Portfolio portfolio) {
+  public void validateIfPortfolioDoesntExists(String name) {
     portfolio.validateIfPortfolioDoesntExists(name);
   }
 

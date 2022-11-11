@@ -1,5 +1,9 @@
 package stocks.controller;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -282,13 +286,44 @@ public class PortfolioControllerImpl implements PortfolioController {
     view.getFilePath();
     String filePath = input.nextLine();
     try {
-      model.loadPortfolioUsingFilePath(filePath);
-    } catch (RuntimeException e) {
+      Object obj = new JSONParser().parse(new FileReader(filePath));
+      JSONObject jsonObject = (JSONObject) obj;
+      String type = (String) jsonObject.get("type");
+
+      if (type.equals("flexible")) {
+        //flexible
+        Portfolio flexiblePortfolio = new FlexiblePortfolioImpl();
+        isFlexible = true;
+        model.loadPortfolioUsingFilePath(filePath, flexiblePortfolio);
+      } else if (type.equals("inflexible")) {
+        //inFlexible
+        Portfolio inflexiblePortfolio = new InFlexiblePortfolioImpl();
+        model.loadPortfolioUsingFilePath(filePath, inflexiblePortfolio);
+      }
+    }
+    catch (RuntimeException e) {
       view.displayErrorMessage(e.getMessage());
       loadPortfolio();
     }
     exitFromLoadPortfolio();
+
   }
+
+ /* view.createFlexibleOrInFlexiblePortfolio();
+  String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+    create();
+  }
+    if (option.equals("1")) {
+    //flexible
+    flexiblePortfolio = new FlexiblePortfolioImpl();
+    isFlexible = true;
+    createFlexiblePortfolioForCurrentUser(flexiblePortfolio);
+  } else if (option.equals("2")) {
+    //inFlexible
+    inflexiblePortfolio = new InFlexiblePortfolioImpl();
+    createInFlexiblePortfolioForCurrentUser(inflexiblePortfolio);
+  }*/
 
   private void exitFromLoadPortfolio() {
     view.callExitFromLoad();

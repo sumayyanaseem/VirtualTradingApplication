@@ -17,10 +17,6 @@ import java.util.Locale;
 class APICustomClass implements APICustomInterface{
 
 
-public APICustomClass(String series)
-{
-
-}
   /**
    * gives the latest available stock price for the given company ticker.
    *

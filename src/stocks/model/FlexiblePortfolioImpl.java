@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class FlexiblePortfolioImpl implements Portfolio {
+public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfolio {
 
   private String action;
 
@@ -221,7 +221,7 @@ public class FlexiblePortfolioImpl implements Portfolio {
   }
 
   @Override
-  public void getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     double totalValue = 0.0;
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
@@ -246,21 +246,6 @@ public class FlexiblePortfolioImpl implements Portfolio {
 
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
-
-  }
-
-  @Override
-  public void validateIfCompanyExists(String companyName) {
-
-  }
-
-  @Override
-  public void validateIfPortfolioAlreadyExists(String portfolioName) {
-
-  }
-
-  @Override
-  public void validateIfPortfolioDoesntExists(String name) {
 
   }
 

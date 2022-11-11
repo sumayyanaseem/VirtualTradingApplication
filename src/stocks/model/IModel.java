@@ -27,7 +27,7 @@ public interface IModel {
    *
    * @param filePath the path of the file where the stocks data is entered by the user.
    */
-  void loadPortfolioUsingFilePath(String filePath);
+  void loadPortfolioUsingFilePath(String filePath, Portfolio portfolio);
 
   /**
    * gives the information about the given portfolio's composition.
@@ -56,14 +56,14 @@ public interface IModel {
    *
    * @param portfolioName the portfolio to be validated.
    */
-  void validateIfPortfolioAlreadyExists(String portfolioName, Portfolio portfolio);
+  void validateIfPortfolioAlreadyExists(String portfolioName);
 
   /**
    * validate if the given portfolio is not already present.
    *
    * @param name the name of the portfolio to be validated.
    */
-  void validateIfPortfolioDoesntExists(String name, Portfolio portfolio);
+  void validateIfPortfolioDoesntExists(String name);
 
   /**
    * gives the instance of Model object.
