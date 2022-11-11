@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customAPI.APICustomClass;
-
-public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfolio {
+public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   private String action;
 
@@ -41,54 +39,50 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     //create a new file with this portfolioName and headings in the file.
   }
 
-
   @Override
   public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
     action = "buy";
-    validateInputs(action);
-    //TODO:check if this API call is needed here
-    double priceBought = apiCustomInterface.getStockPriceAsOfCertainDate(companyName, Double.parseDouble(quantity), date);
-    if (priceBought != -1) {
-      String cName = companyName.toUpperCase();
-      double q = Double.valueOf(quantity);
-      Stock s = new Stock(cName, q, 0.0, action, priceBought, date);
-      if (stockMap.isEmpty()) {
-        Map<String, List<Stock>> m = new HashMap<>();
+    validateInputs(portfolioName, companyName, quantity, date, action);
+    String cName = companyName.toUpperCase();
+    double q = Double.valueOf(quantity);
+    Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
+    if (stockMap.isEmpty()) {
+      Map<String, List<Stock>> m = new HashMap<>();
+      List<Stock> list = new ArrayList<>();
+      list.add(s);
+      m.put(companyName, list);
+      stockMap.put(portfolioName, m);
+
+    } else {
+      Map<String, List<Stock>> m = stockMap.get(portfolioName);
+      if (!m.containsKey(companyName)) {
         List<Stock> list = new ArrayList<>();
         list.add(s);
         m.put(companyName, list);
         stockMap.put(portfolioName, m);
-
       } else {
-        Map<String, List<Stock>> m = stockMap.get(portfolioName);
-        if (!m.containsKey(companyName)) {
-          List<Stock> list = new ArrayList<>();
-          list.add(s);
-          m.put(companyName, list);
-          stockMap.put(portfolioName, m);
-        } else {
-          boolean flag = false;
-          List<Stock> stockList = m.get(companyName);
-          for (int i = 0; i < stockList.size(); i++) {
-            String dateBought = stockList.get(i).getDateOfAction();
-            if (areDatesEqual(dateBought, date)) {
-              double totQty = Double.parseDouble(stockList.get(i).getQty() + quantity);
-              s = new Stock(companyName, totQty, 0.0, action, priceBought, date);
-              stockList.remove(i);
-              stockList.add(s);
-              m.put(companyName, stockList);
-              stockMap.put(portfolioName, m);
-              flag = true;
-            }
-          }
-          if (!flag) {
+        boolean flag = false;
+        List<Stock> stockList = m.get(companyName);
+        for (int i = 0; i < stockList.size(); i++) {
+          String dateBought = stockList.get(i).getDateOfAction();
+          if (areDatesEqual(dateBought, date)) {
+            double totQty = Double.parseDouble(stockList.get(i).getQty() + quantity);
+            s = new Stock(companyName, totQty, 0.0, action, 0.0, date);
+            stockList.remove(i);
             stockList.add(s);
             m.put(companyName, stockList);
             stockMap.put(portfolioName, m);
+            flag = true;
           }
+        }
+        if (!flag) {
+          stockList.add(s);
+          m.put(companyName, stockList);
+          stockMap.put(portfolioName, m);
         }
       }
     }
+
   }
 
 
@@ -123,47 +117,48 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     action = "sell";
     validateInputs(action);
     Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
-    if(!m1.containsKey(companyName)){
+    if (!m1.containsKey(companyName)) {
       //throw error
     } else if (stockMap.isEmpty()) {
-        //then throw error that you cant sell without buying.
+      //then throw error that you cant sell without buying.
     } else {
-        //if sellMap is not empty, then validate if entry of this company exists or not.
+      //if sellMap is not empty, then validate if entry of this company exists or not.
       double netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
       double q = Double.valueOf(quantity);
-          if (netQuantity < q) {
-            //then throw error , that its not valid.
-          } else {
-            String lastSellDate = getLastSellDate(companyName);
-            if(lastSellDate>date) {
-              //throw error
-            } else {
-              Stock s = new Stock(companyName, q, 0.0,action, 0.0, date);
-              List<Stock> stockList = m1.get(companyName);
-              stockList.add(s);
-              m1.put(companyName, stockList);
-              stockMap.put(portfolioName, m1);
-            }
+      if (netQuantity < q) {
+        //then throw error , that its not valid.
+      } else {
+        String lastSellDate = getLastSellDate(companyName);
+        if (lastSellDate > date) {
+          //throw error
+        } else {
+          Stock s = new Stock(companyName, q, 0.0, action, 0.0, date);
+          List<Stock> stockList = m1.get(companyName);
+          stockList.add(s);
+          m1.put(companyName, stockList);
+          stockMap.put(portfolioName, m1);
         }
+      }
     }
   }
 
 
-  private String getLastSellDate(String companyName){
+  private String getLastSellDate(String companyName) {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     String date = currentDate();
     String date2 = null;
-    for(int i=0;i<list.size();i++){
+    for (int i = 0; i < list.size(); i++) {
       if (list.get(i).getAction().equals("sell")) {
-        date2=list.get(i).getDateOfAction();
-        if(date2<=date){
-          date=date2;
+        date2 = list.get(i).getDateOfAction();
+        if (date2 <= date) {
+          date = date2;
         }
       }
     }
     return date;
   }
+
   private double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
@@ -173,7 +168,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
       if (datePresent <= date) {
         if (list.get(i).getAction().equals("buy")) {
           quantity += list.get(i).getQty();
-        } else if(list.get(i).getAction().equals("sell")){
+        } else if (list.get(i).getAction().equals("sell")) {
           quantity -= list.get(i).getQty();
         }
       }
@@ -187,21 +182,19 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     double totalCostBasis = 0.0;
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
 
-      List<Stock> listOfStocks=entry.getValue();
+      List<Stock> listOfStocks = entry.getValue();
       for (int i = 0; i < listOfStocks.size(); i++) {
-       String dateBought=listOfStocks.get(i).getDateOfAction();
-        Date dateBoughtObj,givenDateObj;
-       try {
-         dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
-         givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
-       }
-       catch(ParseException e) {
+        String dateBought = listOfStocks.get(i).getDateOfAction();
+        Date dateBoughtObj, givenDateObj;
+        try {
+          dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
+          givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
+        } catch (ParseException e) {
           throw new IllegalArgumentException("unable to parse date");
         }
-        if(listOfStocks.get(i).getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj)<=0)
-       {
-         totalCostBasis = totalCostBasis + listOfStocks.get(i).getQty()*listOfStocks.get(i).getPriceOfStockAsOfGivenDate();
-       }
+        if (listOfStocks.get(i).getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj) <= 0) {
+          totalCostBasis = totalCostBasis + listOfStocks.get(i).getQty() * listOfStocks.get(i).getPriceOfStockAsOfGivenDate();
+        }
       }
     }
     return totalCostBasis;
@@ -217,9 +210,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     double totalValue = 0.0;
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
-      String stkName=entry.getKey();
-      double netQty=getQuantityOnThisDateForGivenCompanyName(date,stkName);
-      totalValue=totalValue+getStockPriceAsOfCertainDate(stkName,netQty,date);
+      String stkName = entry.getKey();
+      double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
+      totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
     }
     return totalValue;
 
@@ -243,24 +236,23 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements Portfoli
 
   @Override
   public Portfolio getInstance() {
-    return null;
+    return new FlexiblePortfolioImpl();
   }
 
   @Override
-  public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
 
-
+    return null;
   }
 
-  private void validateInputs(String action) {
-    validatePortfolioName();
-    validateCompanyName(action);
-    validateQuantity(action);
-
-    validateDate(action);
+  private void validateInputs(String portfolioName, String companyName, String quantity, String date, String action) {
+    validateIfPortfolioExists(portfolioName);
+    validateIfCompanyExists(companyName);
+    validateQuantity(quantity);
+    validateDate(date, action);
   }
 
-  private void validateDate(String action) {
+  private void validateDate(String date, String action) {
     String pattern = "yyyy-MM-dd";
     String todayDateStr = new SimpleDateFormat(pattern).format(
             new Date(System.currentTimeMillis()));

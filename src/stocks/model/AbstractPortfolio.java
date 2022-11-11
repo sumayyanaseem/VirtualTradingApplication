@@ -14,7 +14,6 @@ import stocks.customParser.Parser;
 abstract class AbstractPortfolio implements Portfolio{
 
   protected String portfolioName;
-
   protected final Map<String, Map<String, List<Stock>>> stockMap;
 
   protected final APICustomInterface apiCustomInterface;
@@ -98,11 +97,11 @@ abstract class AbstractPortfolio implements Portfolio{
   public String toString() {
     StringBuilder res = new StringBuilder();
 
-    if (portfolioMap != null && !portfolioMap.isEmpty()) {
-      res.append("PortfolioName : ").append(this.pName);
+    if (stockMap != null && !stockMap.isEmpty()) {
+      res.append("PortfolioName : ").append(this.portfolioName);
       res.append("\n");
-      Map<String, Stock> temp = portfolioMap.get(this.pName);
-      for (Map.Entry<String, Stock> entry : temp.entrySet()) {
+      Map<String, List<Stock>> temp = stockMap.get(this.portfolioName);
+      for (Map.Entry<String, List<Stock>> entry : temp.entrySet()) {
         res.append(entry.getValue().toString());
       }
 
@@ -123,6 +122,10 @@ abstract class AbstractPortfolio implements Portfolio{
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Quantity should be always a positive whole number.");
     }
+  }
+
+  protected void validateIfPortfolioExists(String portfolioName){
+
   }
 
 
