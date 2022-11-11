@@ -4,8 +4,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 
-import stocks.model.PortfolioImplModel;
-import stocks.model.PortfolioModel;
+import stocks.model.InFlexiblePortfolioImpl;
+import stocks.model.Portfolio;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,14 +17,14 @@ import static org.junit.Assert.assertTrue;
  */
 public class PortfolioImplModelTest {
 
-  private PortfolioModel model;
+  private Portfolio model;
 
   private final int min = 1;
   private final int max = 100;
 
   @Before
   public void setUp() {
-    model = new PortfolioImplModel();
+    model = new InFlexiblePortfolioImpl();
   }
 
   private int generateRandomNumber() {

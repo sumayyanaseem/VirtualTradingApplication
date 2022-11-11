@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * This class implements PortfolioModel.
  */
-public class PortfolioImplModel implements PortfolioModel {
+public class InFlexiblePortfolioImpl implements Portfolio {
 
   private final Map<String, Map<String, Stock>> portfolioMap;
 
@@ -30,7 +30,7 @@ public class PortfolioImplModel implements PortfolioModel {
    * Constructs a PortfolioImplModel object and initializes
    * a portfolio map and custom class references.
    */
-  public PortfolioImplModel() {
+  public InFlexiblePortfolioImpl() {
     portfolioMap = new HashMap<>();
     apiCustomClass = new APICustomClass();
     customCSVParser = new CustomCSVParser();
@@ -38,7 +38,7 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public void buyStocks(String quantity, String cName, String portfolioName)
+  public void addStocks(String quantity, String cName, String portfolioName)
           throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
@@ -107,8 +107,28 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public PortfolioModel getInstance() {
-    return new PortfolioImplModel();
+  public Portfolio getInstance() {
+    return new InFlexiblePortfolioImpl();
+  }
+
+  @Override
+  public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
+
+  }
+
+  @Override
+  public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
+
+  }
+
+  @Override
+  public void getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+
+  }
+
+  @Override
+  public void getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+
   }
 
   @Override
@@ -152,7 +172,7 @@ public class PortfolioImplModel implements PortfolioModel {
   }
 
   @Override
-  public void createPortfolioUsingFilePath(String filePath) {
+  public void loadPortfolioUsingFilePath(String filePath) {
     validateFilePath(filePath);
     List<List<String>> listOfStocks;
     try {

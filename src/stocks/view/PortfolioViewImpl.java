@@ -93,6 +93,24 @@ public class PortfolioViewImpl implements PortfolioView {
             + "2: To perform actions on other portfolios");
   }
 
+  @Override
+  public void displayMessageToBuyOrSell() {
+    out.println("Enter 1: To buy stocks in this portfolio  "
+            + "2: To sell stocks in this portfolio ");
+  }
+
+  @Override
+  public void checkIfUserWantsToContinueUpdatingPortfolio() {
+    out.println("Enter 1: To continue updating this portfolio  "
+            + "2: To exit from this portfolio");
+  }
+
+  @Override
+  public void createFlexibleOrInFlexiblePortfolio() {
+    out.println("Enter 1: To create flexible portfolio  "
+            + "2: To create inflexible  portfolio");
+  }
+
 
   @Override
   public void displayComposition(List<List<String>> records) {
