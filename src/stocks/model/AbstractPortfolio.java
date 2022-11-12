@@ -1,7 +1,6 @@
 package stocks.model;
 
 import java.io.File;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -63,16 +62,17 @@ abstract class AbstractPortfolio implements Portfolio{
     if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
-    //TODO :change this logic to check if this company is present in list of companies we are supporting.
-    String name = companyName.toUpperCase();
-    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
-    if (is == null) {
+    boolean found =false;
+    for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
+      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
+        found = true;
+        break;
+      }
+    }
+    if(!found){
       throw new IllegalArgumentException("Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.");
     }
-
   }
 
   @Override

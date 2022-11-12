@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 public class APICustomClass implements APICustomInterface {
 
- private static String apiKey = "5KFQLJAEXPPU6DJ9";
+ private static final String apiKey = "5KFQLJAEXPPU6DJ9";
   private String urlString;
 
   public APICustomClass(String url){

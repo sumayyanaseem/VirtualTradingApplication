@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * This class implements PortfolioModel.
  */
-public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfolio {
+public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   private static final String action="add";
 
@@ -101,6 +101,11 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
 
   @Override
   public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
+
+  }
+
+  @Override
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
 
   }
 

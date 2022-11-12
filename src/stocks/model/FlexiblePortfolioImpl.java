@@ -140,6 +140,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
+  @Override
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+    if(action.equals("buy")){
+
+    } else if(action.equals("Sell")){
+
+    }
+  }
+
 
   private String getLastSellDate(String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);

@@ -3,7 +3,6 @@ package stocks.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +28,7 @@ import stocks.view.PortfolioView;
  * This class implements the methods of Portfolio Controller.
  */
 public class PortfolioControllerImpl implements PortfolioController {
-
-  private IModel model;
+  private final IModel model;
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
@@ -191,13 +189,13 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelper();
-      model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
+      model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio,"buy");
     } else if (option.equals("2")) {
       //2 for sell
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelper(); // add more validations for chronologivcal order for sell dates
-      model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
+      String date = dateHelper(); // add more validations for chronological order for sell dates
+      model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio,"sell");
     }
     continueUpdatingPortfolio(portfolio, portfolioName);
   }
@@ -251,7 +249,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (option.equals("2")) {
       dateNotFoundHelper(name, portfolioTypeObj);
     } else if (option.equals("3")) {
-      // implement totalcost basis functionality
+      // implement total-cost basis functionality
       String date = dateHelper();
       double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolioTypeObj);
       view.displayTheTotalCost(totalCost, date, name);
@@ -325,11 +323,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     } catch (RuntimeException e) {
       view.displayErrorMessage(e.getMessage());
       loadPortfolio();
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } catch (org.json.simple.parser.ParseException e) {
+    } catch (IOException | org.json.simple.parser.ParseException e) {
       throw new RuntimeException(e);
     }
     exitFromLoadPortfolio();
