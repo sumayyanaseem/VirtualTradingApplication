@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -86,7 +85,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
       }
       this.portfolioName = portfolioName;
       //TODO:check this
-      parser.write(temp, portfolioName);
+      //parser.write(temp, portfolioName);
     }
   }
 

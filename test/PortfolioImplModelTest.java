@@ -1,23 +1,9 @@
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.util.List;
-
-import stocks.model.InFlexiblePortfolioImpl;
-import stocks.model.Portfolio;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-
 /**
  * Tests for the PortfolioImplModel.
  */
 public class PortfolioImplModelTest {
 
-  private Portfolio model;
+ /* private Portfolio model;
 
   private final int min = 1;
   private final int max = 100;
@@ -496,5 +482,5 @@ public class PortfolioImplModelTest {
 
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
-  }
+  }*/
 }
