@@ -245,6 +245,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       portfolioTypeObj = new InFlexiblePortfolioImpl();
     }
     if (option.equals("1")) {
+      //if its flexible get date as well and pass it model
       List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name, portfolioTypeObj);
       view.displayComposition(records);
     } else if (option.equals("2")) {
