@@ -30,7 +30,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
-      Stock s = new Stock(companyName, qty, totalVal,null,priceBought,todayDateStr);
+      Stock s = new Stock(companyName, qty, totalVal,"add",priceBought,todayDateStr);
       List<Stock> listOfOneStock = new ArrayList<>();
       listOfOneStock.add(s);
       if (stockMap.isEmpty()) {
@@ -47,7 +47,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
           List<Stock> s1 = m1.get(companyName);
           double totQty = s1.get(0).getQty() + qty;
           double val = s1.get(0).getTotalValue() + totalVal;
-          Stock s2 = new Stock(companyName, totQty, val,null,priceBought,todayDateStr);
+          Stock s2 = new Stock(companyName, totQty, val,"add",priceBought,todayDateStr);
           List<Stock> ls=new ArrayList<>();
           ls.add(s2);
           m1.put(companyName, ls);
@@ -64,7 +64,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    List<String[]> temp = new ArrayList<>();
+   /* List<String[]> temp = new ArrayList<>();
     String[] t = new String[5];
     t[0] = "CompanyName";
     t[1] = "Quantity";
@@ -82,12 +82,13 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
         s1[3] = String.valueOf(entry.getValue().get(0).getDateOfAction());
         s1[4] = String.format("%.2f", entry.getValue().get(0).getTotalValue());
         temp.add(s1);
-      }
+      }*/
       this.portfolioName = portfolioName;
       //TODO:check this
       //parser.write(temp, portfolioName);
+      parser.writeIntoFile(portfolioName,stockMap.get(portfolioName),"inflexible");
     }
-  }
+
 
   @Override
   public Portfolio getInstance() {
@@ -142,19 +143,21 @@ return null;
         }
       }
     } else {
-      /*validateIfPortfolioDoesntExists(portfolioName);
-      List<List<String>> listOfStkInfoPersisted = parser.readFromFile(portfolioName);
-      for (int j = 1; j < listOfStkInfoPersisted.size(); j++) {
-        String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
-        double qty = Double.parseDouble(listOfStkInfoPersisted.get(j).get(1));
+      validateIfPortfolioDoesntExists(portfolioName);
+      Map<String,List<Stock>> mapOfStkInfoPersisted = parser.readFromFile(portfolioName);
+      for (Map.Entry<String, List<Stock>> entry : mapOfStkInfoPersisted.entrySet()) {
+        String companyTickerSymbol = entry.getKey();
+        double qty = entry.getValue().get(0).getQty();
         try {
           totValue = totValue + apiCustomInterface.getStockPriceAsOfCertainDate(
                   companyTickerSymbol, qty, date);
-        } catch (IllegalArgumentException e) {
+        }catch (IllegalArgumentException e) {
           throw new IllegalArgumentException(e.getMessage());
         }
 
-      }*/
+      }
+
+
     }
     return totValue;
   }
@@ -231,7 +234,7 @@ return null;
         }
       }
     } else {
-     /* validateIfPortfolioDoesntExists(portfolioName);
+      /*validateIfPortfolioDoesntExists(portfolioName);
       List<List<String>> records = parser.readFromFile(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
@@ -314,7 +317,7 @@ return null;
     if (portfolioName == null) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".json";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist."

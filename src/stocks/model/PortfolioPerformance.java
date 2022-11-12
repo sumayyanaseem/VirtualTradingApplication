@@ -1,4 +1,4 @@
-package stocks.model;
+/*package stocks.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -327,7 +327,7 @@ public class PortfolioPerformance {
     return quarters;
   }*/
 
-}
+
 
 
 

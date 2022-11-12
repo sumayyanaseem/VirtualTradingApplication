@@ -55,6 +55,7 @@ public class APICustomClass implements APICustomInterface {
     String name = companyTickerSymbol.toUpperCase();
 
     String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"DAILY");
+    System.out.println(output);
     String lines[] = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
     for(int i=1;i<lines.length;i++)
@@ -82,8 +83,9 @@ public class APICustomClass implements APICustomInterface {
     }
 
 
-    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
-      throw new IllegalArgumentException("Stock Price is not available for this past date");
+    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0 ) {
+      //throw new IllegalArgumentException("Stock Price is not available for this past date");
+      latestAvailableStkPrice="0";
     }
     return Double.valueOf(latestAvailableStkPrice) * qty;
   }
@@ -139,9 +141,8 @@ public class APICustomClass implements APICustomInterface {
        */
       url =new URL(this.urlString
               + interval
-              + "&outputsize=full"
               + "&symbol"
-              + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
+              + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv" + "&outputsize=full");
 
     } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "

@@ -34,7 +34,9 @@ public class PortfolioControllerImpl implements PortfolioController {
   private final PortfolioView view;
   private final Scanner input;
 
-  private Portfolio portfolioTypeObj;
+  private Portfolio inflexiblePortfolioTypeObj;
+
+  private Portfolio flexiblePortfolioTypeObj;
 
   private static final String flexibleType = "flexible";
 
@@ -54,6 +56,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     this.portfolioName = "";
     this.model = model;
     this.jsonParserImplementation = new JsonParserImplementation();
+    this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
+    this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
   }
 
   @Override
@@ -89,13 +93,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     if (option.equals("1")) {
       //flexible
-      portfolioTypeObj = new FlexiblePortfolioImpl();
+      flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
       //isFlexible = true;
-      createFlexiblePortfolioForCurrentUser(portfolioTypeObj);
+      createFlexiblePortfolioForCurrentUser(flexiblePortfolioTypeObj);
     } else if (option.equals("2")) {
       //inFlexible
-      portfolioTypeObj = new InFlexiblePortfolioImpl();
-      createInFlexiblePortfolioForCurrentUser(portfolioTypeObj);
+      inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
+      createInFlexiblePortfolioForCurrentUser(inflexiblePortfolioTypeObj);
     }
   }
 
@@ -169,14 +173,14 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void updatePortfolio() {
     // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
-    portfolioTypeObj = new FlexiblePortfolioImpl();
+    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     view.getPortfolioName();
     String name = input.nextLine();
     if (validateIfPortfolioDoesntExists(name)) {
       updatePortfolio();
     }
     this.portfolioName = name;
-    updateStocks(portfolioTypeObj, portfolioName);
+    updateStocks(flexiblePortfolioTypeObj, portfolioName);
   }
 
   private void updateStocks(Portfolio portfolio, String portfolioName) {
@@ -239,21 +243,22 @@ public class PortfolioControllerImpl implements PortfolioController {
       viewHelper(name);
     }
     String type = jsonParserImplementation.getTypeOfFile(name);
+    Portfolio portfolio = null;
     if (type.equals(flexibleType)) {
-      portfolioTypeObj = new FlexiblePortfolioImpl();
+      portfolio = flexiblePortfolioTypeObj;
     } else if (type.equals(inflexibleType)) {
-      portfolioTypeObj = new InFlexiblePortfolioImpl();
+      portfolio = inflexiblePortfolioTypeObj;
     }
     if (option.equals("1")) {
       //if its flexible get date as well and pass it model
-      List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name, portfolioTypeObj);
+      List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name, portfolio);
       view.displayComposition(records);
     } else if (option.equals("2")) {
-      dateNotFoundHelper(name, portfolioTypeObj);
+      dateNotFoundHelper(name, portfolio);
     } else if (option.equals("3")) {
       // implement total-cost basis functionality
       String date = dateHelper();
-      double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolioTypeObj);
+      double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
       view.displayTheTotalCost(totalCost, date, name);
     } else if (option.equals("4")) {
       // some part has been implemented. link it and test.
@@ -277,7 +282,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       catch(Exception e){
         view.displayErrorMessage(e.getMessage());
       }
-      Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolioTypeObj);
+      Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
       view.displayPortfolioPerformance(result, startDate, endDate, name);
     }
     viewHelper2(name);
@@ -335,13 +340,14 @@ public class PortfolioControllerImpl implements PortfolioController {
       JSONObject jsonObject = (JSONObject) obj;
       String type = (String) jsonObject.get("type");
 
+      Portfolio portfolioTypeObj;
       if (type.equals(flexibleType)) {
         //flexible
-        portfolioTypeObj = new FlexiblePortfolioImpl();
+        portfolioTypeObj = flexiblePortfolioTypeObj;
         model.loadPortfolioUsingFilePath(filePath, portfolioTypeObj);
       } else if (type.equals(inflexibleType)) {
         //inFlexible
-        portfolioTypeObj = new InFlexiblePortfolioImpl();
+        portfolioTypeObj = inflexiblePortfolioTypeObj;
         model.loadPortfolioUsingFilePath(filePath, portfolioTypeObj);
       }
     } catch (RuntimeException e) {

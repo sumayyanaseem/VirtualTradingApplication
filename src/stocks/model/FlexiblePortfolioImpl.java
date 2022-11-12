@@ -158,7 +158,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return date;
   }
 
-  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+  private double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -181,8 +181,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-
-    Map<String, List<Stock>> m = readFromFile();
+    Map<String, List<Stock>> m = stockMap.get(portfolioName);
     double totalCostBasis = 0.0;
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
 
@@ -265,7 +264,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     } else {
       //TODO:update this validation
-     // validateIfPortfolioDoesntExists(portfolioName);
+      // validateIfPortfolioDoesntExists(portfolioName);
       Map<String, List<Stock>>  records = parser.readFromFile(portfolioName);
       stockMap.put(portfolioName,records);
       for (Map.Entry<String, List<Stock>> entry : records.entrySet()) {
@@ -313,7 +312,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-    return new PortfolioPerformance().displayCopy(startTime, endTime, portfolioName);
+    return null;
   }
 
   private void validateInputsForBuy(String portfolioName, String companyName, String quantity, String date) {
