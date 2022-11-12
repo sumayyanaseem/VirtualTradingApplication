@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class ModelImpl implements IModel {
 
-
   @Override
   public void addStocks(String quantity, String companyName, String portfolioName, Portfolio portfolio) {
     portfolio.addStocks(quantity, companyName, portfolioName);
@@ -64,6 +63,11 @@ public class ModelImpl implements IModel {
   @Override
   public void sellStocks(String companyName,String quantity, String date, String portfolioName, Portfolio portfolio) {
     portfolio.sellStocks(companyName, quantity, date, portfolioName);
+  }
+
+  @Override
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
+    portfolio.updatePortfolio(companyName,quantity,date,portfolioName,action);
   }
 
   @Override

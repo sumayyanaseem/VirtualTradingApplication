@@ -3,7 +3,6 @@ package stocks.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,30 +11,6 @@ import java.util.Map;
 
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private String action;
-
-  class StockComparator implements Comparator<Stock> {
-    public int compare(Stock o1, Stock o2) {
-      Date date2 = null;
-      Date date1 = null;
-      try {
-        date1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(o1.getDateOfAction());
-
-
-        date2 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(o2.getDateOfAction());
-
-      } catch (ParseException e) {
-        throw new RuntimeException(e);
-      }
-      return date1.compareTo(date2);
-    }
-  }
-
-
-  public void createPortfolio(String portfolioName) {
-
-  }
 
   @Override
   public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
@@ -104,14 +79,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   @Override
   public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
     action = "sell";
-    validateInputsForSell(portfolioName,companyName,quantity,date);
-    if(stockMap.isEmpty()){
+    validateInputsForSell(portfolioName, companyName, quantity, date);
+    if (stockMap.isEmpty()) {
       //throw an error that you cant sell bfr buying
     }
     Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
-    if (companyName==null || !m1.containsKey(companyName)) {
+    if (companyName == null || !m1.containsKey(companyName)) {
       //throw error that this company doesnt exist
-    }  else {
+    } else {
       //if sellMap is not empty, then validate if entry of this company exists or not.
       try {
         double netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
@@ -134,9 +109,29 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
             stockMap.put(portfolioName, m1);
           }
         }
-      } catch(ParseException e){
+      } catch (ParseException e) {
 
       }
+    }
+  }
+
+  @Override
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+    if (action.equals("buy")) {
+      if (stockMap.isEmpty()) {
+        stockMap = new HashMap<>();
+        Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
+        stockMap.put(portfolioName, map);
+      }
+      buyStocks(companyName, quantity, date, portfolioName);
+
+    } else if (action.equals("Sell")) {
+      if (stockMap.isEmpty()) {
+        stockMap = new HashMap<>();
+        Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
+        stockMap.put(portfolioName, map);
+      }
+      sellStocks(companyName, quantity, date, portfolioName);
     }
   }
 
@@ -221,7 +216,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       try {
         double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
         totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
-      } catch(ParseException e){
+      } catch (ParseException e) {
 
       }
     }
@@ -241,7 +236,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
-
+    if (!stockMap.isEmpty()) {
+      Map<String, List<Stock>> mm = stockMap.get(portfolioName);
+      parser.writeIntoFile(portfolioName, mm, "flexible");
+    }
   }
 
   @Override
@@ -255,14 +253,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   private void validateInputsForBuy(String portfolioName, String companyName, String quantity, String date) {
-    validateIfPortfolioExists(portfolioName,action);
+    validateIfPortfolioExists(portfolioName, action);
     validateIfCompanyExists(companyName);
     validateQuantity(quantity);
     validateDate(date);
   }
 
   private void validateInputsForSell(String portfolioName, String companyName, String quantity, String date) {
-    validateIfPortfolioExists(portfolioName,action);
+    validateIfPortfolioExists(portfolioName, action);
     validateQuantity(quantity);
     validateDate(date);
   }

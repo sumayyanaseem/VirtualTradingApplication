@@ -1,6 +1,9 @@
 package stocks.customParser;
 
 import java.util.List;
+import java.util.Map;
+
+import stocks.model.Stock;
 
 
 /**
@@ -15,12 +18,12 @@ public interface Parser {
    *
    * @return the info read from  file as a list of each stock's data.
    */
-  List<List<String>> readFromFile(String portFolioName);
+  Map<String,List<Stock>> readFromFile(String portFolioName);
 
   /**
    * reads the  file from path provided.
    *
    * @return the info read from  file as a list of each stock's data.
    */
-  List<List<String>> readFromPathProvidedByUser(String path);
+  Map<String,List<Stock>> readFromPathProvidedByUser(String path);
 }

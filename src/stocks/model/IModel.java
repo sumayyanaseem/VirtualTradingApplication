@@ -77,8 +77,12 @@ public interface IModel {
 
   void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio);
 
+  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio,String action);
+
   double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
 
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio);
+
+
 
 }

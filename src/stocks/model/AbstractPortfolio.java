@@ -1,7 +1,6 @@
 package stocks.model;
 
 import java.io.File;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,15 +15,14 @@ import java.util.Map;
 import stocks.customAPI.APICustomClass;
 import stocks.customAPI.APICustomInterface;
 import stocks.customParser.JsonParserImplementation;
-import stocks.customParser.Parser;
 
 abstract class AbstractPortfolio implements Portfolio{
 
   protected String portfolioName;
-  protected final Map<String, Map<String, List<Stock>>> stockMap;
+  protected  Map<String, Map<String, List<Stock>>> stockMap;
 
   protected final APICustomInterface apiCustomInterface;
-  protected final Parser parser;
+  protected final JsonParserImplementation parser;
 
   public AbstractPortfolio() {
     this.portfolioName = "";
@@ -63,16 +61,17 @@ abstract class AbstractPortfolio implements Portfolio{
     if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
-    //TODO :change this logic to check if this company is present in list of companies we are supporting.
-    String name = companyName.toUpperCase();
-    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
-    if (is == null) {
+    boolean found =false;
+    for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
+      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
+        found = true;
+        break;
+      }
+    }
+    if(!found){
       throw new IllegalArgumentException("Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.");
     }
-
   }
 
   @Override

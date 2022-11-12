@@ -83,6 +83,8 @@ public interface Portfolio {
 
   void sellStocks(String companyName,String quantity,String date,String portfolioName);
 
+  void updatePortfolio(String companyName,String quantity,String date,String portfolioName,String action);
+
   double getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
 
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName);
