@@ -13,15 +13,15 @@ import java.util.Map;
  */
 public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
-  private static final String action="add";
+  private static final String action = "add";
 
   @Override
-  public void addStocks(String quantity, String cName, String portfolioName)
+  public void buyStocks(String quantity, String cName, String date, String portfolioName)
           throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
     validateIfPortfolioAlreadyExists(portfolioName);
-    portfolioName = portfolioName;
+    this.portfolioName = portfolioName;
     double priceBought = apiCustomInterface.fetchLatestStockPriceOfThisCompany(cName);
     if (priceBought != -1) {
       String pattern = "yyyy-MM-dd";
@@ -30,7 +30,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
-      Stock s = new Stock(companyName, qty, totalVal,null,priceBought,todayDateStr);
+      Stock s = new Stock(companyName, qty, totalVal, null, priceBought, todayDateStr);
       List<Stock> listOfOneStock = new ArrayList<>();
       listOfOneStock.add(s);
       if (stockMap.isEmpty()) {
@@ -47,8 +47,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
           List<Stock> s1 = m1.get(companyName);
           double totQty = s1.get(0).getQty() + qty;
           double val = s1.get(0).getTotalValue() + totalVal;
-          Stock s2 = new Stock(companyName, totQty, val,null,priceBought,todayDateStr);
-          List<Stock> ls=new ArrayList<>();
+          Stock s2 = new Stock(companyName, totQty, val, null, priceBought, todayDateStr);
+          List<Stock> ls = new ArrayList<>();
           ls.add(s2);
           m1.put(companyName, ls);
           stockMap.put(portfolioName, m1);
@@ -95,28 +95,23 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
-
-  }
-
-  @Override
   public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
-
+    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
   @Override
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
-
+    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
   @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-return 0.0;
+    return 0.0;
   }
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-return null;
+    return null;
   }
 
   @Override
@@ -133,7 +128,7 @@ return null;
           List<Stock> s = entry.getValue();
           double temp;
           try {
-            temp =  apiCustomInterface.getStockPriceAsOfCertainDate(
+            temp = apiCustomInterface.getStockPriceAsOfCertainDate(
                     s.get(0).getCompanyTickerSymbol(), s.get(0).getQty(), date);
           } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -204,7 +199,7 @@ return null;
   }
 
   @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
@@ -226,7 +221,7 @@ return null;
           temp.add(String.valueOf(s.get(0).getQty()));
           temp.add(String.valueOf(s.get(0).getPriceOfStockAsOfGivenDate()));
           temp.add(s.get(0).getDateOfAction());
-          temp.add(String.format("%.2f",s.get(0).getTotalValue()));
+          temp.add(String.format("%.2f", s.get(0).getTotalValue()));
           results.add(temp);
         }
       }
@@ -308,7 +303,6 @@ return null;
               + "Please provide valid portfolioName.");
     }
   }*/
-
   @Override
   public void validateIfPortfolioDoesntExists(String portfolioName) {
     if (portfolioName == null) {
@@ -321,8 +315,6 @@ return null;
               + "Please provide valid portfolioName.");
     }
   }
-
-
 
 
   private void validateFilePath(String path) {

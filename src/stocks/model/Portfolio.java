@@ -11,15 +11,6 @@ import java.util.Map;
 public interface Portfolio {
 
   /**
-   * Buy stocks of a company and add to the portfolio.
-   *
-   * @param quantity      number of stocks to be bought.
-   * @param companyName   company of which stocks need to be bought.
-   * @param portfolioName portfolio to which bought stocks need to be added.
-   */
-  void addStocks(String quantity, String companyName, String portfolioName);
-
-  /**
    * Gives the valuation of the given portfolio as of a certain given date.
    *
    * @param date          the date as of which total value needs to be calculated.
@@ -41,7 +32,7 @@ public interface Portfolio {
    * @param portfolioName the name of the portfolio for which composition is needed.
    * @return the composition of portfolio in a list format.
    */
-  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName);
+  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName,String date);
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.
@@ -79,6 +70,13 @@ public interface Portfolio {
   Portfolio getInstance();
 
 
+  /**
+   * Buy stocks of a company and add to the portfolio.
+   *
+   * @param quantity      number of stocks to be bought.
+   * @param companyName   company of which stocks need to be bought.
+   * @param portfolioName portfolio to which bought stocks need to be added.
+   */
   void buyStocks(String companyName,String quantity,String date,String portfolioName);
 
   void sellStocks(String companyName,String quantity,String date,String portfolioName);

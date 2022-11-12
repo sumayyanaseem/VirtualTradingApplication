@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private String action;
+  private String firstPurchaseDate="9990-12-31";
 
   @Override
   public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
@@ -20,6 +21,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     String cName = companyName.toUpperCase();
     double q = Double.valueOf(quantity);
     Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
+    try{
+      setFirstPurchaseDate(date);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
     if (stockMap.isEmpty()) {
       Map<String, List<Stock>> m = new HashMap<>();
       List<Stock> list = new ArrayList<>();
@@ -59,6 +65,19 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   }
 
+  private void setFirstPurchaseDate(String date) throws ParseException {
+
+    Date firstDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            .parse(firstPurchaseDate);
+
+    Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            .parse(date);
+
+    if(firstDate.compareTo(givenDate)>0){
+      this.firstPurchaseDate = date;
+    }
+  }
+
 
   private boolean areDatesEqual(String date1, String date2) {
     Date date3 = null;
@@ -82,18 +101,18 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     action = "sell";
     validateInputsForSell(portfolioName, companyName, quantity, date);
     if (stockMap.isEmpty()) {
-      //throw an error that you cant sell bfr buying
+      throw new IllegalArgumentException("It is impossible to sell a stock without first purchasing it.");
     }
     Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
     if (companyName == null || !m1.containsKey(companyName)) {
-      //throw error that this company doesnt exist
+      throw new IllegalArgumentException("As the given company's stock does not exist with in current portfolio, it cannot be sold.");
     } else {
       //if sellMap is not empty, then validate if entry of this company exists or not.
       try {
         double netQuantity = getQuantityOnThisDateForGivenCompanyName(date, companyName);
         double q = Double.valueOf(quantity);
         if (netQuantity < q) {
-          //then throw error , that its not valid.
+          throw new IllegalArgumentException("The given quantity exceeds the net quantity.");
         } else {
           String lastSellDate = getLastSellDate(companyName);
           Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -101,7 +120,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           Date lastDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                   .parse(lastSellDate);
           if (lastDate.compareTo(givenDate) > 0) {
-            throw new IllegalArgumentException("Sell date is not in chronological order");
+            throw new IllegalArgumentException("Sell date is not in the chronological order.Last date present is " + lastDate);
           } else {
             Stock s = new Stock(companyName, q, 0.0, action, 0.0, date);
             List<Stock> stockList = m1.get(companyName);
@@ -118,6 +137,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+    if(action.equals("buy")){
+      validateIfPortfolioDoesntExists(portfolioName);
+    }
+    validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
     if (action.equals("buy")) {
       if (stockMap.isEmpty()) {
         stockMap = new HashMap<>();
@@ -125,7 +148,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         stockMap.put(portfolioName, map);
       }
       buyStocks(companyName, quantity, date, portfolioName);
-      parser.appendIntoFile(portfolioName,companyName,quantity,action,date);
+      parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
     } else if (action.equals("Sell")) {
       if (stockMap.isEmpty()) {
         stockMap = new HashMap<>();
@@ -133,7 +156,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         stockMap.put(portfolioName, map);
       }
       sellStocks(companyName, quantity, date, portfolioName);
-      parser.appendIntoFile(portfolioName,companyName,quantity,action,date);
+      parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
     }
   }
 
@@ -141,7 +164,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private String getLastSellDate(String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
-    String date = "1999-12-31";
+    String date = "1000-12-31";
     Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
             .parse(date);
     String date2 = null;
@@ -150,8 +173,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         date2 = list.get(i).getDateOfAction();
         Date datePresent = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(date2);
-        if (datePresent.compareTo(todayDate) <= 0) {
+        if (datePresent.compareTo(todayDate) > 0) {
           todayDate = datePresent;
+          date = date2;
         }
       }
     }
@@ -204,18 +228,38 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public void addStocks(String quantity, String companyName, String portfolioName) {
-
-  }
-
-  @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
 
     double totalValue = 0.0;
-    if(!stockMap.isEmpty()) {
-      Map<String, List<Stock>> m = stockMap.get(portfolioName);
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        Date givenDate;
+        Date  firstPurchase ;
+        try {
+          givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
+          firstPurchase = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(this.firstPurchaseDate);
+          if(givenDate.compareTo(firstPurchase)<0){
+            return 0.0;
+          }
+        } catch (ParseException e) {
+          throw new IllegalArgumentException("unable to parse date");
+        }
+        Map<String, List<Stock>> m = stockMap.get(portfolioName);
+        for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+          String stkName = entry.getKey();
+          try {
+            double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
 
-      for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+            totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
+          } catch (ParseException e) {
+          }
+        }
+      }
+    } else {
+      validateIfPortfolioDoesntExists(portfolioName);
+      Map<String, List<Stock>> records = parser.readFromFile(portfolioName);
+      stockMap.put(portfolioName, records);
+      for (Map.Entry<String, List<Stock>> entry : records.entrySet()) {
         String stkName = entry.getKey();
         try {
           double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
@@ -223,8 +267,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         } catch (ParseException e) {
         }
       }
-    } else {
-
     }
     return totalValue;
 
@@ -232,11 +274,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-
+    //validateFilePath(filePath);
+    Map<String, List<Stock>> records = parser.readFromPathProvidedByUser(filePath);
+    this.portfolioName = "currentInstance";
+    stockMap.put(portfolioName, records);
   }
 
   @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
@@ -263,13 +308,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         }
       }
     } else {
-      //TODO:update this validation
-     // validateIfPortfolioDoesntExists(portfolioName);
-      Map<String, List<Stock>>  records = parser.readFromFile(portfolioName);
-      stockMap.put(portfolioName,records);
+      validateIfPortfolioDoesntExists(portfolioName);
+      Map<String, List<Stock>> records = parser.readFromFile(portfolioName);
+      stockMap.put(portfolioName, records);
       for (Map.Entry<String, List<Stock>> entry : records.entrySet()) {
         List<Stock> s = entry.getValue();
-        for(int i=0;i<s.size();i++) {
+        for (int i = 0; i < s.size(); i++) {
           List<String> temp = new ArrayList<>();
           temp.add(s.get(i).getCompanyTickerSymbol());
           temp.add(String.valueOf(s.get(i).getQty()));
@@ -292,11 +336,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  private void printMap(Map<String, List<Stock>> stockMap){
+  private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
-      System.out.println(entry.getKey()+" values is ");
+      System.out.println(entry.getKey() + " values is ");
       List<Stock> list = entry.getValue();
-      for(int i=0;i<list.size();i++){
+      for (int i = 0; i < list.size(); i++) {
         System.out.println(list.get(i).getQty());
         System.out.println(list.get(i).getAction());
         System.out.println(list.get(i).getDateOfAction());
@@ -316,16 +360,23 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   private void validateInputsForBuy(String portfolioName, String companyName, String quantity, String date) {
-    validateIfPortfolioExists(portfolioName, action);
     validateIfCompanyExists(companyName);
     validateQuantity(quantity);
     validateDate(date);
   }
 
   private void validateInputsForSell(String portfolioName, String companyName, String quantity, String date) {
-    validateIfPortfolioExists(portfolioName, action);
+    validateIfPortfolioDoesntExists(portfolioName);
+    //validation on companyName and date chronological order is already handled in sellStocks method.
     validateQuantity(quantity);
     validateDate(date);
   }
 
+  private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action) {
+    if (action.equals("buy")) {
+      validateInputsForBuy(portfolioName, companyName, quantity, date);
+    } else if (action.equals("sell")) {
+      validateInputsForSell(portfolioName, companyName, quantity, date);
+    }
+  }
 }

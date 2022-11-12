@@ -20,7 +20,6 @@ abstract class AbstractPortfolio implements Portfolio{
 
   protected String portfolioName;
   protected  Map<String, Map<String, List<Stock>>> stockMap;
-
   protected final APICustomInterface apiCustomInterface;
   protected final JsonParserImplementation parser;
 
@@ -31,30 +30,6 @@ abstract class AbstractPortfolio implements Portfolio{
     this.parser = new JsonParserImplementation();
   }
 
-  @Override
-  public void addStocks(String quantity, String companyName, String portfolioName) {
-
-  }
-
-  @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-    return 0;
-  }
-
-  @Override
-  public void loadPortfolioUsingFilePath(String filePath) {
-
-  }
-
-  @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
-    return null;
-  }
-
-  @Override
-  public void createPortfolioIfCreatedManually(String portfolioName) {
-
-  }
 
   @Override
   public void validateIfCompanyExists(String companyName) {
@@ -79,7 +54,7 @@ abstract class AbstractPortfolio implements Portfolio{
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".json";
     File f = new File(path);
     if (f.isFile() && f.exists()) {
       throw new IllegalArgumentException("Given portfolio exist."
@@ -92,7 +67,7 @@ abstract class AbstractPortfolio implements Portfolio{
     if (portfolioName == null) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
+    String path = "userPortfolios/" + portfolioName + "_output" + ".json";
     File f = new File(path);
     if (!f.isFile() || !f.exists()) {
       throw new IllegalArgumentException("Given portfolio doesnt exist."
@@ -130,15 +105,7 @@ abstract class AbstractPortfolio implements Portfolio{
     }
   }
 
-  protected void validateIfPortfolioExists(String portfolioName,String action){
-    //if action is sell,validate this portfolio exists or not
 
-    //if action is buy or add , then validate
-
-    //if buy/add is coming from create operation, then portfolio file shouldnt exist.
-
-    //if buy is coming from update operation,then portfolio file should exist.
-  }
 
   protected void validateDate(String date) {
     String format = "yyyy-MM-dd";

@@ -6,11 +6,6 @@ import java.util.Map;
 public class ModelImpl implements IModel {
 
   @Override
-  public void addStocks(String quantity, String companyName, String portfolioName, Portfolio portfolio) {
-    portfolio.addStocks(quantity, companyName, portfolioName);
-  }
-
-  @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
     return portfolio.getTotalValueOfPortfolioOnCertainDate(date, portfolioName);
   }
@@ -26,8 +21,8 @@ public class ModelImpl implements IModel {
   }
 
   @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, Portfolio portfolio) {
-    return portfolio.viewCompositionOfCurrentPortfolio(portfolioName);
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date,Portfolio portfolio) {
+    return portfolio.viewCompositionOfCurrentPortfolio(portfolioName,date);
   }
 
   @Override
