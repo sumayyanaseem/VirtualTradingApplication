@@ -14,9 +14,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customAPI.APICustomClass;
+import stocks.customAPI.APICustomInterface;
+import stocks.customParser.JsonParserImplementation;
 import stocks.customParser.customCSVParserImpl;
 
 public class PortfolioPerformance {
+  private final APICustomInterface apiCustom;
+  private final Portfolio portfolioObj;
+  Map<String,Map<String,Double>> storedMonthlyValues; // stock --> yymm-val
+
+  public PortfolioPerformance()
+  {
+    apiCustom = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    portfolioObj = new FlexiblePortfolioImpl();
+    storedMonthlyValues = new HashMap<>();
+  }
 
   public long daysBetween(String date1, String date2)
   {
@@ -139,13 +152,13 @@ public class PortfolioPerformance {
     }
     return m;
   }
-  public Map<String,Double> displayCopy( String date1, String date2, String portfolioName) {
-    //Map<String,Map<String, List<Stock>>> mp,
-    Map<String,Map<String, List<Stock>>> mp = readFromFile(portfolioName);
+  public Map<String,Double> displayCopy( String date1, String date2, String portfolioName) throws ParseException {
+
+    Map<String,List<Stock>> resultMap = new JsonParserImplementation().readFromFile(portfolioName);
     long months = monthsBetween(date1, date2);
     long days = daysBetween(date1, date2);
     long weeks = weeksBetween(date1, date2);
-    Map<String, List<Stock>> portfolioValueMap = mp.get(portfolioName);
+
     Map<Integer, Integer> noOfDays = new HashMap<>();
     noOfDays.put(1, 31);
     noOfDays.put(2, 29);
@@ -161,7 +174,31 @@ public class PortfolioPerformance {
     noOfDays.put(12, 31);
 
 
-    if (months >= 5 && months <= 30) {
+    if (days >= 5 && days <= 30) {
+
+      Map<String, Double> dayWiseTotalValues = new HashMap<>();
+
+      for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey());
+
+        if(dayWiseTotalValues.size()==0)
+        {
+          dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+        }
+        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
+        {
+          double netQty = new FlexiblePortfolioImpl().getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
+          double stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
+
+          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
+        }
+
+      }
+
+    }
+
+
+    else if (months >= 5 && months <= 30) {
       Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
@@ -171,7 +208,9 @@ public class PortfolioPerformance {
       // over all the stocks in portfolio and get the netquantity of that stock as of the last date
       // of the month and multiply the new quantity with stock price of that month
       String monthEndDate;
+
       for (Map.Entry<String, Double> entry : mapOfMonths.entrySet()) {
+
         String dt = entry.getKey();
         int mnth = Integer.valueOf(dt.substring(5, 7));
         int daysInMonth = noOfDays.get(mnth);
@@ -179,9 +218,15 @@ public class PortfolioPerformance {
 
 
         double totalValueOfPortfolioMonthEnd = 0.0;
-        for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
 
-          double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+        for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+
+          //move this method to interface
+          double netQty = portfolioObj.getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+          if(!storedMonthlyValues.containsKey(companyInfo.getKey()))
+          {
+            Map<String,Double> monthsAndValues = constructCacheForMonthlyValues(companyInfo.getKey());
+          }
           double stkValueMonthEnd = getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty);
           totalValueOfPortfolioMonthEnd = totalValueOfPortfolioMonthEnd + stkValueMonthEnd;
         }
@@ -210,28 +255,10 @@ public class PortfolioPerformance {
     }
 
 
-    else if (days >= 5 && days <= 30) {
-      Map<String, Double> dayWiseTotalValues = new HashMap<>();
 
-      for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
-        String data = fetchOutputStringFromURLByInterval(companyInfo.getKey());
-
-        if(dayWiseTotalValues.size()==0)
-        {
-          dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
-        }
-        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
-        {
-          double netQty = getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
-          double stkValueMonthEnd = getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
-
-          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
-        }
-
-      }
-
-    }
   }
+
+  private Map<String, constructCacheForMonthlyValues
 
   private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data)
   {

@@ -156,7 +156,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return date;
   }
 
-  private double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
