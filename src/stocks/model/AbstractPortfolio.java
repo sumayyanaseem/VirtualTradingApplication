@@ -15,15 +15,14 @@ import java.util.Map;
 import stocks.customAPI.APICustomClass;
 import stocks.customAPI.APICustomInterface;
 import stocks.customParser.JsonParserImplementation;
-import stocks.customParser.Parser;
 
 abstract class AbstractPortfolio implements Portfolio{
 
   protected String portfolioName;
-  protected final Map<String, Map<String, List<Stock>>> stockMap;
+  protected  Map<String, Map<String, List<Stock>>> stockMap;
 
   protected final APICustomInterface apiCustomInterface;
-  protected final Parser parser;
+  protected final JsonParserImplementation parser;
 
   public AbstractPortfolio() {
     this.portfolioName = "";

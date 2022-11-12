@@ -85,7 +85,7 @@ public class JsonParserImplementation  {
               } else if(pair.getKey().equals("action")){
                 action = String.valueOf(pair.getValue());
               }
-Stock s = new Stock(cName,quantity,0.0,action,0.0,date);
+             Stock s = new Stock(cName,quantity,0.0,action,0.0,date);
               list.add(s);
             }
             res.put(cName,list)  ;
@@ -97,14 +97,24 @@ Stock s = new Stock(cName,quantity,0.0,action,0.0,date);
   }
 
 
-  public void writeIntoFile(String portFolioName,String companyName,String quantity,String action,String date,String type) {
+  public void writeIntoFile(String portFolioName,Map<String,List<Stock>> map,String type) {
 
     //used for firstTime creating a file
 
     JSONObject jsonObject = new JSONObject();
+
     jsonObject.put("type",type);
 
-    JSONArray innerJson = new JSONArray();
+    for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
+      System.out.println(entry.getKey()+" "+entry.getValue());
+      String cName = entry.getKey();
+      List<Stock> list = entry.getValue();
+      for(int i=0;i<list.size();i++) {
+        Stock s = list.get(i);
+        writeIntoFileHelper(jsonObject, cName, s.getDateOfAction(), String.valueOf(s.getQty()), s.getAction());
+      }
+    }
+    /*JSONArray innerJson = new JSONArray();
 
     Map innerMap = new HashMap();
     innerMap.put("date",date);
@@ -127,16 +137,43 @@ Stock s = new Stock(cName,quantity,0.0,action,0.0,date);
       file.close();
     } catch(IOException e ){
       e.printStackTrace();
+    }*/
+
+    String path =portFolioName;
+    try{
+      FileWriter file = new FileWriter(path);
+      file.write(jsonObject.toJSONString());
+      file.close();
+    } catch(IOException e ){
+      e.printStackTrace();
     }
   }
 
+  private void writeIntoFileHelper(JSONObject jsonObject,String companyName,String date,String quantity,String action){
+    JSONArray innerJson = new JSONArray();
 
-  public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date,String type){
+    Map innerMap = new HashMap();
+    innerMap.put("date",date);
+    innerMap.put("Quantity",quantity);
+    innerMap.put("action",action);
+    innerJson.add(innerMap);
+
+    JSONArray outerJson = new JSONArray();
+
+    Map map = new HashMap(2);
+    map.put("CompanyName",companyName);
+    map.put("Actions",innerJson);
+    outerJson.add(map);
+
+    jsonObject.put("Companies",outerJson);
+  }
+
+
+  public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date){
     String path =portfolioName;
     try {
       Object obj = new JSONParser().parse(new FileReader(path));
       JSONObject jsonObject = (JSONObject) obj;
-      jsonObject.put("type",type);
 
       JSONArray innerJson = new JSONArray();
 
