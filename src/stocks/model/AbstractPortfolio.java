@@ -2,8 +2,15 @@ package stocks.model;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import stocks.customAPI.APICustomClass;
@@ -56,6 +63,7 @@ abstract class AbstractPortfolio implements Portfolio{
     if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
+    //TODO :change this logic to check if this company is present in list of companies we are supporting.
     String name = companyName.toUpperCase();
     String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
     ClassLoader classLoader = getClass().getClassLoader();
@@ -124,13 +132,43 @@ abstract class AbstractPortfolio implements Portfolio{
     }
   }
 
-  protected void validateIfPortfolioExists(String portfolioName){
+  protected void validateIfPortfolioExists(String portfolioName,String action){
+    //if action is sell,validate this portfolio exists or not
 
+    //if action is buy or add , then validate
+
+    //if buy/add is coming from create operation, then portfolio file shouldnt exist.
+
+    //if buy is coming from update operation,then portfolio file should exist.
   }
 
-
-
-
-
+  protected void validateDate(String date) {
+    String format = "yyyy-MM-dd";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
+    try {
+      LocalDate ld = LocalDate.parse(date, formatter);
+      String result = ld.format(formatter);
+      if (!result.equals(date)) {
+        throw new IllegalArgumentException("Invalid dateFormat provided."
+                + "Please provide date in YYYY-MM-DD format only.");
+      } else {
+        String todayDateStr = new SimpleDateFormat(format).format(
+                new Date(System.currentTimeMillis()));
+        Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(todayDateStr);
+        Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date);
+        if (givenDate.compareTo(todayDate) > 0) {
+          throw new IllegalArgumentException("Future Date provided."
+                  + "Please provide date less then or equal to today");
+        }
+      }
+    } catch (IllegalArgumentException | DateTimeParseException e) {
+      throw new IllegalArgumentException("Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.");
+    } catch (ParseException e) {
+      throw new RuntimeException(e.getMessage());
+    }
+  }
 
 }

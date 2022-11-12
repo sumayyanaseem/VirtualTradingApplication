@@ -1,8 +1,8 @@
 package stocks.model;
 
 //not needed now
-public class BuyStocks extends Stock {
-  private final double priceBought;
+public class BuyStocks  {
+ /* private final double priceBought;
   private final String dateBought;
   private static final String action = "buy";
 
@@ -13,27 +13,16 @@ public class BuyStocks extends Stock {
   }
 
 
-  /**
-   * gives the date on which the stock was bought.
-   *
-   * @return buy date of the stock.
-   */
   public String getDateBought() {
     return dateBought;
   }
 
-
-  /**
-   * gives the price at which stock was bought.
-   *
-   * @return the buy price of the stock.
-   */
   public double getPriceBought() {
     return priceBought;
   }
 
   public String getAction() {
     return action;
-  }
+  }*/
 
 }

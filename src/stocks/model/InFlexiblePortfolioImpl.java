@@ -1,16 +1,11 @@
 package stocks.model;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -90,7 +85,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio implements Portfo
       }
       this.portfolioName = portfolioName;
       //TODO:check this
-      parser.write(temp, portfolioName);
+      //parser.write(temp, portfolioName);
     }
   }
 
@@ -323,34 +318,7 @@ return null;
   }
 
 
-  private void validateDate(String date) {
-    String format = "yyyy-MM-dd";
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
-    try {
-      LocalDate ld = LocalDate.parse(date, formatter);
-      String result = ld.format(formatter);
-      if (!result.equals(date)) {
-        throw new IllegalArgumentException("Invalid dateFormat provided."
-                + "Please provide date in YYYY-MM-DD format only.");
-      } else {
-        String todayDateStr = new SimpleDateFormat(format).format(
-                new Date(System.currentTimeMillis()));
-        Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(todayDateStr);
-        Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(date);
-        if (givenDate.compareTo(todayDate) > 0) {
-          throw new IllegalArgumentException("Future Date provided."
-                  + "Please provide date less then or equal to today");
-        }
-      }
-    } catch (IllegalArgumentException | DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid dateFormat provided."
-              + "Please provide date in YYYY-MM-DD format only.");
-    } catch (ParseException e) {
-      throw new RuntimeException(e.getMessage());
-    }
-  }
+
 
   private void validateFilePath(String path) {
 
