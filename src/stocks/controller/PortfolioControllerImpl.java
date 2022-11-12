@@ -257,12 +257,29 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayTheTotalCost(totalCost, date, name);
     } else if (option.equals("4")) {
       // some part has been implemented. link it and test.
+
       String startDate = dateHelper();
       String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
+      try {
+        Date start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(startDate);
+        Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(endDate);
+        if(end.compareTo(start)<0)
+          view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+
+      }
+      catch(Exception e){
+        view.displayErrorMessage(e.getMessage());
+      }
       Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolioTypeObj);
       view.displayPortfolioPerformance(result, startDate, endDate, name);
     }
     viewHelper2(name);
+
+  }
+
+  private void startEndHelper(String name, Portfolio portfolio) {
 
   }
 
