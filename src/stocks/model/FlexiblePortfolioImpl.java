@@ -184,7 +184,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-    Map<String, List<Stock>> m = stockMap.get(portfolioName);
+
+    Map<String, List<Stock>> m = readFromFile();
     double totalCostBasis = 0.0;
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
 
@@ -250,7 +251,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-    return null;
+    return new PortfolioPerformance().displayCopy(startTime, endTime, portfolioName);
   }
 
   private void validateInputsForBuy(String portfolioName, String companyName, String quantity, String date) {

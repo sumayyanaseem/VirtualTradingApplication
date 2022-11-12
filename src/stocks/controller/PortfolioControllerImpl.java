@@ -260,13 +260,18 @@ public class PortfolioControllerImpl implements PortfolioController {
 
       String startDate = dateHelper();
       String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
+      Date start;
+      Date end;
       try {
-        Date start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(startDate);
-        Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(endDate);
-        if(end.compareTo(start)<0)
+        if(end.compareTo(start)<0) {
+          //need to recur until correct dates are entered.
           view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+        }
+
 
       }
       catch(Exception e){

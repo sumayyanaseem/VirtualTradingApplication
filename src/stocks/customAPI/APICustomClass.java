@@ -120,6 +120,7 @@ public class APICustomClass implements APICustomInterface {
 
 
 
+
   @Override
   public String fetchOutputStringFromURLByInterval( String companyTickerSymbol, String interval) {
 
