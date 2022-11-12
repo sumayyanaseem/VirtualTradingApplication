@@ -111,7 +111,6 @@ abstract class AbstractPortfolio implements Portfolio{
       for (Map.Entry<String, List<Stock>> entry : temp.entrySet()) {
         res.append(entry.getValue().toString());
       }
-
     }
     return res.toString();
   }

@@ -8,7 +8,7 @@ package stocks.model;
 
 public class Stock {
   private final String companyTickerSymbol;
-  private final Double qty;
+  private final double qty;
   private final double totalValue;
   private final String action;
   private final double priceOfStockAsOfGivenDate;

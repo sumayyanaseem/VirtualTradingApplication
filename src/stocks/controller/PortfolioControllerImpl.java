@@ -3,6 +3,7 @@ package stocks.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -490,7 +491,15 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private boolean validateIfPortfolioDoesntExists(String portfolioName) {
     try {
-      validateIfPortfolioDoesntExists(portfolioName);
+      if (portfolioName == null) {
+        throw new IllegalArgumentException("Invalid portfolioName provided");
+      }
+      String path = "userPortfolios/" + portfolioName + "_output" + ".json";
+      File f = new File(path);
+      if (!f.isFile() || !f.exists()) {
+        throw new IllegalArgumentException("Given portfolio doesnt exist."
+                + "Please provide valid portfolioName.");
+      }
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage(e.getMessage());
       return true;

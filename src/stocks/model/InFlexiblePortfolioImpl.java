@@ -142,7 +142,7 @@ return null;
         }
       }
     } else {
-      validateIfPortfolioDoesntExists(portfolioName);
+      /*validateIfPortfolioDoesntExists(portfolioName);
       List<List<String>> listOfStkInfoPersisted = parser.readFromFile(portfolioName);
       for (int j = 1; j < listOfStkInfoPersisted.size(); j++) {
         String companyTickerSymbol = listOfStkInfoPersisted.get(j).get(0);
@@ -154,14 +154,14 @@ return null;
           throw new IllegalArgumentException(e.getMessage());
         }
 
-      }
+      }*/
     }
     return totValue;
   }
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-    validateFilePath(filePath);
+   /* validateFilePath(filePath);
     List<List<String>> listOfStocks;
     try {
       listOfStocks = parser.readFromPathProvidedByUser(filePath);
@@ -198,7 +198,7 @@ return null;
     }
 
     this.portfolioName = "currentInstance";
-    stockMap.put(portfolioName, mapOfStocks);
+    stockMap.put(portfolioName, mapOfStocks);*/
 
 
   }
@@ -231,7 +231,7 @@ return null;
         }
       }
     } else {
-      validateIfPortfolioDoesntExists(portfolioName);
+     /* validateIfPortfolioDoesntExists(portfolioName);
       List<List<String>> records = parser.readFromFile(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
@@ -250,7 +250,7 @@ return null;
           list1.add(String.format("%.2f", currentTotalPrice));
           results.add(list1);
         }
-      }
+      }*/
     }
     return results;
 

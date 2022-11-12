@@ -1,0 +1,25 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2021-01-01",
+          "Quantity": "20.0",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "20.0",
+          "action": "buy"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}
