@@ -124,6 +124,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelper();
+      model.validateIfPortfolioDoesntExists(portfolioName,portfolio);
       model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
     } else if (option.equals("2")) {
       String companyName = companyHelper(portfolio);
@@ -166,7 +167,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.addStocks(quantity, companyName, portfolioName, portfolio);
+    model.buyStocks(quantity, companyName, null,portfolioName, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -239,7 +240,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void viewHelper(String name) {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
     String option = String.valueOf(input.nextLine());
-    if (validateInputsFromUSer(option)) {
+    if (validateInitialInputsFromUser(option)) {
       viewHelper(name);
     }
     String type = jsonParserImplementation.getTypeOfFile(name);
@@ -252,6 +253,13 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (option.equals("1")) {
       //if its flexible get date as well and pass it model
       List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name, portfolio);
+      List<List<String>> records = null;
+      if(type.equals(flexibleType)){
+        String date = dateHelper();
+         records = model.viewCompositionOfCurrentPortfolio(name, date, portfolioTypeObj);
+      } else {
+        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolioTypeObj);
+      }
       view.displayComposition(records);
     } else if (option.equals("2")) {
       dateNotFoundHelper(name, portfolio);
@@ -286,10 +294,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayPortfolioPerformance(result, startDate, endDate, name);
     }
     viewHelper2(name);
-
-  }
-
-  private void startEndHelper(String name, Portfolio portfolio) {
 
   }
 
@@ -430,11 +434,11 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private boolean validateInitialInputsFromUser(String input) {
-    if (input.equals("1") || input.equals("2") || input.equals("3")) {
+    if (input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4")) {
       //do nothing
     } else {
       view.displayErrorMessage("Invalid input provided."
-              + "Please provide a valid input (either 1,2 or 3)");
+              + "Please provide a valid input (either 1,2,3 or 4)");
       return true;
     }
     return false;
