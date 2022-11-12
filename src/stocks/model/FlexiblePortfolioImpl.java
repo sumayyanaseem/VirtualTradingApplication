@@ -15,6 +15,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   @Override
   public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
     action = "buy";
+    this.portfolioName = portfolioName;
     validateInputsForBuy(portfolioName, companyName, quantity, date);
     String cName = companyName.toUpperCase();
     double q = Double.valueOf(quantity);
@@ -124,7 +125,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         stockMap.put(portfolioName, map);
       }
       buyStocks(companyName, quantity, date, portfolioName);
-
+      parser.appendIntoFile(portfolioName,companyName,quantity,action,date);
     } else if (action.equals("Sell")) {
       if (stockMap.isEmpty()) {
         stockMap = new HashMap<>();
@@ -132,6 +133,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         stockMap.put(portfolioName, map);
       }
       sellStocks(companyName, quantity, date, portfolioName);
+      parser.appendIntoFile(portfolioName,companyName,quantity,action,date);
     }
   }
 
@@ -208,16 +210,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-    Map<String, List<Stock>> m = stockMap.get(portfolioName);
-    double totalValue = 0.0;
-    for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
-      String stkName = entry.getKey();
-      try {
-        double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
-        totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
-      } catch (ParseException e) {
 
+    double totalValue = 0.0;
+    if(!stockMap.isEmpty()) {
+      Map<String, List<Stock>> m = stockMap.get(portfolioName);
+
+      for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+        String stkName = entry.getKey();
+        try {
+          double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
+          totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
+        } catch (ParseException e) {
+        }
       }
+    } else {
+
     }
     return totalValue;
 
@@ -230,14 +237,71 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
-    return null;
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    List<List<String>> results = new ArrayList<>();
+    String[] t = new String[5];
+    t[0] = "CompanyName";
+    t[1] = "Quantity";
+    t[2] = "PriceBought";
+    t[3] = "Date";
+    t[4] = "Action";
+    results.add(List.of(t));
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        Map<String, List<Stock>> map = stockMap.get(this.portfolioName);
+        for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
+          List<String> temp = new ArrayList<>();
+          List<Stock> s = entry.getValue();
+          temp.add(s.get(0).getCompanyTickerSymbol());
+          temp.add(String.valueOf(s.get(0).getQty()));
+          temp.add(String.valueOf(s.get(0).getPriceOfStockAsOfGivenDate()));
+          temp.add(s.get(0).getDateOfAction());
+          temp.add(s.get(0).getAction());
+          results.add(temp);
+        }
+      }
+    } else {
+      //TODO:update this validation
+     // validateIfPortfolioDoesntExists(portfolioName);
+      Map<String, List<Stock>>  records = parser.readFromFile(portfolioName);
+      stockMap.put(portfolioName,records);
+      for (Map.Entry<String, List<Stock>> entry : records.entrySet()) {
+        List<Stock> s = entry.getValue();
+        for(int i=0;i<s.size();i++) {
+          List<String> temp = new ArrayList<>();
+          temp.add(s.get(i).getCompanyTickerSymbol());
+          temp.add(String.valueOf(s.get(i).getQty()));
+          temp.add(String.valueOf(s.get(i).getPriceOfStockAsOfGivenDate()));
+          temp.add(s.get(i).getDateOfAction());
+          temp.add(s.get(i).getAction());
+          results.add(temp);
+        }
+      }
+    }
+    return results;
   }
 
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
     if (!stockMap.isEmpty()) {
       Map<String, List<Stock>> mm = stockMap.get(portfolioName);
+      printMap(mm);
       parser.writeIntoFile(portfolioName, mm, "flexible");
+    }
+  }
+
+  private void printMap(Map<String, List<Stock>> stockMap){
+    for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
+      System.out.println(entry.getKey()+" values is ");
+      List<Stock> list = entry.getValue();
+      for(int i=0;i<list.size();i++){
+        System.out.println(list.get(i).getQty());
+        System.out.println(list.get(i).getAction());
+        System.out.println(list.get(i).getDateOfAction());
+      }
+
     }
   }
 

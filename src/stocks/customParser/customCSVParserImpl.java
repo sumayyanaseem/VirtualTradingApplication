@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class customCSVParserImpl implements Parser {
+public class customCSVParserImpl {
 
-  @Override
+
   public List<List<String>> readFromFile(String portFolioName) {
     String path = "userPortfolios/" + portFolioName + "_output.csv";
     List<List<String>> records = null;
@@ -47,7 +47,6 @@ public class customCSVParserImpl implements Parser {
     }
   }
 
-  @Override
   public List<List<String>> readFromPathProvidedByUser(String path) {
     try {
       return readFromFileHelper(path);
