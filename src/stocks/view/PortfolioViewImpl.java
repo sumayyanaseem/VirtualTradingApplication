@@ -137,9 +137,9 @@ public class PortfolioViewImpl implements PortfolioView {
           for (int k = 0; k < len; k++) {
             out.print(" ");
           }
-          out.print(" ");
+          out.print("  ");
         }
-        out.println();
+        out.println(" ");
       }
     }
   }

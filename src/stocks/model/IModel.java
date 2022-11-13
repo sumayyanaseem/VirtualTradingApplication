@@ -72,11 +72,11 @@ public interface IModel {
    * @param companyName   company of which stocks need to be bought.
    * @param portfolioName portfolio to which bought stocks need to be added.
    */
-  void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio);
+  void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) throws IllegalArgumentException;
 
-  void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio);
+  void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) throws IllegalArgumentException;
 
-  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio,String action);
+  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio,String action) throws IllegalArgumentException;
 
   double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
 

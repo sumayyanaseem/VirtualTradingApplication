@@ -1,0 +1,45 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "SHOP",
+      "Actions": [
+        {
+          "date": "2022-11-12",
+          "Quantity": "93.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "TWTR",
+      "Actions": [
+        {
+          "date": "2022-11-12",
+          "Quantity": "8.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "ORCL",
+      "Actions": [
+        {
+          "date": "2022-11-12",
+          "Quantity": "41.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "DASH",
+      "Actions": [
+        {
+          "date": "2022-11-12",
+          "Quantity": "55.0",
+          "action": "add"
+        }
+      ]
+    }
+  ],
+  "type": "inflexible"
+}

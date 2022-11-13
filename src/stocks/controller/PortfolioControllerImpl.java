@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import stocks.customParser.JsonParserImplementation;
+import stocks.model.CompanyTickerSymbol;
 import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IModel;
 import stocks.model.InFlexiblePortfolioImpl;
@@ -123,14 +124,22 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (option.equals("1")) {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelper();
+      String date = dateHelperInFlexiblePortfolio(companyName);
       model.validateIfPortfolioAlreadyExists(portfolioName,portfolio);
-      model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
+      try {
+        model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
+      } catch(IllegalArgumentException e){
+        view.displayErrorMessage(e.getMessage());
+      }
     } else if (option.equals("2")) {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelper();//should add more validations for chronological order
-      model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
+      String date = dateHelperInFlexiblePortfolio(companyName);//should add more validations for chronological order
+      try {
+        model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
+      } catch(IllegalArgumentException e){
+        view.displayErrorMessage(e.getMessage());
+      }
     }
     continueBuyingOrSellingInPortfolio(portfolio, portfolioName);
 
@@ -194,14 +203,22 @@ public class PortfolioControllerImpl implements PortfolioController {
       //1 for buy
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelper();
-      model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio,"buy");
+      String date = dateHelperInFlexiblePortfolio(companyName);
+      try {
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy");
+      } catch(IllegalArgumentException e){
+        view.displayErrorMessage(e.getMessage());
+      }
     } else if (option.equals("2")) {
       //2 for sell
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelper(); // add more validations for chronological order for sell dates
-      model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio,"sell");
+      String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+      try {
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell");
+      } catch(IllegalArgumentException e){
+        view.displayErrorMessage(e.getMessage());
+      }
     }
     continueUpdatingPortfolio(portfolio, portfolioName);
   }
@@ -324,6 +341,15 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
+
+  private String dateHelperInFlexiblePortfolio(String companyName){
+    view.getDateForValuation();
+    String date = input.nextLine();
+    if (validateDate(date) || validateDateToCheckIfBeforeIPO(date,companyName)) {
+      return dateHelper();
+    }
+    return date;
+  }
 
 
   private String dateHelper() {
@@ -526,4 +552,28 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     return false;
   }
+
+  private boolean validateDateToCheckIfBeforeIPO(String date, String companyName) {
+    for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
+      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
+        try {
+          Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(date);
+          Date ipoDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(companyTickerSymbol.getEndDate());
+
+          if(givenDate.compareTo(ipoDate)<0){
+            view.displayErrorMessage("Given date is before IPO Date.Please provide a valid date.");
+            return true;
+          }
+          break;
+        } catch(ParseException e ){
+          view.displayErrorMessage(e.getMessage());
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }
