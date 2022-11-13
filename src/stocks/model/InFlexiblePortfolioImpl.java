@@ -30,7 +30,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
-      Stock s = new Stock(companyName, qty, totalVal,"add",priceBought,todayDateStr);
+      Stock s = new Stock(companyName, qty, totalVal,action,priceBought,todayDateStr);
       List<Stock> listOfOneStock = new ArrayList<>();
       listOfOneStock.add(s);
       if (stockMap.isEmpty()) {
@@ -47,7 +47,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
           List<Stock> s1 = m1.get(companyName);
           double totQty = s1.get(0).getQty() + qty;
           double val = s1.get(0).getTotalValue() + totalVal;
-          Stock s2 = new Stock(companyName, totQty, val,"add",priceBought,todayDateStr);
+          Stock s2 = new Stock(companyName, totQty, val,action,priceBought,todayDateStr);
           List<Stock> ls=new ArrayList<>();
           ls.add(s2);
           m1.put(companyName, ls);

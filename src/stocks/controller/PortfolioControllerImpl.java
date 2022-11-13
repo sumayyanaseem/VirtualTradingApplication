@@ -124,7 +124,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelper();
-      model.validateIfPortfolioDoesntExists(portfolioName,portfolio);
+      model.validateIfPortfolioAlreadyExists(portfolioName,portfolio);
       model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
     } else if (option.equals("2")) {
       String companyName = companyHelper(portfolio);
@@ -250,15 +250,14 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (type.equals(inflexibleType)) {
       portfolio = inflexiblePortfolioTypeObj;
     }
-    if (option.equals("1")) {
+    if(option.equals("1")) {
       //if its flexible get date as well and pass it model
-      List<List<String>> records = model.viewCompositionOfCurrentPortfolio(name, portfolio);
-      List<List<String>> records = null;
+      List<List<String>> records;
       if(type.equals(flexibleType)){
         String date = dateHelper();
-         records = model.viewCompositionOfCurrentPortfolio(name, date, portfolioTypeObj);
+         records = model.viewCompositionOfCurrentPortfolio(name, date, portfolio);
       } else {
-        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolioTypeObj);
+        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolio);
       }
       view.displayComposition(records);
     } else if (option.equals("2")) {
