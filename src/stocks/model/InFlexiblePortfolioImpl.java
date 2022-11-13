@@ -159,46 +159,45 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-   /* validateFilePath(filePath);
-    List<List<String>> listOfStocks;
+    validateFilePath(filePath);
+    Map<String,List<Stock>> listOfStocks;
+    //List<List<String>> listOfStocks;
     try {
       listOfStocks = parser.readFromPathProvidedByUser(filePath);
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
     }
-    String action="add";
+
+   /* String action="add";
     Map<String, List<Stock>> mapOfStocks = new HashMap<>();
     String pattern = "yyyy-MM-dd";
     String todayDate = new SimpleDateFormat(pattern).format(new Date(System.currentTimeMillis()));
-    for (int i = 1; i < listOfStocks.size(); i++) {
-      String sName = listOfStocks.get(i).get(0);
-      double sPrice = apiCustomInterface.fetchLatestStockPriceOfThisCompany(sName);
-      if (sPrice != -1) {
+    for (Map.Entry<String, List<Stock>> entry : listOfStocks.entrySet()) {
+      String sName = entry.getKey();
+      //double sPrice = apiCustomInterface.fetchLatestStockPriceOfThisCompany(sName);
+      //if (sPrice != -1) {
         if (!mapOfStocks.containsKey(sName)) {
-          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-          Stock st = new Stock(listOfStocks.get(i).get(0),
-                  Double.parseDouble(listOfStocks.get(i).get(1)),value, null,sPrice,todayDate);
+          //double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(sName,
+                  entry.getValue().get(0).getQty(),0.0, action ,0.0,todayDate);
           List<Stock> ls=new ArrayList<>();
           ls.add(st);
           mapOfStocks.put(sName, ls);
         } else {
           List<Stock> list1 = mapOfStocks.get(sName);
-          List<String> list2 = listOfStocks.get(i);
+          List<Stock> list2 = entry.getValue();
           mapOfStocks.remove(sName);
-          double totQty = list1.get(0).getQty() + Double.parseDouble(list2.get(1));
-          double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
-          Stock st = new Stock(listOfStocks.get(i).get(0), totQty, value,null,sPrice,todayDate);
+          double totQty = list1.get(0).getQty() + list2.get(0).getQty();
+          //double value = Double.parseDouble(listOfStocks.get(i).get(1)) * sPrice;
+          Stock st = new Stock(sName, totQty, 0.0, action ,0.0,todayDate);
           List<Stock> ls=new ArrayList<>();
           ls.add(st);
           mapOfStocks.put(sName, ls);
         }
-      }
-    }
+      }*/
 
     this.portfolioName = "currentInstance";
-    stockMap.put(portfolioName, mapOfStocks);*/
-
-
+    stockMap.put(portfolioName, listOfStocks);
   }
 
   @Override
@@ -207,29 +206,25 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     List<List<String>> results = new ArrayList<>();
+    Map<String, List<Stock>> map = new HashMap<>();
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
-        Map<String, List<Stock>> map = stockMap.get(this.portfolioName);
-        String[] t = new String[5];
-        t[0] = "CompanyName";
-        t[1] = "Quantity";
-        t[2] = "PriceBought";
-        t[3] = "DatePurchase";
-        t[4] = "TotalValueOwned";
-        results.add(List.of(t));
-        for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
-          List<String> temp = new ArrayList<>();
-          List<Stock> s = entry.getValue();
-          temp.add(s.get(0).getCompanyTickerSymbol());
-          temp.add(String.valueOf(s.get(0).getQty()));
-          temp.add(String.valueOf(s.get(0).getPriceOfStockAsOfGivenDate()));
-          temp.add(s.get(0).getDateOfAction());
-          temp.add(String.format("%.2f", s.get(0).getTotalValue()));
-          results.add(temp);
-        }
+        map = stockMap.get(this.portfolioName);
       }
-    } else {
-      /*validateIfPortfolioDoesntExists(portfolioName);
+    }
+    else {
+
+      validateIfPortfolioDoesntExists(portfolioName);
+
+      map = parser.readFromFile(portfolioName);
+    }
+     /* List<String> list = records.get(0);
+
+      for (Map.Entry<String, List<Stock>> entry : mapOfStkInfoPersisted.entrySet()) {
+
+      }
+
+
       List<List<String>> records = parser.readFromFile(portfolioName);
       List<String> list = records.get(0);
       String name = "TotalValueOwnedAsOfToday";
@@ -248,8 +243,26 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
           list1.add(String.format("%.2f", currentTotalPrice));
           results.add(list1);
         }
-      }*/
+      }
+    }*/
+    String[] t = new String[3];
+    t[0] = "CompanyName";
+    t[1] = "Quantity";
+    //t[2] = "PriceBought";
+    t[2] = "DatePurchase";
+    //t[4] = "TotalValueOwned";
+    results.add(List.of(t));
+    for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
+      List<String> temp = new ArrayList<>();
+      List<Stock> s = entry.getValue();
+      temp.add(s.get(0).getCompanyTickerSymbol());
+      temp.add(String.valueOf(s.get(0).getQty()));
+      //temp.add(String.valueOf(s.get(0).getPriceOfStockAsOfGivenDate()));
+      temp.add(s.get(0).getDateOfAction());
+      //temp.add(String.format("%.2f", s.get(0).getTotalValue()));
+      results.add(temp);
     }
+
     return results;
 
   }

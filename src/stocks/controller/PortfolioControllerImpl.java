@@ -256,61 +256,16 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void viewHelper(String name) {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
+
     String option = String.valueOf(input.nextLine());
     if (validateInitialInputsFromUser(option)) {
       viewHelper(name);
     }
-    String type = jsonParserImplementation.getTypeOfFile(name);
-    Portfolio portfolio = null;
-    if (type.equals(flexibleType)) {
-      portfolio = flexiblePortfolioTypeObj;
-    } else if (type.equals(inflexibleType)) {
-      portfolio = inflexiblePortfolioTypeObj;
+    String type=null;
+    if(!name.equals("currentInstance")) {
+      type = jsonParserImplementation.getTypeOfFile(name);
     }
-    if(option.equals("1")) {
-      //if its flexible get date as well and pass it model
-      List<List<String>> records;
-      if(type.equals(flexibleType)){
-        String date = dateHelper();
-         records = model.viewCompositionOfCurrentPortfolio(name, date, portfolio);
-      } else {
-        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolio);
-      }
-      view.displayComposition(records);
-    } else if (option.equals("2")) {
-      dateNotFoundHelper(name, portfolio);
-    } else if (option.equals("3")) {
-      // implement total-cost basis functionality
-      String date = dateHelper();
-      double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
-      view.displayTheTotalCost(totalCost, date, name);
-    } else if (option.equals("4")) {
-      // some part has been implemented. link it and test.
-
-      String startDate = dateHelper();
-      String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
-      Date start;
-      Date end;
-      try {
-        start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(startDate);
-        end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(endDate);
-        if(end.compareTo(start)<0) {
-          //need to recur until correct dates are entered.
-          view.displayErrorMessage("End date is less than start date. Please enter valid dates");
-        }
-
-
-      }
-      catch(Exception e){
-        view.displayErrorMessage(e.getMessage());
-      }
-      Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
-      view.displayPortfolioPerformance(result, startDate, endDate, name);
-    }
-    viewHelper2(name);
-
+    helperForViewHelper(type,option,name,"");
   }
 
   private void dateNotFoundHelper(String name, Portfolio portfolio) {
@@ -341,6 +296,20 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
+
+  private void viewHelper2ForCurrentInstance(String name, String filePath) {
+    view.askUserIfheWantsTOContinueViewing();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      viewHelper2ForCurrentInstance(name, filePath);
+    }
+    if (option.equals("1")) {
+      viewHelperForCurrentInstance(name,filePath);
+    } else {
+      finalExitCondition();
+    }
+
+  }
 
   private String dateHelperInFlexiblePortfolio(String companyName){
     view.getDateForValuation();
@@ -385,22 +354,94 @@ public class PortfolioControllerImpl implements PortfolioController {
     } catch (IOException | org.json.simple.parser.ParseException e) {
       throw new RuntimeException(e);
     }
-    exitFromLoadPortfolio();
+    exitFromLoadPortfolio(filePath);
   }
 
-  private void exitFromLoadPortfolio() {
+  private void exitFromLoadPortfolio(String filePath) {
     view.callExitFromLoad();
     String option = input.nextLine();
     if (validateInputsFromUSer(option)) {
-      exitFromLoadPortfolio();
+      exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
-      viewHelper("currentInstance");
+      //viewHelper("currentInstance");
+      viewHelperForCurrentInstance("currentInstance", filePath);
     } else if (option.equals("2")) {
       finalExitCondition();
     }
   }
 
+  private void helperForViewHelper(String type, String option, String name, String path )
+  {
+    Portfolio portfolio = null;
+    if (type.equals(flexibleType)) {
+      portfolio = flexiblePortfolioTypeObj;
+    } else if (type.equals(inflexibleType)) {
+      portfolio = inflexiblePortfolioTypeObj;
+    }
+    if(option.equals("1")) {
+      //if its flexible get date as well and pass it model
+      List<List<String>> records;
+      if(type.equals(flexibleType)){
+        String date = dateHelper();
+        records = model.viewCompositionOfCurrentPortfolio(name, date, portfolio);
+      } else {
+        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolio);
+      }
+      view.displayComposition(records);
+    } else if (option.equals("2")) {
+      dateNotFoundHelper(name, portfolio);
+    } else if (option.equals("3")) {
+      // implement total-cost basis functionality
+      String date = dateHelper();
+      double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
+      view.displayTheTotalCost(totalCost, date, name);
+    } else if (option.equals("4")) {
+      // some part has been implemented. link it and test.
+
+      String startDate = dateHelper();
+      String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
+      Date start;
+      Date end;
+      try {
+        start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(startDate);
+        end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(endDate);
+        if(end.compareTo(start)<0) {
+          //need to recur until correct dates are entered.
+          view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+        }
+
+
+      }
+      catch(Exception e){
+        view.displayErrorMessage(e.getMessage());
+      }
+      Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
+      view.displayPortfolioPerformance(result, startDate, endDate, name);
+    }
+    if(name.equals("currentInstance"))
+    {
+      viewHelper2ForCurrentInstance(name,path);
+    }
+    else
+    viewHelper2(name);
+  }
+
+  private void viewHelperForCurrentInstance(String name,String filePath)
+  {
+    view.checkIfUserWantsToViewCompositionOrTotalValue();
+
+    String option = String.valueOf(input.nextLine());
+    if (validateInitialInputsFromUser(option)) {
+      viewHelperForCurrentInstance(name, filePath);
+    }
+    String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
+
+    helperForViewHelper(type,option, name, filePath);
+
+  }
   private void stoppingCondition(Portfolio portfolio, String portfolioName) {
     view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     String option = input.nextLine();
