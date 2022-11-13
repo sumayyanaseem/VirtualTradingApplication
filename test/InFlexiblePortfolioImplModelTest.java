@@ -1,9 +1,22 @@
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.util.List;
+
+import stocks.model.InFlexiblePortfolioImpl;
+import stocks.model.Portfolio;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for the PortfolioImplModel.
  */
-public class PortfolioImplModelTest {
+public class InFlexiblePortfolioImplModelTest {
 
- /* private Portfolio model;
+  private Portfolio model;
 
   private final int min = 1;
   private final int max = 100;
@@ -191,7 +204,7 @@ public class PortfolioImplModelTest {
     String expected = "Given path doesnt exist.Please provide valid path.";
     String actual = "";
     try {
-      model.createPortfolioUsingFilePath(path);
+      model.loadPortfolioUsingFilePath(path);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -200,7 +213,7 @@ public class PortfolioImplModelTest {
     path = null;
     actual = "";
     try {
-      model.createPortfolioUsingFilePath(path);
+      model.loadPortfolioUsingFilePath(path);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -209,7 +222,7 @@ public class PortfolioImplModelTest {
     path = "123";
     actual = "";
     try {
-      model.createPortfolioUsingFilePath(path);
+      model.loadPortfolioUsingFilePath(path);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -218,7 +231,7 @@ public class PortfolioImplModelTest {
     path = "P2_output.csv";
     actual = "";
     try {
-      model.createPortfolioUsingFilePath(path);
+      model.loadPortfolioUsingFilePath(path);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -290,7 +303,7 @@ public class PortfolioImplModelTest {
     String expected = "Invalid portfolioName provided";
     String actual = "";
     try {
-      model.viewCompositionOfCurrentPortfolio(pName);
+      model.viewCompositionOfCurrentPortfolio(pName,null);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -300,7 +313,7 @@ public class PortfolioImplModelTest {
     actual = "";
     expected = "Invalid portfolioName provided";
     try {
-      model.viewCompositionOfCurrentPortfolio(pName);
+      model.viewCompositionOfCurrentPortfolio(pName,null);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -310,7 +323,7 @@ public class PortfolioImplModelTest {
     actual = "";
     expected = "Given portfolio doesnt exist.Please provide valid portfolioName.";
     try {
-      model.viewCompositionOfCurrentPortfolio(pName);
+      model.viewCompositionOfCurrentPortfolio(pName,null);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -359,7 +372,7 @@ public class PortfolioImplModelTest {
     model.createPortfolioIfCreatedManually(pName);
     File f = new File("userPortfolios/" + pName + "_output.csv");
     assertTrue(f.exists());
-    model.viewCompositionOfCurrentPortfolio(pName);
+    model.viewCompositionOfCurrentPortfolio(pName,null);
     String date = "2022-10-01";
     double res = model.getTotalValueOfPortfolioOnCertainDate(date, pName);
     assertTrue(res > 0.0);
@@ -374,7 +387,7 @@ public class PortfolioImplModelTest {
     model.createPortfolioIfCreatedManually(pName);
     File f = new File("userPortfolios/" + pName + "_output.csv");
     assertTrue(f.exists());
-    model.viewCompositionOfCurrentPortfolio(pName);
+    model.viewCompositionOfCurrentPortfolio(pName,null);
     String date = "2022-10-01";
     double res = model.getTotalValueOfPortfolioOnCertainDate(date, pName);
     assertTrue(res > 0.0);
@@ -383,14 +396,14 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadFile() {
-    model.createPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
+    model.loadPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
     assertFalse(model.toString().isEmpty());
   }
 
   @Test
   public void testLoadAndViewCompositionAndTotalValue() {
-    model.createPortfolioUsingFilePath("userPortfolios/test.csv");
-    List<List<String>> results = model.viewCompositionOfCurrentPortfolio("currentInstance");
+    model.loadPortfolioUsingFilePath("userPortfolios/test.csv");
+    List<List<String>> results = model.viewCompositionOfCurrentPortfolio("currentInstance",null);
     assertFalse(results.isEmpty());
     double res = model.getTotalValueOfPortfolioOnCertainDate("2022-10-01", "currentInstance");
     assertFalse(res == 0.0);
@@ -399,7 +412,7 @@ public class PortfolioImplModelTest {
   @Test
   public void testViewCompositionForPersistedPortfolio() {
     String pName = "P3";
-    List<List<String>> results = model.viewCompositionOfCurrentPortfolio(pName);
+    List<List<String>> results = model.viewCompositionOfCurrentPortfolio(pName,null);
     assertFalse(results.isEmpty());
   }
 
@@ -417,7 +430,7 @@ public class PortfolioImplModelTest {
   @Test
   public void testViewCompositionForCurrentPortfolio() {
     String pName = "currentInstance";
-    List<List<String>> results = model.viewCompositionOfCurrentPortfolio(pName);
+    List<List<String>> results = model.viewCompositionOfCurrentPortfolio(pName,null);
     assertTrue(results.isEmpty());
   }
 
@@ -433,7 +446,7 @@ public class PortfolioImplModelTest {
 
   @Test
   public void testLoadLengthyFileAndView() {
-    model.createPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
+    model.loadPortfolioUsingFilePath("userPortfolios/testLongFile.csv");
     String name = "currentInstance";
     String date = "2022-08-01";
     double res1 = model.getTotalValueOfPortfolioOnCertainDate(date, name);
@@ -441,13 +454,13 @@ public class PortfolioImplModelTest {
     date = "2022-09-01";
     double res2 = model.getTotalValueOfPortfolioOnCertainDate(date, name);
     System.out.println(res2);
-    model.viewCompositionOfCurrentPortfolio(name);
+    model.viewCompositionOfCurrentPortfolio(name,null);
     System.out.println(model.toString());
     assertFalse(res1 == res2);
   }
 
   private void buyStocks(String quantity, String cName, String pfName) {
-    model.buyStocks(quantity, cName, pfName);
+    model.buyStocks(quantity, cName,null, pfName);
   }
 
   private void buyMultipleStocks(String name) {
@@ -482,5 +495,5 @@ public class PortfolioImplModelTest {
 
     assertTrue(model.toString().contains(quantity));
     assertTrue(model.toString().contains(cName.toUpperCase()));
-  }*/
+  }
 }

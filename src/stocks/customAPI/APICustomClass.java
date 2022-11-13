@@ -55,7 +55,7 @@ public class APICustomClass implements APICustomInterface {
     String name = companyTickerSymbol.toUpperCase();
 
     String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"DAILY");
-    System.out.println(output);
+    //System.out.println(output);
     String lines[] = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
     for(int i=1;i<lines.length;i++)

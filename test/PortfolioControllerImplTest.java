@@ -1,93 +1,106 @@
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import stocks.controller.PortfolioController;
+import stocks.controller.PortfolioControllerImpl;
+import stocks.model.IModel;
+import stocks.model.Portfolio;
+import stocks.view.PortfolioView;
+import stocks.view.PortfolioViewImpl;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for the PortfolioControllerImpl.
  */
 public class PortfolioControllerImplTest {
 
-  /*class MockModel implements Portfolio {
+  class MockModel implements IModel {
 
     private final StringBuilder log;
 
-    MockModel(StringBuilder log) {
+    public MockModel(StringBuilder log) {
       this.log = log;
     }
 
     @Override
-    public void buyStocks(String quantity, String companyName, String portfolioName) {
-      log.append("inputs for buyStocks: " + quantity + " " + companyName + " "
-              + portfolioName + "\n");
+    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+      return 0;
     }
 
     @Override
-    public void addStocks(String quantity, String companyName, String portfolioName) {
-
-    }
-
-    @Override
-    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: "
-              + date + " " + portfolioName + "\n");
-      return 0.0;
-    }
-
-    @Override
-    public void loadPortfolioUsingFilePath(String filePath) {
-
-    }
-
-    @Override
-    public void createPortfolioUsingFilePath(String filePath) {
+    public void loadPortfolioUsingFilePath(String filePath, Portfolio portfolio) {
       log.append("inputs for createPortfolioUsingFilePath: " + filePath + "\n");
     }
 
     @Override
-    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName) {
+    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio) {
       List<List<String>> dummy = new ArrayList<>();
       log.append("inputs for viewCompositionOfCurrentPortfolio: " + portfolioName + "\n");
       return dummy;
     }
 
     @Override
-    public void createPortfolioIfCreatedManually(String portfolioName) {
+    public void createPortfolioIfCreatedManually(String portfolioName, Portfolio portfolio) {
       log.append("inputs for createPortfolioIfCreatedManually: " + portfolioName + "\n");
+
     }
 
     @Override
-    public void validateIfCompanyExists(String companyName) {
+    public void validateIfCompanyExists(String companyName, Portfolio portfolio) {
       log.append("validateIfCompanyExists : " + companyName + "\n");
+
     }
 
     @Override
-    public void validateIfPortfolioAlreadyExists(String portfolioName) {
+    public void validateIfPortfolioAlreadyExists(String portfolioName, Portfolio portfolio) {
       log.append("validateIfPortfolioAlreadyExists : " + portfolioName + "\n");
+
     }
 
     @Override
-    public void validateIfPortfolioDoesntExists(String name) {
+    public void validateIfPortfolioDoesntExists(String name, Portfolio portfolio) {
       log.append("validateIfPortfolioDoesntExists :" + name + "\n");
-    }
-
-    @Override
-    public Portfolio getInstance() {
-      return new MockModel(new StringBuilder());
-    }
-
-    @Override
-    public void buyStocks(String companyName, String quantity, String date, String portfolioName) {
 
     }
 
     @Override
-    public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
+    public Portfolio getInstance(Portfolio portfolio) {
+      return null;
+    }
+
+    @Override
+    public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
 
     }
 
     @Override
-    public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+    public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
+
+    }
+
+    @Override
+    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
+
+    }
+
+    @Override
+    public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
       return null;
     }
   }
@@ -100,7 +113,7 @@ public class PortfolioControllerImplTest {
 
   private OutputStream bytes;
 
-  private Portfolio model;
+  private IModel model;
 
   private StringBuilder mockLog;
 
@@ -112,7 +125,7 @@ public class PortfolioControllerImplTest {
     view = new PortfolioViewImpl(out);
     mockLog = new StringBuilder();
     model = new MockModel(mockLog);
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
   }
 
 
@@ -121,9 +134,9 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To create a Portfolio "
             + "2: To query the portfolio details 3: To load a Portfolio\n";
     in = new ByteArrayInputStream("".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -140,9 +153,9 @@ public class PortfolioControllerImplTest {
             + "Enter 1: To create a Portfolio 2: To query the portfolio details"
             + " 3: To load a Portfolio";
     in = new ByteArrayInputStream("4\na\n-1\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -157,9 +170,9 @@ public class PortfolioControllerImplTest {
             + "2: To query the portfolio details 3: To load a Portfolio";
     String exp1 = "Enter the name of the company to be added to portfolio";
     in = new ByteArrayInputStream("1\nsample\ndash\n200\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -177,9 +190,9 @@ public class PortfolioControllerImplTest {
             + "2: To query the portfolio details 3: To load a Portfolio";
     String exp1 = "Enter the name of the company to be added to portfolio";
     in = new ByteArrayInputStream("1\nsample\ngoog\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -195,9 +208,9 @@ public class PortfolioControllerImplTest {
   public void testAskUserWhatHeWantsToView() {
     in = new ByteArrayInputStream("2\nsample\n1\n".getBytes());
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -211,9 +224,9 @@ public class PortfolioControllerImplTest {
     in = new ByteArrayInputStream("3\nsample\n1\n".getBytes());
     String expected = "Enter 1: To view details of this portfolio.  "
             + "2: To exit and continue further trading.\n";
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -228,10 +241,10 @@ public class PortfolioControllerImplTest {
     String expected = "Enter the path of File to load Portfolio\n";
     in = new ByteArrayInputStream("3\npath\n".getBytes());
     StringBuilder mockLog = new StringBuilder();
-    Portfolio model = new MockModel(mockLog);
-    portfolioController = new PortfolioControllerImpl(in, view);
+    IModel model = new MockModel(mockLog);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -244,9 +257,9 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
     String error = "Invalid input provided.Please provide a valid input (either 1 or 2)\n"
             + "Enter 1: To view composition  2: To get TotalValue of portfolio";
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -273,9 +286,9 @@ public class PortfolioControllerImplTest {
     String companyName = "meta";
     String portfolioName = "sample";
     String exp = "inputs for buyStocks: " + quantity + " " + companyName + " " + portfolioName;
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
 
@@ -289,8 +302,8 @@ public class PortfolioControllerImplTest {
   public void testCreateNewPortfolioForCurrentUser() {
     String expected = "Enter the name of the Portfolio";
     in = new ByteArrayInputStream("1\nsample\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(model);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
 
@@ -299,8 +312,8 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To buy stocks 2: To sell stocks";
     String e = "Enter the quantity of the stocks.\n" + "Enter the quantity of the stocks.\n";
     in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
-    portfolioController.start(model);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
+    portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(e));
   }
@@ -311,9 +324,9 @@ public class PortfolioControllerImplTest {
             + "2: To exit from current Portfolio.";
     in = new ByteArrayInputStream(("1\ntest\nmeta\n10\n1\ndash\n20"
             + "\n1\namzn\n200\n2\n1\n").getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -331,9 +344,9 @@ public class PortfolioControllerImplTest {
             + "valuation( YYYY-MM-DD format only)";
     in = new ByteArrayInputStream(("2\nP2\n2\n2022\n1234\n22-10-11"
             + "\n2022-1\n2023-20-10\n").getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -351,9 +364,9 @@ public class PortfolioControllerImplTest {
             + "2: To query the portfolio details 3: To load a Portfolio";
     String error = "Enter the name of the Portfolio";
     in = new ByteArrayInputStream("2\ntest.csv\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -367,9 +380,9 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
     String output = "inputs for viewCompositionOfCurrentPortfolio: sample\n";
     in = new ByteArrayInputStream("2\nsample\n1\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -383,9 +396,9 @@ public class PortfolioControllerImplTest {
             + "valuation( YYYY-MM-DD format only)";
     String output = "Total Valuation of Portfolio  on 2022-10-01 is";
     in = new ByteArrayInputStream("2\nsample\n2\n2022-10-01\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -401,9 +414,9 @@ public class PortfolioControllerImplTest {
     String error2 = "Quantity should be always a positive whole number.\n"
             + "Enter the quantity of the stocks";
     in = new ByteArrayInputStream("1\n2\ntest.csv\nmeta\n-100\n0.5\nabc\n".getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
@@ -418,14 +431,14 @@ public class PortfolioControllerImplTest {
             + "2: To exit from current Portfolio.";
     in = new ByteArrayInputStream(("1\ntest\nmeta\n10\n1\ndash\n20\n1\namzn"
             + "\n200\n2\n1\n1\ntest2\nshop\n20\n1\nnu\n10\n2\n2\n").getBytes());
-    portfolioController = new PortfolioControllerImpl(in, view);
+    portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
-      portfolioController.start(model);
+      portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
     assertTrue(bytes.toString().contains(expected));
-  }*/
+  }
 }
 
 

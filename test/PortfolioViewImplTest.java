@@ -4,16 +4,15 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Tests for the PortfolioViewImpl.
@@ -42,8 +41,9 @@ public class PortfolioViewImplTest {
   @Test
   public void testCallToViewToChooseCreateOrView() {
     portfolioView.callToViewToChooseCreateOrView();
-    assertEquals(bytes.toString(), "Enter 1: To create a Portfolio "
-            + "2: To query the portfolio details 3: To load a Portfolio\n");
+    assertEquals(bytes.toString(), "Enter 1: To create a Portfolio"
+            + " 2: To query the portfolio details "
+            + "3: To load a Portfolio  4: To update a portfolio\n");
   }
 
 
@@ -106,7 +106,8 @@ public class PortfolioViewImplTest {
   public void testCheckIfUserWantsToViewCompositionOrTotalValue() {
     portfolioView.checkIfUserWantsToViewCompositionOrTotalValue();
     assertEquals(bytes.toString(), "Enter 1: To view composition "
-            + " 2: To get TotalValue of portfolio\n");
+            + " 2: To get TotalValue of portfolio  "
+            + "3: To get Total CostBasis  4:To display performance of Portfolio\n");
   }
 
   @Test

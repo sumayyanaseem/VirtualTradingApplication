@@ -113,9 +113,9 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void displayTheTotalCost(double totalCost,String date,String portfolioName) {
+  public void displayTheTotalCost(double totalCost, String date, String portfolioName) {
     //first display the commision you have charged for each transaction.
-    out.println("Total cost basis from this portfolioName");
+    out.println("Total cost basis from the portfolioName " + portfolioName + " on " + date + " is " + totalCost);
   }
 
   @Override
@@ -137,9 +137,9 @@ public class PortfolioViewImpl implements PortfolioView {
           for (int k = 0; k < len; k++) {
             out.print(" ");
           }
-          out.print(" ");
+          out.print("  ");
         }
-        out.println();
+        out.println(" ");
       }
     }
   }
