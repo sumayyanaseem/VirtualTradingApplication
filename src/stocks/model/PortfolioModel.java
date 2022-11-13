@@ -3,7 +3,7 @@ package stocks.model;
 import java.util.List;
 import java.util.Map;
 
-public interface IModel {
+public interface PortfolioModel {
 
 
   /**

@@ -14,14 +14,16 @@ import java.util.Map;
 
 import stocks.customAPI.APICustomClass;
 import stocks.customAPI.APICustomInterface;
+import stocks.customAPI.CompanyTickerSymbol;
 import stocks.customParser.JsonParserImplementation;
+import stocks.customParser.CustomParser;
 
 abstract class AbstractPortfolio implements Portfolio{
 
   protected String portfolioName;
   protected  Map<String, Map<String, List<Stock>>> stockMap;
   protected final APICustomInterface apiCustomInterface;
-  protected final JsonParserImplementation parser;
+  protected final CustomParser parser;
 
   public AbstractPortfolio() {
     this.portfolioName = "";
@@ -135,5 +137,6 @@ abstract class AbstractPortfolio implements Portfolio{
       throw new RuntimeException(e.getMessage());
     }
   }
+
 
 }

@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 import stocks.controller.PortfolioController;
 import stocks.controller.PortfolioControllerImpl;
-import stocks.model.IModel;
+import stocks.model.PortfolioModel;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class PortfolioControllerImplTest {
 
-  class MockModel implements IModel {
+  class MockModel implements PortfolioModel {
 
     private final StringBuilder log;
 
@@ -113,7 +113,7 @@ public class PortfolioControllerImplTest {
 
   private OutputStream bytes;
 
-  private IModel model;
+  private PortfolioModel model;
 
   private StringBuilder mockLog;
 
@@ -241,7 +241,7 @@ public class PortfolioControllerImplTest {
     String expected = "Enter the path of File to load Portfolio\n";
     in = new ByteArrayInputStream("3\npath\n".getBytes());
     StringBuilder mockLog = new StringBuilder();
-    IModel model = new MockModel(mockLog);
+    PortfolioModel model = new MockModel(mockLog);
     portfolioController = new PortfolioControllerImpl(model,in, view);
     try {
       portfolioController.start();

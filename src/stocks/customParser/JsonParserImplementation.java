@@ -17,10 +17,9 @@ import java.util.Map;
 
 import stocks.model.Stock;
 
-public class JsonParserImplementation  {
+public class JsonParserImplementation  implements CustomParser {
 
-
-
+  @Override
   public Map<String,List<Stock>> readFromPathProvidedByUser(String path) {
     Map<String,List<Stock>> res = new HashMap<>();
     try {
@@ -33,6 +32,7 @@ public class JsonParserImplementation  {
   }
 
 
+  @Override
   public Map<String,List<Stock>> readFromFile(String portFolioName) {
     String path = "userPortfolios/" + portFolioName + "_output.json";
     Map<String, List<Stock>> res = new HashMap<>();
@@ -50,8 +50,6 @@ public class JsonParserImplementation  {
     String cName=null;
     Object obj = new JSONParser().parse(new FileReader(path));
     JSONObject jsonObject = (JSONObject) obj;
-    String type = (String) jsonObject.get("type");
-    //System.out.println(type);
     JSONArray portfolios = (JSONArray) jsonObject.get("Companies");
     Iterator itr = portfolios.iterator();
     while (itr.hasNext()) {
@@ -88,7 +86,7 @@ public class JsonParserImplementation  {
               }
 
             }
-            Stock s = new Stock(cName,Double.valueOf(quantity),0.0,action,0.0,date);
+            Stock s = new Stock(cName,Double.parseDouble(quantity),0.0,action,0.0,date);
             list.add(s);
           }
           res.put(cName,list);
@@ -99,6 +97,7 @@ public class JsonParserImplementation  {
   }
 
 
+  @Override
   public void writeIntoFile(String portFolioName,Map<String,List<Stock>> map,String type) {
     //used for firstTime creating a file
     JSONObject jsonObject = new JSONObject();
@@ -109,15 +108,14 @@ public class JsonParserImplementation  {
       //System.out.println(entry.getKey()+" "+entry.getValue());
       String cName = entry.getKey();
       List<Stock> list = entry.getValue();
-      Map outerMap = new HashMap(2);
+      Map<String, java.io.Serializable> outerMap = new HashMap<>(2);
       outerMap.put("CompanyName",cName);
       JSONArray innerJson = new JSONArray();
-      for(int i=0;i<list.size();i++) {
-        Stock s = list.get(i);
-        Map<String,String> innerMap = new HashMap<>();
-        innerMap.put("date",s.getDateOfAction());
-        innerMap.put("Quantity",String.valueOf(s.getQty()));
-        innerMap.put("action",s.getAction());
+      for (Stock s : list) {
+        Map<String, String> innerMap = new HashMap<>();
+        innerMap.put("date", s.getDateOfAction());
+        innerMap.put("Quantity", String.valueOf(s.getQty()));
+        innerMap.put("action", s.getAction());
         innerJson.add(innerMap);
       }
       outerMap.put("Actions",innerJson);
@@ -137,6 +135,7 @@ public class JsonParserImplementation  {
   }
 
 
+  @Override
   public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date){
 
     String path ="userPortfolios/" + portfolioName + "_output.json";
@@ -153,7 +152,7 @@ public class JsonParserImplementation  {
             pair = itr1.next();
             if (pair.getKey().equals("Actions")) {
               JSONArray ja = (JSONArray) pair.getValue();
-              Map m = new LinkedHashMap(3);
+              Map<String, String> m = new LinkedHashMap<>(3);
               m.put("date",date);
               m.put("Quantity",quantity);
               m.put("action",action);
@@ -172,20 +171,19 @@ public class JsonParserImplementation  {
     }
   }
 
+
+  @Override
   public String getTypeOfFile(String portFolioName) {
     String path = "userPortfolios/" + portFolioName + "_output.json";
-    String type = null;
-    try {
-      Object obj = new JSONParser().parse(new FileReader(path));
-      JSONObject jsonObject = (JSONObject) obj;
-      type = (String) jsonObject.get("type");
-    } catch (IOException | ParseException e) {
-      System.out.println(e.getMessage());
-    }
-    return type;
+    return getTypeHelper(path);
   }
 
+  @Override
   public String getTypeOfLoadedFile(String path) {
+    return getTypeHelper(path);
+  }
+
+  private String getTypeHelper(String path){
     String type = null;
     try {
       Object obj = new JSONParser().parse(new FileReader(path));

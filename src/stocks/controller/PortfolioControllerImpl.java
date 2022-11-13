@@ -18,19 +18,20 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import stocks.customAPI.CompanyTickerSymbol;
 import stocks.customParser.JsonParserImplementation;
-import stocks.model.CompanyTickerSymbol;
+import stocks.customParser.CustomParser;
 import stocks.model.FlexiblePortfolioImpl;
-import stocks.model.IModel;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
+import stocks.model.PortfolioModel;
 import stocks.view.PortfolioView;
 
 /**
  * This class implements the methods of Portfolio Controller.
  */
 public class PortfolioControllerImpl implements PortfolioController {
-  private final IModel model;
+  private final PortfolioModel model;
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
@@ -43,7 +44,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private static final String inflexibleType = "inflexible";
 
-  private final JsonParserImplementation jsonParserImplementation;
+  private final CustomParser jsonParserImplementation;
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
@@ -51,7 +52,7 @@ public class PortfolioControllerImpl implements PortfolioController {
    * @param in   the input stream.
    * @param view the view object.
    */
-  public PortfolioControllerImpl(IModel model, InputStream in, PortfolioView view) {
+  public PortfolioControllerImpl(PortfolioModel model, InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
     this.view = view;
     this.portfolioName = "";
@@ -379,54 +380,59 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (type.equals(inflexibleType)) {
       portfolio = inflexiblePortfolioTypeObj;
     }
-    if(option.equals("1")) {
-      //if its flexible get date as well and pass it model
-      List<List<String>> records;
-      if(type.equals(flexibleType)){
-        String date = dateHelper();
-        records = model.viewCompositionOfCurrentPortfolio(name, date, portfolio);
-      } else {
-        records = model.viewCompositionOfCurrentPortfolio(name, null, portfolio);
-      }
-      view.displayComposition(records);
-    } else if (option.equals("2")) {
-      dateNotFoundHelper(name, portfolio);
-    } else if (option.equals("3")) {
-      // implement total-cost basis functionality
-      String date = dateHelper();
-      double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
-      view.displayTheTotalCost(totalCost, date, name);
-    } else if (option.equals("4")) {
-      // some part has been implemented. link it and test.
-
-      String startDate = dateHelper();
-      String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
-      Date start;
-      Date end;
-      try {
-        start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(startDate);
-        end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(endDate);
-        if(end.compareTo(start)<0) {
-          //need to recur until correct dates are entered.
-          view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+    switch (option) {
+      case "1":
+        //if its flexible get date as well and pass it model
+        List<List<String>> records;
+        if (type.equals(flexibleType)) {
+          String date = dateHelper();
+          records = model.viewCompositionOfCurrentPortfolio(name, date, portfolio);
+        } else {
+          records = model.viewCompositionOfCurrentPortfolio(name, null, portfolio);
         }
+        view.displayComposition(records);
+        break;
+      case "2":
+        dateNotFoundHelper(name, portfolio);
+        break;
+      case "3":
+        // implement total-cost basis functionality
+        String date = dateHelper();
+        double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
+        view.displayTheTotalCost(totalCost, date, name);
+        break;
+      case "4":
+        // some part has been implemented. link it and test.
+
+        String startDate = dateHelper();
+        String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
+
+        Date start;
+        Date end;
+        try {
+          start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(startDate);
+          end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                  .parse(endDate);
+          if (end.compareTo(start) < 0) {
+            //need to recur until correct dates are entered.
+            view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+          }
 
 
-      }
-      catch(Exception e){
-        view.displayErrorMessage(e.getMessage());
-      }
-      Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
-      view.displayPortfolioPerformance(result, startDate, endDate, name);
+        } catch (Exception e) {
+          view.displayErrorMessage(e.getMessage());
+        }
+        Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
+        view.displayPortfolioPerformance(result, startDate, endDate, name);
+        break;
     }
     if(name.equals("currentInstance"))
     {
       viewHelper2ForCurrentInstance(name,path);
-    }
-    else
+    } else{
     viewHelper2(name);
+    }
   }
 
   private void viewHelperForCurrentInstance(String name,String filePath)

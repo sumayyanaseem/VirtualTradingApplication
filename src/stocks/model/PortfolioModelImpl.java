@@ -3,7 +3,7 @@ package stocks.model;
 import java.util.List;
 import java.util.Map;
 
-public class ModelImpl implements IModel {
+public class PortfolioModelImpl implements PortfolioModel {
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {

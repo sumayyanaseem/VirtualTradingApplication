@@ -2,7 +2,7 @@ package stocks.model;
 
 
 /**
- * This class represents a stock object with all the relavant details for a stock
+ * This class represents a stock object with all the relevant details for a stock
  * such as ticker symbol, quantity, buy/sell price and dates and total value.
  */
 
@@ -47,7 +47,7 @@ public class Stock {
   /**
    * gives the total quantity of stock.
    *
-   * @return the number of stocks bught for this company.
+   * @return the number of stocks bought for this company.
    */
   public double getQty() {
     return qty;
@@ -65,12 +65,10 @@ public class Stock {
 
   @Override
   public String toString() {
-    StringBuilder res = new StringBuilder();
-    res.append("company : ").append(getCompanyTickerSymbol());
-    res.append(", ");
-    res.append("quantity : ").append(String.format("%.2f", getQty()));
-    res.append(", ");
-    res.append("\n");
-    return res.toString();
+    return "company : " + getCompanyTickerSymbol() +
+            ", " +
+            "quantity : " + String.format("%.2f", getQty()) +
+            ", " +
+            "\n";
   }
 }

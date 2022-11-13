@@ -268,57 +268,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
 
-  /**
-   * gives the portfolio info in string format.
-   *
-   * @return a string constructed using the portfolio map.
-   */
- /* @Override
-  public String toString() {
-    StringBuilder res = new StringBuilder();
-
-    if (stockMap != null && !stockMap.isEmpty()) {
-      res.append("PortfolioName : ").append(this.pName);
-      res.append("\n");
-      Map<String, Stock> temp = stockMap.get(this.pName);
-      for (Map.Entry<String, Stock> entry : temp.entrySet()) {
-        res.append(entry.getValue().toString());
-      }
-
-    }
-    return res.toString();
-  }*/
-
-
-
- /* @Override
-  public void validateIfCompanyExists(String companyName) {
-    if (companyName == null) {
-      throw new IllegalArgumentException("Invalid companyName provided");
-    }
-    String name = companyName.toUpperCase();
-    String path = "availableStocks" + File.separator + "daily_" + name + ".csv";
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream is = classLoader.getSystemClassLoader().getResourceAsStream(path);
-    if (is == null) {
-      throw new IllegalArgumentException("Given company doesnt exist in our records."
-              + "Please provide valid  companyTicker symbol.");
-    }
-
-  }*/
-
-  /*@Override
-  public void validateIfPortfolioAlreadyExists(String portfolioName) {
-    if (portfolioName == null || portfolioName.equals("")) {
-      throw new IllegalArgumentException("Invalid portfolioName provided");
-    }
-    String path = "userPortfolios/" + portfolioName + "_output" + ".csv";
-    File f = new File(path);
-    if (f.isFile() && f.exists()) {
-      throw new IllegalArgumentException("Given portfolio exist."
-              + "Please provide valid portfolioName.");
-    }
-  }*/
   @Override
   public void validateIfPortfolioDoesntExists(String portfolioName) {
     if (portfolioName == null) {

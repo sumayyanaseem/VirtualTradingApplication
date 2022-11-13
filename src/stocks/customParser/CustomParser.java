@@ -10,7 +10,7 @@ import stocks.model.Stock;
  * This class represents all the parser functions w.r.t files reading/writing.
  */
 
-public interface Parser {
+public interface CustomParser {
 
 
   /**
@@ -26,4 +26,14 @@ public interface Parser {
    * @return the info read from  file as a list of each stock's data.
    */
   Map<String,List<Stock>> readFromPathProvidedByUser(String path);
+
+
+  void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date);
+
+
+  void writeIntoFile(String portFolioName,Map<String,List<Stock>> map,String type);
+
+  String getTypeOfFile(String portFolioName);
+
+  String getTypeOfLoadedFile(String path);
 }

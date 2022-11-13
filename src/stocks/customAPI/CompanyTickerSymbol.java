@@ -1,4 +1,4 @@
-package stocks.model;
+package stocks.customAPI;
 
 public enum CompanyTickerSymbol {
   GOOG("2000-01-01"),
@@ -34,7 +34,7 @@ public enum CompanyTickerSymbol {
     this.label = label;
   }
 
-  public String getEndDate(){
+  public String getEndDate() {
     return label;
   }
 }

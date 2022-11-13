@@ -17,7 +17,7 @@ import java.util.Locale;
 public class APICustomClass implements APICustomInterface {
 
  private static final String apiKey = "5KFQLJAEXPPU6DJ9";
-  private String urlString;
+  private final String urlString;
 
   public APICustomClass(String url){
     this.urlString= url;
@@ -31,12 +31,11 @@ public class APICustomClass implements APICustomInterface {
   @Override
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
-    Double price = Double.valueOf(-1);
-    String name = companyTickerSymbol.toUpperCase();
+    double price = -1;
     String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
-    String lines[] = output.split(System.lineSeparator());
+    String[] lines = output.split(System.lineSeparator());
     String[] values = lines[1].split(",");
-    price = Double.valueOf(values[4]);
+    price = Double.parseDouble(values[4]);
 
     return price;
   }
@@ -51,9 +50,9 @@ public class APICustomClass implements APICustomInterface {
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {
     String latestAvailableStkPrice = "0.0";
     Date availableDateObj = null;
-    Date givenDateObj = null;
+    Date givenDateObj;
     String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"DAILY");
-    String lines[] = output.split(System.lineSeparator());
+    String[] lines = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
     for(int i=1;i<lines.length;i++)
     {
@@ -63,8 +62,8 @@ public class APICustomClass implements APICustomInterface {
     try {
       givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
               .parse(date);
-      for (int i = 0; i < records.size(); i++) {
-        List<String> infoByDate = new ArrayList<>(records.get(i));
+      for (List<String> record : records) {
+        List<String> infoByDate = new ArrayList<>(record);
         String availableDate = infoByDate.get(0);
         latestAvailableStkPrice = infoByDate.get(4);
         availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -84,18 +83,16 @@ public class APICustomClass implements APICustomInterface {
       //throw new IllegalArgumentException("Stock Price is not available for this past date");
       latestAvailableStkPrice="0";
     }
-    return Double.valueOf(latestAvailableStkPrice) * qty;
+    return Double.parseDouble(latestAvailableStkPrice) * qty;
   }
 
   double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty)
   {
 
-    String name = companyTickerSymbol.toUpperCase();
-
     String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"MONTHLY");
-    String lines[] = output.split(System.lineSeparator());
+    String[] lines = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
-    Double value=0.0;
+    double value=0.0;
     for(int i=1;i<lines.length;i++)
     {
       String[] values = lines[i].split(",");
@@ -103,21 +100,18 @@ public class APICustomClass implements APICustomInterface {
     }
 
 
-      for (int i = 0; i < records.size(); i++) {
-        List<String> infoByDate = new ArrayList<>(records.get(i));
-        String availableDate = infoByDate.get(0);
+    for (List<String> record : records) {
+      List<String> infoByDate = new ArrayList<>(record);
+      String availableDate = infoByDate.get(0);
 
-        if (availableDate.substring(0,7).equals(yearMonth) ) {
-          value=Double.valueOf(infoByDate.get(4));
-          break;
-        }
-
+      if (availableDate.substring(0, 7).equals(yearMonth)) {
+        value = Double.parseDouble(infoByDate.get(4));
+        break;
       }
-    return Double.valueOf(value) * qty;
+
+    }
+    return value * qty;
   }
-
-
-
 
 
   @Override
@@ -126,7 +120,7 @@ public class APICustomClass implements APICustomInterface {
 
 
     String stockSymbol = companyTickerSymbol; //ticker symbol for Google
-    URL url =null;
+    URL url;
 
     try {
       /*
@@ -146,22 +140,11 @@ public class APICustomClass implements APICustomInterface {
               + "no longer works");
     }
 
-    InputStream in = null;
+    InputStream in;
     StringBuilder output = new StringBuilder();
-
     try {
-      /*
-      Execute this query. This returns an InputStream object.
-      In the csv format, it returns several lines, each line being separated
-      by commas. Each line contains the date, price at opening time, highest
-      price for that date, lowest price for that date, price at closing time
-      and the volume of trade (no. of shares bought/sold) on that date.
-
-      This is printed below.
-       */
       in = url.openStream();
       int b;
-
       while ((b = in.read()) != -1) {
         output.append((char) b);
       }
