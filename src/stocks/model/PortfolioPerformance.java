@@ -1,8 +1,37 @@
-package stocks.model;
+/*package stocks.model;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import stocks.customAPI.APICustomClass;
+import stocks.customAPI.APICustomInterface;
+import stocks.customParser.JsonParserImplementation;
+import stocks.customParser.customCSVParserImpl;
 
 public class PortfolioPerformance {
+  private final APICustomInterface apiCustom;
+  private final Portfolio portfolioObj;
+  Map<String,Map<String,Double>> storedMonthlyValues; // stock --> yymm-val
 
- /* public long daysBetween(String date1, String date2)
+  public PortfolioPerformance()
+  {
+    apiCustom = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    portfolioObj = new FlexiblePortfolioImpl();
+    storedMonthlyValues = new HashMap<>();
+  }
+
+  public long daysBetween(String date1, String date2)
   {
     LocalDate startDate = LocalDate.parse("2016-08-31");
     LocalDate endDate = LocalDate.parse("2016-09-30");
@@ -28,23 +57,7 @@ public class PortfolioPerformance {
     );
     return monthsBetween;
   }
-  public long yearsBetween(String date1, String date2)
-  {
-    //add validations date 1 < date 2
-    long yearsBetween = ChronoUnit.YEARS.between(
-            YearMonth.from(LocalDate.parse("2014-08-31")),
-            YearMonth.from(LocalDate.parse("2016-11-30"))
-    );
-    return yearsBetween;
-  }
 
-  public long quartersBetween(String date1, String date2)
-  {
-    //add validations date 1 < date 2
-    long quarters =
-            IsoFields.QUARTER_YEARS.between(LocalDate.parse("2014-08-31"), LocalDate.parse("2014-12-30"));
-    return quarters;
-  }
 
   Map<String,Double> generateMapWithMonthKeys(String date1, String date2)
   {
@@ -139,11 +152,13 @@ public class PortfolioPerformance {
     }
     return m;
   }
-  public void displayCopy(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2) {
+  public Map<String,Double> displayCopy( String date1, String date2, String portfolioName) throws ParseException {
+
+    Map<String,List<Stock>> resultMap = new JsonParserImplementation().readFromFile(portfolioName);
     long months = monthsBetween(date1, date2);
     long days = daysBetween(date1, date2);
     long weeks = weeksBetween(date1, date2);
-    Map<String, List<Stock>> portfolioValueMap = mp.get(portfolioName);
+
     Map<Integer, Integer> noOfDays = new HashMap<>();
     noOfDays.put(1, 31);
     noOfDays.put(2, 29);
@@ -159,7 +174,31 @@ public class PortfolioPerformance {
     noOfDays.put(12, 31);
 
 
-    if (months >= 5 && months <= 30) {
+    if (days >= 5 && days <= 30) {
+
+      Map<String, Double> dayWiseTotalValues = new HashMap<>();
+
+      for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey());
+
+        if(dayWiseTotalValues.size()==0)
+        {
+          dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+        }
+        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
+        {
+          double netQty = new FlexiblePortfolioImpl().getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
+          double stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
+
+          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
+        }
+
+      }
+
+    }
+
+
+    else if (months >= 5 && months <= 30) {
       Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
@@ -169,7 +208,9 @@ public class PortfolioPerformance {
       // over all the stocks in portfolio and get the netquantity of that stock as of the last date
       // of the month and multiply the new quantity with stock price of that month
       String monthEndDate;
+
       for (Map.Entry<String, Double> entry : mapOfMonths.entrySet()) {
+
         String dt = entry.getKey();
         int mnth = Integer.valueOf(dt.substring(5, 7));
         int daysInMonth = noOfDays.get(mnth);
@@ -177,14 +218,20 @@ public class PortfolioPerformance {
 
 
         double totalValueOfPortfolioMonthEnd = 0.0;
-        for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
 
-          double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+        for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+
+          //move this method to interface
+          double netQty = portfolioObj.getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+          if(!storedMonthlyValues.containsKey(companyInfo.getKey()))
+          {
+            Map<String,Double> monthsAndValues = constructCacheForMonthlyValues(companyInfo.getKey());
+          }
           double stkValueMonthEnd = getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty);
           totalValueOfPortfolioMonthEnd = totalValueOfPortfolioMonthEnd + stkValueMonthEnd;
         }
 
-        monthWiseTotalValues.put(monthEndDate, totalValueOfPortfolioMonthEnd);
+        monthWiseTotalValues.put(dt, totalValueOfPortfolioMonthEnd);
 
       }
 
@@ -195,40 +242,24 @@ public class PortfolioPerformance {
       Map<String, Double> weekWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
-      Map<String, Double> mapOfWeeks = generateMapWithMonthKeys(date1, date2);
+      String data = fetchOutputStringFromURLByInterval(companyInfo.getKey(),"WEEKLY");
+      Map<String, Double> weekWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+      for(Map.Entry<String, Double> allWeeksInRange : weekWiseTotalValues.entrySet())
+      {
+        double netQty = getQuantityOnThisDateForGivenCompanyName(allWeeksInRange.getKey(), companyInfo.getKey());
+        double stkValueMonthEnd = getStockPriceAsOfCertainWeek(companyInfo.getKey(), netQty, allWeeksInRange.getKey(),data);
 
-
-
-    }
-
-
-    else if (days >= 5 && days <= 30) {
-      Map<String, Double> dayWiseTotalValues = new HashMap<>();
-
-      for (Map.Entry<String, List<Stock>> companyInfo : portfolioValueMap.entrySet()) {
-        String data = fetchOutputStringFromURLByInterval(companyInfo.getKey());
-
-        if(dayWiseTotalValues.size()==0)
-        {
-          dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
-        }
-        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
-        {
-          double netQty = getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
-          double stkValueMonthEnd = getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
-
-          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
-        }
-
+        dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
       }
 
     }
-  }
 
-  private Map<String, Double> generateMapWithMonthKeys(String date1, String date2, String data)
-  {
+
 
   }
+
+  private Map<String, constructCacheForMonthlyValues
+
   private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data)
   {
     Map<String,Double> result=new HashMap<>();
@@ -259,7 +290,7 @@ public class PortfolioPerformance {
         }
 
       }
-      for(int j=i;j<records.size();j++)
+      for(int j=i+1;j<records.size();j++)
       {
         List<String> infoByDate = new ArrayList<>(records.get(j));
         String availableDate = infoByDate.get(0);
@@ -277,71 +308,26 @@ public class PortfolioPerformance {
     }
 
   }
- /* public void display(Map<String,Map<String,List<Stock>>> mp, String portfolioName, String date1, String date2)
+
+  /*public long yearsBetween(String date1, String date2)
   {
-    long months=monthsBetween(date1,date2);
-    if(months>=5 && months<=30) {
-      Map<String, Double> m = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
+    //add validations date 1 < date 2
+    long yearsBetween = ChronoUnit.YEARS.between(
+            YearMonth.from(LocalDate.parse("2014-08-31")),
+            YearMonth.from(LocalDate.parse("2016-11-30"))
+    );
+    return yearsBetween;
+  }
 
-      //iterate over the portfolio
-      //get each stock's list
-      //get stock name of each and stock qty
-
-
-        Map<String,List<Stock>> listOfCompanies = mp.get(portfolioName);
-
-      for (Map.Entry<String, List<Stock>> entry : listOfCompanies.entrySet()) {
-        String companyName = entry.getKey();
-        List<Stock> stockTransactions = entry.getValue();
-        List listofmonths = new ArrayList<>();
-        for (int j = 0; j < stockTransactions.size(); j++) {
-
-          String actionDate = stockTransactions.get(j).getDateOfAction();
-          String subDate = actionDate.substring(0, 7);
-          listofmonths.add(subDate);
-        }
-          String output = fetchOutputStringFromURL(companyName, "TIME_SERIES_MONTHLY");
-          System.out.println(output);
-          String lines[] = output.split(System.lineSeparator());
-          Map<String,Double> mm=new HashMap<>();
-
-          for(int k=0;k<listofmonths.size();k++) {
-
-            for (int i = 1; i < lines.length; i++) {
-              String[] values = lines[i].split(",");
-              if (values[0].substring(0,7).equals(listofmonths.get(k))){
-                mm.put(values[0].substring(0,7),Double.valueOf(values[4]));
-                break;
-              }
-
-            }
-          }
-
-        for (int j = 0; j < stockTransactions.size(); j++) {
-
-          double qty=stockTransactions.get(j).getQty();
-          String actiionDate = stockTransactions.get(j).getDateOfAction();
-          String action = stockTransactions.get(j).getAction();
-          if(stockTransactions.get(j).getAction().equals("buy"))
-          m.put(actiionDate.substring(0,7),qty*mm.get(actiionDate));
-         else {
-           //double val=stockTransactions.get(j).
-            //m.put(actiionDate.substring(0, 7), qty * mm.get(actiionDate));
-           // -qty * mm[yymm];
-          }
-
-        }
-
-        }
-
-
-      }
-    }
-
+  public long quartersBetween(String date1, String date2)
+  {
+    //add validations date 1 < date 2
+    long quarters =
+            IsoFields.QUARTER_YEARS.between(LocalDate.parse("2014-08-31"), LocalDate.parse("2014-12-30"));
+    return quarters;
   }*/
 
 
 
 
 
-}
