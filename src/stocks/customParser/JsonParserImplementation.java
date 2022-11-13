@@ -177,4 +177,16 @@ public class JsonParserImplementation  {
     }
     return type;
   }
+
+  public String getTypeOfLoadedFile(String path) {
+    String type = null;
+    try {
+      Object obj = new JSONParser().parse(new FileReader(path));
+      JSONObject jsonObject = (JSONObject) obj;
+      type = (String) jsonObject.get("type");
+    } catch (IOException | ParseException e) {
+      System.out.println(e.getMessage());
+    }
+    return type;
+  }
 }
