@@ -123,7 +123,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   @Override
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
-    if (action.equals("buy")) {
+    this.portfolioName =portfolioName;
+    if (action.equalsIgnoreCase("buy")) {
       if (stockMap.isEmpty()) {
         stockMap = new HashMap<>();
         Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
@@ -131,7 +132,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
       buyStocks(companyName, quantity, date, portfolioName);
       parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
-    } else if (action.equals("Sell")) {
+    } else if (action.equalsIgnoreCase("sell")) {
       if (stockMap.isEmpty()) {
         stockMap = new HashMap<>();
         Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
@@ -293,13 +294,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       if (!stockMap.isEmpty()) {
         Map<String, List<Stock>> map = stockMap.get(this.portfolioName);
         for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
-          List<String> temp = new ArrayList<>();
           List<Stock> s = entry.getValue();
-          temp.add(s.get(0).getCompanyTickerSymbol());
-          temp.add(String.valueOf(s.get(0).getQty()));
-          temp.add(s.get(0).getDateOfAction());
-          temp.add(s.get(0).getAction());
-          results.add(temp);
+          for (int i = 0; i < s.size(); i++) {
+            List<String> temp = new ArrayList<>();
+            temp.add(s.get(i).getCompanyTickerSymbol());
+            temp.add(String.valueOf(s.get(i).getQty()));
+            temp.add(s.get(i).getDateOfAction());
+            temp.add(s.get(i).getAction());
+            results.add(temp);
+          }
         }
       }
     } else {
@@ -325,7 +328,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   public void createPortfolioIfCreatedManually(String portfolioName) {
     if (!stockMap.isEmpty()) {
       Map<String, List<Stock>> mm = stockMap.get(portfolioName);
-      printMap(mm);
+      //printMap(mm);
       parser.writeIntoFile(portfolioName, mm, "flexible");
     }
   }

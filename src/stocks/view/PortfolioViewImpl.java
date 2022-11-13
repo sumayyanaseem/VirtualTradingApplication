@@ -114,7 +114,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void displayTheTotalCost(double totalCost, String date, String portfolioName) {
-    //first display the commision you have charged for each transaction.
+    out.println("This portfolio's commission is $10 per transaction.");
     out.println("Total cost basis from the portfolioName " + portfolioName + " on " + date + " is " + totalCost);
   }
 
@@ -128,7 +128,6 @@ public class PortfolioViewImpl implements PortfolioView {
   public void displayComposition(List<List<String>> records) {
     if (records != null && !records.isEmpty()) {
       for (int i = 0; i < records.size(); i++) {
-
         for (int j = 0; j < records.get(i).size(); j++) {
           out.print(records.get(i).get(j));
           int len1 = records.get(0).get(j).length();

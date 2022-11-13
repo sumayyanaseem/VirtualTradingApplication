@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,7 +106,7 @@ public class JsonParserImplementation  {
     jsonObject.put("type",type);
     JSONArray outerJson = new JSONArray();
     for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
-      System.out.println(entry.getKey()+" "+entry.getValue());
+      //System.out.println(entry.getKey()+" "+entry.getValue());
       String cName = entry.getKey();
       List<Stock> list = entry.getValue();
       Map outerMap = new HashMap(2);
@@ -128,6 +129,7 @@ public class JsonParserImplementation  {
     try{
       FileWriter file = new FileWriter(path);
       file.write(jsonObject.toJSONString());
+      file.flush();
       file.close();
     } catch(IOException e ){
       e.printStackTrace();
@@ -136,30 +138,35 @@ public class JsonParserImplementation  {
 
 
   public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date){
+
     String path ="userPortfolios/" + portfolioName + "_output.json";
     try {
       Object obj = new JSONParser().parse(new FileReader(path));
-
       JSONObject jsonObject = (JSONObject) obj;
-      JSONArray innerJson = new JSONArray();
-
-      Map innerMap = new HashMap();
-      innerMap.put("date",date);
-      innerMap.put("Quantity",quantity);
-      innerMap.put("action",action);
-      innerJson.add(innerMap);
-
-      JSONArray outerJson = new JSONArray();
-
-      Map map = new HashMap(2);
-      map.put("CompanyName",companyName);
-      map.put("Actions",innerJson);
-      outerJson.add(map);
-
-      jsonObject.put("Companies",outerJson);
+      JSONArray portfolios = (JSONArray) jsonObject.get("Companies");
+      Iterator itr = portfolios.iterator();
+      while (itr.hasNext()) {
+        Iterator<Map.Entry> itr1 = ((Map) itr.next()).entrySet().iterator();
+        while (itr1.hasNext()) {
+          Map.Entry pair = itr1.next();
+          if (pair.getValue().equals(companyName)) {
+            pair = itr1.next();
+            if (pair.getKey().equals("Actions")) {
+              JSONArray ja = (JSONArray) pair.getValue();
+              Map m = new LinkedHashMap(3);
+              m.put("date",date);
+              m.put("Quantity",quantity);
+              m.put("action",action);
+              ja.add(m);
+            }
+          }
+        }
+      }
       FileWriter file = new FileWriter(path);
       file.write(jsonObject.toJSONString());
+      file.flush();
       file.close();
+
     } catch(ParseException | IOException e){
       System.out.println(e.getMessage());
     }
