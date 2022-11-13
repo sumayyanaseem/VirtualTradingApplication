@@ -265,7 +265,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     if(!name.equals("currentInstance")) {
       type = jsonParserImplementation.getTypeOfFile(name);
     }
-    helperForViewHelper(type,option,name);
+    helperForViewHelper(type,option,name,"");
   }
 
   private void dateNotFoundHelper(String name, Portfolio portfolio) {
@@ -296,6 +296,20 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   }
 
+
+  private void viewHelper2ForCurrentInstance(String name, String filePath) {
+    view.askUserIfheWantsTOContinueViewing();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      viewHelper2ForCurrentInstance(name, filePath);
+    }
+    if (option.equals("1")) {
+      viewHelperForCurrentInstance(name,filePath);
+    } else {
+      finalExitCondition();
+    }
+
+  }
 
   private String dateHelperInFlexiblePortfolio(String companyName){
     view.getDateForValuation();
@@ -357,7 +371,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
   }
 
-  private void helperForViewHelper(String type, String option, String name)
+  private void helperForViewHelper(String type, String option, String name, String path )
   {
     Portfolio portfolio = null;
     if (type.equals(flexibleType)) {
@@ -407,6 +421,11 @@ public class PortfolioControllerImpl implements PortfolioController {
       Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
       view.displayPortfolioPerformance(result, startDate, endDate, name);
     }
+    if(name.equals("currentInstance"))
+    {
+      viewHelper2ForCurrentInstance(name,path);
+    }
+    else
     viewHelper2(name);
   }
 
@@ -418,11 +437,9 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (validateInitialInputsFromUser(option)) {
       viewHelperForCurrentInstance(name, filePath);
     }
-    String type;
+    String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
 
-    type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
-
-    helperForViewHelper(type,option, name);
+    helperForViewHelper(type,option, name, filePath);
 
   }
   private void stoppingCondition(Portfolio portfolio, String portfolioName) {
