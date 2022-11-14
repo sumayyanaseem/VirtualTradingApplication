@@ -247,6 +247,23 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
 
+  private void continueUpdatingPortfolioForCurrentInstance(String path,Portfolio portfolio, String portfolioName) {
+    view.checkIfUserWantsToContinueUpdatingPortfolio();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      continueUpdatingPortfolioForCurrentInstance (path,portfolio, portfolioName);
+    }
+    if (option.equals("1")) {
+      //1 for continue
+      updateStocksForCurrentInstance(path,portfolio, portfolioName);
+    } else if (option.equals("2")) {
+      //continue further
+      //model.createPortfolioIfCreatedManually(portfolioName, portfolio);
+      finalExitCondition();
+    }
+  }
+
+
   private String pNameHelper() {
     view.getPortfolioName();
     String name = input.nextLine();
@@ -425,7 +442,7 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
       view.displayErrorMessage(e.getMessage());
     }
   }
-  continueUpdatingPortfolio(portfolio, portfolioName);
+  continueUpdatingPortfolioForCurrentInstance(path,portfolio, portfolioName);
 }
 
 

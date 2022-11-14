@@ -43,7 +43,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         for (int i = 0; i < stockList.size(); i++) {
           String dateBought = stockList.get(i).getDateOfAction();
           if (areDatesEqual(dateBought, date)) {
-            double totQty = Double.parseDouble(stockList.get(i).getQty() + quantity);
+            double totQty = stockList.get(i).getQty() + q;
             s = new Stock(companyName, totQty, 0.0, action, 0.0, date);
             stockList.remove(i);
             stockList.add(s);

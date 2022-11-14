@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for the PortfolioControllerImpl.
  */
-/*public class PortfolioControllerImplTest {
+public class PortfolioControllerImplTest {
 
   class MockModel implements PortfolioModel {
 
@@ -86,6 +86,11 @@ import static org.junit.Assert.assertTrue;
 
     @Override
     public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
+
+    }
+
+    @Override
+    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
 
     }
 
@@ -437,4 +442,3 @@ import static org.junit.Assert.assertTrue;
 }
 
 
-*/

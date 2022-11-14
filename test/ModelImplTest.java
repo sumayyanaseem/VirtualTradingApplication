@@ -76,6 +76,11 @@ public class ModelImplTest {
     }
 
     @Override
+    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
+
+    }
+
+    @Override
     public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
       log.append("inputs for getTotalMoneyInvestedOnCertainDate: " + date +" "+portfolioName+  "\n");
       return 0;
