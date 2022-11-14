@@ -102,7 +102,7 @@ public class ModelImplTest {
 
   private static final String portfolioName = "testPortfolio";
 
-  private static final String path = "userPortfolios/aa_output.json";
+  private static final String path = "userPortfolios/testInFlexible_output.json";
 
   private StringBuilder mockLog;
 

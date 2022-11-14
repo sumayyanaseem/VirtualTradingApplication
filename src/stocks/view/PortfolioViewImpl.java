@@ -126,6 +126,9 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void displayComposition(List<List<String>> records) {
+    if(records.isEmpty()){
+      displayErrorMessage("Composition is not available for given date");
+    }
     if (records != null && !records.isEmpty()) {
       for (int i = 0; i < records.size(); i++) {
         for (int j = 0; j < records.get(i).size(); j++) {

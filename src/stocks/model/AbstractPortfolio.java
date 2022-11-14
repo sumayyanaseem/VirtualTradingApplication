@@ -145,12 +145,6 @@ abstract class AbstractPortfolio implements Portfolio{
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     List<List<String>> results = new ArrayList<>();
-    String[] t = new String[4];
-    t[0] = "CompanyName";
-    t[1] = "Quantity";
-    t[2] = "Date";
-    t[3] = "Action";
-    results.add(List.of(t));
     Map<String, List<Stock>> map =null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
@@ -158,10 +152,17 @@ abstract class AbstractPortfolio implements Portfolio{
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
+      this.portfolioName = portfolioName;
       map = parser.readFromFile(portfolioName);
       stockMap.put(portfolioName, map);
     }
     if(map!=null) {
+      String[] t = new String[4];
+      t[0] = "CompanyName";
+      t[1] = "Quantity";
+      t[2] = "Date";
+      t[3] = "Action";
+      results.add(List.of(t));
       for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
         List<Stock> s = entry.getValue();
         for (Stock stock : s) {
@@ -177,4 +178,15 @@ abstract class AbstractPortfolio implements Portfolio{
 
   protected abstract List<String> getResultsToDisplayComposition(Stock s,String date);
 
+
+  protected void validateFilePath(String path) {
+
+    if (path == null) {
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
+    }
+    File f = new File(path);
+    if (!f.isFile() || !f.exists()) {
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
+    }
+  }
 }

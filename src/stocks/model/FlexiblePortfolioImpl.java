@@ -203,8 +203,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
+      this.portfolioName = portfolioName;
       m = parser.readFromFile(portfolioName);
-      stockMap.put(portfolioName, m);
+      this.stockMap.put(portfolioName, m);
     }
     if(m != null) {
       for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
@@ -226,12 +227,16 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     }
     totalCostBasis = totalCostBasis + (noOfRecords * commissionPerTransaction);
-    return totalCostBasis;
+    String value = String.format("%.2f",totalCostBasis);
+    return Double.parseDouble(value);
   }
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    validateDate(date);
     double totalValue = 0.0;
     Map<String, List<Stock>> m=null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
@@ -240,8 +245,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
+      this.portfolioName = portfolioName;
       m = parser.readFromFile(portfolioName);
-      stockMap.put(portfolioName, m);
+      this.stockMap.put(portfolioName, m);
     }
     if(m!=null){
     for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
@@ -253,16 +259,17 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     }
     }
-    return totalValue;
+    String value = String.format("%.2f",totalValue);
+    return Double.parseDouble(value);
 
   }
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-    //validateFilePath(filePath);
+    validateFilePath(filePath);
     Map<String, List<Stock>> records = parser.readFromPathProvidedByUser(filePath);
     this.portfolioName = "currentInstance";
-    stockMap.put(portfolioName, records);
+    this.stockMap.put(portfolioName, records);
   }
 
 
@@ -284,9 +291,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    this.portfolioName = portfolioName;
     if (!stockMap.isEmpty()) {
       Map<String, List<Stock>> mm = stockMap.get(portfolioName);
-      //printMap(mm);
       parser.writeIntoFile(portfolioName, mm, "flexible");
     }
   }
