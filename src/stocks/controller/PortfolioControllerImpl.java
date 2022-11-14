@@ -48,7 +48,6 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
-   *
    * @param in   the input stream.
    * @param view the view object.
    */

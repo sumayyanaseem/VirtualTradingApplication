@@ -59,13 +59,6 @@ public interface PortfolioModel {
   void validateIfPortfolioDoesntExists(String name,Portfolio portfolio);
 
   /**
-   * gives the instance of Model object.
-   *
-   * @return the model object.
-   */
-  Portfolio getInstance(Portfolio portfolio);
-
-  /**
    * Buy stocks of a company and add to the portfolio.
    *
    * @param quantity      number of stocks to be bought.

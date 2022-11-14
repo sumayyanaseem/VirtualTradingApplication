@@ -1,11 +1,11 @@
 {
   "Companies": [
     {
-      "CompanyName": "META",
+      "CompanyName": "GOOG",
       "Actions": [
         {
-          "date": "2022-11-12",
-          "Quantity": "20.0",
+          "date": "2022-11-13",
+          "Quantity": "35.0",
           "action": "add"
         }
       ]

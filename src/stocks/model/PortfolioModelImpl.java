@@ -46,11 +46,6 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public Portfolio getInstance(Portfolio portfolio) {
-    return portfolio.getInstance();
-  }
-
-  @Override
   public void buyStocks(String companyName,String quantity, String date, String portfolioName, Portfolio portfolio) {
     portfolio.buyStocks(companyName, quantity, date, portfolioName);
   }

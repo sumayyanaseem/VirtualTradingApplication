@@ -75,11 +75,6 @@ import static org.junit.Assert.assertTrue;
     }
 
     @Override
-    public Portfolio getInstance(Portfolio portfolio) {
-      return null;
-    }
-
-    @Override
     public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
 
     }

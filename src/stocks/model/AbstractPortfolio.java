@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ abstract class AbstractPortfolio implements Portfolio{
 
   @Override
   public void validateIfCompanyExists(String companyName) {
+    //Validate if company exists in our records.
     if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
@@ -94,7 +96,7 @@ abstract class AbstractPortfolio implements Portfolio{
   }
 
 
-  public void validateQuantity(String quantity) {
+  protected void validateQuantity(String quantity) {
     if (quantity == null) {
       throw new IllegalArgumentException("Invalid quantity provided");
     }
@@ -107,7 +109,6 @@ abstract class AbstractPortfolio implements Portfolio{
       throw new IllegalArgumentException("Quantity should be always a positive whole number.");
     }
   }
-
 
 
   protected void validateDate(String date) {
@@ -139,5 +140,54 @@ abstract class AbstractPortfolio implements Portfolio{
     }
   }
 
+  @Override
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    List<List<String>> results = new ArrayList<>();
+    Map<String, List<Stock>> map =null;
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        map = stockMap.get(this.portfolioName);
+      }
+    } else {
+      validateIfPortfolioDoesntExists(portfolioName);
+      this.portfolioName = portfolioName;
+      map = parser.readFromFile(portfolioName);
+      stockMap.put(portfolioName, map);
+    }
+    if(map!=null) {
+      String[] t = new String[4];
+      t[0] = "CompanyName";
+      t[1] = "Quantity";
+      t[2] = "Date";
+      t[3] = "Action";
+      results.add(List.of(t));
+      for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
+        List<Stock> s = entry.getValue();
+        for (Stock stock : s) {
+          List<String> temp = getResultsToDisplayComposition(stock,date);
+          if(temp!=null){
+            results.add(temp);
+          }
+        }
+      }
+    }
+    return results;
+  }
 
+  protected abstract List<String> getResultsToDisplayComposition(Stock s,String date);
+
+
+  protected void validateFilePath(String path) {
+
+    if (path == null) {
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
+    }
+    File f = new File(path);
+    if (!f.isFile() || !f.exists()) {
+      throw new IllegalArgumentException("Given path doesnt exist.Please provide valid path.");
+    }
+  }
 }
