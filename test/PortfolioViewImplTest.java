@@ -120,7 +120,7 @@ public class PortfolioViewImplTest {
 
   @Test
   public void testGetDateForValuation() {
-    portfolioView.getDateForValuation();
+    portfolioView.getDate();
     assertEquals(bytes.toString(), "Enter date as of which you need "
             + "portfolio valuation( YYYY-MM-DD format only)\n");
   }

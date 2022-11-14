@@ -108,7 +108,7 @@ public class JsonParserImplementation  implements CustomParser {
       //System.out.println(entry.getKey()+" "+entry.getValue());
       String cName = entry.getKey();
       List<Stock> list = entry.getValue();
-      Map<String, java.io.Serializable> outerMap = new HashMap<>(2);
+      Map outerMap = new HashMap<>(2);
       outerMap.put("CompanyName",cName);
       JSONArray innerJson = new JSONArray();
       for (Stock s : list) {
@@ -135,44 +135,69 @@ public class JsonParserImplementation  implements CustomParser {
   }
 
 
-  @Override
-  public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date){
-
-    String path ="userPortfolios/" + portfolioName + "_output.json";
-    try {
-      Object obj = new JSONParser().parse(new FileReader(path));
-      JSONObject jsonObject = (JSONObject) obj;
-      JSONArray portfolios = (JSONArray) jsonObject.get("Companies");
-      Iterator itr = portfolios.iterator();
-      while (itr.hasNext()) {
-        Iterator<Map.Entry> itr1 = ((Map) itr.next()).entrySet().iterator();
-        while (itr1.hasNext()) {
-          Map.Entry pair = itr1.next();
-          if (pair.getValue().equals(companyName)) {
-            pair = itr1.next();
-            if (pair.getKey().equals("Actions")) {
-              JSONArray ja = (JSONArray) pair.getValue();
-              Map<String, String> m = new LinkedHashMap<>(3);
-              m.put("date",date);
-              m.put("Quantity",quantity);
-              m.put("action",action);
-              ja.add(m);
-            }
+private void appendFileHelper(String companyName,String quantity,String action,String date, String path)
+{
+  try {
+    Object obj = new JSONParser().parse(new FileReader(path));
+    JSONObject jsonObject = (JSONObject) obj;
+    JSONArray portfolios = (JSONArray) jsonObject.get("Companies");
+    Iterator itr = portfolios.iterator();
+    boolean found =false;
+    while (itr.hasNext()) {
+      Iterator<Map.Entry> itr1 = ((Map) itr.next()).entrySet().iterator();
+      while (itr1.hasNext()) {
+        Map.Entry pair = itr1.next();
+        if (pair.getValue().equals(companyName)) {
+          pair = itr1.next();
+          if (pair.getKey().equals("Actions")) {
+            JSONArray ja = (JSONArray) pair.getValue();
+            Map<String, String> m = new LinkedHashMap<>(3);
+            m.put("date",date);
+            m.put("Quantity",quantity);
+            m.put("action",action);
+            ja.add(m);
+            found = true;
           }
         }
       }
-      FileWriter file = new FileWriter(path);
-      file.write(jsonObject.toJSONString());
-      file.flush();
-      file.close();
-
-    } catch(ParseException | IOException e){
-      System.out.println(e.getMessage());
     }
+    if(!found) {
+      JSONArray ja = new JSONArray();
+      Map<String, String> m = new LinkedHashMap<>(3);
+      m.put("date",date);
+      m.put("Quantity",quantity);
+      m.put("action",action);
+      ja.add(m);
+      Map outerMap = new HashMap<>(2);
+      outerMap.put("CompanyName",companyName);
+      outerMap.put("Actions",ja);
+      portfolios.add(outerMap);
+    }
+    FileWriter file = new FileWriter(path);
+    file.write(jsonObject.toJSONString());
+    file.flush();
+    file.close();
+
+  } catch(ParseException | IOException e){
+    System.out.println(e.getMessage());
   }
+}
 
 
   @Override
+  public void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date)
+  {
+    String path ="userPortfolios/" + portfolioName + "_output.json";
+    appendFileHelper(companyName,quantity,action,date,path);
+  }
+
+  @Override
+  public void appendIntoFileUsingFilePath(String path, String portfolioName,String companyName,String quantity,String action,String date)
+    {
+      appendFileHelper(companyName,quantity,action,date,path);
+    }
+
+    @Override
   public String getTypeOfFile(String portFolioName) {
     String path = "userPortfolios/" + portFolioName + "_output.json";
     return getTypeHelper(path);

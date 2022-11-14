@@ -36,4 +36,6 @@ public interface CustomParser {
   String getTypeOfFile(String portFolioName);
 
   String getTypeOfLoadedFile(String path);
+
+  void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date);
 }

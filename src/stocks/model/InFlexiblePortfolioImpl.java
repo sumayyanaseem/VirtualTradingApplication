@@ -1,11 +1,13 @@
 package stocks.model;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -82,8 +84,46 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
+  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
+    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  }
+
+  @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-    return 0.0;
+    double totalCostBasis = 0.0;
+    int noOfRecords = 0;
+    Map<String, List<Stock>> m = null;
+    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
+      if (!stockMap.isEmpty()) {
+        m = stockMap.get(portfolioName);
+      }
+    } else {
+      validateIfPortfolioDoesntExists(portfolioName);
+      m = parser.readFromFile(portfolioName);
+      stockMap.put(portfolioName, m);
+    }
+    if (m != null) {
+      for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+        List<Stock> listOfStocks = entry.getValue();
+        String dateBought = listOfStocks.get(0).getDateOfAction();
+        Date dateBoughtObj, givenDateObj;
+        try {
+          dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
+          givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
+        } catch (ParseException e) {
+          throw new IllegalArgumentException("unable to parse date");
+        }
+        if (dateBoughtObj.compareTo(givenDateObj) <= 0) {
+
+          totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStocks.get(0).getCompanyTickerSymbol(), listOfStocks.get(0).getQty(), listOfStocks.get(0).getDateOfAction());
+          totalCostBasis = totalCostBasis + commissionPerTransaction;
+        }
+      }
+
+
+    }
+
+    return totalCostBasis;
   }
 
   @Override
@@ -136,9 +176,10 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-    validateFilePath(filePath);
     Map<String, List<Stock>> listOfStocks;
     try {
+    validateFilePath(filePath);
+
       listOfStocks = parser.readFromPathProvidedByUser(filePath);
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());

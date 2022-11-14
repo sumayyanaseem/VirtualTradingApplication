@@ -176,21 +176,29 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.buyStocks(quantity, companyName, null,portfolioName, portfolio);
+    model.buyStocks(companyName,quantity, null,portfolioName, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
 
   private void updatePortfolio() {
     // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
-    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+
+
     view.getPortfolioName();
     String name = input.nextLine();
     if (validateIfPortfolioDoesntExists(name)) {
       updatePortfolio();
     }
     this.portfolioName = name;
-    updateStocks(flexiblePortfolioTypeObj, portfolioName);
+    String type = jsonParserImplementation.getTypeOfFile(name);
+    if(!type.equals("flexible"))
+    {
+      view.displayErrorMessage("Can not update an inflexible portfolio");
+      start();
+    }
+    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+    updateStocks(flexiblePortfolioTypeObj, name);
   }
 
   private void updateStocks(Portfolio portfolio, String portfolioName) {
@@ -235,6 +243,23 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (option.equals("2")) {
       //continue further
       model.createPortfolioIfCreatedManually(portfolioName, portfolio);
+      finalExitCondition();
+    }
+  }
+
+
+  private void continueUpdatingPortfolioForCurrentInstance(String path,Portfolio portfolio, String portfolioName) {
+    view.checkIfUserWantsToContinueUpdatingPortfolio();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      continueUpdatingPortfolioForCurrentInstance (path,portfolio, portfolioName);
+    }
+    if (option.equals("1")) {
+      //1 for continue
+      updateStocksForCurrentInstance(path,portfolio, portfolioName);
+    } else if (option.equals("2")) {
+      //continue further
+      //model.createPortfolioIfCreatedManually(portfolioName, portfolio);
       finalExitCondition();
     }
   }
@@ -312,7 +337,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private String dateHelperInFlexiblePortfolio(String companyName){
-    view.getDateForValuation();
+    view.getDate();
     String date = input.nextLine();
     if (validateDate(date) || validateDateToCheckIfBeforeIPO(date,companyName)) {
       return dateHelper();
@@ -322,7 +347,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
   private String dateHelper() {
-    view.getDateForValuation();
+    view.getDate();
     String date = input.nextLine();
     if (validateDate(date)) {
       return dateHelper();
@@ -333,6 +358,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void loadPortfolio() {
     view.getFilePath();
     String filePath = input.nextLine();
+
     try {
       Object obj = new JSONParser().parse(new FileReader(filePath));
       JSONObject jsonObject = (JSONObject) obj;
@@ -352,7 +378,8 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayErrorMessage(e.getMessage());
       loadPortfolio();
     } catch (IOException | org.json.simple.parser.ParseException e) {
-      throw new RuntimeException(e);
+      view.displayErrorMessage(e.getMessage());
+      start();
     }
     exitFromLoadPortfolio(filePath);
   }
@@ -360,7 +387,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void exitFromLoadPortfolio(String filePath) {
     view.callExitFromLoad();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (validateInputsFromUSerAfterLoad(option)) {
       exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
@@ -369,7 +396,54 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (option.equals("2")) {
       finalExitCondition();
     }
+    else if(option.equals("3")){
+      updatePortfolioForCurrentInstance(filePath);
+    }
   }
+
+  void updatePortfolioForCurrentInstance(String filePath) {
+
+    this.portfolioName = "currentInstance";
+    String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
+    if(!type.equals("flexible"))
+    {
+      view.displayErrorMessage("Can not update an inflexible portfolio");
+      start();
+    }
+    updateStocksForCurrentInstance(filePath,flexiblePortfolioTypeObj, portfolioName);
+  }
+
+private void updateStocksForCurrentInstance(String path, Portfolio portfolio, String portfolioName)
+{
+  view.displayMessageToBuyOrSell();
+  String option = input.nextLine();
+  if (validateInputsFromUSer(option)) {
+    updateStocksForCurrentInstance(path, portfolio, portfolioName);
+  }
+  if (option.equals("1")) {
+    //1 for buy
+    String companyName = companyHelper(portfolio);
+    String quantity = quantityHelper();
+    String date = dateHelperInFlexiblePortfolio(companyName);
+    try {
+      model.updatePortfolioUsingFilePath(path,companyName, quantity, date, portfolioName, portfolio, "buy");
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
+    }
+  } else if (option.equals("2")) {
+    //2 for sell
+    String companyName = companyHelper(portfolio);
+    String quantity = quantityHelper();
+    String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+    try {
+      model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "sell");
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
+    }
+  }
+  continueUpdatingPortfolioForCurrentInstance(path,portfolio, portfolioName);
+}
+
 
   private void helperForViewHelper(String type, String option, String name, String path )
   {
@@ -547,6 +621,16 @@ public class PortfolioControllerImpl implements PortfolioController {
     return false;
   }
 
+  private boolean validateInputsFromUSerAfterLoad(String input) {
+    if (input.equals("1") || input.equals("2") || input.equals("3")) {
+      //do nothing
+    } else {
+      view.displayErrorMessage("Invalid input provided."
+              + "Please provide a valid input (either 1 or 2 or 3)");
+      return true;
+    }
+    return false;
+  }
   private boolean validateQuantity(String quantity) {
     try {
       long q = Long.parseLong(quantity);

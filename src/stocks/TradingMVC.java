@@ -12,7 +12,6 @@ import stocks.view.PortfolioViewImpl;
  */
 public class TradingMVC {
 
-
   /**
    * main method is the start point of virtual trading application.
    *

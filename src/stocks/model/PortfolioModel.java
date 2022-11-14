@@ -70,6 +70,7 @@ public interface PortfolioModel {
   void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) throws IllegalArgumentException;
 
   void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio,String action) throws IllegalArgumentException;
+  void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio,String action) throws IllegalArgumentException;
 
   double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
 

@@ -90,6 +90,11 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
+    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
+
+    }
+
+    @Override
     public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
