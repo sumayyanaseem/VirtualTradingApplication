@@ -13,7 +13,7 @@ import stocks.customAPI.CompanyTickerSymbol;
 
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private static String action;
-  private static final double commissionPerTransaction = 10.0;
+
 
   @Override
   public void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
@@ -118,8 +118,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String action)
+  {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
     this.portfolioName =portfolioName;
     if (stockMap.isEmpty()) {
@@ -127,12 +127,25 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
       stockMap.put(portfolioName, map);
     }
+
     if (action.equalsIgnoreCase("buy")) {
       buyStocks(companyName, quantity, date, portfolioName);
     } else if (action.equalsIgnoreCase("sell")) {
       sellStocks(companyName, quantity, date, portfolioName);
     }
+  }
+
+
+  @Override
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+    updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
     parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
+  }
+
+  @Override
+  public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action) {
+    updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+    parser.appendIntoFileUsingFilePath(filePath,portfolioName, companyName, quantity, action, date);
   }
 
 
@@ -248,7 +261,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     //validateFilePath(filePath);
     Map<String, List<Stock>> records = parser.readFromPathProvidedByUser(filePath);
     this.portfolioName = "currentInstance";
-    stockMap.put(portfolioName, records);
+    this.stockMap.put(portfolioName, records);
   }
 
   @Override
@@ -335,7 +348,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action) {
-    validateIfPortfolioDoesntExists(portfolioName);
+    if(!portfolioName.equals("currentInstance")) {
+      validateIfPortfolioDoesntExists(portfolioName);
+    }
     if (action.equals("buy")) {
       validateInputsForBuy(companyName, quantity, date);
     } else if (action.equals("sell")) {

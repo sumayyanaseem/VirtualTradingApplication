@@ -1,0 +1,40 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2021-02-12",
+          "Quantity": "20.0",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-10",
+          "Quantity": "10.0",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-10",
+          "Quantity": "10.0",
+          "action": "sell"
+        },
+        {
+          "date": "2021-05-10",
+          "Quantity": "2.0",
+          "action": "sell"
+        },
+        {
+          "date": "2020-01-10",
+          "Quantity": "5.0",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-11",
+          "Quantity": "10.0",
+          "action": "buy"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

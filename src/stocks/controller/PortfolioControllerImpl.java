@@ -184,6 +184,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private void updatePortfolio() {
     // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
+
     flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     view.getPortfolioName();
     String name = input.nextLine();
@@ -191,7 +192,13 @@ public class PortfolioControllerImpl implements PortfolioController {
       updatePortfolio();
     }
     this.portfolioName = name;
-    updateStocks(flexiblePortfolioTypeObj, portfolioName);
+    String type = jsonParserImplementation.getTypeOfFile(name);
+    if(!type.equals("flexible"))
+    {
+      view.displayErrorMessage("Can not update an inflexible portfolio");
+      return;
+    }
+    updateStocks(flexiblePortfolioTypeObj, name);
   }
 
   private void updateStocks(Portfolio portfolio, String portfolioName) {
@@ -361,7 +368,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void exitFromLoadPortfolio(String filePath) {
     view.callExitFromLoad();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (validateInputsFromUSerAfterLoad(option)) {
       exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
@@ -370,7 +377,58 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (option.equals("2")) {
       finalExitCondition();
     }
+    else if(option.equals("3")){
+      updatePortfolioForCurrentInstance(filePath);
+    }
   }
+
+  void updatePortfolioForCurrentInstance(String filePath) {
+    view.getPortfolioName();
+    String name = input.nextLine();
+    if (validateIfPortfolioDoesntExists(name)) {
+      updatePortfolioForCurrentInstance(filePath);
+    }
+    this.portfolioName = "currentInstance";
+    String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
+    if(!type.equals("flexible"))
+    {
+      view.displayErrorMessage("Can not update an inflexible portfolio");
+      return;
+    }
+    updateStocksForCurrentInstance(filePath,flexiblePortfolioTypeObj, portfolioName);
+  }
+
+private void updateStocksForCurrentInstance(String path, Portfolio portfolio, String portfolioName)
+{
+  view.displayMessageToBuyOrSell();
+  String option = input.nextLine();
+  if (validateInputsFromUSer(option)) {
+    updateStocksForCurrentInstance(path, portfolio, portfolioName);
+  }
+  if (option.equals("1")) {
+    //1 for buy
+    String companyName = companyHelper(portfolio);
+    String quantity = quantityHelper();
+    String date = dateHelperInFlexiblePortfolio(companyName);
+    try {
+      model.updatePortfolioUsingFilePath(path,companyName, quantity, date, portfolioName, portfolio, "buy");
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
+    }
+  } else if (option.equals("2")) {
+    //2 for sell
+    String companyName = companyHelper(portfolio);
+    String quantity = quantityHelper();
+    String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+    try {
+      model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "sell");
+    } catch(IllegalArgumentException e){
+      view.displayErrorMessage(e.getMessage());
+    }
+  }
+  continueUpdatingPortfolio(portfolio, portfolioName);
+}
+
 
   private void helperForViewHelper(String type, String option, String name, String path )
   {
@@ -548,6 +606,16 @@ public class PortfolioControllerImpl implements PortfolioController {
     return false;
   }
 
+  private boolean validateInputsFromUSerAfterLoad(String input) {
+    if (input.equals("1") || input.equals("2") || input.equals("3")) {
+      //do nothing
+    } else {
+      view.displayErrorMessage("Invalid input provided."
+              + "Please provide a valid input (either 1 or 2 or 3)");
+      return true;
+    }
+    return false;
+  }
   private boolean validateQuantity(String quantity) {
     try {
       long q = Long.parseLong(quantity);

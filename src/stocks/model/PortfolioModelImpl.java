@@ -66,6 +66,11 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
+  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
+    portfolio.updatePortfolioUsingFilePath(path,companyName,quantity,date,portfolioName,action);
+  }
+
+  @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
     return portfolio.getTotalMoneyInvestedOnCertainDate(date, portfolioName);
   }

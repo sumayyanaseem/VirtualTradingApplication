@@ -151,7 +151,8 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void callExitFromLoad() {
     out.println("Enter 1: To view details of this portfolio. "
-            + " 2: To exit and continue further trading.");
+            + " 2: To exit and continue further trading."
+    + " 3: To update loaded portfolio.");
   }
 
 }
