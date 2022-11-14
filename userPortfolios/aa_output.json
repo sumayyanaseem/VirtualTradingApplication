@@ -1,1 +1,1398 @@
-{"Companies":[{"CompanyName":"goog","Actions":[{"date":"2002-10-01","Quantity":"20.0","action":"buy"}]},{"CompanyName":"shop","Actions":[{"date":"2009-10-01","Quantity":"200.0","action":"buy"}]},{"CompanyName":"meta","Actions":[{"date":"2006-10-01","Quantity":"40.0","action":"buy"}]}],"type":"flexible"}
+{
+  "Companies": [
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "200.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "20.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },
+
+    {
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },{
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    },
+    {
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2006-10-01",
+          "Quantity": "40.0",
+          "action": "add"
+        }
+      ]
+    }
+  ],
+  "type": "inflexible"
+}

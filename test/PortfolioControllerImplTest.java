@@ -75,11 +75,6 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public Portfolio getInstance(Portfolio portfolio) {
-      return null;
-    }
-
-    @Override
     public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
 
     }

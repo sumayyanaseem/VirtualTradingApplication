@@ -178,6 +178,20 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return quantity;
   }
 
+
+  private boolean checkIfDateIsLessThanGivenDate(String date,Stock s) throws ParseException {
+    Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            .parse(date);
+
+      String datePresent = s.getDateOfAction();
+      Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(datePresent);
+      if (todayDate.compareTo(givenDate) <= 0) {
+         return true;
+    }
+    return false;
+  }
+
   @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
     double totalCostBasis = 0.0;
@@ -251,44 +265,23 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     stockMap.put(portfolioName, records);
   }
 
-  @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
-    if (portfolioName == null || portfolioName.equals("")) {
-      throw new IllegalArgumentException("Invalid portfolioName provided");
-    }
-    List<List<String>> results = new ArrayList<>();
-    String[] t = new String[4];
-    t[0] = "CompanyName";
-    t[1] = "Quantity";
-    t[2] = "Date";
-    t[3] = "Action";
-    results.add(List.of(t));
-    Map<String, List<Stock>> map =null;
-    if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
-      if (!stockMap.isEmpty()) {
-         map = stockMap.get(this.portfolioName);
-      }
-    } else {
-      validateIfPortfolioDoesntExists(portfolioName);
-      map = parser.readFromFile(portfolioName);
-      stockMap.put(portfolioName, map);
-    }
-    if(map!=null) {
-      for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
-        List<Stock> s = entry.getValue();
-        for (Stock stock : s) {
-          List<String> temp = new ArrayList<>();
-          temp.add(stock.getCompanyTickerSymbol());
-          temp.add(String.valueOf(stock.getQty()));
-          temp.add(stock.getDateOfAction());
-          temp.add(stock.getAction());
-          results.add(temp);
-        }
-      }
-    }
-    return results;
-  }
 
+  @Override
+  protected List<String> getResultsToDisplayComposition(Stock stock,String date){
+    try {
+      if (checkIfDateIsLessThanGivenDate(date, stock)) {
+        List<String> temp = new ArrayList<>();
+        temp.add(stock.getCompanyTickerSymbol());
+        temp.add(String.valueOf(stock.getQty()));
+        temp.add(stock.getDateOfAction());
+        temp.add(stock.getAction());
+        return temp;
+      }
+    } catch(ParseException e ){
+
+    }
+   return null;
+  }
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
     if (!stockMap.isEmpty()) {
@@ -309,11 +302,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
 
     }
-  }
-
-  @Override
-  public Portfolio getInstance() {
-    return new FlexiblePortfolioImpl();
   }
 
   @Override
