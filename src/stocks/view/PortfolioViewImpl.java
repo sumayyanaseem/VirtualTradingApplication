@@ -54,7 +54,7 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void getCompanyTicker() {
-    out.println("Enter the name of the company to be added to portfolio");
+    out.println("Enter the name of the company");
   }
 
   @Override
@@ -84,8 +84,8 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void getDateForValuation() {
-    out.println("Enter date as of which you need portfolio valuation( YYYY-MM-DD format only)");
+  public void getDate() {
+    out.println("Enter date( YYYY-MM-DD format only)");
   }
 
   @Override

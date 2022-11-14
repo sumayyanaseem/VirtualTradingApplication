@@ -176,7 +176,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.buyStocks(quantity, companyName, null,portfolioName, portfolio);
+    model.buyStocks(companyName,quantity, null,portfolioName, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -184,7 +184,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void updatePortfolio() {
     // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
 
-    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+
     view.getPortfolioName();
     String name = input.nextLine();
     if (validateIfPortfolioDoesntExists(name)) {
@@ -195,8 +195,9 @@ public class PortfolioControllerImpl implements PortfolioController {
     if(!type.equals("flexible"))
     {
       view.displayErrorMessage("Can not update an inflexible portfolio");
-      return;
+      start();
     }
+    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     updateStocks(flexiblePortfolioTypeObj, name);
   }
 
@@ -336,7 +337,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   private String dateHelperInFlexiblePortfolio(String companyName){
-    view.getDateForValuation();
+    view.getDate();
     String date = input.nextLine();
     if (validateDate(date) || validateDateToCheckIfBeforeIPO(date,companyName)) {
       return dateHelper();
@@ -346,7 +347,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
   private String dateHelper() {
-    view.getDateForValuation();
+    view.getDate();
     String date = input.nextLine();
     if (validateDate(date)) {
       return dateHelper();
@@ -357,6 +358,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void loadPortfolio() {
     view.getFilePath();
     String filePath = input.nextLine();
+
     try {
       Object obj = new JSONParser().parse(new FileReader(filePath));
       JSONObject jsonObject = (JSONObject) obj;
@@ -376,7 +378,8 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayErrorMessage(e.getMessage());
       loadPortfolio();
     } catch (IOException | org.json.simple.parser.ParseException e) {
-      throw new RuntimeException(e);
+      view.displayErrorMessage(e.getMessage());
+      start();
     }
     exitFromLoadPortfolio(filePath);
   }
@@ -399,17 +402,13 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
   void updatePortfolioForCurrentInstance(String filePath) {
-    view.getPortfolioName();
-    String name = input.nextLine();
-    if (validateIfPortfolioDoesntExists(name)) {
-      updatePortfolioForCurrentInstance(filePath);
-    }
+
     this.portfolioName = "currentInstance";
     String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
     if(!type.equals("flexible"))
     {
       view.displayErrorMessage("Can not update an inflexible portfolio");
-      return;
+      start();
     }
     updateStocksForCurrentInstance(filePath,flexiblePortfolioTypeObj, portfolioName);
   }

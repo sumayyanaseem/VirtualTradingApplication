@@ -81,11 +81,6 @@ public interface PortfolioView {
   void displayTotalValue(String date, String val, String portfolioName);
 
 
-  /**
-   * displays the message to user asking to enter date.
-   */
-  void getDateForValuation();
-
 
   /**
    * displays the message to user asking to enter date.
@@ -104,6 +99,13 @@ public interface PortfolioView {
    */
   void callExitFromLoad();
 
+
+
+  /**
+   * displays the message to user asking to enter date.
+   */
+
+  void getDate();
 
   /**
    * displays the message to user asking if he wants to continue view.

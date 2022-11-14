@@ -118,7 +118,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String action)
+  private void updatePortfolioHelper (String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException
   {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
     this.portfolioName =portfolioName;
@@ -138,13 +138,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
-    updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+    try {
+      updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+    } catch(Exception e){
+      throw new IllegalArgumentException(e);
+    }
     parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
   }
 
   @Override
   public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action) {
-    updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+    try {
+      updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+    } catch(Exception e){
+      throw new IllegalArgumentException(e);
+    }
     parser.appendIntoFileUsingFilePath(filePath,portfolioName, companyName, quantity, action, date);
   }
 
@@ -279,10 +287,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-    validateFilePath(filePath);
-    Map<String, List<Stock>> records = parser.readFromPathProvidedByUser(filePath);
-    this.portfolioName = "currentInstance";
-    this.stockMap.put(portfolioName, records);
+    try {
+      validateFilePath(filePath);
+      Map<String, List<Stock>> records = parser.readFromPathProvidedByUser(filePath);
+      this.portfolioName = "currentInstance";
+      this.stockMap.put(portfolioName, records);
+    } catch (Exception e) {
+      throw new RuntimeException(e.getMessage());
+    }
+
   }
 
 

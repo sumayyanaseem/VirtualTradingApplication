@@ -176,9 +176,10 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public void loadPortfolioUsingFilePath(String filePath) {
-    validateFilePath(filePath);
     Map<String, List<Stock>> listOfStocks;
     try {
+    validateFilePath(filePath);
+
       listOfStocks = parser.readFromPathProvidedByUser(filePath);
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
