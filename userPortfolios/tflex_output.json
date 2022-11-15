@@ -1,0 +1,85 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "goog",
+      "Actions": [
+        {
+          "date": "2021-10-01",
+          "Quantity": "30.0",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-02",
+          "Quantity": "4.0",
+          "action": "sell"
+        }
+      ]
+    },
+    {
+      "CompanyName": "Meta",
+      "Actions": [
+        {
+          "date": "2009-10-01",
+          "Quantity": "30.0",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "shop",
+      "Actions": [
+        {
+          "date": "2017-10-01",
+          "Quantity": "40.0",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "meta",
+      "Actions": [
+        {
+          "date": "2002-10-01",
+          "Quantity": "10.0",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-05",
+          "Quantity": "30.0",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-09",
+          "Quantity": "7.0",
+          "action": "sell"
+        }
+      ]
+    },
+    {
+      "CompanyName": "dash",
+      "Actions": [
+        {
+          "date": "2020-10-01",
+          "Quantity": "200.0",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "amzn",
+      "Actions": [
+        {
+          "date": "2018-10-01",
+          "Quantity": "1000.0",
+          "action": "buy"
+        },
+        {
+          "date": "2018-10-01",
+          "Quantity": "1000.0",
+          "action": "sell"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

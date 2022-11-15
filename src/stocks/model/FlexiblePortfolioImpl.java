@@ -105,7 +105,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           if (lastDate.compareTo(givenDate) > 0) {
             throw new IllegalArgumentException("Sell date is not in the chronological order.Last date present is " + lastDate);
           } else {
-            Stock s = new Stock(companyName, q, 0.0, action, 0.0, date);
+            String cName = companyName.toUpperCase();
+            Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
             List<Stock> stockList = m1.get(companyName);
             stockList.add(s);
             m1.put(companyName, stockList);
@@ -141,7 +142,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
     } catch(Exception e){
-      throw new IllegalArgumentException(e);
+      throw new IllegalArgumentException(e.getMessage());
     }
     parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
   }
@@ -151,7 +152,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
     } catch(Exception e){
-      throw new IllegalArgumentException(e);
+      throw new IllegalArgumentException(e.getMessage());
     }
     parser.appendIntoFileUsingFilePath(filePath,portfolioName, companyName, quantity, action, date);
   }
@@ -293,7 +294,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       this.portfolioName = "currentInstance";
       this.stockMap.put(portfolioName, records);
     } catch (Exception e) {
-      throw new RuntimeException(e.getMessage());
+      throw new IllegalArgumentException(e.getMessage());
     }
 
   }

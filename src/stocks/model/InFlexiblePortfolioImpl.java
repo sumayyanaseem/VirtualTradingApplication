@@ -18,7 +18,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   private static final String action = "add";
 
   @Override
-  public void buyStocks(String cName,String quantity, String date, String portfolioName)
+  public void buyStocks(String cName, String quantity, String date, String portfolioName)
           throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
@@ -170,7 +170,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
 
     }
-    String value = String.format("%.2f",totValue);
+    String value = String.format("%.2f", totValue);
     return Double.parseDouble(value);
   }
 
@@ -178,11 +178,10 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   public void loadPortfolioUsingFilePath(String filePath) {
     Map<String, List<Stock>> listOfStocks;
     try {
-    validateFilePath(filePath);
-
+      validateFilePath(filePath);
       listOfStocks = parser.readFromPathProvidedByUser(filePath);
     } catch (Exception e) {
-      throw new RuntimeException(e.getMessage());
+      throw new IllegalArgumentException(e.getMessage());
     }
     this.portfolioName = "currentInstance";
     this.stockMap.put(portfolioName, listOfStocks);
@@ -211,7 +210,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
               + "Please provide valid portfolioName.");
     }
   }
-
 
 
 }
