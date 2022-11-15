@@ -48,6 +48,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
+   *
    * @param in   the input stream.
    * @param view the view object.
    */
@@ -107,7 +108,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void createFlexiblePortfolioForCurrentUser(Portfolio portfolio) {
     view.getPortfolioName();
     String portfolioName = input.nextLine();
-    if (validateIfPortfolioExists(portfolioName,portfolio)) {
+    if (validateIfPortfolioExists(portfolioName, portfolio)) {
       createFlexiblePortfolioForCurrentUser(portfolio);
     }
     this.portfolioName = portfolioName;
@@ -125,10 +126,10 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
-      model.validateIfPortfolioAlreadyExists(portfolioName,portfolio);
+      model.validateIfPortfolioAlreadyExists(portfolioName, portfolio);
       try {
         model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
-      } catch(IllegalArgumentException e){
+      } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
     } else if (option.equals("2")) {
@@ -137,7 +138,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName);//should add more validations for chronological order
       try {
         model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
-      } catch(IllegalArgumentException e){
+      } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
     }
@@ -165,7 +166,7 @@ public class PortfolioControllerImpl implements PortfolioController {
   private void createInFlexiblePortfolioForCurrentUser(Portfolio portfolio) {
     view.getPortfolioName();
     String portfolioName = input.nextLine();
-    if (validateIfPortfolioExists(portfolioName,portfolio)) {
+    if (validateIfPortfolioExists(portfolioName, portfolio)) {
       createInFlexiblePortfolioForCurrentUser(portfolio);
     }
     this.portfolioName = portfolioName;
@@ -176,7 +177,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.buyStocks(companyName,quantity, null,portfolioName, portfolio);
+    model.buyStocks(companyName, quantity, null, portfolioName, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -192,8 +193,7 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     this.portfolioName = name;
     String type = jsonParserImplementation.getTypeOfFile(name);
-    if(!type.equals("flexible"))
-    {
+    if (!type.equals("flexible")) {
       view.displayErrorMessage("Can not update an inflexible portfolio");
       start();
     }
@@ -214,7 +214,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName);
       try {
         model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy");
-      } catch(IllegalArgumentException e){
+      } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
     } else if (option.equals("2")) {
@@ -224,7 +224,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
       try {
         model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell");
-      } catch(IllegalArgumentException e){
+      } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
     }
@@ -248,15 +248,15 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
 
-  private void continueUpdatingPortfolioForCurrentInstance(String path,Portfolio portfolio, String portfolioName) {
+  private void continueUpdatingPortfolioForCurrentInstance(String path, Portfolio portfolio, String portfolioName) {
     view.checkIfUserWantsToContinueUpdatingPortfolio();
     String option = input.nextLine();
     if (validateInputsFromUSer(option)) {
-      continueUpdatingPortfolioForCurrentInstance (path,portfolio, portfolioName);
+      continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
     }
     if (option.equals("1")) {
       //1 for continue
-      updateStocksForCurrentInstance(path,portfolio, portfolioName);
+      updateStocksForCurrentInstance(path, portfolio, portfolioName);
     } else if (option.equals("2")) {
       //continue further
       //model.createPortfolioIfCreatedManually(portfolioName, portfolio);
@@ -286,11 +286,11 @@ public class PortfolioControllerImpl implements PortfolioController {
     if (validateInitialInputsFromUser(option)) {
       viewHelper(name);
     }
-    String type=null;
-    if(!name.equals("currentInstance")) {
+    String type = null;
+    if (!name.equals("currentInstance")) {
       type = jsonParserImplementation.getTypeOfFile(name);
     }
-    helperForViewHelper(type,option,name,"");
+    helperForViewHelper(type, option, name, "");
   }
 
   private void dateNotFoundHelper(String name, Portfolio portfolio) {
@@ -329,18 +329,18 @@ public class PortfolioControllerImpl implements PortfolioController {
       viewHelper2ForCurrentInstance(name, filePath);
     }
     if (option.equals("1")) {
-      viewHelperForCurrentInstance(name,filePath);
+      viewHelperForCurrentInstance(name, filePath);
     } else {
       finalExitCondition();
     }
 
   }
 
-  private String dateHelperInFlexiblePortfolio(String companyName){
+  private String dateHelperInFlexiblePortfolio(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (validateDate(date) || validateDateToCheckIfBeforeIPO(date,companyName)) {
-      return dateHelper();
+    if (validateDate(date) || validateDateToCheckIfBeforeIPO(date, companyName)) {
+      return dateHelperInFlexiblePortfolio(companyName);
     }
     return date;
   }
@@ -395,8 +395,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       viewHelperForCurrentInstance("currentInstance", filePath);
     } else if (option.equals("2")) {
       finalExitCondition();
-    }
-    else if(option.equals("3")){
+    } else if (option.equals("3")) {
       updatePortfolioForCurrentInstance(filePath);
     }
   }
@@ -405,48 +404,45 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     this.portfolioName = "currentInstance";
     String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
-    if(!type.equals("flexible"))
-    {
+    if (!type.equals("flexible")) {
       view.displayErrorMessage("Can not update an inflexible portfolio");
       start();
     }
-    updateStocksForCurrentInstance(filePath,flexiblePortfolioTypeObj, portfolioName);
+    updateStocksForCurrentInstance(filePath, flexiblePortfolioTypeObj, portfolioName);
   }
 
-private void updateStocksForCurrentInstance(String path, Portfolio portfolio, String portfolioName)
-{
-  view.displayMessageToBuyOrSell();
-  String option = input.nextLine();
-  if (validateInputsFromUSer(option)) {
-    updateStocksForCurrentInstance(path, portfolio, portfolioName);
-  }
-  if (option.equals("1")) {
-    //1 for buy
-    String companyName = companyHelper(portfolio);
-    String quantity = quantityHelper();
-    String date = dateHelperInFlexiblePortfolio(companyName);
-    try {
-      model.updatePortfolioUsingFilePath(path,companyName, quantity, date, portfolioName, portfolio, "buy");
-    } catch(IllegalArgumentException e){
-      view.displayErrorMessage(e.getMessage());
+  private void updateStocksForCurrentInstance(String path, Portfolio portfolio, String portfolioName) {
+    view.displayMessageToBuyOrSell();
+    String option = input.nextLine();
+    if (validateInputsFromUSer(option)) {
+      updateStocksForCurrentInstance(path, portfolio, portfolioName);
     }
-  } else if (option.equals("2")) {
-    //2 for sell
-    String companyName = companyHelper(portfolio);
-    String quantity = quantityHelper();
-    String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
-    try {
-      model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "sell");
-    } catch(IllegalArgumentException e){
-      view.displayErrorMessage(e.getMessage());
+    if (option.equals("1")) {
+      //1 for buy
+      String companyName = companyHelper(portfolio);
+      String quantity = quantityHelper();
+      String date = dateHelperInFlexiblePortfolio(companyName);
+      try {
+        model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "buy");
+      } catch (IllegalArgumentException e) {
+        view.displayErrorMessage(e.getMessage());
+      }
+    } else if (option.equals("2")) {
+      //2 for sell
+      String companyName = companyHelper(portfolio);
+      String quantity = quantityHelper();
+      String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+      try {
+        model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "sell");
+      } catch (IllegalArgumentException e) {
+        view.displayErrorMessage(e.getMessage());
+      }
     }
+    continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
   }
-  continueUpdatingPortfolioForCurrentInstance(path,portfolio, portfolioName);
-}
 
 
-  private void helperForViewHelper(String type, String option, String name, String path )
-  {
+  private void helperForViewHelper(String type, String option, String name, String path) {
     Portfolio portfolio = null;
     if (type.equals(flexibleType)) {
       portfolio = flexiblePortfolioTypeObj;
@@ -500,16 +496,14 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
         view.displayPortfolioPerformance(result, startDate, endDate, name);
         break;
     }
-    if(name.equals("currentInstance"))
-    {
-      viewHelper2ForCurrentInstance(name,path);
-    } else{
-    viewHelper2(name);
+    if (name.equals("currentInstance")) {
+      viewHelper2ForCurrentInstance(name, path);
+    } else {
+      viewHelper2(name);
     }
   }
 
-  private void viewHelperForCurrentInstance(String name,String filePath)
-  {
+  private void viewHelperForCurrentInstance(String name, String filePath) {
     view.checkIfUserWantsToViewCompositionOrTotalValue();
 
     String option = String.valueOf(input.nextLine());
@@ -518,9 +512,10 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
     }
     String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
 
-    helperForViewHelper(type,option, name, filePath);
+    helperForViewHelper(type, option, name, filePath);
 
   }
+
   private void stoppingCondition(Portfolio portfolio, String portfolioName) {
     view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     String option = input.nextLine();
@@ -540,7 +535,7 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
   private String companyHelper(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (validateIfCompanyExists(companyName,portfolio)) {
+    if (validateIfCompanyExists(companyName, portfolio)) {
       return companyHelper(portfolio);
     }
     return companyName;
@@ -631,6 +626,7 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
     }
     return false;
   }
+
   private boolean validateQuantity(String quantity) {
     try {
       long q = Long.parseLong(quantity);
@@ -645,9 +641,9 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
     return false;
   }
 
-  private boolean validateIfPortfolioExists(String portfolioName,Portfolio portfolio) {
+  private boolean validateIfPortfolioExists(String portfolioName, Portfolio portfolio) {
     try {
-      model.validateIfPortfolioAlreadyExists(portfolioName,portfolio);
+      model.validateIfPortfolioAlreadyExists(portfolioName, portfolio);
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage(e.getMessage());
       return true;
@@ -673,9 +669,9 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
     return false;
   }
 
-  private boolean validateIfCompanyExists(String companyName,Portfolio portfolio) {
+  private boolean validateIfCompanyExists(String companyName, Portfolio portfolio) {
     try {
-      model.validateIfCompanyExists(companyName,portfolio);
+      model.validateIfCompanyExists(companyName, portfolio);
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage(e.getMessage());
       return true;
@@ -692,12 +688,12 @@ private void updateStocksForCurrentInstance(String path, Portfolio portfolio, St
           Date ipoDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                   .parse(companyTickerSymbol.getEndDate());
 
-          if(givenDate.compareTo(ipoDate)<0){
+          if (givenDate.compareTo(ipoDate) < 0) {
             view.displayErrorMessage("Given date is before IPO Date.Please provide a valid date.");
             return true;
           }
           break;
-        } catch(ParseException e ){
+        } catch (ParseException e) {
           view.displayErrorMessage(e.getMessage());
           return true;
         }

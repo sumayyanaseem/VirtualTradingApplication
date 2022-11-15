@@ -77,7 +77,7 @@ public class PortfolioViewImplTest {
   @Test
   public void testGetCompanyTicker() {
     portfolioView.getCompanyTicker();
-    assertEquals(bytes.toString(), "Enter the name of the company to be added to portfolio\n");
+    assertEquals(bytes.toString(), "Enter the name of the company\n");
   }
 
   @Test
@@ -121,8 +121,7 @@ public class PortfolioViewImplTest {
   @Test
   public void testGetDateForValuation() {
     portfolioView.getDate();
-    assertEquals(bytes.toString(), "Enter date as of which you need "
-            + "portfolio valuation( YYYY-MM-DD format only)\n");
+    assertEquals(bytes.toString(), "Enter date( YYYY-MM-DD format only)\n");
   }
 
 
@@ -143,17 +142,17 @@ public class PortfolioViewImplTest {
   public void testCallExitFromLoad() {
     portfolioView.callExitFromLoad();
     assertEquals(bytes.toString(), "Enter 1: To view details of this portfolio. "
-            + " 2: To exit and continue further trading.\n");
+            + " 2: To exit and continue further trading. 3: To update loaded portfolio.\n");
   }
 
   @Test
   public void testDisplayComposition() {
     List<List<String>> records = null;
     portfolioView.displayComposition(records);
-    assertTrue(bytes.toString().isEmpty());
+    assertEquals(bytes.toString(),"Composition is not available for given date\n");
     records = new ArrayList<>();
     portfolioView.displayComposition(records);
-    assertTrue(bytes.toString().isEmpty());
+    assertTrue(bytes.toString().contains("Composition is not available for given date\n"));
     List<String> l = Arrays.asList("foo", "bar");
     records.add(l);
     portfolioView.displayComposition(records);

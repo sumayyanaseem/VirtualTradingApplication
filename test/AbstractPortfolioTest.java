@@ -24,9 +24,9 @@ abstract class AbstractPortfolioTest {
     return (int) (Math.random() * (max - min + 1) + min);
   }
 
-  public static final class flexiblePortfolioImplTest extends AbstractPortfolioTest {
+  public static final class FlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
-    private static String date ="2022-10-01";
+    private static final String date ="2022-10-01";
 
     @Override
     @Before

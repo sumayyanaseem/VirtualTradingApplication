@@ -1,4 +1,5 @@
 package stocks.customAPI;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -11,16 +12,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static stocks.customAPI.LocalCacheForAPI.getStockRecordsForCompany;
+import static stocks.customAPI.LocalCacheForAPI.insertRecordsIntoCache;
+
 /**
  * This class represents a custom class for all the APIs related to fetching stock price.
  */
 public class APICustomClass implements APICustomInterface {
 
- private static final String apiKey = "5KFQLJAEXPPU6DJ9";
+  private static final String apiKey = "5KFQLJAEXPPU6DJ9";
   private final String urlString;
 
-  public APICustomClass(String url){
-    this.urlString= url;
+  public APICustomClass(String url) {
+    this.urlString = url;
   }
 
   /**
@@ -32,8 +36,11 @@ public class APICustomClass implements APICustomInterface {
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
     double price = -1;
-    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
-    String[] lines = output.split(System.lineSeparator());
+    String[] lines = getStockRecordsForCompany(companyTickerSymbol);
+    if(lines==null) {
+      String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
+      lines = output.split(System.lineSeparator());
+    }
     String[] values = lines[1].split(",");
     price = Double.parseDouble(values[4]);
 
@@ -51,11 +58,13 @@ public class APICustomClass implements APICustomInterface {
     String latestAvailableStkPrice = "0.0";
     Date availableDateObj = null;
     Date givenDateObj;
-    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"DAILY");
-    String[] lines = output.split(System.lineSeparator());
+    String[] lines = getStockRecordsForCompany(companyTickerSymbol);
+    if(lines==null) {
+      String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
+      lines = output.split(System.lineSeparator());
+    }
     List<List<String>> records = new ArrayList<>();
-    for(int i=1;i<lines.length;i++)
-    {
+    for (int i = 1; i < lines.length; i++) {
       String[] values = lines[i].split(",");
       records.add(Arrays.asList(values));
     }
@@ -79,22 +88,27 @@ public class APICustomClass implements APICustomInterface {
     }
 
 
-    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0 ) {
+    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
       //throw new IllegalArgumentException("Stock Price is not available for this past date");
-      latestAvailableStkPrice="0";
+      latestAvailableStkPrice = "0";
     }
     return Double.parseDouble(latestAvailableStkPrice) * qty;
   }
 
+<<<<<<< HEAD
   @Override
   public double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty, String output)
   {
 
+=======
+  double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty) {
+
+    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "MONTHLY");
+>>>>>>> 1058cd6dbeb650db62974c0cd386e5469e9a551c
     String[] lines = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
-    double value=0.0;
-    for(int i=1;i<lines.length;i++)
-    {
+    double value = 0.0;
+    for (int i = 1; i < lines.length; i++) {
       String[] values = lines[i].split(",");
       records.add(Arrays.asList(values));
     }
@@ -115,22 +129,13 @@ public class APICustomClass implements APICustomInterface {
 
 
   @Override
-  public String fetchOutputStringFromURLByInterval( String companyTickerSymbol, String interval) {
+  public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
-
-
-    String stockSymbol = companyTickerSymbol; //ticker symbol for Google
+    String stockSymbol = companyTickerSymbol;
     URL url;
 
     try {
-      /*
-      create the URL. This is the query to the web service. The query string
-      includes the type of query (DAILY stock prices), stock symbol to be
-      looked up, the API key and the format of the returned
-      data (comma-separated values:csv). This service also supports JSON
-      which you are welcome to use.
-       */
-      url =new URL(this.urlString
+      url = new URL(this.urlString
               + interval
               + "&symbol"
               + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv" + "&outputsize=full");
@@ -152,8 +157,11 @@ public class APICustomClass implements APICustomInterface {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
 
-    return output.toString();
+    if(interval.equalsIgnoreCase("DAILY")){
+      insertRecordsIntoCache(companyTickerSymbol,output);
+    }
 
+    return output.toString();
   }
 
 
