@@ -178,7 +178,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return date;
   }
 
-  private double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -315,6 +315,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
    return null;
   }
+
+
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
     if (portfolioName == null || portfolioName.equals("")) {
@@ -342,7 +344,17 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-    return null;
+    try {
+
+      Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
+      //create a new map here and pass it to PortfolioPerformance
+      PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
+      return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
+    }
+    catch(Exception e) {
+
+    }
+return null;
   }
 
   private void validateInputsForBuy(String companyName, String quantity, String date) {

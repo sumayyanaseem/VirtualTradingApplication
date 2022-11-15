@@ -100,7 +100,7 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
+    public Map<String,Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
       return null;
     }
   }

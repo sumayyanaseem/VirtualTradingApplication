@@ -12,7 +12,7 @@ public class PortfolioModelImpl implements PortfolioModel {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
-    return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
+     return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
   }
 
   @Override

@@ -86,10 +86,10 @@ public class APICustomClass implements APICustomInterface {
     return Double.parseDouble(latestAvailableStkPrice) * qty;
   }
 
-  double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty)
+  @Override
+  public double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol, String yearMonth, double qty, String output)
   {
 
-    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol,"MONTHLY");
     String[] lines = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
     double value=0.0;

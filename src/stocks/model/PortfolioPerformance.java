@@ -1,11 +1,10 @@
-/*package stocks.model;
+package stocks.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,41 +16,45 @@ import java.util.Map;
 import stocks.customAPI.APICustomClass;
 import stocks.customAPI.APICustomInterface;
 import stocks.customParser.JsonParserImplementation;
-import stocks.customParser.customCSVParserImpl;
 
 public class PortfolioPerformance {
   private final APICustomInterface apiCustom;
-  private final Portfolio portfolioObj;
-  Map<String,Map<String,Double>> storedMonthlyValues; // stock --> yymm-val
+  Map<String, Map<String, Double>> storedMonthlyValues; // stock --> yymm-val
+  Map<String, Map<String,Double>> mapOfAllStocksDateWise;
+  Map<String, Map<String,Double>> mapOfAllStocksMonthWise;
+  Map<String, Map<String,Double>> mapOfAllStocksWeekWise;
+  Map<String, List<Stock>> portfolioMap;
 
-  public PortfolioPerformance()
-  {
+
+
+  public PortfolioPerformance(Map<String, List<Stock>> portfolioMap) {
     apiCustom = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
-    portfolioObj = new FlexiblePortfolioImpl();
-    storedMonthlyValues = new HashMap<>();
+    this.portfolioMap =portfolioMap;
+    mapOfAllStocksDateWise = new HashMap<>();
+    mapOfAllStocksMonthWise = new HashMap<>();
+    mapOfAllStocksWeekWise = new HashMap<>();
   }
 
-  public long daysBetween(String date1, String date2)
-  {
-    LocalDate startDate = LocalDate.parse("2016-08-31");
-    LocalDate endDate = LocalDate.parse("2016-09-30");
+  public long daysBetween(String date1, String date2) {
+    LocalDate startDate = LocalDate.parse(date1);
+    LocalDate endDate = LocalDate.parse(date2);
 
     long days = ChronoUnit.DAYS.between(startDate, endDate);
     return days;
   }
-  public long weeksBetween(String date1, String date2)
-  {
+
+  public long weeksBetween(String date1, String date2) {
 
 //add validations if user is entering dates which dont exists
-    LocalDate startDate = LocalDate.parse("2016-08-31");
-    LocalDate endDate = LocalDate.parse("2016-09-30");
+    LocalDate startDate = LocalDate.parse(date1);
+    LocalDate endDate = LocalDate.parse(date2);
 
     long weeksInYear = ChronoUnit.WEEKS.between(startDate, endDate);
     return weeksInYear;
   }
-  public long monthsBetween(String date1, String date2)
-  {
-            long monthsBetween = ChronoUnit.MONTHS.between(
+
+  public long monthsBetween(String date1, String date2) {
+    long monthsBetween = ChronoUnit.MONTHS.between(
             YearMonth.from(LocalDate.parse(date1)),
             YearMonth.from(LocalDate.parse(date2))
     );
@@ -59,92 +62,71 @@ public class PortfolioPerformance {
   }
 
 
-  Map<String,Double> generateMapWithMonthKeys(String date1, String date2)
-  {
+  Map<String, Double> generateMapWithMonthKeys(String date1, String date2) {
 
-    Map<String,Double> m = new HashMap<>();
-    int year1=Integer.valueOf(date1.substring(0,4));
-    int year2=Integer.valueOf(date2.substring(0,4));
-    int month1=Integer.valueOf(date1.substring(5,7));
-    int month2=Integer.valueOf(date2.substring(5,7));
+    Map<String, Double> m = new HashMap<>();
+    int year1 = Integer.valueOf(date1.substring(0, 4));
+    int year2 = Integer.valueOf(date2.substring(0, 4));
+    int month1 = Integer.valueOf(date1.substring(5, 7));
+    int month2 = Integer.valueOf(date2.substring(5, 7));
 
-    if(year1==year2)
-    {
-      for(int i=month1;i<=month2;i++)
-      {
-        String key=date1.substring(0,4);
-        int d=i/10;
-        if(d==0)
-        {
-          key=key+"-0"+String.valueOf(i);
+    if (year1 == year2) {
+      for (int i = month1; i <= month2; i++) {
+        String key = date1.substring(0, 4);
+        int d = i / 10;
+        if (d == 0) {
+          key = key + "-0" + String.valueOf(i);
+        } else {
+          key = key + "-" + String.valueOf(i);
         }
-        else
-        {
-          key=key+"-"+String.valueOf(i);
-        }
-        m.put(key,0.0);
+        m.put(key, 0.0);
 
       }
-    }
-    else
-    {
-      int n=year2-year1;
-      String yr= date1.substring(0,4);
-      for(int i=month1;i<=12;i++)
-      {
-        String key=date1.substring(0,4);
-        int d=i/10;
-        if(d==0)
-        {
-          key=key+"-0"+String.valueOf(i);
+    } else {
+      int n = year2 - year1;
+      String yr = date1.substring(0, 4);
+      for (int i = month1; i <= 12; i++) {
+        String key = date1.substring(0, 4);
+        int d = i / 10;
+        if (d == 0) {
+          key = key + "-0" + String.valueOf(i);
+        } else {
+          key = key + "-" + String.valueOf(i);
         }
-        else
-        {
-          key=key+"-"+String.valueOf(i);
-        }
-        m.put(key,0.0);
+        m.put(key, 0.0);
 
       }
-      int nextYr=0;
-      while(n-1>0)
-      {
-        nextYr=Integer.valueOf(yr);
-        nextYr=nextYr+1;
+      int nextYr = 0;
+      while (n - 1 > 0) {
+        nextYr = Integer.valueOf(yr);
+        nextYr = nextYr + 1;
 
-        for(int i=1;i<=12;i++)
-        {
-          String key=String.valueOf(nextYr);
-          int d=i/10;
-          if(d==0)
-          {
-            key=key+"-0"+String.valueOf(i);
+        for (int i = 1; i <= 12; i++) {
+          String key = String.valueOf(nextYr);
+          int d = i / 10;
+          if (d == 0) {
+            key = key + "-0" + String.valueOf(i);
+          } else {
+            key = key + "-" + String.valueOf(i);
           }
-          else
-          {
-            key=key+"-"+String.valueOf(i);
-          }
-          m.put(key,0.0);
+          m.put(key, 0.0);
 
         }
         n--;
 
       }
 
-      int lastYr= nextYr+1;
+      int lastYr = nextYr + 1;
 
-      for(int i=1;i<=month2;i++)
-      {
-        String key=String.valueOf(nextYr);
-        int d=i/10;
-        if(d==0)
-        {
-          key=key+"-0"+String.valueOf(i);
+      for (int i = 1; i <= month2; i++) {
+        String key = String.valueOf(nextYr);
+        int d = i / 10;
+        if (d == 0) {
+          key = key + "-0" + String.valueOf(i);
+        } else {
+          key = key + "-" + String.valueOf(i);
         }
-        else
-        {
-          key=key+"-"+String.valueOf(i);
-        }
-        m.put(key,0.0);
+        m.put(key, 0.0);
 
       }
 
@@ -152,9 +134,10 @@ public class PortfolioPerformance {
     }
     return m;
   }
-  public Map<String,Double> displayCopy( String date1, String date2, String portfolioName) throws ParseException {
 
-    Map<String,List<Stock>> resultMap = new JsonParserImplementation().readFromFile(portfolioName);
+  public Map<String, Double> displayCopy(String date1, String date2, String portfolioName) throws ParseException {
+
+    Map<String, List<Stock>> resultMap = new JsonParserImplementation().readFromFile(portfolioName);
     long months = monthsBetween(date1, date2);
     long days = daysBetween(date1, date2);
     long weeks = weeksBetween(date1, date2);
@@ -179,25 +162,75 @@ public class PortfolioPerformance {
       Map<String, Double> dayWiseTotalValues = new HashMap<>();
 
       for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
-        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey());
+        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(),"DAILY");
 
-        if(dayWiseTotalValues.size()==0)
-        {
+        if (dayWiseTotalValues.size() == 0) {
           dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
         }
-        for(Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet())
-        {
-          double netQty = new FlexiblePortfolioImpl().getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
-          double stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
 
-          dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
+        for (Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet()) {
+          double netQty = getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
+          double stkValueDayEnd=0.0;
+          if(mapOfAllStocksDateWise.isEmpty() || mapOfAllStocksDateWise.get(companyInfo.getKey()).isEmpty())
+          {
+            mapOfAllStocksDateWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
+          }
+          else
+          {
+            if(mapOfAllStocksDateWise.get(companyInfo.getKey()).containsKey(allDaysInRange.getKey()))
+            {
+              stkValueDayEnd = mapOfAllStocksDateWise.get(companyInfo.getKey()).get(allDaysInRange.getKey());
+            }
+            else
+            {
+              stkValueDayEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
+            }
+          }
+
+          dayWiseTotalValues.put(allDaysInRange.getKey(), dayWiseTotalValues.get(allDaysInRange.getKey()) + stkValueDayEnd);
         }
 
       }
+      return dayWiseTotalValues;
+      //plotGraph(dayWiseTotalValues, portfolioName, date1, date2);
+    } else if (weeks >= 5 && weeks <= 30) {
+      Map<String, Double> weekWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
+
+      // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
+      for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+          String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(), "WEEKLY");
+
+          if(weekWiseTotalValues.size()==0) {
+            weekWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+          }
+          for (Map.Entry<String, Double> allWeeksInRange : weekWiseTotalValues.entrySet()) {
+            double netQty = getQuantityOnThisDateForGivenCompanyName(allWeeksInRange.getKey(), companyInfo.getKey());
+            double stkValueWeekEnd=0.0;
+            if(mapOfAllStocksWeekWise.isEmpty() || mapOfAllStocksWeekWise.get(companyInfo.getKey()).isEmpty())
+            {
+              mapOfAllStocksWeekWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
+            }
+            else
+            {
+              if(mapOfAllStocksWeekWise.get(companyInfo.getKey()).containsKey(allWeeksInRange.getKey()))
+              {
+                stkValueWeekEnd = mapOfAllStocksDateWise.get(companyInfo.getKey()).get(allWeeksInRange.getKey());
+              }
+              else
+              {
+                stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
+              }
+            }
+            stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
+
+            weekWiseTotalValues.put(allWeeksInRange.getKey(), weekWiseTotalValues.get(allWeeksInRange.getKey()) + stkValueWeekEnd);
+      }
 
     }
+      return weekWiseTotalValues;
+      //plotGraph(weekWiseTotalValues,portfolioName, date1, date2);
 
-
+  }
     else if (months >= 5 && months <= 30) {
       Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
@@ -220,56 +253,70 @@ public class PortfolioPerformance {
         double totalValueOfPortfolioMonthEnd = 0.0;
 
         for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
+          String data="";
+          if(mapOfAllStocksMonthWise.isEmpty() || mapOfAllStocksMonthWise.get(companyInfo.getKey()).isEmpty())
+          {
+            data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(),"MONTHLY");
+            mapOfAllStocksMonthWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
+          }
 
           //move this method to interface
-          double netQty = portfolioObj.getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
-          if(!storedMonthlyValues.containsKey(companyInfo.getKey()))
+          double stkValueMonthEnd=0.0;
+          double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
+          if(mapOfAllStocksMonthWise.get(companyInfo.getKey()).containsKey(entry.getKey()))
           {
-            Map<String,Double> monthsAndValues = constructCacheForMonthlyValues(companyInfo.getKey());
+            stkValueMonthEnd=mapOfAllStocksMonthWise.get(companyInfo.getKey()).get(entry.getKey());
           }
-          double stkValueMonthEnd = getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty);
+          else {
+            stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty, data);
+          }
+
           totalValueOfPortfolioMonthEnd = totalValueOfPortfolioMonthEnd + stkValueMonthEnd;
         }
 
         monthWiseTotalValues.put(dt, totalValueOfPortfolioMonthEnd);
 
       }
-
-
+      return monthWiseTotalValues;
+      //plotGraph(monthWiseTotalValues,portfolioName, date1, date2);
     }
 
-    else if(weeks>=5 && weeks<=30) {
-      Map<String, Double> weekWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
-      // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
-      String data = fetchOutputStringFromURLByInterval(companyInfo.getKey(),"WEEKLY");
-      Map<String, Double> weekWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
-      for(Map.Entry<String, Double> allWeeksInRange : weekWiseTotalValues.entrySet())
-      {
-        double netQty = getQuantityOnThisDateForGivenCompanyName(allWeeksInRange.getKey(), companyInfo.getKey());
-        double stkValueMonthEnd = getStockPriceAsOfCertainWeek(companyInfo.getKey(), netQty, allWeeksInRange.getKey(),data);
+    return null;
+  }
 
-        dayWiseTotalValues.put(allDaysInRange.getKey(),dayWiseTotalValues.get(allDaysInRange.getKey())+stkValueMonthEnd)
-      }
 
+
+
+
+
+
+
+
+
+
+  Map<String,Double> constructStockvaluesMapForAllDates(String output)
+  {
+    Map<String,Double> result=new HashMap<>();
+    String[] lines = output.split(System.lineSeparator());
+    List<List<String>> records = new ArrayList<>();
+    for(int i=1;i<lines.length;i++)
+    {
+      String[] values = lines[i].split(",");
+      result.put(values[0],Double.valueOf(values[4]));
     }
-
+    return result;
 
 
   }
-
-  private Map<String, constructCacheForMonthlyValues
-
-  private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data)
-  {
-    Map<String,Double> result=new HashMap<>();
+  private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data) {
+    Map<String, Double> result = new HashMap<>();
     String lines[] = data.split(System.lineSeparator());
     Date givenDateObj1;
     Date givenDateObj2;
     Date availableDateObj;
     List<List<String>> records = new ArrayList<>();
-    for(int i=1;i<lines.length;i++)
-    {
+    for (int i = 1; i < lines.length; i++) {
       String[] values = lines[i].split(",");
       records.add(Arrays.asList(values));
     }
@@ -285,16 +332,15 @@ public class PortfolioPerformance {
         availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(availableDate);
         if (availableDateObj.compareTo(givenDateObj2) <= 0) {
-          result.put(availableDate,0.0);
+          result.put(availableDate, 0.0);
           break;
         }
 
       }
-      for(int j=i+1;j<records.size();j++)
-      {
+      for (int j = i + 1; j < records.size(); j++) {
         List<String> infoByDate = new ArrayList<>(records.get(j));
         String availableDate = infoByDate.get(0);
-        result.put(availableDate,0.0);
+        result.put(availableDate, 0.0);
         availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(availableDate);
         if (availableDateObj.compareTo(givenDateObj1) <= 0) {
@@ -304,11 +350,33 @@ public class PortfolioPerformance {
 
     } catch (ParseException e) {
       throw new IllegalArgumentException("file not found in our records "
-              + "for given company " + companyTickerSymbol);
+              + "for given company ");
     }
-
+return result;
   }
 
+
+  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+
+    List<Stock> list = portfolioMap.get(companyName);
+    Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            .parse(date);
+    double quantity = 0;
+    for (Stock stock : list) {
+      String datePresent = stock.getDateOfAction();
+      Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(datePresent);
+      if (todayDate.compareTo(givenDate) <= 0) {
+        if (stock.getAction().equals("buy")) {
+          quantity += stock.getQty();
+        } else if (stock.getAction().equals("sell")) {
+          quantity -= stock.getQty();
+        }
+      }
+    }
+    return quantity;
+  }
+}
   /*public long yearsBetween(String date1, String date2)
   {
     //add validations date 1 < date 2
