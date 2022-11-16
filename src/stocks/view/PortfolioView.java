@@ -81,7 +81,6 @@ public interface PortfolioView {
   void displayTotalValue(String date, String val, String portfolioName);
 
 
-
   /**
    * displays the message to user asking to enter date.
    */
@@ -98,7 +97,6 @@ public interface PortfolioView {
    * displays the message to user asking if he wants to exit after loading the file.
    */
   void callExitFromLoad();
-
 
 
   /**
@@ -118,7 +116,7 @@ public interface PortfolioView {
 
   void createFlexibleOrInFlexiblePortfolio();
 
-void displayTheTotalCost(double totalCost,String date,String portfolioName);
+  void displayTheTotalCost(double totalCost, String date, String portfolioName);
 
-void displayPortfolioPerformance(Map<String,Double> result,String startDate,String endDate,String portfolioName);
+  void displayPortfolioPerformance(Map<String, Double> result, String startDate, String endDate, String portfolioName);
 }

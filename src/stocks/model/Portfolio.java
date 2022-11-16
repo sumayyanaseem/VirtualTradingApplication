@@ -32,7 +32,7 @@ public interface Portfolio {
    * @param portfolioName the name of the portfolio for which composition is needed.
    * @return the composition of portfolio in a list format.
    */
-  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName,String date);
+  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date);
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.
@@ -70,15 +70,16 @@ public interface Portfolio {
    * @param companyName   company of which stocks need to be bought.
    * @param portfolioName portfolio to which bought stocks need to be added.
    */
-  void buyStocks(String companyName,String quantity,String date,String portfolioName) throws IllegalArgumentException;
+  void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException;
 
-  void sellStocks(String companyName,String quantity,String date,String portfolioName) throws IllegalArgumentException;
+  void sellStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException;
 
-  void updatePortfolio(String companyName,String quantity,String date,String portfolioName,String action) throws IllegalArgumentException;
-  void updatePortfolioUsingFilePath(String path,String companyName,String quantity,String date,String portfolioName,String action) throws IllegalArgumentException;
+  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException;
+
+  void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException;
 
 
-  double getTotalMoneyInvestedOnCertainDate(String date,String portfolioName);
+  double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName);
 
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName);
 

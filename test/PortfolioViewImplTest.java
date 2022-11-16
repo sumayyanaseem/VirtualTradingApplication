@@ -149,7 +149,7 @@ public class PortfolioViewImplTest {
   public void testDisplayComposition() {
     List<List<String>> records = null;
     portfolioView.displayComposition(records);
-    assertEquals(bytes.toString(),"Composition is not available for given date\n");
+    assertEquals(bytes.toString(), "Composition is not available for given date\n");
     records = new ArrayList<>();
     portfolioView.displayComposition(records);
     assertTrue(bytes.toString().contains("Composition is not available for given date\n"));

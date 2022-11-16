@@ -1,5 +1,8 @@
 package stocks.customAPI;
 
+/**
+ * This enum represents stocks supported by application and IPO dates for each.
+ */
 public enum CompanyTickerSymbol {
   GOOG("2014-05-01"),
   META("2013-01-01"),

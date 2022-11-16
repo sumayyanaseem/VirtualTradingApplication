@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ModelImplTest {
 
-  static class MockPortfolio implements Portfolio{
+  static class MockPortfolio implements Portfolio {
 
     private final StringBuilder log;
 
@@ -24,24 +24,24 @@ public class ModelImplTest {
 
     @Override
     public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: " + date +" "+portfolioName+  "\n");
+      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: " + date + " " + portfolioName + "\n");
       return 0;
     }
 
     @Override
     public void loadPortfolioUsingFilePath(String filePath) {
-      log.append("inputs for loadPortfolioUsingFilePath: " + filePath +  "\n");
+      log.append("inputs for loadPortfolioUsingFilePath: " + filePath + "\n");
     }
 
     @Override
     public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
-      log.append("inputs for viewCompositionOfCurrentPortfolio: " + date +" "+portfolioName+  "\n");
+      log.append("inputs for viewCompositionOfCurrentPortfolio: " + date + " " + portfolioName + "\n");
       return null;
     }
 
     @Override
     public void createPortfolioIfCreatedManually(String portfolioName) {
-      log.append("inputs for createPortfolioIfCreatedManually: " +" "+portfolioName+  "\n");
+      log.append("inputs for createPortfolioIfCreatedManually: " + " " + portfolioName + "\n");
     }
 
     @Override
@@ -51,27 +51,27 @@ public class ModelImplTest {
 
     @Override
     public void validateIfPortfolioAlreadyExists(String portfolioName) {
-      log.append("inputs for validateIfPortfolioAlreadyExists: " +" "+portfolioName+  "\n");
+      log.append("inputs for validateIfPortfolioAlreadyExists: " + " " + portfolioName + "\n");
     }
 
     @Override
     public void validateIfPortfolioDoesntExists(String name) {
-      log.append("inputs for validateIfPortfolioDoesntExists: " +" "+name+  "\n");
+      log.append("inputs for validateIfPortfolioDoesntExists: " + " " + name + "\n");
     }
 
     @Override
     public void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for buyStocks: "+companyName+" "+quantity+" " + date +" "+portfolioName+  "\n");
+      log.append("inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
     }
 
     @Override
     public void sellStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for sellStocks: "+companyName+" "+quantity+" " + date +" "+portfolioName+  "\n");
+      log.append("inputs for sellStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
     }
 
     @Override
     public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
-      log.append("inputs for updatePortfolio: "+companyName+" "+quantity+" " + date +" "+portfolioName+  "\n");
+      log.append("inputs for updatePortfolio: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
 
     }
 
@@ -82,13 +82,13 @@ public class ModelImplTest {
 
     @Override
     public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalMoneyInvestedOnCertainDate: " + date +" "+portfolioName+  "\n");
+      log.append("inputs for getTotalMoneyInvestedOnCertainDate: " + date + " " + portfolioName + "\n");
       return 0;
     }
 
     @Override
     public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-      log.append("inputs for getPortfolioPerformanceOvertime: " + startTime+" "+endTime +" "+portfolioName+  "\n");
+      log.append("inputs for getPortfolioPerformanceOvertime: " + startTime + " " + endTime + " " + portfolioName + "\n");
       return null;
     }
   }
@@ -122,7 +122,7 @@ public class ModelImplTest {
 
   @Test
   public void testBuyStocks() {
-    String log = "inputs for buyStocks: "+companyName+" "+quantity+" " + date +" "+portfolioName+  "\n";
+    String log = "inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n";
     model.buyStocks(companyName, quantity, date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
@@ -141,80 +141,80 @@ public class ModelImplTest {
 
   @Test
   public void testGetTotalValueOfPortfolioOnCertainDate() {
-    String log ="inputs for getTotalValueOfPortfolioOnCertainDate: " + date +" "+portfolioName+  "\n";
+    String log = "inputs for getTotalValueOfPortfolioOnCertainDate: " + date + " " + portfolioName + "\n";
     model.getTotalValueOfPortfolioOnCertainDate(date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
   public void testLoadPortfolioUsingFilePath() {
-    String log ="inputs for loadPortfolioUsingFilePath: " + path +  "\n";
+    String log = "inputs for loadPortfolioUsingFilePath: " + path + "\n";
     model.loadPortfolioUsingFilePath(path, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
   public void testViewCompositionOfCurrentPortfolio() {
-    String log ="inputs for viewCompositionOfCurrentPortfolio: " + date +" "+portfolioName+  "\n";
+    String log = "inputs for viewCompositionOfCurrentPortfolio: " + date + " " + portfolioName + "\n";
     model.viewCompositionOfCurrentPortfolio(portfolioName, date, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
   public void testCreatePortfolioIfCreatedManually() {
-    String log="inputs for createPortfolioIfCreatedManually: " +" "+portfolioName+  "\n";
-    model.createPortfolioIfCreatedManually(portfolioName,mockPortfolio);
+    String log = "inputs for createPortfolioIfCreatedManually: " + " " + portfolioName + "\n";
+    model.createPortfolioIfCreatedManually(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
 
   @Test
   public void testUpdatePortfolio() {
-    String expected ="This operation is not supported in Inflexible portfolio";
-    String actual ="";
+    String expected = "This operation is not supported in Inflexible portfolio";
+    String actual = "";
 
     try {
       model.updatePortfolio(companyName, quantity, date, portfolioName, inflexiblePortfolio, "action");
-    } catch(UnsupportedOperationException e){
-      actual =e.getMessage();
+    } catch (UnsupportedOperationException e) {
+      actual = e.getMessage();
     }
-    assertEquals(actual,expected);
+    assertEquals(actual, expected);
   }
 
   @Test
   public void testGetTotalMoneyInvestedOnCertainDate() {
-    String log ="inputs for getTotalMoneyInvestedOnCertainDate: " + date +" "+portfolioName+  "\n";
-    model.getTotalMoneyInvestedOnCertainDate(date,portfolioName,mockPortfolio);
+    String log = "inputs for getTotalMoneyInvestedOnCertainDate: " + date + " " + portfolioName + "\n";
+    model.getTotalMoneyInvestedOnCertainDate(date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
 
   @Test
   public void testGetPortfolioPerformanceOvertime() {
-    String log="inputs for getPortfolioPerformanceOvertime: " + date+" "+date +" "+portfolioName+  "\n";
+    String log = "inputs for getPortfolioPerformanceOvertime: " + date + " " + date + " " + portfolioName + "\n";
 
-    model.getPortfolioPerformanceOvertime(date,date,portfolioName,mockPortfolio);
+    model.getPortfolioPerformanceOvertime(date, date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
-  public void testValidateIfCompanyExists(){
-   String log =("inputs for validateIfCompanyExists: " + " ")+(companyName)+("\n");
-    model.validateIfCompanyExists(companyName,mockPortfolio);
+  public void testValidateIfCompanyExists() {
+    String log = ("inputs for validateIfCompanyExists: " + " ") + (companyName) + ("\n");
+    model.validateIfCompanyExists(companyName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
-  public void testValidateIfPortfolioAlreadyExists(){
-    String log = ("inputs for validateIfPortfolioAlreadyExists: " +" "+portfolioName+  "\n");
-    model.validateIfPortfolioAlreadyExists(portfolioName,mockPortfolio);
+  public void testValidateIfPortfolioAlreadyExists() {
+    String log = ("inputs for validateIfPortfolioAlreadyExists: " + " " + portfolioName + "\n");
+    model.validateIfPortfolioAlreadyExists(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
-  public void testValidateIfPortfolioDoesntExists(){
-    String log="inputs for validateIfPortfolioDoesntExists: " +" "+portfolioName+  "\n";
-    model.validateIfPortfolioDoesntExists(portfolioName,mockPortfolio);
+  public void testValidateIfPortfolioDoesntExists() {
+    String log = "inputs for validateIfPortfolioDoesntExists: " + " " + portfolioName + "\n";
+    model.validateIfPortfolioDoesntExists(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 }

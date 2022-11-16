@@ -118,15 +118,34 @@ public class PortfolioViewImpl implements PortfolioView {
     out.println("Total cost basis from the portfolioName " + portfolioName + " on " + date + " is " + totalCost);
   }
 
-  @Override
-  public void displayPortfolioPerformance(Map<String, Double> result, String startDate, String endDate, String portfolioName) {
-    //determine scale from the first entry of the result map
-  }
 
+  @Override
+  public void displayPortfolioPerformance(Map<String, Double> mapToPlot, String portfolioName, String date1, String date2) {
+    out.println("Performance of portfolio " + portfolioName + "from YYY to ZZZ");
+    double total = 0.0;
+    for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
+      total = total + allWeeksInRange.getValue();
+    }
+    int base = (int) (total / mapToPlot.size());
+    for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
+      double val = allWeeksInRange.getValue();
+      int stars = (int) (val * 5 / base);
+
+
+      out.println("");
+      out.print(allWeeksInRange.getKey());
+      out.print("  :  ");
+      for (int i = 0; i < stars; i++) {
+        out.print("*");
+      }
+      out.println("");
+    }
+    out.println("Scale: *=$" + base);
+  }
 
   @Override
   public void displayComposition(List<List<String>> records) {
-    if(records==null || records.isEmpty()){
+    if (records == null || records.isEmpty()) {
       displayErrorMessage("Composition is not available for given date");
     }
     if (records != null && !records.isEmpty()) {
@@ -155,7 +174,7 @@ public class PortfolioViewImpl implements PortfolioView {
   public void callExitFromLoad() {
     out.println("Enter 1: To view details of this portfolio. "
             + " 2: To exit and continue further trading."
-    + " 3: To update loaded portfolio.");
+            + " 3: To update loaded portfolio.");
   }
 
 }
