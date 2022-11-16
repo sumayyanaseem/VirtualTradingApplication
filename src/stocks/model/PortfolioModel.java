@@ -3,6 +3,9 @@ package stocks.model;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This interface represents PortfolioModel.
+ */
 public interface PortfolioModel {
 
 
@@ -13,7 +16,9 @@ public interface PortfolioModel {
    * @param portfolioName the portfolio for which total value is needed.
    * @return the total value calculated for given date.
    */
-  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio);
+  double getTotalValueOfPortfolioOnCertainDate(String date,
+                                               String portfolioName,
+                                               Portfolio portfolio);
 
   /**
    * creates a portfolio using the data given by user in a file format.
@@ -28,7 +33,8 @@ public interface PortfolioModel {
    * @param portfolioName the name of the portfolio for which composition is needed.
    * @return the composition of portfolio in a list format.
    */
-  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio);
+  List<List<String>> viewCompositionOfCurrentPortfolio(
+          String portfolioName, String date, Portfolio portfolio);
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.
@@ -73,9 +79,12 @@ public interface PortfolioModel {
 
   void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action,String com) throws IllegalArgumentException;
 
-  double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio);
+  double getTotalMoneyInvestedOnCertainDate(String date,
+                                            String portfolioName, Portfolio portfolio);
 
-  Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio);
+  Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
+                                                      String endTime, String portfolioName,
+                                                      Portfolio portfolio);
 
 
 }

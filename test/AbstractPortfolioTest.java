@@ -36,25 +36,25 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
-    public void testMultipleBuysAndSells(){
-      buyMultipleStocks("test123",date);
-      sellMultipleStocks("test123",date);
+    public void testMultipleBuysAndSells() {
+      buyMultipleStocks("test123", date);
+      sellMultipleStocks("test123", date);
     }
 
     @Test
-    public void testSellBeforeBuy(){
+    public void testSellBeforeBuy() {
       String pName = "testFlexible";
       String expected = "It is impossible to sell a stock without first purchasing it.";
       String actual = "";
-      String cName ="goog";
-      String quantity="10";
-      String date="2022-10-01";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
       try {
         portfolio.sellStocks(cName, quantity, date,com, pName);
       } catch(IllegalArgumentException e){
         actual =e.getMessage();
       }
-      assertEquals(actual,expected);
+      assertEquals(actual, expected);
     }
 
     @Test
@@ -71,7 +71,7 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
-    public void testBuyBeforeIPO(){
+    public void testBuyBeforeIPO() {
       String pName = "testFlexible";
       String cName = "goog";
       String quantity = "10";
@@ -83,12 +83,12 @@ abstract class AbstractPortfolioTest {
       }catch(IllegalArgumentException e){
         actual=e.getMessage();
       }
-      assertEquals(expected,actual);
+      assertEquals(expected, actual);
     }
 
 
     @Test
-    public void testSellInFuture(){
+    public void testSellInFuture() {
       String pName = "testFlexible";
       String cName = "goog";
       String quantity = "10";
@@ -101,27 +101,27 @@ abstract class AbstractPortfolioTest {
       }catch(IllegalArgumentException e){
         actual=e.getMessage();
       }
-      assertEquals(expected,actual);
+      assertEquals(expected, actual);
     }
 
     @Test
-    public void testCostBasis(){
+    public void testCostBasis() {
       String pName = "testFlexible";
       String date = "2024-10-01";
-      double res= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
-      assertTrue(res!=0);
+      double res = portfolio.getTotalMoneyInvestedOnCertainDate(date, pName);
+      assertTrue(res != 0);
     }
 
     @Test
-    public void testCostBasisBeforeFirstPurchase(){
+    public void testCostBasisBeforeFirstPurchase() {
       String pName = "testFlexible";
       String date = "2000-10-01";
-      double res= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
-      assertEquals(res,0,0.01);
+      double res = portfolio.getTotalMoneyInvestedOnCertainDate(date, pName);
+      assertEquals(res, 0, 0.01);
     }
 
     @Test
-    public void testUpdatePortfolio(){
+    public void testUpdatePortfolio() {
       String pName = "testFlexible";
       String cName = "goog";
       String quantity = "10";
@@ -134,7 +134,7 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
-    public void testUpdatePortfolioSell(){
+    public void testUpdatePortfolioSell() {
       String pName = "testFlexible";
       String cName = "goog";
       String quantity = "10";
@@ -214,7 +214,7 @@ abstract class AbstractPortfolioTest {
     public void testBuyStocks() {
       String cName = "dash";
       String quantity = String.valueOf(generateRandomNumber());
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -224,7 +224,7 @@ abstract class AbstractPortfolioTest {
     public void testFractionalStocks() {
       String cName = "dash";
       String quantity = String.valueOf(2.50);
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -237,7 +237,7 @@ abstract class AbstractPortfolioTest {
       String expected = "Quantity should be always a positive whole number.";
       String actual = "";
       try {
-        buyStocks(cName, quantity, date,"testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -246,7 +246,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = "abc";
       try {
-        buyStocks(cName, quantity,date, "testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -256,7 +256,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = String.valueOf(0);
       try {
-        buyStocks(cName, quantity, date,"testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -265,7 +265,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = "";
       try {
-        buyStocks(cName, quantity, date,"testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -276,7 +276,7 @@ abstract class AbstractPortfolioTest {
       quantity = null;
       expected = "Invalid quantity provided";
       try {
-        buyStocks(cName, quantity,date, "testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -292,7 +292,7 @@ abstract class AbstractPortfolioTest {
               + "Please provide valid  companyTicker symbol.";
       String actual = "";
       try {
-        buyStocks(cName, quantity, date,"testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -303,7 +303,7 @@ abstract class AbstractPortfolioTest {
       cName = "";
       actual = "";
       try {
-        buyStocks(cName, quantity,date, "test");
+        buyStocks(cName, quantity, date, "test");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -315,7 +315,7 @@ abstract class AbstractPortfolioTest {
       expected = "Invalid companyName provided";
       actual = "";
       try {
-        buyStocks(cName, quantity, date,"testPortfolio");
+        buyStocks(cName, quantity, date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -328,12 +328,12 @@ abstract class AbstractPortfolioTest {
       //adding doordash
       String quantity = String.valueOf(generateRandomNumber());
       String cName = "dash";
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
 
       //Adding second
       quantity = String.valueOf(generateRandomNumber());
       cName = "orcl";
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -341,14 +341,14 @@ abstract class AbstractPortfolioTest {
       //Adding third
       quantity = String.valueOf(generateRandomNumber());
       cName = "shop";
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
 
       //Adding fourth
       quantity = String.valueOf(generateRandomNumber());
       cName = "twtr";
-      buyStocks(cName, quantity, date,"testPortfolio");
+      buyStocks(cName, quantity, date, "testPortfolio");
 
 
       assertTrue(portfolio.toString().contains(quantity));
@@ -400,7 +400,8 @@ abstract class AbstractPortfolioTest {
     public void testInvalidDate() {
       String date = "";
       String pName = "ff";
-      String expected = "Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.";
+      String expected = "Invalid dateFormat provided." +
+              "Please provide date in YYYY-MM-DD format only.";
       String actual = "";
       try {
         portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
@@ -493,7 +494,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testCreateAndViewImmediately() {
       String pName = "testPortfolio1";
-      buyMultipleStocks(pName,date);
+      buyMultipleStocks(pName, date);
       portfolio.createPortfolioIfCreatedManually(pName);
       File f = new File("userPortfolios/" + pName + "_output.json");
       assertTrue(f.exists());
@@ -508,7 +509,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testCreateAndViewTotalValue() {
       String pName = "testPortfolio2";
-      buyMultipleStocks(pName,date);
+      buyMultipleStocks(pName, date);
       portfolio.createPortfolioIfCreatedManually(pName);
       File f = new File("userPortfolios/" + pName + "_output.json");
       assertTrue(f.exists());
@@ -528,9 +529,11 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testLoadAndViewCompositionAndTotalValue() {
       portfolio.loadPortfolioUsingFilePath("userPortfolios/testFlexible_output.json");
-      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio("currentInstance", date);
+      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(
+              "currentInstance", date);
       assertFalse(results.isEmpty());
-      double res = portfolio.getTotalValueOfPortfolioOnCertainDate("2022-10-01", "currentInstance");
+      double res = portfolio.getTotalValueOfPortfolioOnCertainDate(
+              "2022-10-01", "currentInstance");
       assertFalse(res == 0.0);
     }
 
@@ -585,16 +588,16 @@ abstract class AbstractPortfolioTest {
     }
 
 
-    private void buyMultipleStocks(String name,String date) {
+    private void buyMultipleStocks(String name, String date) {
       //adding doordash
       String quantity = "15";
       String cName = "dash";
-      buyStocks(cName, quantity, date,name);
+      buyStocks(cName, quantity, date, name);
 
       //Adding second
       quantity = "25";
       cName = "orcl";
-      buyStocks(cName, quantity, date,name);
+      buyStocks(cName, quantity, date, name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains(name));
@@ -602,34 +605,34 @@ abstract class AbstractPortfolioTest {
       //Adding third
       quantity = String.valueOf(generateRandomNumber());
       cName = "shop";
-      buyStocks(cName, quantity,date, name);
+      buyStocks(cName, quantity, date, name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
 
       quantity = "15";
       cName = "shop";
-      buyStocks(cName, quantity, date,name);
+      buyStocks(cName, quantity, date, name);
 
       //Adding fourth
       quantity = "10";
       cName = "twtr";
-      buyStocks(cName, quantity, date,name);
+      buyStocks(cName, quantity, date, name);
 
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
     }
 
 
-    private void sellMultipleStocks(String name,String date) {
+    private void sellMultipleStocks(String name, String date) {
       //adding doordash
-      String quantity ="10";
+      String quantity = "10";
       String cName = "dash";
-      sellStocks(cName, quantity, date,name);
+      sellStocks(cName, quantity, date, name);
 
       //Adding second
       quantity = "20";
       cName = "orcl";
-      sellStocks(cName, quantity, date,name);
+      sellStocks(cName, quantity, date, name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains(name));
@@ -637,18 +640,18 @@ abstract class AbstractPortfolioTest {
       //Adding third
       quantity = "15";
       cName = "shop";
-      sellStocks(cName, quantity,date, name);
+      sellStocks(cName, quantity, date, name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
 
       quantity = "15";
       cName = "shop";
-      sellStocks(cName, quantity, date,name);
+      sellStocks(cName, quantity, date, name);
 
       //Adding fourth
       quantity = "10";
       cName = "twtr";
-      sellStocks(cName, quantity, date,name);
+      sellStocks(cName, quantity, date, name);
 
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
@@ -885,7 +888,8 @@ abstract class AbstractPortfolioTest {
     public void testInvalidDate() {
       String date = "";
       String pName = "testPfName";
-      String expected = "Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.";
+      String expected = "Invalid dateFormat provided." +
+              "Please provide date in YYYY-MM-DD format only.";
       String actual = "";
       try {
         portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
@@ -930,7 +934,8 @@ abstract class AbstractPortfolioTest {
       }
       assertEquals(actual, expected);
 
-      expected = "Future Date provided.Please provide date less then or equal to today";
+      expected = "Future Date provided.Please provide" +
+              " date less then or equal to today";
       date = "2023-10-10";
       actual = "";
       try {
@@ -1014,9 +1019,11 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testLoadAndViewCompositionAndTotalValue() {
       portfolio.loadPortfolioUsingFilePath("userPortfolios/testInFlexible_output.json");
-      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio("currentInstance", null);
+      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(
+              "currentInstance", null);
       assertFalse(results.isEmpty());
-      double res = portfolio.getTotalValueOfPortfolioOnCertainDate("2022-10-01", "currentInstance");
+      double res = portfolio.getTotalValueOfPortfolioOnCertainDate(
+              "2022-10-01", "currentInstance");
       assertFalse(res == 0.0);
     }
 

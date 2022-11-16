@@ -12,6 +12,9 @@ import stocks.model.PortfolioModelImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The test class for ModelImpl.
+ */
 public class ModelImplTest {
 
   static class MockPortfolio implements Portfolio {
@@ -23,8 +26,10 @@ public class ModelImplTest {
     }
 
     @Override
-    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: " + date + " " + portfolioName + "\n");
+    public double getTotalValueOfPortfolioOnCertainDate(
+            String date, String portfolioName) {
+      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: "
+              + date + " " + portfolioName + "\n");
       return 0;
     }
 
@@ -34,14 +39,17 @@ public class ModelImplTest {
     }
 
     @Override
-    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
-      log.append("inputs for viewCompositionOfCurrentPortfolio: " + date + " " + portfolioName + "\n");
+    public List<List<String>> viewCompositionOfCurrentPortfolio(
+            String portfolioName, String date) {
+      log.append("inputs for viewCompositionOfCurrentPortfolio: "
+              + date + " " + portfolioName + "\n");
       return null;
     }
 
     @Override
     public void createPortfolioIfCreatedManually(String portfolioName) {
-      log.append("inputs for createPortfolioIfCreatedManually: " + " " + portfolioName + "\n");
+      log.append("inputs for createPortfolioIfCreatedManually: "
+              + " " + portfolioName + "\n");
     }
 
     @Override
@@ -84,13 +92,16 @@ public class ModelImplTest {
 
     @Override
     public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalMoneyInvestedOnCertainDate: " + date + " " + portfolioName + "\n");
+      log.append("inputs for getTotalMoneyInvestedOnCertainDate: "
+              + date + " " + portfolioName + "\n");
       return 0;
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-      log.append("inputs for getPortfolioPerformanceOvertime: " + startTime + " " + endTime + " " + portfolioName + "\n");
+    public Map<String, Double> getPortfolioPerformanceOvertime(
+            String startTime, String endTime, String portfolioName) {
+      log.append("inputs for getPortfolioPerformanceOvertime: "
+              + startTime + " " + endTime + " " + portfolioName + "\n");
       return null;
     }
   }
@@ -145,8 +156,10 @@ public class ModelImplTest {
 
   @Test
   public void testGetTotalValueOfPortfolioOnCertainDate() {
-    String log = "inputs for getTotalValueOfPortfolioOnCertainDate: " + date + " " + portfolioName + "\n";
-    model.getTotalValueOfPortfolioOnCertainDate(date, portfolioName, mockPortfolio);
+    String log = "inputs for getTotalValueOfPortfolioOnCertainDate: "
+            + date + " " + portfolioName + "\n";
+    model.getTotalValueOfPortfolioOnCertainDate(
+            date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
@@ -159,7 +172,8 @@ public class ModelImplTest {
 
   @Test
   public void testViewCompositionOfCurrentPortfolio() {
-    String log = "inputs for viewCompositionOfCurrentPortfolio: " + date + " " + portfolioName + "\n";
+    String log = "inputs for viewCompositionOfCurrentPortfolio: "
+            + date + " " + portfolioName + "\n";
     model.viewCompositionOfCurrentPortfolio(portfolioName, date, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
@@ -187,7 +201,8 @@ public class ModelImplTest {
 
   @Test
   public void testGetTotalMoneyInvestedOnCertainDate() {
-    String log = "inputs for getTotalMoneyInvestedOnCertainDate: " + date + " " + portfolioName + "\n";
+    String log = "inputs for getTotalMoneyInvestedOnCertainDate: "
+            + date + " " + portfolioName + "\n";
     model.getTotalMoneyInvestedOnCertainDate(date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
@@ -195,7 +210,8 @@ public class ModelImplTest {
 
   @Test
   public void testGetPortfolioPerformanceOvertime() {
-    String log = "inputs for getPortfolioPerformanceOvertime: " + date + " " + date + " " + portfolioName + "\n";
+    String log = "inputs for getPortfolioPerformanceOvertime: "
+            + date + " " + date + " " + portfolioName + "\n";
 
     model.getPortfolioPerformanceOvertime(date, date, portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
@@ -210,14 +226,16 @@ public class ModelImplTest {
 
   @Test
   public void testValidateIfPortfolioAlreadyExists() {
-    String log = ("inputs for validateIfPortfolioAlreadyExists: " + " " + portfolioName + "\n");
+    String log = ("inputs for validateIfPortfolioAlreadyExists: " + " "
+            + portfolioName + "\n");
     model.validateIfPortfolioAlreadyExists(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
   public void testValidateIfPortfolioDoesntExists() {
-    String log = "inputs for validateIfPortfolioDoesntExists: " + " " + portfolioName + "\n";
+    String log = "inputs for validateIfPortfolioDoesntExists: " + " "
+            + portfolioName + "\n";
     model.validateIfPortfolioDoesntExists(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }

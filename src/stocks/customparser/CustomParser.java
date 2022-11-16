@@ -1,4 +1,4 @@
-package stocks.customParser;
+package stocks.customparser;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,12 @@ public interface CustomParser {
   Map<String, List<Stock>> readFromPathProvidedByUser(String path);
 
 
+<<<<<<< HEAD:src/stocks/customParser/CustomParser.java
   void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date,String com);
+=======
+  void appendIntoFile(String portfolioName, String companyName,
+                      String quantity, String action, String date);
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/CustomParser.java
 
 
   void writeIntoFile(String portFolioName, Map<String, List<Stock>> map, String type);
@@ -37,5 +42,10 @@ public interface CustomParser {
 
   String getTypeOfLoadedFile(String path);
 
+<<<<<<< HEAD:src/stocks/customParser/CustomParser.java
   void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date,String com);
+=======
+  void appendIntoFileUsingFilePath(String path, String portfolioName,
+                                   String companyName, String quantity, String action, String date);
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/CustomParser.java
 }

@@ -73,9 +73,9 @@ public class Stock {
   @Override
   public String toString() {
     return "company : " + getCompanyTickerSymbol() +
-            ", " +
-            "quantity : " + String.format("%.2f", getQty()) +
-            ", " +
-            "\n";
+            ", "
+            + "quantity : " + String.format("%.2f", getQty())
+            + ", "
+            + "\n";
   }
 }

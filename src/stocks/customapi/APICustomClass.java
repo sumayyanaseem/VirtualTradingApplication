@@ -1,4 +1,4 @@
-package stocks.customAPI;
+package stocks.customapi;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static stocks.customAPI.LocalCacheForAPI.getStockRecordsForCompany;
+import static stocks.customapi.LocalCacheForAPI.getStockRecordsForCompany;
 
 /**
  * This class represents a custom class for all the APIs related to fetching stock price.

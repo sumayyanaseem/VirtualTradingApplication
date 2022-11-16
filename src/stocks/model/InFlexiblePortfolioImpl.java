@@ -106,7 +106,9 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
         List<Stock> listOfStocks = entry.getValue();
         String dateBought = listOfStocks.get(0).getDateOfAction();
-        Date dateBoughtObj, givenDateObj;
+        Date dateBoughtObj;
+        Date givenDateObj;
+
         try {
           dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
           givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);

@@ -34,7 +34,8 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+    public double getTotalValueOfPortfolioOnCertainDate(
+            String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
 
@@ -44,7 +45,8 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio) {
+    public List<List<String>> viewCompositionOfCurrentPortfolio(
+            String portfolioName, String date, Portfolio portfolio) {
       List<List<String>> dummy = new ArrayList<>();
       log.append("inputs for viewCompositionOfCurrentPortfolio: " + portfolioName + "\n");
       return dummy;
@@ -96,12 +98,15 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+    public double getTotalMoneyInvestedOnCertainDate(
+            String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
+    public Map<String, Double> getPortfolioPerformanceOvertime(
+            String startTime, String endTime,
+            String portfolioName, Portfolio portfolio) {
       return null;
     }
   }

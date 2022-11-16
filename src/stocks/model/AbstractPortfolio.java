@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customAPI.APICustomClass;
-import stocks.customAPI.APICustomInterface;
-import stocks.customAPI.CompanyTickerSymbol;
-import stocks.customParser.JsonParserImplementation;
-import stocks.customParser.CustomParser;
+import stocks.customapi.APICustomClass;
+import stocks.customapi.APICustomInterface;
+import stocks.customapi.CompanyTickerSymbol;
+import stocks.customparser.JsonParserImplementation;
+import stocks.customparser.CustomParser;
 
 abstract class AbstractPortfolio implements Portfolio {
 

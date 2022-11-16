@@ -81,6 +81,8 @@ public interface Portfolio {
 
   double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName);
 
-  Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName);
+  Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
+                                                      String endTime,
+                                                      String portfolioName);
 
 }

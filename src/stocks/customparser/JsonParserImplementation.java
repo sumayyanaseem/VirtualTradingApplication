@@ -1,4 +1,4 @@
-package stocks.customParser;
+package stocks.customparser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,6 +17,10 @@ import java.util.Map;
 
 import stocks.model.Stock;
 
+
+/**
+ * This class represents a JSON Parser.
+ */
 public class JsonParserImplementation implements CustomParser {
 
   @Override
@@ -89,7 +93,13 @@ public class JsonParserImplementation implements CustomParser {
               }
 
             }
+<<<<<<< HEAD:src/stocks/customParser/JsonParserImplementation.java
             Stock s = new Stock(cName, Double.parseDouble(quantity), 0.0, action, 0.0, date, Double.parseDouble(com));
+=======
+            Stock s = new Stock(
+                    cName, Double.parseDouble(quantity),
+                    0.0, action, 0.0, date);
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/JsonParserImplementation.java
             list.add(s);
           }
           res.put(cName, list);
@@ -139,7 +149,12 @@ public class JsonParserImplementation implements CustomParser {
   }
 
 
+<<<<<<< HEAD:src/stocks/customParser/JsonParserImplementation.java
   private void appendFileHelper(String companyName, String quantity, String action, String date, String path,String com) {
+=======
+  private void appendFileHelper(String companyName,
+                                String quantity, String action, String date, String path) {
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/JsonParserImplementation.java
     try {
       Object obj = new JSONParser().parse(new FileReader(path));
       JSONObject jsonObject = (JSONObject) obj;
@@ -190,14 +205,26 @@ public class JsonParserImplementation implements CustomParser {
 
 
   @Override
+<<<<<<< HEAD:src/stocks/customParser/JsonParserImplementation.java
   public void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date,String com) {
+=======
+  public void appendIntoFile(String portfolioName, String companyName,
+                             String quantity, String action, String date) {
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/JsonParserImplementation.java
     String path = "userPortfolios/" + portfolioName + "_output.json";
     appendFileHelper(companyName, quantity, action, date, path,com);
   }
 
   @Override
+<<<<<<< HEAD:src/stocks/customParser/JsonParserImplementation.java
   public void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date,String com) {
     appendFileHelper(companyName, quantity, action, date, path,com);
+=======
+  public void appendIntoFileUsingFilePath(String path,
+                                          String portfolioName, String companyName,
+                                          String quantity, String action, String date) {
+    appendFileHelper(companyName, quantity, action, date, path);
+>>>>>>> 7d1d57095663cae004e2ceb15e53c942f0c7cb5e:src/stocks/customparser/JsonParserImplementation.java
   }
 
   @Override
