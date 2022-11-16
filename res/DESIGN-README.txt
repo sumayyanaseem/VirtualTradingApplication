@@ -136,11 +136,11 @@ We have created 2 custom classes to support certain Model functionalities.
 3) CompanyTickerSymbol
 4) LocalCacheForAPI
 
-APICustomClass description : This class provides methods to fetch the stock price
+APICustomClass.java description : This class provides methods to fetch the stock price
 a) fetchLatestStockPriceOfThisCompany
 b) getStockPriceAsOfCertainDate
 
-JsonParserImplementation description : This class provides all the methods (i.e read/write/helper etc) for parsing of json files.
+JsonParserImplementation.java description : This class provides all the methods (i.e read/write/helper etc) for parsing of json files.
 a) readFromPathProvidedByUser
 b) readFromFile
 c) readFromJson
@@ -153,17 +153,15 @@ i) getTypeOfFile
 j) getTypeOfLoadedFile
 
 
-CompanyTickerSymbol description: Its an enum with all the supported company names and their respective IPO dates.
+CompanyTickerSymbol.java description: It's an enum with all the supported company names and their respective IPO dates.
 
+LocalCacheForAPI.java description: It is used to cache the values after querying Alphavantage API.
 
 ******************************************************************************************************************************************************************
-Future Enhancements:
+Possible Future Enhancements:
 ******************************************************************************************************************************************************************
 
-1. Provide functionality to Sell the stocks.
-2. Determine the Profit or Loss of any particular stock or of the total portfolio.
-3. Provide option to Update already created portfolios in the past.
-4. Determine the top performing stocks in a portfolio (or) top performing Portfolios among all the portfolios owned by user.
-5. Support all the companies listed on stock exchange.
-6. Fetch the stock prices from API instead of using cached files.
+1. Determine the Profit or Loss of any particular stock or of the total portfolio.
+2. Determine the top performing stocks in a portfolio (or) top performing Portfolios among all the portfolios owned by user.
+3. Support all the companies listed on stock exchange.
 ******************************************************************************************************************************************************************
