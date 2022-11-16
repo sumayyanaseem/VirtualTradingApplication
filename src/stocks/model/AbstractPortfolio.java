@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
-import stocks.customparser.JsonParserImplementation;
 import stocks.customparser.CustomParser;
+import stocks.customparser.JsonParserImplementation;
 
 abstract class AbstractPortfolio implements Portfolio {
 
@@ -26,10 +25,10 @@ abstract class AbstractPortfolio implements Portfolio {
   protected final APICustomInterface apiCustomInterface;
   protected final CustomParser parser;
 
-  public AbstractPortfolio() {
+  public AbstractPortfolio(APICustomInterface apiCustomInterface) {
     this.portfolioName = "";
     this.stockMap = new HashMap<>();
-    this.apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    this.apiCustomInterface = apiCustomInterface;
     this.parser = new JsonParserImplementation();
   }
 

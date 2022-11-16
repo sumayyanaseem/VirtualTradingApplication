@@ -9,10 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static stocks.customapi.LocalCacheForAPI.getStockRecordsForCompany;
+import static stocks.customapi.LocalCacheForAPI.insertRecordsIntoCache;
 
 /**
  * This class represents a custom class for all the APIs related to fetching stock price.
@@ -22,8 +25,11 @@ public class APICustomClass implements APICustomInterface {
   private static final String apiKey = "5KFQLJAEXPPU6DJ9";
   private final String urlString;
 
+  private Map<String, String[]> apiInFo;
+
   public APICustomClass(String url) {
     this.urlString = url;
+    this.apiInFo = new HashMap<>();
   }
 
   /**
@@ -60,8 +66,11 @@ public class APICustomClass implements APICustomInterface {
     String latestAvailableStkPrice = "0.0";
     Date availableDateObj = null;
     Date givenDateObj;
-    String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
-    String[] lines = output.split(System.lineSeparator());
+    String[] lines = getStockRecordsForCompany(companyTickerSymbol);
+    if (lines == null) {
+      String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
+      lines = output.split(System.lineSeparator());
+    }
     List<List<String>> records = new ArrayList<>();
     for (int i = 1; i < lines.length; i++) {
       String[] values = lines[i].split(",");
@@ -159,8 +168,10 @@ public class APICustomClass implements APICustomInterface {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
 
+    if(interval.equalsIgnoreCase("DAILY")){
+      insertRecordsIntoCache(companyTickerSymbol,output);
+    }
     return output.toString();
-
   }
 
 
