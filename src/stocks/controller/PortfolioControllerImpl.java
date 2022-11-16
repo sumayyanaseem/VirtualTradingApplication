@@ -52,8 +52,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
-   *
-   * @param in   the input stream.
+   * @param model the model object.
+   * @param in the input stream.
    * @param view the view object.
    */
   public PortfolioControllerImpl(PortfolioModel model, InputStream in, PortfolioView view) {

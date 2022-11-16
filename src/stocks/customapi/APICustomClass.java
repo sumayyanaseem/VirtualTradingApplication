@@ -27,11 +27,6 @@ public class APICustomClass implements APICustomInterface {
     this.urlString = url;
   }
 
-  /**
-   * gives the latest available stock price for the given company ticker.
-   *
-   * @return the stock price of company.
-   */
   @Override
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
@@ -48,11 +43,6 @@ public class APICustomClass implements APICustomInterface {
   }
 
 
-  /**
-   * gives the stock price for the given company ticker as of a certain given date.
-   *
-   * @return the stock price of company for the given date.
-   */
   @Override
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {
     if (qty == 0.0) {
@@ -98,8 +88,7 @@ public class APICustomClass implements APICustomInterface {
   }
 
 
-  @Override
-  public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
+  private String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
 
     String stockSymbol = companyTickerSymbol; //ticker symbol for Google

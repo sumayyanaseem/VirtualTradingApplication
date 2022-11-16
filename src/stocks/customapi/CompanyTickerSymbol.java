@@ -37,6 +37,11 @@ public enum CompanyTickerSymbol {
     this.label = label;
   }
 
+  /**
+   * Gives the IPO dates of respective company.
+   *
+   * @return returns the IPO date for each company.
+   */
   public String getEndDate() {
     return label;
   }

@@ -33,23 +33,42 @@ public class Stock {
     this.commission = commission;
   }
 
+  /**
+   * gives commission of this transaction.
+   * @return returns commission.
+   */
   public double getCommission() {
     return commission;
   }
 
+  /**
+   * gives the price of stock.
+   * @return returns stock price.
+   */
   public double getPriceOfStockAsOfGivenDate() {
     return priceOfStockAsOfGivenDate;
   }
 
+  /**
+   * gives action buy/sell.
+   * @return returns action of transaction.
+   */
   public String getAction() {
     return action;
   }
 
+  /**
+   * gives date of transaction.
+   * @return returns date of the action.
+   */
   public String getDateOfAction() {
     return dateOfAction;
   }
 
-
+  /**
+   * gives total value.
+   * @return return total value.
+   */
   public double getTotalValue() {
     return totalValue;
   }

@@ -20,6 +20,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * class represents test cases for abstract portfolio.
+ */
 abstract class AbstractPortfolioTest {
   protected Portfolio portfolio;
 
@@ -32,6 +35,9 @@ abstract class AbstractPortfolioTest {
     return (int) (Math.random() * (max - min + 1) + min);
   }
 
+  /**
+   * tests for flexible portfolio.
+   */
   public static final class FlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
     private static final String date = "2022-10-01";
@@ -126,14 +132,14 @@ abstract class AbstractPortfolioTest {
       String pName = "testFlexible";
       String date1 = "2022-09-01";
       String date2 = "2022-09-01";
-      String expected="End date must be greater than start date. Please enter valid dates";
-      String actual="";
+      String expected = "End date must be greater than start date. Please enter valid dates";
+      String actual = "";
       try {
         Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
-      } catch(IllegalArgumentException e){
-        actual=e.getMessage();
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
       }
-      assertEquals(expected,actual);
+      assertEquals(expected, actual);
     }
 
     @Test
@@ -141,16 +147,15 @@ abstract class AbstractPortfolioTest {
       String pName = "testFlexible";
       String date1 = "2022-09-01";
       String date2 = "2022-08-01";
-      String expected="End date must be greater than start date. Please enter valid dates";
-      String actual="";
+      String expected = "End date must be greater than start date. Please enter valid dates";
+      String actual = "";
       try {
         Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
-      } catch(IllegalArgumentException e){
-        actual=e.getMessage();
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
       }
-      assertEquals(expected,actual);
+      assertEquals(expected, actual);
     }
-
 
 
     @Test
@@ -160,16 +165,16 @@ abstract class AbstractPortfolioTest {
       String date2 = "2022-11-14";
       Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
       assertFalse(res.isEmpty());
-      String monthStart = date1.substring(0,8)+"01";
+      String monthStart = date1.substring(0, 8) + "01";
       List<String> dates = getDatesHelper(monthStart, date2, 31);
-      System.out.println(res.size()+" "+dates.size());
-      int i=0;
-      for(int j=0;j<dates.size();j++){
+      System.out.println(res.size() + " " + dates.size());
+      int i = 0;
+      for (int j = 0; j < dates.size(); j++) {
         System.out.println(dates.get(j));
       }
-      for (Map.Entry<String,Double> map:res.entrySet()) {
-        assertEquals(map.getKey().substring(0,7),dates.get(i).substring(0,7));
-        assertTrue(map.getValue()!=0);
+      for (Map.Entry<String, Double> map : res.entrySet()) {
+        assertEquals(map.getKey().substring(0, 7), dates.get(i).substring(0, 7));
+        assertTrue(map.getValue() != 0);
         i++;
       }
     }
@@ -181,7 +186,18 @@ abstract class AbstractPortfolioTest {
       String date2 = "2022-11-14";
       Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
       assertFalse(res.isEmpty());
-
+      String monthStart = date1.substring(0, 8) + "01";
+      List<String> dates = getDatesHelper(monthStart, date2, 90);
+      System.out.println(res.size() + " " + dates.size());
+      int i = 0;
+      for (int j = 0; j < dates.size(); j++) {
+        System.out.println(dates.get(j));
+      }
+      for (Map.Entry<String, Double> map : res.entrySet()) {
+        assertEquals(map.getKey().substring(0, 7), dates.get(i).substring(0, 7));
+        assertTrue(map.getValue() != 0);
+        i++;
+      }
     }
 
 
@@ -192,6 +208,18 @@ abstract class AbstractPortfolioTest {
       String date2 = "2022-11-14";
       Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
       assertFalse(res.isEmpty());
+      String yearStart = date1.substring(0, 4) + "-12-31";
+      List<String> dates = getDatesHelper(yearStart, date2, 365);
+      System.out.println(res.size() + " " + dates.size());
+      int i = 0;
+      for (int j = 0; j < dates.size(); j++) {
+        System.out.println(dates.get(j));
+      }
+      for (Map.Entry<String, Double> map : res.entrySet()) {
+        assertEquals(map.getKey().substring(0, 7), dates.get(i).substring(0, 7));
+        assertTrue(map.getValue() != 0);
+        i++;
+      }
     }
 
 
@@ -825,6 +853,9 @@ abstract class AbstractPortfolioTest {
   }
 
 
+  /**
+   * tests for inflexible portfolio.
+   */
   public static final class InFlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
     private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");

@@ -110,17 +110,44 @@ public interface PortfolioView {
    */
   void askUserIfheWantsTOContinueViewing();
 
+  /**
+   * Display the message to check if its buy or sell.
+   */
   void displayMessageToBuyOrSell();
 
+  /**
+   * Display the message to user to continue updating portfolio.
+   */
   void checkIfUserWantsToContinueUpdatingPortfolio();
 
+  /**
+   * dispplay a message to check if its flexible or inflexible creation.
+   */
   void createFlexibleOrInFlexiblePortfolio();
 
+  /**
+   * Display the total cost invested.
+   *
+   * @param totalCost     total investment.
+   * @param date          date required
+   * @param portfolioName name of the portfolio.
+   */
   void displayTheTotalCost(double totalCost, String date, String portfolioName);
 
+  /**
+   * Display the portfolio performance over the time.
+   *
+   * @param result        result from model.
+   * @param startDate     start point.
+   * @param endDate       end point.
+   * @param portfolioName name of the portfolio.
+   */
   void displayPortfolioPerformance(Map<String,
           Double> result, String startDate,
                                    String endDate, String portfolioName);
 
+  /**
+   * get commission for the transaction.
+   */
   void getCommission();
 }
