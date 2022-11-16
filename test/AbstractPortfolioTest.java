@@ -137,7 +137,7 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
-    public void testPortfolioPerformanceWhenEndDateIsmoreThenStartDate() {
+    public void testPortfolioPerformanceWhenEndDateIsMoreThanStartDate() {
       String pName = "testFlexible";
       String date1 = "2022-09-01";
       String date2 = "2022-08-01";
@@ -160,6 +160,18 @@ abstract class AbstractPortfolioTest {
       String date2 = "2022-11-14";
       Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
       assertFalse(res.isEmpty());
+      String monthStart = date1.substring(0,8)+"01";
+      List<String> dates = getDatesHelper(monthStart, date2, 31);
+      System.out.println(res.size()+" "+dates.size());
+      int i=0;
+      for(int j=0;j<dates.size();j++){
+        System.out.println(dates.get(j));
+      }
+      for (Map.Entry<String,Double> map:res.entrySet()) {
+        assertEquals(map.getKey().substring(0,7),dates.get(i).substring(0,7));
+        assertTrue(map.getValue()!=0);
+        i++;
+      }
     }
 
     @Test
@@ -169,6 +181,7 @@ abstract class AbstractPortfolioTest {
       String date2 = "2022-11-14";
       Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
       assertFalse(res.isEmpty());
+
     }
 
 
