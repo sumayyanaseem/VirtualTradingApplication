@@ -18,7 +18,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   private static final String action = "add";
 
   @Override
-  public void buyStocks(String cName, String quantity, String date, String com,String portfolioName)
+  public void buyStocks(String cName, String quantity, String date,
+                        String com, String portfolioName)
           throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
@@ -74,18 +75,27 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String com,String portfolioName) {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void sellStocks(String companyName, String quantity,
+                         String date, String com, String portfolioName) {
+    throw new UnsupportedOperationException("This " +
+            "operation is not supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action,String com) {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void updatePortfolio(String companyName,
+                              String quantity, String date,
+                              String portfolioName,
+                              String action, String com) {
+    throw new UnsupportedOperationException("This operation " +
+            "is not supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action,String com) throws IllegalArgumentException {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void updatePortfolioUsingFilePath(String path, String companyName,
+                                           String quantity, String date, String portfolioName,
+                                           String action, String com) throws IllegalArgumentException {
+    throw new UnsupportedOperationException("This operation is " +
+            "not supported in Inflexible portfolio");
   }
 
   @Override
@@ -117,7 +127,11 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
         }
         if (dateBoughtObj.compareTo(givenDateObj) <= 0) {
 
-          totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStocks.get(0).getCompanyTickerSymbol(), listOfStocks.get(0).getQty(), listOfStocks.get(0).getDateOfAction());
+          totalCostBasis = totalCostBasis +
+                  apiCustomInterface.getStockPriceAsOfCertainDate(
+                          listOfStocks.get(0).getCompanyTickerSymbol(),
+                          listOfStocks.get(0).getQty(),
+                          listOfStocks.get(0).getDateOfAction());
         }
       }
 
@@ -128,8 +142,10 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public Map<String, Double> getPortfolioPerformanceOvertime(
+          String startTime, String endTime, String portfolioName) {
+    throw new UnsupportedOperationException("This " +
+            "operation is not supported in Inflexible portfolio");
   }
 
   @Override

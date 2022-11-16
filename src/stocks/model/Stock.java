@@ -20,7 +20,10 @@ public class Stock {
   /**
    * Constructs a Stock object and initializes all the relevant fields for a stock.
    */
-  public Stock(String companyTickerSymbol, double qty, double totalValue, String action, double priceOfStockAsOfGivenDate, String dateOfAction, double commission) {
+  public Stock(String companyTickerSymbol, double qty,
+               double totalValue, String action,
+               double priceOfStockAsOfGivenDate,
+               String dateOfAction, double commission) {
     this.companyTickerSymbol = companyTickerSymbol;
     this.qty = qty;
     this.totalValue = totalValue;
@@ -72,8 +75,8 @@ public class Stock {
 
   @Override
   public String toString() {
-    return "company : " + getCompanyTickerSymbol() +
-            ", "
+    return "company : " + getCompanyTickerSymbol()
+            + ", "
             + "quantity : " + String.format("%.2f", getQty())
             + ", "
             + "\n";

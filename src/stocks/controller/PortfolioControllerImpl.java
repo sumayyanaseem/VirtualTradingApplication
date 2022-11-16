@@ -129,7 +129,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String com = commissionHelper();
       model.validateIfPortfolioAlreadyExists(portfolioName, portfolio);
       try {
-        model.buyStocks(companyName, quantity, date, portfolioName,com, portfolio);
+        model.buyStocks(companyName, quantity, date, portfolioName, com, portfolio);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -139,7 +139,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName);
       String com = commissionHelper();
       try {
-        model.sellStocks(companyName, quantity, date, portfolioName, com,portfolio);
+        model.sellStocks(companyName, quantity, date, portfolioName, com, portfolio);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -179,7 +179,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.buyStocks(companyName, quantity, null, portfolioName,null, portfolio);
+    model.buyStocks(companyName, quantity, null, portfolioName, null, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -217,7 +217,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName);
       String com = commissionHelper();
       try {
-        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy",com);
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy", com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -229,7 +229,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       String com = commissionHelper();
       // add more validations for chronological order for sell dates
       try {
-        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell",com);
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell", com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -435,7 +435,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       try {
         model.updatePortfolioUsingFilePath
                 (path, companyName, quantity,
-                        date, portfolioName, portfolio, "buy",com);
+                        date, portfolioName, portfolio, "buy", com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -447,9 +447,9 @@ public class PortfolioControllerImpl implements PortfolioController {
       String com = commissionHelper();
       // add more validations for chronological order for sell dates
       try {
-        model.updatePortfolioUsingFilePath
-                (path, companyName, quantity, date,
-                        portfolioName, portfolio, "sell",com);
+        model.updatePortfolioUsingFilePath(
+                path, companyName, quantity, date,
+                portfolioName, portfolio, "sell", com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -571,10 +571,10 @@ public class PortfolioControllerImpl implements PortfolioController {
     return quantity;
   }
 
-  private String commissionHelper(){
+  private String commissionHelper() {
     view.getCommission();
     String com = input.nextLine();
-    if(validateCom(com)){
+    if (validateCom(com)) {
       return commissionHelper();
     }
     return com;

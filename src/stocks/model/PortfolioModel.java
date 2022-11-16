@@ -71,13 +71,25 @@ public interface PortfolioModel {
    * @param companyName   company of which stocks need to be bought.
    * @param portfolioName portfolio to which bought stocks need to be added.
    */
-  void buyStocks(String companyName, String quantity, String date, String portfolioName,String com, Portfolio portfolio) throws IllegalArgumentException;
+  void buyStocks(String companyName, String quantity,
+                 String date, String portfolioName,
+                 String com, Portfolio portfolio)
+          throws IllegalArgumentException;
 
-  void sellStocks(String companyName, String quantity, String date, String portfolioName,String com, Portfolio portfolio) throws IllegalArgumentException;
+  void sellStocks(String companyName, String quantity,
+                  String date, String portfolioName,
+                  String com, Portfolio portfolio)
+          throws IllegalArgumentException;
 
-  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action,String com) throws IllegalArgumentException;
+  void updatePortfolio(String companyName, String quantity,
+                       String date, String portfolioName,
+                       Portfolio portfolio, String action, String com)
+          throws IllegalArgumentException;
 
-  void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action,String com) throws IllegalArgumentException;
+  void updatePortfolioUsingFilePath(String path, String companyName,
+                                    String quantity, String date, String portfolioName,
+                                    Portfolio portfolio, String action, String com)
+          throws IllegalArgumentException;
 
   double getTotalMoneyInvestedOnCertainDate(String date,
                                             String portfolioName, Portfolio portfolio);

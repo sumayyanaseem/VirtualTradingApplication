@@ -18,14 +18,16 @@ import java.util.Map;
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 
+/**
+ * This class represents Performance of the portfolio over time..
+ */
 public class PortfolioPerformance {
   private final APICustomInterface apiCustom;
   Map<String, List<Stock>> portfolioMap;
   Map<String, Double> mapOfValues;
 
 
-  private long yearsBetween(String date1, String date2)
-  {
+  private long yearsBetween(String date1, String date2) {
     //add validations date 1 < date 2
     long yearsBetween = ChronoUnit.YEARS.between(
             YearMonth.from(LocalDate.parse(date1)),
@@ -34,14 +36,12 @@ public class PortfolioPerformance {
     return yearsBetween;
   }
 
-  private long quartersBetween(String date1, String date2)
-  {
+  private long quartersBetween(String date1, String date2) {
     //add validations date 1 < date 2
     long quarters =
             IsoFields.QUARTER_YEARS.between(LocalDate.parse(date1), LocalDate.parse(date2));
     return quarters;
   }
-
 
 
   PortfolioPerformance(Map<String, List<Stock>> portfolioMap) {
@@ -60,7 +60,6 @@ public class PortfolioPerformance {
 
   private long weeksBetween(String date1, String date2) {
 
-//add validations if user is entering dates which dont exists
     LocalDate startDate = LocalDate.parse(date1);
     LocalDate endDate = LocalDate.parse(date2);
 
@@ -68,7 +67,7 @@ public class PortfolioPerformance {
     return weeksInYear;
   }
 
-  public long monthsBetween(String date1, String date2) {
+  private long monthsBetween(String date1, String date2) {
     long monthsBetween = ChronoUnit.MONTHS.between(
             YearMonth.from(LocalDate.parse(date1)),
             YearMonth.from(LocalDate.parse(date2))
@@ -77,14 +76,24 @@ public class PortfolioPerformance {
   }
 
 
-  public Map<String, Double> displayCopy(String date1, String date2, String portfolioName) throws ParseException {
+  /**
+   * constructs a map with values of portfolio for each date in the range.
+   *
+   * @param date1         the start date of the range.
+   * @param date2         the end date of the range.
+   * @param portfolioName the portfolio for which values are needed.
+   */
+  public Map<String, Double> displayCopy(String date1,
+                                         String date2,
+                                         String portfolioName)
+          throws ParseException {
 
 
     long months = monthsBetween(date1, date2);
     long days = daysBetween(date1, date2);
     long weeks = weeksBetween(date1, date2);
-    long years = yearsBetween(date1,date2);
-    long quaters= quartersBetween(date1,date2);
+    long years = yearsBetween(date1, date2);
+    long quaters = quartersBetween(date1, date2);
 
     Map<Integer, Integer> noOfDays = new HashMap<>();
     noOfDays.put(1, 31);
@@ -105,16 +114,18 @@ public class PortfolioPerformance {
     } else if (weeks >= 5 && weeks <= 30) {
       generateHistogramDates(date1, date2, 7);
     } else if (months >= 5 && months <= 30) {
-      monthHelper(date1,date2,30,noOfDays,mapOfValues);
-    } else if(quaters>=5 && quaters<=30){
-      monthHelper(date1,date2,90,noOfDays,mapOfValues);
-    } else if(years>=5 && years<=30){
-      monthHelper(date1,date2,365,noOfDays,mapOfValues);
+      monthHelper(date1, date2, 30, noOfDays, mapOfValues);
+    } else if (quaters >= 5 && quaters <= 30) {
+      monthHelper(date1, date2, 90, noOfDays, mapOfValues);
+    } else if (years >= 5 && years <= 30) {
+      monthHelper(date1, date2, 365, noOfDays, mapOfValues);
     }
     return mapOfValues;
   }
 
-  private void monthHelper(String date1,String date2,int interval,Map<Integer, Integer> noOfDays,Map<String, Double> mapOfValues) {
+  private void monthHelper(String date1, String date2,
+                           int interval, Map<Integer, Integer> noOfDays,
+                           Map<String, Double> mapOfValues) {
     List<String> monthsbtw = getDates(date1, date2, interval);
 
     for (int i = 0; i < monthsbtw.size(); i++) {
@@ -128,7 +139,8 @@ public class PortfolioPerformance {
       } else {
         key = key + String.valueOf(xx);
       }
-      String endOfMonth = monthsbtw.get(i).substring(0, 5) + key + "-" + String.valueOf(daysInThisMonth);
+      String endOfMonth = monthsbtw.get(i).substring(0, 5)
+              + key + "-" + String.valueOf(daysInThisMonth);
 
       double res = getTotalValueOfPortfolioOnCertainDate(endOfMonth);
 
@@ -136,7 +148,8 @@ public class PortfolioPerformance {
     }
   }
 
-  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+  public double getQuantityOnThisDateForGivenCompanyName(
+          String date, String companyName) throws ParseException {
 
     List<Stock> list = portfolioMap.get(companyName);
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -178,6 +191,7 @@ public class PortfolioPerformance {
           double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
           totalValue = totalValue + apiCustom.getStockPriceAsOfCertainDate(stkName, netQty, date);
         } catch (ParseException e) {
+          //do nothing
         }
       }
     }
@@ -208,7 +222,7 @@ public class PortfolioPerformance {
         dates.add(todayDateStr);
       }
     } catch (Exception e) {
-
+      //do nothing
     }
     return dates;
   }
