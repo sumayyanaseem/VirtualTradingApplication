@@ -132,7 +132,7 @@ abstract class AbstractPortfolio implements Portfolio{
                   + "Please provide date less then or equal to today");
         }
       }
-    } catch (IllegalArgumentException | DateTimeParseException e) {
+    } catch (DateTimeParseException e) {
       throw new IllegalArgumentException("Invalid dateFormat provided."
               + "Please provide date in YYYY-MM-DD format only.");
     } catch (ParseException e) {

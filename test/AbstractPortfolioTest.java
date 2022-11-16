@@ -34,6 +34,117 @@ abstract class AbstractPortfolioTest {
       portfolio = new FlexiblePortfolioImpl();
     }
 
+    @Test
+    public void testMultipleBuysAndSells(){
+      buyMultipleStocks("test123",date);
+      sellMultipleStocks("test123",date);
+    }
+
+    @Test
+    public void testSellBeforeBuy(){
+      String pName = "testFlexible";
+      String expected = "It is impossible to sell a stock without first purchasing it.";
+      String actual = "";
+      String cName ="goog";
+      String quantity="10";
+      String date="2022-10-01";
+      try {
+        portfolio.sellStocks(cName, quantity, date, pName);
+      } catch(IllegalArgumentException e){
+        actual =e.getMessage();
+      }
+      assertEquals(actual,expected);
+    }
+
+    @Test
+    public void testSellAndBuyOnSameDay() {
+      String pName = "testFlexible";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-11-01";
+      double before = portfolio.getTotalValueOfPortfolioOnCertainDate(date,pName);
+      portfolio.buyStocks(cName, quantity, date, pName);
+      portfolio.sellStocks(cName, quantity, date, pName);
+      double after = portfolio.getTotalValueOfPortfolioOnCertainDate(date,pName);
+      assertEquals(before, after,0.01);
+    }
+
+    @Test
+    public void testBuyBeforeIPO(){
+      String pName = "testFlexible";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2002-10-01";
+      String expected = "Given date is before IPO Date.Please provide a valid date.";
+      String actual = "";
+      try {
+        portfolio.buyStocks(cName, quantity, date, pName);
+      }catch(IllegalArgumentException e){
+        actual=e.getMessage();
+      }
+      assertEquals(expected,actual);
+    }
+
+
+    @Test
+    public void testSellInFuture(){
+      String pName = "testFlexible";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2024-10-01";
+      String expected = "Future Date provided.Please provide date less then or equal to today";
+      String actual = "";
+      try {
+        //portfolio.buyStocks(cName, quantity, "2022-10-01", pName);
+        portfolio.sellStocks(cName, quantity, date, pName);
+      }catch(IllegalArgumentException e){
+        actual=e.getMessage();
+      }
+      assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testCostBasis(){
+      String pName = "testFlexible";
+      String date = "2024-10-01";
+      double res= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
+      assertTrue(res!=0);
+    }
+
+    @Test
+    public void testCostBasisBeforeFirstPurchase(){
+      String pName = "testFlexible";
+      String date = "2000-10-01";
+      double res= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
+      assertEquals(res,0,0.01);
+    }
+
+    @Test
+    public void testUpdatePortfolio(){
+      String pName = "testFlexible";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      String action="buy";
+      double before= portfolio.getTotalMoneyInvestedOnCertainDate("2022-09-01",pName);
+      portfolio.updatePortfolio(cName,quantity,date,pName,action);
+      double after= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
+      assertTrue(before!=after);
+    }
+
+    @Test
+    public void testUpdatePortfolioSell(){
+      String pName = "testFlexible";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      String action="sell";
+      double before= portfolio.getTotalMoneyInvestedOnCertainDate("2022-09-01",pName);
+      portfolio.updatePortfolio(cName,quantity,date,pName,action);
+      double after= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
+      assertTrue(before!=after);
+    }
+
 
     @Test
     public void testInvalidPortfolioNameToView() {
@@ -102,7 +213,7 @@ abstract class AbstractPortfolioTest {
     public void testBuyStocks() {
       String cName = "dash";
       String quantity = String.valueOf(generateRandomNumber());
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -112,7 +223,7 @@ abstract class AbstractPortfolioTest {
     public void testFractionalStocks() {
       String cName = "dash";
       String quantity = String.valueOf(2.50);
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -125,7 +236,7 @@ abstract class AbstractPortfolioTest {
       String expected = "Quantity should be always a positive whole number.";
       String actual = "";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity, date,"testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -134,7 +245,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = "abc";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity,date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -144,7 +255,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = String.valueOf(0);
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity, date,"testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -153,7 +264,7 @@ abstract class AbstractPortfolioTest {
       actual = "";
       quantity = "";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity, date,"testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -164,7 +275,7 @@ abstract class AbstractPortfolioTest {
       quantity = null;
       expected = "Invalid quantity provided";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity,date, "testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -180,7 +291,7 @@ abstract class AbstractPortfolioTest {
               + "Please provide valid  companyTicker symbol.";
       String actual = "";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity, date,"testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -191,7 +302,7 @@ abstract class AbstractPortfolioTest {
       cName = "";
       actual = "";
       try {
-        buyStocks(cName, quantity, "test");
+        buyStocks(cName, quantity,date, "test");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -203,7 +314,7 @@ abstract class AbstractPortfolioTest {
       expected = "Invalid companyName provided";
       actual = "";
       try {
-        buyStocks(cName, quantity, "testPortfolio");
+        buyStocks(cName, quantity, date,"testPortfolio");
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }
@@ -216,12 +327,12 @@ abstract class AbstractPortfolioTest {
       //adding doordash
       String quantity = String.valueOf(generateRandomNumber());
       String cName = "dash";
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
 
       //Adding second
       quantity = String.valueOf(generateRandomNumber());
       cName = "orcl";
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
       assertTrue(portfolio.toString().contains("testPortfolio"));
@@ -229,14 +340,14 @@ abstract class AbstractPortfolioTest {
       //Adding third
       quantity = String.valueOf(generateRandomNumber());
       cName = "shop";
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
 
       //Adding fourth
       quantity = String.valueOf(generateRandomNumber());
       cName = "twtr";
-      buyStocks(cName, quantity, "testPortfolio");
+      buyStocks(cName, quantity, date,"testPortfolio");
 
 
       assertTrue(portfolio.toString().contains(quantity));
@@ -332,7 +443,7 @@ abstract class AbstractPortfolioTest {
         actual = e.getMessage();
       }
       assertEquals(actual, expected);
-
+      expected = "Future Date provided.Please provide date less then or equal to today";
       date = "2023-10-10";
       actual = "";
       try {
@@ -381,7 +492,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testCreateAndViewImmediately() {
       String pName = "testPortfolio1";
-      buyMultipleStocks(pName);
+      buyMultipleStocks(pName,date);
       portfolio.createPortfolioIfCreatedManually(pName);
       File f = new File("userPortfolios/" + pName + "_output.json");
       assertTrue(f.exists());
@@ -396,7 +507,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testCreateAndViewTotalValue() {
       String pName = "testPortfolio2";
-      buyMultipleStocks(pName);
+      buyMultipleStocks(pName,date);
       portfolio.createPortfolioIfCreatedManually(pName);
       File f = new File("userPortfolios/" + pName + "_output.json");
       assertTrue(f.exists());
@@ -464,39 +575,79 @@ abstract class AbstractPortfolioTest {
       assertFalse(res1 == res2);
     }
 
-    private void buyStocks(String cName, String quantity, String pfName) {
+    private void buyStocks(String cName, String quantity, String date,String pfName) {
       portfolio.buyStocks(cName, quantity, date, pfName);
     }
 
-    private void buyMultipleStocks(String name) {
+    private void sellStocks(String cName, String quantity, String date,String pfName) {
+      portfolio.sellStocks(cName, quantity, date, pfName);
+    }
+
+
+    private void buyMultipleStocks(String name,String date) {
       //adding doordash
-      String quantity = String.valueOf(generateRandomNumber());
+      String quantity = "15";
       String cName = "dash";
-      buyStocks(cName, quantity, name);
+      buyStocks(cName, quantity, date,name);
 
       //Adding second
-      quantity = String.valueOf(generateRandomNumber());
+      quantity = "25";
       cName = "orcl";
-      buyStocks(cName, quantity, name);
+      buyStocks(cName, quantity, date,name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
-      assertTrue(portfolio.toString().contains("testPortfolio"));
+      assertTrue(portfolio.toString().contains(name));
 
       //Adding third
       quantity = String.valueOf(generateRandomNumber());
       cName = "shop";
-      buyStocks(cName, quantity, name);
+      buyStocks(cName, quantity,date, name);
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
 
-      quantity = String.valueOf(generateRandomNumber());
+      quantity = "15";
       cName = "shop";
-      buyStocks(cName, quantity, name);
+      buyStocks(cName, quantity, date,name);
 
       //Adding fourth
-      quantity = String.valueOf(generateRandomNumber());
+      quantity = "10";
       cName = "twtr";
-      buyStocks(cName, quantity, name);
+      buyStocks(cName, quantity, date,name);
+
+      assertTrue(portfolio.toString().contains(quantity));
+      assertTrue(portfolio.toString().contains(cName.toUpperCase()));
+    }
+
+
+    private void sellMultipleStocks(String name,String date) {
+      //adding doordash
+      String quantity ="10";
+      String cName = "dash";
+      sellStocks(cName, quantity, date,name);
+
+      //Adding second
+      quantity = "20";
+      cName = "orcl";
+      sellStocks(cName, quantity, date,name);
+      assertTrue(portfolio.toString().contains(quantity));
+      assertTrue(portfolio.toString().contains(cName.toUpperCase()));
+      assertTrue(portfolio.toString().contains(name));
+
+      //Adding third
+      quantity = "15";
+      cName = "shop";
+      sellStocks(cName, quantity,date, name);
+      assertTrue(portfolio.toString().contains(quantity));
+      assertTrue(portfolio.toString().contains(cName.toUpperCase()));
+
+      quantity = "15";
+      cName = "shop";
+      sellStocks(cName, quantity, date,name);
+
+      //Adding fourth
+      quantity = "10";
+      cName = "twtr";
+      sellStocks(cName, quantity, date,name);
 
       assertTrue(portfolio.toString().contains(quantity));
       assertTrue(portfolio.toString().contains(cName.toUpperCase()));
@@ -778,6 +929,7 @@ abstract class AbstractPortfolioTest {
       }
       assertEquals(actual, expected);
 
+      expected = "Future Date provided.Please provide date less then or equal to today";
       date = "2023-10-10";
       actual = "";
       try {
