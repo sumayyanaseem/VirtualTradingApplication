@@ -503,19 +503,18 @@ public class PortfolioControllerImpl implements PortfolioController {
                     .parse(startDate);
             end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                     .parse(endDate);
-            if (end.compareTo(start) < 0) {
+            if (end.compareTo(start) <= 0) {
               //need to recur until correct dates are entered.
-              view.displayErrorMessage("End date is less than start date."
+              view.displayErrorMessage("End date must be greater than start date."
                       + " Please enter valid dates");
             }
-
-
+            Map<String, Double> result = model.getPortfolioPerformanceOvertime(
+                    startDate, endDate, name, portfolio);
+            view.displayPortfolioPerformance(result, startDate, endDate, name);
           } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
           }
-          Map<String, Double> result = model.getPortfolioPerformanceOvertime(
-                  startDate, endDate, name, portfolio);
-          view.displayPortfolioPerformance(result, startDate, endDate, name);
+
         } else {
           view.displayErrorMessage("This "
                   + "operation is not supported in Inflexible portfolio");

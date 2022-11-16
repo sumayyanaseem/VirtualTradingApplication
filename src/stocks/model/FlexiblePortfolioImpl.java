@@ -385,6 +385,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(
           String startTime, String endTime, String portfolioName) {
+    validatePortfolioPerformanceInputs(startTime, endTime, portfolioName);
     try {
 
       Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
@@ -395,6 +396,27 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       // do nothing
     }
     return null;
+  }
+
+  private void validatePortfolioPerformanceInputs(String startDate, String endDate, String pName) {
+    if (!pName.equals("currentInstance")) {
+      validateIfPortfolioDoesntExists(pName);
+    }
+
+    validateDate(startDate);
+    validateDate(endDate);
+    try {
+      Date start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(startDate);
+      Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(endDate);
+      if (end.compareTo(start) <= 0) {
+        throw new IllegalArgumentException("End date must be greater than start date."
+                + " Please enter valid dates");
+      }
+    } catch (ParseException e) {
+      //do nothing
+    }
   }
 
   private void validateInputsForBuy(String companyName,

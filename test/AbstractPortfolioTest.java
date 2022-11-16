@@ -120,6 +120,39 @@ abstract class AbstractPortfolioTest {
       }
     }
 
+
+    @Test
+    public void testPortfolioPerformanceWhenTwoDatesAreSame() {
+      String pName = "testFlexible";
+      String date1 = "2022-09-01";
+      String date2 = "2022-09-01";
+      String expected="End date must be greater than start date. Please enter valid dates";
+      String actual="";
+      try {
+        Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      } catch(IllegalArgumentException e){
+        actual=e.getMessage();
+      }
+      assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testPortfolioPerformanceWhenEndDateIsmoreThenStartDate() {
+      String pName = "testFlexible";
+      String date1 = "2022-09-01";
+      String date2 = "2022-08-01";
+      String expected="End date must be greater than start date. Please enter valid dates";
+      String actual="";
+      try {
+        Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      } catch(IllegalArgumentException e){
+        actual=e.getMessage();
+      }
+      assertEquals(expected,actual);
+    }
+
+
+
     @Test
     public void testPortfolioPerformanceMonthly() {
       String pName = "testFlexible";
