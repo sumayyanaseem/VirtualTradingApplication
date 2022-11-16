@@ -114,11 +114,14 @@ public class PortfolioPerformance {
     } else if (weeks >= 5 && weeks <= 30) {
       generateHistogramDates(date1, date2, 7);
     } else if (months >= 5 && months <= 30) {
-      monthHelper(date1, date2, 30, noOfDays, mapOfValues);
+      String monthStart = date1.substring(0,8)+"01";
+      monthHelper(monthStart, date2, 31, noOfDays, mapOfValues);
     } else if (quaters >= 5 && quaters <= 30) {
-      monthHelper(date1, date2, 90, noOfDays, mapOfValues);
+      String monthStart = date1.substring(0,8)+"01";
+      monthHelper(monthStart, date2, 90, noOfDays, mapOfValues);
     } else if (years >= 5 && years <= 30) {
-      monthHelper(date1, date2, 365, noOfDays, mapOfValues);
+      String yearStart = date1.substring(0,4)+"-12-31";
+      monthHelper(yearStart, date2, 365, noOfDays, mapOfValues);
     }
     return mapOfValues;
   }
