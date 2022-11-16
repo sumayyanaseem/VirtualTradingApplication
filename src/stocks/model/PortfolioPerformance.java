@@ -1,4 +1,4 @@
-/*package stocks.model;
+package stocks.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,6 @@ import java.util.Map;
 import stocks.customAPI.APICustomClass;
 import stocks.customAPI.APICustomInterface;
 import stocks.customParser.JsonParserImplementation;
-import stocks.customParser.customCSVParserImpl;
 
 public class PortfolioPerformance {
   private final APICustomInterface apiCustom;
@@ -309,7 +308,7 @@ public class PortfolioPerformance {
 
   }
 
-  /*public long yearsBetween(String date1, String date2)
+  public long yearsBetween(String date1, String date2)
   {
     //add validations date 1 < date 2
     long yearsBetween = ChronoUnit.YEARS.between(
@@ -325,7 +324,7 @@ public class PortfolioPerformance {
     long quarters =
             IsoFields.QUARTER_YEARS.between(LocalDate.parse("2014-08-31"), LocalDate.parse("2014-12-30"));
     return quarters;
-  }*/
+  }
 
 
 
