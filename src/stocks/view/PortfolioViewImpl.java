@@ -122,6 +122,7 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void displayPortfolioPerformance(Map<String, Double> mapToPlot,String portfolioName, String date1, String date2)
   {
+    out.println("Performance of portfolio "+ portfolioName+ "from YYY to ZZZ");
     double total=0.0;
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       total=total+allWeeksInRange.getValue();
@@ -131,7 +132,7 @@ public class PortfolioViewImpl implements PortfolioView {
       double val=allWeeksInRange.getValue();
       int stars=(int) (val*5/base);
 
-      out.println("Performance of portfolio "+ portfolioName+ "from YYY to ZZZ");
+
       out.println("");
       out.print(allWeeksInRange.getKey());
       out.print("  :  ");

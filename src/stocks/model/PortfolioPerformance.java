@@ -254,7 +254,7 @@ public class PortfolioPerformance {
 
         for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
           String data="";
-          if(mapOfAllStocksMonthWise.isEmpty() || mapOfAllStocksMonthWise.get(companyInfo.getKey()).isEmpty())
+          if(mapOfAllStocksMonthWise.isEmpty() || !mapOfAllStocksMonthWise.containsKey(companyInfo.getKey()))
           {
             data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(),"MONTHLY");
             mapOfAllStocksMonthWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
@@ -263,12 +263,12 @@ public class PortfolioPerformance {
           //move this method to interface
           double stkValueMonthEnd=0.0;
           double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
-          if(mapOfAllStocksMonthWise.get(companyInfo.getKey()).containsKey(entry.getKey()))
+          if(mapOfAllStocksMonthWise.get(companyInfo.getKey()).containsKey(monthEndDate))
           {
-            stkValueMonthEnd=mapOfAllStocksMonthWise.get(companyInfo.getKey()).get(entry.getKey());
+            stkValueMonthEnd=mapOfAllStocksMonthWise.get(companyInfo.getKey()).get(monthEndDate);
           }
           else {
-            stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), dt, netQty, data);
+            stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), monthEndDate, netQty, data);
           }
 
           totalValueOfPortfolioMonthEnd = totalValueOfPortfolioMonthEnd + stkValueMonthEnd;
