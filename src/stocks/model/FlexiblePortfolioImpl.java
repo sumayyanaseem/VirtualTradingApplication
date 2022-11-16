@@ -19,6 +19,8 @@ import stocks.customapi.CompanyTickerSymbol;
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private static String action;
 
+  private static final String format = "YYYY-MM-dd";
+
   public FlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
     super(apiCustomInterface);
   }
@@ -78,9 +80,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     Date date3;
     Date date4;
     try {
-      date3 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+      date3 = new SimpleDateFormat(format, Locale.ENGLISH)
               .parse(date1);
-      date4 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+      date4 = new SimpleDateFormat(format, Locale.ENGLISH)
               .parse(date2);
     } catch (ParseException e) {
       throw new RuntimeException(e);
@@ -114,9 +116,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           throw new IllegalArgumentException("The given quantity exceeds the net quantity.");
         } else {
           String lastSellDate = getLastSellDate(companyName);
-          Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+          Date givenDate = new SimpleDateFormat(format, Locale.ENGLISH)
                   .parse(date);
-          Date lastDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+          Date lastDate = new SimpleDateFormat(format, Locale.ENGLISH)
                   .parse(lastSellDate);
           if (lastDate.compareTo(givenDate) > 0) {
             throw new IllegalArgumentException("Sell date is not in the chronological "
@@ -139,7 +141,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   private void updatePortfolioHelper(String companyName, String quantity,
                                      String date, String portfolioName,
-                                     String action,String commission)
+                                     String action, String commission)
           throws IllegalArgumentException {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action, commission);
     this.portfolioName = portfolioName;
@@ -188,13 +190,13 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     String date = "1000-12-31";
-    Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    Date todayDate = new SimpleDateFormat(format, Locale.ENGLISH)
             .parse(date);
     String date2;
     for (Stock stock : list) {
       if (stock.getAction().equals("sell")) {
         date2 = stock.getDateOfAction();
-        Date datePresent = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        Date datePresent = new SimpleDateFormat(format, Locale.ENGLISH)
                 .parse(date2);
         if (datePresent.compareTo(todayDate) > 0) {
           todayDate = datePresent;
@@ -215,12 +217,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String date, String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
-    Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    Date givenDate = new SimpleDateFormat(format, Locale.ENGLISH)
             .parse(date);
     double quantity = 0;
     for (Stock stock : list) {
       String datePresent = stock.getDateOfAction();
-      Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+      Date todayDate = new SimpleDateFormat(format, Locale.ENGLISH)
               .parse(datePresent);
       if (todayDate.compareTo(givenDate) <= 0) {
         if (stock.getAction().equals("buy")) {
@@ -235,11 +237,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   private boolean checkIfDateIsLessThanGivenDate(String date, Stock s) throws ParseException {
-    Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    Date givenDate = new SimpleDateFormat(format, Locale.ENGLISH)
             .parse(date);
 
     String datePresent = s.getDateOfAction();
-    Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    Date todayDate = new SimpleDateFormat(format, Locale.ENGLISH)
             .parse(datePresent);
     return todayDate.compareTo(givenDate) <= 0;
 
@@ -249,7 +251,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   @Override
   public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
     double totalCostBasis = 0.0;
-    int noOfRecords = 0;
     Map<String, List<Stock>> m = null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
@@ -269,13 +270,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           Date dateBoughtObj;
           Date givenDateObj;
           try {
-            dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
-            givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
+            dateBoughtObj = new SimpleDateFormat(format, Locale.ENGLISH).parse(dateBought);
+            givenDateObj = new SimpleDateFormat(format, Locale.ENGLISH).parse(date);
           } catch (ParseException e) {
             throw new IllegalArgumentException("unable to parse date");
           }
           if (listOfStock.getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj) <= 0) {
-            noOfRecords++;
             totalCostBasis = totalCostBasis
                     + apiCustomInterface.getStockPriceAsOfCertainDate(
                     listOfStock.getCompanyTickerSymbol(),
@@ -448,9 +448,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
       if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
         try {
-          Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+          Date givenDate = new SimpleDateFormat(format, Locale.ENGLISH)
                   .parse(date);
-          Date ipoDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+          Date ipoDate = new SimpleDateFormat(format, Locale.ENGLISH)
                   .parse(companyTickerSymbol.getEndDate());
 
           if (givenDate.compareTo(ipoDate) < 0) {

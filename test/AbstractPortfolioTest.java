@@ -2,7 +2,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
@@ -62,9 +68,119 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
+    public void testPortfolioPerformanceDaily() {
+      String pName = "testFlexible";
+      String date1 = "2022-11-01";
+      String date2 = "2022-11-14";
+      Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      List<String> dates = getDatesHelper(date1, date2, 1);
+      assertFalse(res.isEmpty());
+      for (int i = 0; i < res.size(); i++) {
+        assertTrue(res.get(dates.get(i)) != 0);
+      }
+    }
+
+    private List<String> getDatesHelper(String date1, String date2, int interval) {
+      List<String> dates = new ArrayList<>();
+      try {
+        Date start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date1);
+
+        Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(date2);
+
+        Date current = start;
+
+        while (current.before(end)) {
+          String todayDateStr = new SimpleDateFormat("yyyy-MM-dd").format(
+                  new Date(String.valueOf(current)));
+
+          Calendar calendar = Calendar.getInstance();
+          calendar.setTime(current);
+          calendar.add(Calendar.DATE, interval);
+          current = calendar.getTime();
+          dates.add(todayDateStr);
+        }
+      } catch (Exception e) {
+        //do nothing
+      }
+      return dates;
+    }
+
+    @Test
+    public void testPortfolioPerformanceWeekly() {
+      String pName = "testFlexible";
+      String date1 = "2022-09-01";
+      String date2 = "2022-11-14";
+      Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      List<String> dates = getDatesHelper(date1, date2, 7);
+      assertFalse(res.isEmpty());
+      for (int i = 0; i < res.size(); i++) {
+        assertTrue(res.get(dates.get(i)) != 0);
+      }
+    }
+
+    @Test
+    public void testPortfolioPerformanceMonthly() {
+      String pName = "testFlexible";
+      String date1 = "2022-01-01";
+      String date2 = "2022-11-14";
+      Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      assertFalse(res.isEmpty());
+    }
+
+    @Test
+    public void testPortfolioPerformanceQuarterly() {
+      String pName = "testFlexible";
+      String date1 = "2020-01-01";
+      String date2 = "2022-11-14";
+      Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      assertFalse(res.isEmpty());
+    }
+
+
+    @Test
+    public void testPortfolioPerformanceYearly() {
+      String pName = "testFlexible";
+      String date1 = "2009-01-01";
+      String date2 = "2022-11-14";
+      Map<String, Double> res = portfolio.getPortfolioPerformanceOvertime(date1, date2, pName);
+      assertFalse(res.isEmpty());
+    }
+
+
+    @Test
+    public void testLoadAndUpdatePortfolio() {
+      String path = "userPortfolios/testFlexible_output.json";
+      portfolio.loadPortfolioUsingFilePath(path);
+      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(
+              "currentInstance", date);
+      assertFalse(results.isEmpty());
+
+      String pName = "currentInstance";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2020-10-01";
+      String action = "buy";
+      double before = portfolio.getTotalMoneyInvestedOnCertainDate("2020-09-30", pName);
+
+      portfolio.updatePortfolioUsingFilePath(path, cName, quantity, date, pName, action, com);
+
+      pName = "currentInstance";
+      cName = "goog";
+      quantity = "10";
+      date = "2022-10-01";
+      action = "sell";
+
+      portfolio.updatePortfolioUsingFilePath(path, cName, quantity, date, pName, action, com);
+      double after = portfolio.getTotalMoneyInvestedOnCertainDate("2022-10-02", pName);
+      assertTrue(before != after);
+    }
+
+    @Test
     public void testSellAndBuyOnSameDay() {
       String pName = "testFlexible";
-      String cName = "goog";
+      String cName = "aapl";
       String quantity = "10";
       String date = "2022-11-01";
       double before = portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
@@ -526,7 +642,7 @@ abstract class AbstractPortfolioTest {
 
     @Test
     public void testLoadFile() {
-      portfolio.loadPortfolioUsingFilePath("userPortfolios/testInFlexible_output.json");
+      portfolio.loadPortfolioUsingFilePath("userPortfolios/testFlexible_output.json");
       assertFalse(portfolio.toString().isEmpty());
     }
 
@@ -546,7 +662,7 @@ abstract class AbstractPortfolioTest {
     public void testViewTotalValueForPersistedPortfolio() {
       String date = "2022-10-10";
       String pName = "testFlexible";
-      Double res = portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
+      double res = portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
       // System.out.println(res);
       assertFalse(res == 0.0);
 
@@ -949,6 +1065,64 @@ abstract class AbstractPortfolioTest {
         actual = e.getMessage();
       }
       assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testViewCostBasis() {
+
+      String exception = "This operation is not supported in Inflexible portfolio";
+      String actual = "";
+      String pName = "testPfName";
+      String date = "2020-10-01";
+      try {
+        portfolio.getTotalMoneyInvestedOnCertainDate(date, pName);
+      } catch (UnsupportedOperationException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
+
+    }
+
+    @Test
+    public void testPortfolioPerformance() {
+      String exception = "This operation is not supported in Inflexible portfolio";
+      String actual = "";
+      String pName = "testPfName";
+      String date = "2020-10-01";
+      try {
+        portfolio.getPortfolioPerformanceOvertime(date, date, pName);
+      } catch (UnsupportedOperationException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
+    }
+
+    @Test
+    public void testSellStocks() {
+      String exception = "This operation is not supported in Inflexible portfolio";
+      String actual = "";
+      String pName = "testPfName";
+      String date = "2020-10-01";
+      try {
+        portfolio.sellStocks("dummy", "10", date, "20", pName);
+      } catch (UnsupportedOperationException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
+    }
+
+    @Test
+    public void testUpdatePortfolio() {
+      String exception = "This operation is not supported in Inflexible portfolio";
+      String actual = "";
+      String pName = "testPfName";
+      String date = "2020-10-01";
+      try {
+        portfolio.updatePortfolio("dummy", "10", "buy", date, "20", pName);
+      } catch (UnsupportedOperationException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
     }
 
 
