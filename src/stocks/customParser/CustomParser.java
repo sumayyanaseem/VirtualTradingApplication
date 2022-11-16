@@ -18,20 +18,20 @@ public interface CustomParser {
    *
    * @return the info read from  file as a list of each stock's data.
    */
-  Map<String,List<Stock>> readFromFile(String portFolioName);
+  Map<String, List<Stock>> readFromFile(String portFolioName);
 
   /**
    * reads the  file from path provided.
    *
    * @return the info read from  file as a list of each stock's data.
    */
-  Map<String,List<Stock>> readFromPathProvidedByUser(String path);
+  Map<String, List<Stock>> readFromPathProvidedByUser(String path);
 
 
-  void appendIntoFile(String portfolioName,String companyName,String quantity,String action,String date);
+  void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date);
 
 
-  void writeIntoFile(String portFolioName,Map<String,List<Stock>> map,String type);
+  void writeIntoFile(String portFolioName, Map<String, List<Stock>> map, String type);
 
   String getTypeOfFile(String portFolioName);
 

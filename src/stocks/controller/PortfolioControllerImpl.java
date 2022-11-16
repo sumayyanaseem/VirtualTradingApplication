@@ -135,7 +135,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     } else if (option.equals("2")) {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelperInFlexiblePortfolio(companyName);//should add more validations for chronological order
+      String date = dateHelperInFlexiblePortfolio(companyName);
+      //should add more validations for chronological order
       try {
         model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
       } catch (IllegalArgumentException e) {
@@ -183,7 +184,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
 
   private void updatePortfolio() {
-    // displayAllAvailablePortfolios();//else display message that there are no portfolios available to update
+    // displayAllAvailablePortfolios();
+    // else display message that there are no portfolios available to update
 
 
     view.getPortfolioName();
@@ -221,7 +223,8 @@ public class PortfolioControllerImpl implements PortfolioController {
       //2 for sell
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+      String date = dateHelperInFlexiblePortfolio(companyName);
+      // add more validations for chronological order for sell dates
       try {
         model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell");
       } catch (IllegalArgumentException e) {
@@ -248,7 +251,8 @@ public class PortfolioControllerImpl implements PortfolioController {
   }
 
 
-  private void continueUpdatingPortfolioForCurrentInstance(String path, Portfolio portfolio, String portfolioName) {
+  private void continueUpdatingPortfolioForCurrentInstance
+          (String path, Portfolio portfolio, String portfolioName) {
     view.checkIfUserWantsToContinueUpdatingPortfolio();
     String option = input.nextLine();
     if (validateInputsFromUSer(option)) {
@@ -297,7 +301,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     String date = dateHelper();
     String val = null;
     try {
-      val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate(date, name, portfolio));
+      val = String.format("%.2f", model.getTotalValueOfPortfolioOnCertainDate
+              (date, name, portfolio));
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage(e.getMessage());
       dateNotFoundHelper(name, portfolio);
@@ -411,7 +416,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     updateStocksForCurrentInstance(filePath, flexiblePortfolioTypeObj, portfolioName);
   }
 
-  private void updateStocksForCurrentInstance(String path, Portfolio portfolio, String portfolioName) {
+  private void updateStocksForCurrentInstance
+          (String path, Portfolio portfolio, String portfolioName) {
     view.displayMessageToBuyOrSell();
     String option = input.nextLine();
     if (validateInputsFromUSer(option)) {
@@ -423,7 +429,9 @@ public class PortfolioControllerImpl implements PortfolioController {
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
       try {
-        model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "buy");
+        model.updatePortfolioUsingFilePath
+                (path, companyName, quantity,
+                        date, portfolioName, portfolio, "buy");
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -431,9 +439,12 @@ public class PortfolioControllerImpl implements PortfolioController {
       //2 for sell
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
-      String date = dateHelperInFlexiblePortfolio(companyName); // add more validations for chronological order for sell dates
+      String date = dateHelperInFlexiblePortfolio(companyName);
+      // add more validations for chronological order for sell dates
       try {
-        model.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, portfolio, "sell");
+        model.updatePortfolioUsingFilePath
+                (path, companyName, quantity, date,
+                        portfolioName, portfolio, "sell");
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -474,7 +485,9 @@ public class PortfolioControllerImpl implements PortfolioController {
         // some part has been implemented. link it and test.
 
         String startDate = dateHelper();
-        String endDate = dateHelper();//display the different message in view and add more validations for date(end>start date).
+        String endDate = dateHelper();
+        //display the different message in view and
+        // add more validations for date(end>start date).
 
         Date start;
         Date end;
@@ -492,9 +505,11 @@ public class PortfolioControllerImpl implements PortfolioController {
         } catch (Exception e) {
           view.displayErrorMessage(e.getMessage());
         }
-        Map<String, Double> result = model.getPortfolioPerformanceOvertime(startDate, endDate, name, portfolio);
+        Map<String, Double> result = model.getPortfolioPerformanceOvertime
+                (startDate, endDate, name, portfolio);
         view.displayPortfolioPerformance(result, startDate, endDate, name);
         break;
+      default: break;
     }
     if (name.equals("currentInstance")) {
       viewHelper2ForCurrentInstance(name, path);

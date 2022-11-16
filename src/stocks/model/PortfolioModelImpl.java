@@ -12,7 +12,7 @@ public class PortfolioModelImpl implements PortfolioModel {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
-     return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
+    return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
   }
 
   @Override
@@ -21,8 +21,8 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date,Portfolio portfolio) {
-    return portfolio.viewCompositionOfCurrentPortfolio(portfolioName,date);
+  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio) {
+    return portfolio.viewCompositionOfCurrentPortfolio(portfolioName, date);
   }
 
   @Override
@@ -31,38 +31,38 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public void validateIfCompanyExists(String companyName,Portfolio portfolio) {
+  public void validateIfCompanyExists(String companyName, Portfolio portfolio) {
     portfolio.validateIfCompanyExists(companyName);
   }
 
   @Override
-  public void validateIfPortfolioAlreadyExists(String portfolioName,Portfolio portfolio) {
+  public void validateIfPortfolioAlreadyExists(String portfolioName, Portfolio portfolio) {
     portfolio.validateIfPortfolioAlreadyExists(portfolioName);
   }
 
   @Override
-  public void validateIfPortfolioDoesntExists(String name,Portfolio portfolio) {
+  public void validateIfPortfolioDoesntExists(String name, Portfolio portfolio) {
     portfolio.validateIfPortfolioDoesntExists(name);
   }
 
   @Override
-  public void buyStocks(String companyName,String quantity, String date, String portfolioName, Portfolio portfolio) {
+  public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
     portfolio.buyStocks(companyName, quantity, date, portfolioName);
   }
 
   @Override
-  public void sellStocks(String companyName,String quantity, String date, String portfolioName, Portfolio portfolio) {
+  public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
     portfolio.sellStocks(companyName, quantity, date, portfolioName);
   }
 
   @Override
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
-    portfolio.updatePortfolio(companyName,quantity,date,portfolioName,action);
+    portfolio.updatePortfolio(companyName, quantity, date, portfolioName, action);
   }
 
   @Override
   public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
-    portfolio.updatePortfolioUsingFilePath(path,companyName,quantity,date,portfolioName,action);
+    portfolio.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, action);
   }
 
   @Override

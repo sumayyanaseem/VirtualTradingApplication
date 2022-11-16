@@ -20,16 +20,15 @@ import stocks.customParser.JsonParserImplementation;
 public class PortfolioPerformance {
   private final APICustomInterface apiCustom;
   Map<String, Map<String, Double>> storedMonthlyValues; // stock --> yymm-val
-  Map<String, Map<String,Double>> mapOfAllStocksDateWise;
-  Map<String, Map<String,Double>> mapOfAllStocksMonthWise;
-  Map<String, Map<String,Double>> mapOfAllStocksWeekWise;
+  Map<String, Map<String, Double>> mapOfAllStocksDateWise;
+  Map<String, Map<String, Double>> mapOfAllStocksMonthWise;
+  Map<String, Map<String, Double>> mapOfAllStocksWeekWise;
   Map<String, List<Stock>> portfolioMap;
-
 
 
   public PortfolioPerformance(Map<String, List<Stock>> portfolioMap) {
     apiCustom = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
-    this.portfolioMap =portfolioMap;
+    this.portfolioMap = portfolioMap;
     mapOfAllStocksDateWise = new HashMap<>();
     mapOfAllStocksMonthWise = new HashMap<>();
     mapOfAllStocksWeekWise = new HashMap<>();
@@ -162,7 +161,7 @@ public class PortfolioPerformance {
       Map<String, Double> dayWiseTotalValues = new HashMap<>();
 
       for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
-        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(),"DAILY");
+        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(), "DAILY");
 
         if (dayWiseTotalValues.size() == 0) {
           dayWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
@@ -170,19 +169,13 @@ public class PortfolioPerformance {
 
         for (Map.Entry<String, Double> allDaysInRange : dayWiseTotalValues.entrySet()) {
           double netQty = getQuantityOnThisDateForGivenCompanyName(allDaysInRange.getKey(), companyInfo.getKey());
-          double stkValueDayEnd=0.0;
-          if(mapOfAllStocksDateWise.isEmpty() || mapOfAllStocksDateWise.get(companyInfo.getKey()).isEmpty())
-          {
-            mapOfAllStocksDateWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
-          }
-          else
-          {
-            if(mapOfAllStocksDateWise.get(companyInfo.getKey()).containsKey(allDaysInRange.getKey()))
-            {
+          double stkValueDayEnd = 0.0;
+          if (mapOfAllStocksDateWise.isEmpty() || mapOfAllStocksDateWise.get(companyInfo.getKey()).isEmpty()) {
+            mapOfAllStocksDateWise.put(companyInfo.getKey(), constructStockvaluesMapForAllDates(data));
+          } else {
+            if (mapOfAllStocksDateWise.get(companyInfo.getKey()).containsKey(allDaysInRange.getKey())) {
               stkValueDayEnd = mapOfAllStocksDateWise.get(companyInfo.getKey()).get(allDaysInRange.getKey());
-            }
-            else
-            {
+            } else {
               stkValueDayEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allDaysInRange.getKey());
             }
           }
@@ -198,40 +191,33 @@ public class PortfolioPerformance {
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
       for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
-          String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(), "WEEKLY");
+        String data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(), "WEEKLY");
 
-          if(weekWiseTotalValues.size()==0) {
-            weekWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+        if (weekWiseTotalValues.size() == 0) {
+          weekWiseTotalValues = generateMapWithDayKeys(date1, date2, data);
+        }
+        for (Map.Entry<String, Double> allWeeksInRange : weekWiseTotalValues.entrySet()) {
+          double netQty = getQuantityOnThisDateForGivenCompanyName(allWeeksInRange.getKey(), companyInfo.getKey());
+          double stkValueWeekEnd = 0.0;
+          if (mapOfAllStocksWeekWise.isEmpty() || mapOfAllStocksWeekWise.get(companyInfo.getKey()).isEmpty()) {
+            mapOfAllStocksWeekWise.put(companyInfo.getKey(), constructStockvaluesMapForAllDates(data));
+          } else {
+            if (mapOfAllStocksWeekWise.get(companyInfo.getKey()).containsKey(allWeeksInRange.getKey())) {
+              stkValueWeekEnd = mapOfAllStocksDateWise.get(companyInfo.getKey()).get(allWeeksInRange.getKey());
+            } else {
+              stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
+            }
           }
-          for (Map.Entry<String, Double> allWeeksInRange : weekWiseTotalValues.entrySet()) {
-            double netQty = getQuantityOnThisDateForGivenCompanyName(allWeeksInRange.getKey(), companyInfo.getKey());
-            double stkValueWeekEnd=0.0;
-            if(mapOfAllStocksWeekWise.isEmpty() || mapOfAllStocksWeekWise.get(companyInfo.getKey()).isEmpty())
-            {
-              mapOfAllStocksWeekWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
-            }
-            else
-            {
-              if(mapOfAllStocksWeekWise.get(companyInfo.getKey()).containsKey(allWeeksInRange.getKey()))
-              {
-                stkValueWeekEnd = mapOfAllStocksDateWise.get(companyInfo.getKey()).get(allWeeksInRange.getKey());
-              }
-              else
-              {
-                stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
-              }
-            }
-            stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
+          stkValueWeekEnd = apiCustom.getStockPriceAsOfCertainDate(companyInfo.getKey(), netQty, allWeeksInRange.getKey());
 
-            weekWiseTotalValues.put(allWeeksInRange.getKey(), weekWiseTotalValues.get(allWeeksInRange.getKey()) + stkValueWeekEnd);
+          weekWiseTotalValues.put(allWeeksInRange.getKey(), weekWiseTotalValues.get(allWeeksInRange.getKey()) + stkValueWeekEnd);
+        }
+
       }
-
-    }
       return weekWiseTotalValues;
       //plotGraph(weekWiseTotalValues,portfolioName, date1, date2);
 
-  }
-    else if (months >= 5 && months <= 30) {
+    } else if (months >= 5 && months <= 30) {
       Map<String, Double> monthWiseTotalValues = new HashMap<>(); // map --> yyyy-mm = val --> for every stock in portfolio keep adding val to its corresponding yyyy-mm
 
       // suppose date range is feb 2022 to april 2022. our below map will have 2022-02-->0.0, 2022-03-->0.0, 2022-04-->0.0
@@ -253,21 +239,18 @@ public class PortfolioPerformance {
         double totalValueOfPortfolioMonthEnd = 0.0;
 
         for (Map.Entry<String, List<Stock>> companyInfo : resultMap.entrySet()) {
-          String data="";
-          if(mapOfAllStocksMonthWise.isEmpty() || !mapOfAllStocksMonthWise.containsKey(companyInfo.getKey()))
-          {
-            data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(),"MONTHLY");
-            mapOfAllStocksMonthWise.put(companyInfo.getKey(),constructStockvaluesMapForAllDates(data));
+          String data = "";
+          if (mapOfAllStocksMonthWise.isEmpty() || !mapOfAllStocksMonthWise.containsKey(companyInfo.getKey())) {
+            data = apiCustom.fetchOutputStringFromURLByInterval(companyInfo.getKey(), "MONTHLY");
+            mapOfAllStocksMonthWise.put(companyInfo.getKey(), constructStockvaluesMapForAllDates(data));
           }
 
           //move this method to interface
-          double stkValueMonthEnd=0.0;
+          double stkValueMonthEnd = 0.0;
           double netQty = getQuantityOnThisDateForGivenCompanyName(monthEndDate, companyInfo.getKey());
-          if(mapOfAllStocksMonthWise.get(companyInfo.getKey()).containsKey(monthEndDate))
-          {
-            stkValueMonthEnd=mapOfAllStocksMonthWise.get(companyInfo.getKey()).get(monthEndDate);
-          }
-          else {
+          if (mapOfAllStocksMonthWise.get(companyInfo.getKey()).containsKey(monthEndDate)) {
+            stkValueMonthEnd = mapOfAllStocksMonthWise.get(companyInfo.getKey()).get(monthEndDate);
+          } else {
             stkValueMonthEnd = apiCustom.getStockPriceAsOfCertainMonthEnd(companyInfo.getKey(), monthEndDate, netQty, data);
           }
 
@@ -286,29 +269,19 @@ public class PortfolioPerformance {
   }
 
 
-
-
-
-
-
-
-
-
-
-  Map<String,Double> constructStockvaluesMapForAllDates(String output)
-  {
-    Map<String,Double> result=new HashMap<>();
+  Map<String, Double> constructStockvaluesMapForAllDates(String output) {
+    Map<String, Double> result = new HashMap<>();
     String[] lines = output.split(System.lineSeparator());
     List<List<String>> records = new ArrayList<>();
-    for(int i=1;i<lines.length;i++)
-    {
+    for (int i = 1; i < lines.length; i++) {
       String[] values = lines[i].split(",");
-      result.put(values[0],Double.valueOf(values[4]));
+      result.put(values[0], Double.valueOf(values[4]));
     }
     return result;
 
 
   }
+
   private Map<String, Double> generateMapWithDayKeys(String date1, String date2, String data) {
     Map<String, Double> result = new HashMap<>();
     String lines[] = data.split(System.lineSeparator());
@@ -352,7 +325,7 @@ public class PortfolioPerformance {
       throw new IllegalArgumentException("file not found in our records "
               + "for given company ");
     }
-return result;
+    return result;
   }
 
 

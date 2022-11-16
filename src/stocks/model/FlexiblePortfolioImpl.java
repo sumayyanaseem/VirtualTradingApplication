@@ -119,10 +119,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  private void updatePortfolioHelper (String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException
-  {
+  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
-    this.portfolioName =portfolioName;
+    this.portfolioName = portfolioName;
     if (stockMap.isEmpty()) {
       stockMap = new HashMap<>();
       Map<String, List<Stock>> map = parser.readFromFile(portfolioName);
@@ -141,7 +140,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
-    } catch(Exception e){
+    } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
     parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
@@ -151,10 +150,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action) {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
-    } catch(Exception e){
+    } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    parser.appendIntoFileUsingFilePath(filePath,portfolioName, companyName, quantity, action, date);
+    parser.appendIntoFileUsingFilePath(filePath, portfolioName, companyName, quantity, action, date);
   }
 
 
@@ -201,15 +200,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
 
-  private boolean checkIfDateIsLessThanGivenDate(String date,Stock s) throws ParseException {
+  private boolean checkIfDateIsLessThanGivenDate(String date, Stock s) throws ParseException {
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
             .parse(date);
 
-      String datePresent = s.getDateOfAction();
-      Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-              .parse(datePresent);
-      if (todayDate.compareTo(givenDate) <= 0) {
-         return true;
+    String datePresent = s.getDateOfAction();
+    Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            .parse(datePresent);
+    if (todayDate.compareTo(givenDate) <= 0) {
+      return true;
     }
     return false;
   }
@@ -221,7 +220,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     Map<String, List<Stock>> m = null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
-         m = stockMap.get(portfolioName);
+        m = stockMap.get(portfolioName);
       }
     } else {
       validateIfPortfolioDoesntExists(portfolioName);
@@ -229,7 +228,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       m = parser.readFromFile(portfolioName);
       this.stockMap.put(portfolioName, m);
     }
-    if(m != null) {
+    if (m != null) {
       for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
         List<Stock> listOfStocks = entry.getValue();
         for (Stock listOfStock : listOfStocks) {
@@ -249,7 +248,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       }
     }
     totalCostBasis = totalCostBasis + (noOfRecords * commissionPerTransaction);
-    String value = String.format("%.2f",totalCostBasis);
+    String value = String.format("%.2f", totalCostBasis);
     return Double.parseDouble(value);
   }
 
@@ -260,7 +259,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
     validateDate(date);
     double totalValue = 0.0;
-    Map<String, List<Stock>> m=null;
+    Map<String, List<Stock>> m = null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
         m = stockMap.get(portfolioName);
@@ -271,17 +270,17 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       m = parser.readFromFile(portfolioName);
       this.stockMap.put(portfolioName, m);
     }
-    if(m!=null){
-    for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
-      String stkName = entry.getKey();
-      try {
-        double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
-        totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
-      } catch (ParseException e) {
+    if (m != null) {
+      for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
+        String stkName = entry.getKey();
+        try {
+          double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
+          totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
+        } catch (ParseException e) {
+        }
       }
     }
-    }
-    String value = String.format("%.2f",totalValue);
+    String value = String.format("%.2f", totalValue);
     return Double.parseDouble(value);
 
   }
@@ -301,7 +300,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  protected List<String> getResultsToDisplayComposition(Stock stock,String date){
+  protected List<String> getResultsToDisplayComposition(Stock stock, String date) {
     try {
       if (checkIfDateIsLessThanGivenDate(date, stock)) {
         List<String> temp = new ArrayList<>();
@@ -311,10 +310,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         temp.add(stock.getAction());
         return temp;
       }
-    } catch(ParseException e ){
+    } catch (ParseException e) {
 
     }
-   return null;
+    return null;
   }
 
 
@@ -351,11 +350,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       //create a new map here and pass it to PortfolioPerformance
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
 
     }
-return null;
+    return null;
   }
 
   private void validateInputsForBuy(String companyName, String quantity, String date) {
@@ -372,7 +370,7 @@ return null;
   }
 
   private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action) {
-    if(!portfolioName.equals("currentInstance")) {
+    if (!portfolioName.equals("currentInstance")) {
       validateIfPortfolioDoesntExists(portfolioName);
     }
     if (action.equals("buy")) {

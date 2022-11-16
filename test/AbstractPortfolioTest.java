@@ -26,7 +26,7 @@ abstract class AbstractPortfolioTest {
 
   public static final class FlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
-    private static final String date ="2022-10-01";
+    private static final String date = "2022-10-01";
 
     @Override
     @Before

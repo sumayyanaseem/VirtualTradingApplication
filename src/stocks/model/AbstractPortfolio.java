@@ -19,10 +19,10 @@ import stocks.customAPI.CompanyTickerSymbol;
 import stocks.customParser.JsonParserImplementation;
 import stocks.customParser.CustomParser;
 
-abstract class AbstractPortfolio implements Portfolio{
+abstract class AbstractPortfolio implements Portfolio {
 
   protected String portfolioName;
-  protected  Map<String, Map<String, List<Stock>>> stockMap;
+  protected Map<String, Map<String, List<Stock>>> stockMap;
   protected final APICustomInterface apiCustomInterface;
   protected final CustomParser parser;
   protected static final double commissionPerTransaction = 10.0;
@@ -41,14 +41,14 @@ abstract class AbstractPortfolio implements Portfolio{
     if (companyName == null) {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
-    boolean found =false;
+    boolean found = false;
     for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
       if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
         found = true;
         break;
       }
     }
-    if(!found){
+    if (!found) {
       throw new IllegalArgumentException("Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.");
     }
@@ -146,7 +146,7 @@ abstract class AbstractPortfolio implements Portfolio{
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     List<List<String>> results = new ArrayList<>();
-    Map<String, List<Stock>> map =null;
+    Map<String, List<Stock>> map = null;
     if (portfolioName.equals("currentInstance") || this.portfolioName.equals(portfolioName)) {
       if (!stockMap.isEmpty()) {
         map = stockMap.get(this.portfolioName);
@@ -157,7 +157,7 @@ abstract class AbstractPortfolio implements Portfolio{
       map = parser.readFromFile(portfolioName);
       stockMap.put(portfolioName, map);
     }
-    if(map!=null) {
+    if (map != null) {
       String[] t = new String[4];
       t[0] = "CompanyName";
       t[1] = "Quantity";
@@ -167,8 +167,8 @@ abstract class AbstractPortfolio implements Portfolio{
       for (Map.Entry<String, List<Stock>> entry : map.entrySet()) {
         List<Stock> s = entry.getValue();
         for (Stock stock : s) {
-          List<String> temp = getResultsToDisplayComposition(stock,date);
-          if(temp!=null){
+          List<String> temp = getResultsToDisplayComposition(stock, date);
+          if (temp != null) {
             results.add(temp);
           }
         }
@@ -177,7 +177,7 @@ abstract class AbstractPortfolio implements Portfolio{
     return results;
   }
 
-  protected abstract List<String> getResultsToDisplayComposition(Stock s,String date);
+  protected abstract List<String> getResultsToDisplayComposition(Stock s, String date);
 
 
   protected void validateFilePath(String path) {
