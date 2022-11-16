@@ -22,7 +22,8 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void callToViewToChooseCreateOrView() {
     out.println("Enter 1: To create a Portfolio "
-            + "2: To query the portfolio details 3: To load a Portfolio  4: To update a portfolio");
+            + "2: To query the portfolio details "
+            + "3: To load a Portfolio  4: To update a portfolio");
   }
 
 
@@ -75,7 +76,8 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void checkIfUserWantsToViewCompositionOrTotalValue() {
-    out.println("Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio");
+    out.println("Enter 1: To view composition  2: To get TotalValue of portfolio  " +
+            "3: To get Total CostBasis  4:To display performance of Portfolio");
   }
 
   @Override
@@ -115,12 +117,15 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void displayTheTotalCost(double totalCost, String date, String portfolioName) {
     out.println("This portfolio's commission is $10 per transaction.");
-    out.println("Total cost basis from the portfolioName " + portfolioName + " on " + date + " is " + totalCost);
+    out.println("Total cost basis from the portfolioName "
+            + portfolioName + " on " + date + " is " + totalCost);
   }
 
 
   @Override
-  public void displayPortfolioPerformance(Map<String, Double> mapToPlot, String portfolioName, String date1, String date2) {
+  public void displayPortfolioPerformance(Map<String, Double> mapToPlot,
+                                          String portfolioName,
+                                          String date1, String date2) {
     out.println("Performance of portfolio " + portfolioName + "from YYY to ZZZ");
     double total = 0.0;
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {

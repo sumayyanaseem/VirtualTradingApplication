@@ -34,7 +34,8 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+    public double getTotalValueOfPortfolioOnCertainDate(
+            String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
 
@@ -44,7 +45,8 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio) {
+    public List<List<String>> viewCompositionOfCurrentPortfolio(
+            String portfolioName, String date, Portfolio portfolio) {
       List<List<String>> dummy = new ArrayList<>();
       log.append("inputs for viewCompositionOfCurrentPortfolio: " + portfolioName + "\n");
       return dummy;
@@ -75,33 +77,47 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
+    public void buyStocks(String companyName,
+                          String quantity, String date,
+                          String portfolioName, Portfolio portfolio) {
 
       log.append("inputs for buyStocks: " + quantity + " " + companyName + " " + portfolioName);
     }
 
     @Override
-    public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
+    public void sellStocks(String companyName,
+                           String quantity, String date,
+                           String portfolioName, Portfolio portfolio) {
+      return;
+    }
+
+    @Override
+    public void updatePortfolio(String companyName,
+                                String quantity, String date,
+                                String portfolioName, Portfolio portfolio,
+                                String action) {
+      return;
 
     }
 
     @Override
-    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
-
+    public void updatePortfolioUsingFilePath(String path, String companyName,
+                                             String quantity, String date, String portfolioName,
+                                             Portfolio portfolio, String action)
+            throws IllegalArgumentException {
+      return;
     }
 
     @Override
-    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
-
-    }
-
-    @Override
-    public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+    public double getTotalMoneyInvestedOnCertainDate(
+            String date, String portfolioName, Portfolio portfolio) {
       return 0;
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
+    public Map<String, Double> getPortfolioPerformanceOvertime(
+            String startTime, String endTime,
+            String portfolioName, Portfolio portfolio) {
       return null;
     }
   }

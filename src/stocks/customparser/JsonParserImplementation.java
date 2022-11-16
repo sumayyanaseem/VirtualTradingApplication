@@ -1,4 +1,4 @@
-package stocks.customParser;
+package stocks.customparser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,6 +17,10 @@ import java.util.Map;
 
 import stocks.model.Stock;
 
+
+/**
+ * This class represents a JSON Parser.
+ */
 public class JsonParserImplementation implements CustomParser {
 
   @Override
@@ -86,7 +90,9 @@ public class JsonParserImplementation implements CustomParser {
               }
 
             }
-            Stock s = new Stock(cName, Double.parseDouble(quantity), 0.0, action, 0.0, date);
+            Stock s = new Stock(
+                    cName, Double.parseDouble(quantity),
+                    0.0, action, 0.0, date);
             list.add(s);
           }
           res.put(cName, list);
@@ -135,7 +141,8 @@ public class JsonParserImplementation implements CustomParser {
   }
 
 
-  private void appendFileHelper(String companyName, String quantity, String action, String date, String path) {
+  private void appendFileHelper(String companyName,
+                                String quantity, String action, String date, String path) {
     try {
       Object obj = new JSONParser().parse(new FileReader(path));
       JSONObject jsonObject = (JSONObject) obj;
@@ -184,13 +191,16 @@ public class JsonParserImplementation implements CustomParser {
 
 
   @Override
-  public void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date) {
+  public void appendIntoFile(String portfolioName, String companyName,
+                             String quantity, String action, String date) {
     String path = "userPortfolios/" + portfolioName + "_output.json";
     appendFileHelper(companyName, quantity, action, date, path);
   }
 
   @Override
-  public void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date) {
+  public void appendIntoFileUsingFilePath(String path,
+                                          String portfolioName, String companyName,
+                                          String quantity, String action, String date) {
     appendFileHelper(companyName, quantity, action, date, path);
   }
 

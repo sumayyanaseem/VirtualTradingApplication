@@ -74,18 +74,28 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void sellStocks(String companyName,
+                         String quantity, String date,
+                         String portfolioName) {
+    throw new UnsupportedOperationException("This operation is not"
+            + " supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void updatePortfolio(String companyName,
+                              String quantity, String date,
+                              String portfolioName, String action) {
+    throw new UnsupportedOperationException("This operation is not "
+            + "supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
-    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
+  public void updatePortfolioUsingFilePath(String path, String companyName,
+                                           String quantity, String date,
+                                           String portfolioName, String action)
+          throws IllegalArgumentException {
+    throw new UnsupportedOperationException(
+            "This operation is not supported in Inflexible portfolio");
   }
 
   @Override
@@ -106,7 +116,9 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       for (Map.Entry<String, List<Stock>> entry : m.entrySet()) {
         List<Stock> listOfStocks = entry.getValue();
         String dateBought = listOfStocks.get(0).getDateOfAction();
-        Date dateBoughtObj, givenDateObj;
+        Date dateBoughtObj;
+        Date givenDateObj;
+
         try {
           dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
           givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
@@ -115,7 +127,9 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
         }
         if (dateBoughtObj.compareTo(givenDateObj) <= 0) {
 
-          totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStocks.get(0).getCompanyTickerSymbol(), listOfStocks.get(0).getQty(), listOfStocks.get(0).getDateOfAction());
+          totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(
+                  listOfStocks.get(0).getCompanyTickerSymbol(), listOfStocks.get(0).getQty(),
+                  listOfStocks.get(0).getDateOfAction());
           totalCostBasis = totalCostBasis + commissionPerTransaction;
         }
       }
@@ -127,7 +141,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+  public Map<String, Double> getPortfolioPerformanceOvertime(
+          String startTime, String endTime, String portfolioName) {
     return null;
   }
 

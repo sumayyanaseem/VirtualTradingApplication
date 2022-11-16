@@ -1,11 +1,11 @@
-package stocks.customAPI;
+package stocks.customapi;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * This class represents caching the data from Alphavantage API to avoid
+ * This class represents methods related to caching the data from Alphavantage API.
  */
 public class LocalCacheForAPI {
 

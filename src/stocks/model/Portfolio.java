@@ -70,17 +70,26 @@ public interface Portfolio {
    * @param companyName   company of which stocks need to be bought.
    * @param portfolioName portfolio to which bought stocks need to be added.
    */
-  void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException;
+  void buyStocks(String companyName, String quantity,
+                 String date, String portfolioName) throws IllegalArgumentException;
 
-  void sellStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException;
+  void sellStocks(String companyName, String quantity,
+                  String date, String portfolioName) throws IllegalArgumentException;
 
-  void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException;
+  void updatePortfolio(String companyName, String quantity,
+                       String date, String portfolioName, String action)
+          throws IllegalArgumentException;
 
-  void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException;
+  void updatePortfolioUsingFilePath(String path, String companyName,
+                                    String quantity, String date,
+                                    String portfolioName, String action)
+          throws IllegalArgumentException;
 
 
   double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName);
 
-  Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName);
+  Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
+                                                      String endTime,
+                                                      String portfolioName);
 
 }

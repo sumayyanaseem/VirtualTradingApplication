@@ -3,15 +3,21 @@ package stocks.model;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents implementation of PortfolioModel Interface.
+ */
 public class PortfolioModelImpl implements PortfolioModel {
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+  public double getTotalValueOfPortfolioOnCertainDate(
+          String date, String portfolioName, Portfolio portfolio) {
     return portfolio.getTotalValueOfPortfolioOnCertainDate(date, portfolioName);
   }
 
   @Override
-  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName, Portfolio portfolio) {
+  public Map<String, Double> getPortfolioPerformanceOvertime(
+          String startTime, String endTime, String portfolioName,
+          Portfolio portfolio) {
     return portfolio.getPortfolioPerformanceOvertime(startTime, endTime, portfolioName);
   }
 
@@ -21,7 +27,8 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date, Portfolio portfolio) {
+  public List<List<String>> viewCompositionOfCurrentPortfolio(
+          String portfolioName, String date, Portfolio portfolio) {
     return portfolio.viewCompositionOfCurrentPortfolio(portfolioName, date);
   }
 
@@ -46,27 +53,38 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
+  public void buyStocks(String companyName,
+                        String quantity, String date,
+                        String portfolioName, Portfolio portfolio) {
     portfolio.buyStocks(companyName, quantity, date, portfolioName);
   }
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
+  public void sellStocks(String companyName, String quantity,
+                         String date, String portfolioName, Portfolio portfolio) {
     portfolio.sellStocks(companyName, quantity, date, portfolioName);
   }
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
+  public void updatePortfolio(String companyName, String quantity,
+                              String date, String portfolioName,
+                              Portfolio portfolio, String action) {
     portfolio.updatePortfolio(companyName, quantity, date, portfolioName, action);
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
-    portfolio.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, action);
+  public void updatePortfolioUsingFilePath(String path,
+                                           String companyName, String quantity, String date,
+                                           String portfolioName, Portfolio portfolio, String action)
+          throws IllegalArgumentException {
+    portfolio.updatePortfolioUsingFilePath(path, companyName,
+            quantity, date, portfolioName, action);
   }
 
   @Override
-  public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName, Portfolio portfolio) {
+  public double getTotalMoneyInvestedOnCertainDate(String date,
+                                                   String portfolioName,
+                                                   Portfolio portfolio) {
     return portfolio.getTotalMoneyInvestedOnCertainDate(date, portfolioName);
   }
 

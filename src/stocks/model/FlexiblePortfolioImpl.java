@@ -9,20 +9,27 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customAPI.CompanyTickerSymbol;
+import stocks.customapi.CompanyTickerSymbol;
 
+
+/**
+ * This class represents a Flexible Portfolio.
+ */
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private static String action;
 
 
   @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
+  public void buyStocks(String companyName,
+                        String quantity, String date, String portfolioName)
+          throws IllegalArgumentException {
     action = "buy";
     this.portfolioName = portfolioName;
     validateInputsForBuy(companyName, quantity, date);
     String cName = companyName.toUpperCase();
     double q = Double.parseDouble(quantity);
-    Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
+    Stock s = new Stock(cName, q, 0.0, action,
+            0.0, date);
     if (stockMap.isEmpty()) {
       Map<String, List<Stock>> m = new HashMap<>();
       List<Stock> list = new ArrayList<>();
@@ -44,7 +51,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String dateBought = stockList.get(i).getDateOfAction();
           if (areDatesEqual(dateBought, date)) {
             double totQty = stockList.get(i).getQty() + q;
-            s = new Stock(companyName, totQty, 0.0, action, 0.0, date);
+            s = new Stock(companyName, totQty,
+                    0.0, action, 0.0, date);
             stockList.remove(i);
             stockList.add(s);
             m.put(companyName, stockList);
@@ -77,15 +85,19 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
+  public void sellStocks(String companyName, String quantity,
+                         String date, String portfolioName)
+          throws IllegalArgumentException {
     action = "sell";
     validateInputsForSell(quantity, date);
     if (stockMap.isEmpty()) {
-      throw new IllegalArgumentException("It is impossible to sell a stock without first purchasing it.");
+      throw new IllegalArgumentException("It is impossible to sell a "
+              + "stock without first purchasing it.");
     }
     Map<String, List<Stock>> m1 = stockMap.get(portfolioName);
     if (companyName == null || !m1.containsKey(companyName)) {
-      throw new IllegalArgumentException("As the given company's stock does not exist with in current portfolio, it cannot be sold.");
+      throw new IllegalArgumentException("As the given company's stock does not exist "
+              + "with in current portfolio, it cannot be sold.");
     } else {
       //if sellMap is not empty, then validate if entry of this company exists or not.
       try {
@@ -103,7 +115,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           Date lastDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                   .parse(lastSellDate);
           if (lastDate.compareTo(givenDate) > 0) {
-            throw new IllegalArgumentException("Sell date is not in the chronological order.Last date present is " + lastDate);
+            throw new IllegalArgumentException("Sell date is not in the chronological "
+                    + "order.Last date present is " + lastDate);
           } else {
             String cName = companyName.toUpperCase();
             Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
@@ -114,12 +127,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           }
         }
       } catch (ParseException e) {
-
+        //do nothing
       }
     }
   }
 
-  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
+  private void updatePortfolioHelper(String companyName, String quantity, String date,
+                                     String portfolioName, String action)
+          throws IllegalArgumentException {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
     this.portfolioName = portfolioName;
     if (stockMap.isEmpty()) {
@@ -137,7 +152,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+  public void updatePortfolio(String companyName,
+                              String quantity, String date,
+                              String portfolioName, String action) {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
     } catch (Exception e) {
@@ -147,13 +164,17 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action) {
+  public void updatePortfolioUsingFilePath(String filePath,
+                                           String companyName, String quantity,
+                                           String date, String portfolioName,
+                                           String action) {
     try {
       updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    parser.appendIntoFileUsingFilePath(filePath, portfolioName, companyName, quantity, action, date);
+    parser.appendIntoFileUsingFilePath(
+            filePath, portfolioName, companyName, quantity, action, date);
   }
 
 
@@ -178,7 +199,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return date;
   }
 
-  public double getQuantityOnThisDateForGivenCompanyName(String date, String companyName) throws ParseException {
+  /**
+   * Determines if the specified topping is on this pizza and if so, return its portion.
+   *
+   * @param date the date as of which we need the net quantity.
+   * @return the value of company calculated based on netQty as of given date.
+   */
+  private double getQuantityOnThisDateForGivenCompanyName(
+          String date, String companyName) throws ParseException {
     Map<String, List<Stock>> m = stockMap.get(portfolioName);
     List<Stock> list = m.get(companyName);
     Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -207,10 +235,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     String datePresent = s.getDateOfAction();
     Date todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
             .parse(datePresent);
-    if (todayDate.compareTo(givenDate) <= 0) {
-      return true;
-    }
-    return false;
+    return todayDate.compareTo(givenDate) <= 0;
+
+
   }
 
   @Override
@@ -233,7 +260,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         List<Stock> listOfStocks = entry.getValue();
         for (Stock listOfStock : listOfStocks) {
           String dateBought = listOfStock.getDateOfAction();
-          Date dateBoughtObj, givenDateObj;
+          Date dateBoughtObj;
+          Date givenDateObj;
           try {
             dateBoughtObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateBought);
             givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
@@ -242,7 +270,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           }
           if (listOfStock.getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj) <= 0) {
             noOfRecords++;
-            totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStock.getCompanyTickerSymbol(), listOfStock.getQty(), date);
+            totalCostBasis = totalCostBasis
+                    + apiCustomInterface.getStockPriceAsOfCertainDate(
+                    listOfStock.getCompanyTickerSymbol(), listOfStock.getQty(), date);
           }
         }
       }
@@ -275,8 +305,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         String stkName = entry.getKey();
         try {
           double netQty = getQuantityOnThisDateForGivenCompanyName(date, stkName);
-          totalValue = totalValue + apiCustomInterface.getStockPriceAsOfCertainDate(stkName, netQty, date);
+          totalValue = totalValue
+                  + apiCustomInterface.getStockPriceAsOfCertainDate(
+                  stkName, netQty, date);
         } catch (ParseException e) {
+          //do nothing
         }
       }
     }
@@ -311,7 +344,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         return temp;
       }
     } catch (ParseException e) {
-
+      //do nothing
     }
     return null;
   }
@@ -343,7 +376,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
+  public Map<String, Double> getPortfolioPerformanceOvertime(
+          String startTime, String endTime, String portfolioName) {
     try {
 
       Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
@@ -351,7 +385,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
     } catch (Exception e) {
-
+      // do nothing
     }
     return null;
   }
@@ -364,12 +398,15 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   private void validateInputsForSell(String quantity, String date) {
-    //validation on companyName and date chronological order is already handled in sellStocks method.
+    //validation on companyName and
+    // date chronological order is already handled in sellStocks method.
     validateQuantity(quantity);
     validateDate(date);
   }
 
-  private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action) {
+  private void validateInputsForUpdate(String portfolioName,
+                                       String companyName,
+                                       String quantity, String date, String action) {
     if (!portfolioName.equals("currentInstance")) {
       validateIfPortfolioDoesntExists(portfolioName);
     }
@@ -390,7 +427,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
                   .parse(companyTickerSymbol.getEndDate());
 
           if (givenDate.compareTo(ipoDate) < 0) {
-            throw new IllegalArgumentException("Given date is before IPO Date.Please provide a valid date.");
+            throw new IllegalArgumentException("Given date "
+                    + "is before IPO Date.Please provide a valid date.");
           }
           break;
         } catch (ParseException e) {

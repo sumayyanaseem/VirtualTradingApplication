@@ -1,4 +1,4 @@
-package stocks.customAPI;
+package stocks.customapi;
 
 /**
  * This enum represents stocks supported by application and IPO dates for each.

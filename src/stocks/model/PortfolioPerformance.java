@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customAPI.APICustomClass;
-import stocks.customAPI.APICustomInterface;
-import stocks.customParser.JsonParserImplementation;
+import stocks.customapi.APICustomClass;
+import stocks.customapi.APICustomInterface;
+import stocks.customparser.JsonParserImplementation;
 
 public class PortfolioPerformance {
   private final APICustomInterface apiCustom;
