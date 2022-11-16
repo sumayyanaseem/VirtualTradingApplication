@@ -18,7 +18,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   private static final String action = "add";
 
   @Override
-  public void buyStocks(String cName, String quantity, String date, String portfolioName)
+  public void buyStocks(String cName, String quantity, String date, String com,String portfolioName)
           throws IllegalArgumentException {
     validateQuantity(quantity);
     validateIfCompanyExists(cName);
@@ -32,7 +32,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
       double qty = Double.parseDouble(quantity);
       double totalVal = priceBought * qty;
       String companyName = cName.toUpperCase();
-      Stock s = new Stock(companyName, qty, totalVal, action, priceBought, todayDateStr);
+      Stock s = new Stock(companyName, qty, totalVal, action, priceBought, todayDateStr, 0.0);
       List<Stock> listOfOneStock = new ArrayList<>();
       listOfOneStock.add(s);
       if (stockMap.isEmpty()) {
@@ -49,7 +49,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
           List<Stock> s1 = m1.get(companyName);
           double totQty = s1.get(0).getQty() + qty;
           double val = s1.get(0).getTotalValue() + totalVal;
-          Stock s2 = new Stock(companyName, totQty, val, action, priceBought, todayDateStr);
+          Stock s2 = new Stock(companyName, totQty, val, action, priceBought, todayDateStr, 0.0);
           List<Stock> ls = new ArrayList<>();
           ls.add(s2);
           m1.put(companyName, ls);
@@ -74,17 +74,17 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName) {
+  public void sellStocks(String companyName, String quantity, String date, String com,String portfolioName) {
     throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action,String com) {
     throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
+  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action,String com) throws IllegalArgumentException {
     throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
@@ -116,7 +116,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
         if (dateBoughtObj.compareTo(givenDateObj) <= 0) {
 
           totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStocks.get(0).getCompanyTickerSymbol(), listOfStocks.get(0).getQty(), listOfStocks.get(0).getDateOfAction());
-          totalCostBasis = totalCostBasis + commissionPerTransaction;
         }
       }
 
@@ -128,7 +127,7 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-    return null;
+    throw new UnsupportedOperationException("This operation is not supported in Inflexible portfolio");
   }
 
   @Override

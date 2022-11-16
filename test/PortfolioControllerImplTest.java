@@ -75,23 +75,23 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
-
+    public void buyStocks(String companyName, String quantity, String date, String portfolioName, String com, Portfolio portfolio) throws IllegalArgumentException {
       log.append("inputs for buyStocks: " + quantity + " " + companyName + " " + portfolioName);
-    }
-
-    @Override
-    public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
 
     }
 
     @Override
-    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
+    public void sellStocks(String companyName, String quantity, String date, String portfolioName, String com, Portfolio portfolio) throws IllegalArgumentException {
 
     }
 
     @Override
-    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
+    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action, String com) throws IllegalArgumentException {
+
+    }
+
+    @Override
+    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action, String com) throws IllegalArgumentException {
 
     }
 

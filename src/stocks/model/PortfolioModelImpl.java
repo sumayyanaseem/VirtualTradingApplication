@@ -46,23 +46,23 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
-    portfolio.buyStocks(companyName, quantity, date, portfolioName);
+  public void buyStocks(String companyName, String quantity, String date, String portfolioName, String com,Portfolio portfolio) {
+    portfolio.buyStocks(companyName, quantity, date, com,portfolioName);
   }
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio) {
-    portfolio.sellStocks(companyName, quantity, date, portfolioName);
+  public void sellStocks(String companyName, String quantity, String date, String portfolioName, String com,Portfolio portfolio) {
+    portfolio.sellStocks(companyName, quantity, date,com, portfolioName);
   }
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) {
-    portfolio.updatePortfolio(companyName, quantity, date, portfolioName, action);
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action,String com) {
+    portfolio.updatePortfolio(companyName, quantity, date, portfolioName, action,com);
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action) throws IllegalArgumentException {
-    portfolio.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, action);
+  public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action,String com) throws IllegalArgumentException {
+    portfolio.updatePortfolioUsingFilePath(path, companyName, quantity, date, portfolioName, action,com);
   }
 
   @Override

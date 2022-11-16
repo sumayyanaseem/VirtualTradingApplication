@@ -27,6 +27,7 @@ abstract class AbstractPortfolioTest {
   public static final class FlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
     private static final String date = "2022-10-01";
+    private static final String com ="10";
 
     @Override
     @Before
@@ -49,7 +50,7 @@ abstract class AbstractPortfolioTest {
       String quantity="10";
       String date="2022-10-01";
       try {
-        portfolio.sellStocks(cName, quantity, date, pName);
+        portfolio.sellStocks(cName, quantity, date,com, pName);
       } catch(IllegalArgumentException e){
         actual =e.getMessage();
       }
@@ -63,8 +64,8 @@ abstract class AbstractPortfolioTest {
       String quantity = "10";
       String date = "2022-11-01";
       double before = portfolio.getTotalValueOfPortfolioOnCertainDate(date,pName);
-      portfolio.buyStocks(cName, quantity, date, pName);
-      portfolio.sellStocks(cName, quantity, date, pName);
+      portfolio.buyStocks(cName, quantity, date, com,pName);
+      portfolio.sellStocks(cName, quantity, date, com,pName);
       double after = portfolio.getTotalValueOfPortfolioOnCertainDate(date,pName);
       assertEquals(before, after,0.01);
     }
@@ -78,7 +79,7 @@ abstract class AbstractPortfolioTest {
       String expected = "Given date is before IPO Date.Please provide a valid date.";
       String actual = "";
       try {
-        portfolio.buyStocks(cName, quantity, date, pName);
+        portfolio.buyStocks(cName, quantity, date, com,pName);
       }catch(IllegalArgumentException e){
         actual=e.getMessage();
       }
@@ -96,7 +97,7 @@ abstract class AbstractPortfolioTest {
       String actual = "";
       try {
         //portfolio.buyStocks(cName, quantity, "2022-10-01", pName);
-        portfolio.sellStocks(cName, quantity, date, pName);
+        portfolio.sellStocks(cName, quantity, date,com, pName);
       }catch(IllegalArgumentException e){
         actual=e.getMessage();
       }
@@ -127,7 +128,7 @@ abstract class AbstractPortfolioTest {
       String date = "2022-10-01";
       String action="buy";
       double before= portfolio.getTotalMoneyInvestedOnCertainDate("2022-09-01",pName);
-      portfolio.updatePortfolio(cName,quantity,date,pName,action);
+      portfolio.updatePortfolio(cName,quantity,date,pName,action,com);
       double after= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
       assertTrue(before!=after);
     }
@@ -140,7 +141,7 @@ abstract class AbstractPortfolioTest {
       String date = "2022-10-01";
       String action="sell";
       double before= portfolio.getTotalMoneyInvestedOnCertainDate("2022-09-01",pName);
-      portfolio.updatePortfolio(cName,quantity,date,pName,action);
+      portfolio.updatePortfolio(cName,quantity,date,pName,action,com);
       double after= portfolio.getTotalMoneyInvestedOnCertainDate(date,pName);
       assertTrue(before!=after);
     }
@@ -576,11 +577,11 @@ abstract class AbstractPortfolioTest {
     }
 
     private void buyStocks(String cName, String quantity, String date,String pfName) {
-      portfolio.buyStocks(cName, quantity, date, pfName);
+      portfolio.buyStocks(cName, quantity, date,com, pfName);
     }
 
     private void sellStocks(String cName, String quantity, String date,String pfName) {
-      portfolio.sellStocks(cName, quantity, date, pfName);
+      portfolio.sellStocks(cName, quantity, date,com ,pfName);
     }
 
 
@@ -1063,7 +1064,7 @@ abstract class AbstractPortfolioTest {
     }
 
     private void buyStocks(String cName, String quantity, String pfName) {
-      portfolio.buyStocks(cName, quantity, null, pfName);
+      portfolio.buyStocks(cName, quantity, null,"0", pfName);
     }
 
     @Test

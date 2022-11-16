@@ -15,16 +15,23 @@ public class Stock {
 
   private final String dateOfAction;
 
+  private final double commission;
+
   /**
    * Constructs a Stock object and initializes all the relevant fields for a stock.
    */
-  public Stock(String companyTickerSymbol, double qty, double totalValue, String action, double priceOfStockAsOfGivenDate, String dateOfAction) {
+  public Stock(String companyTickerSymbol, double qty, double totalValue, String action, double priceOfStockAsOfGivenDate, String dateOfAction, double commission) {
     this.companyTickerSymbol = companyTickerSymbol;
     this.qty = qty;
     this.totalValue = totalValue;
     this.action = action;
     this.priceOfStockAsOfGivenDate = priceOfStockAsOfGivenDate;
     this.dateOfAction = dateOfAction;
+    this.commission = commission;
+  }
+
+  public double getCommission() {
+    return commission;
   }
 
   public double getPriceOfStockAsOfGivenDate() {

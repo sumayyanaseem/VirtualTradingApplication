@@ -25,7 +25,6 @@ abstract class AbstractPortfolio implements Portfolio {
   protected Map<String, Map<String, List<Stock>>> stockMap;
   protected final APICustomInterface apiCustomInterface;
   protected final CustomParser parser;
-  protected static final double commissionPerTransaction = 10.0;
 
   public AbstractPortfolio() {
     this.portfolioName = "";

@@ -74,6 +74,7 @@ public class JsonParserImplementation implements CustomParser {
             String date = null;
             String quantity = null;
             String action = null;
+            String com="0";
             while (itr3.hasNext()) {
               pair = itr3.next();
               //System.out.println(pair.getKey() + " : " + pair.getValue());
@@ -83,10 +84,12 @@ public class JsonParserImplementation implements CustomParser {
                 quantity = (String) pair.getValue();
               } else if (pair.getKey().equals("action")) {
                 action = String.valueOf(pair.getValue());
+              } else if(pair.getKey().equals("Commission")){
+                com = String.valueOf(pair.getValue());
               }
 
             }
-            Stock s = new Stock(cName, Double.parseDouble(quantity), 0.0, action, 0.0, date);
+            Stock s = new Stock(cName, Double.parseDouble(quantity), 0.0, action, 0.0, date, Double.parseDouble(com));
             list.add(s);
           }
           res.put(cName, list);
@@ -116,6 +119,7 @@ public class JsonParserImplementation implements CustomParser {
         innerMap.put("date", s.getDateOfAction());
         innerMap.put("Quantity", String.valueOf(s.getQty()));
         innerMap.put("action", s.getAction());
+        innerMap.put("Commission",String.valueOf(s.getCommission()));
         innerJson.add(innerMap);
       }
       outerMap.put("Actions", innerJson);
@@ -135,7 +139,7 @@ public class JsonParserImplementation implements CustomParser {
   }
 
 
-  private void appendFileHelper(String companyName, String quantity, String action, String date, String path) {
+  private void appendFileHelper(String companyName, String quantity, String action, String date, String path,String com) {
     try {
       Object obj = new JSONParser().parse(new FileReader(path));
       JSONObject jsonObject = (JSONObject) obj;
@@ -154,6 +158,7 @@ public class JsonParserImplementation implements CustomParser {
               m.put("date", date);
               m.put("Quantity", quantity);
               m.put("action", action);
+              m.put("Commission",com);
               ja.add(m);
               found = true;
             }
@@ -166,6 +171,7 @@ public class JsonParserImplementation implements CustomParser {
         m.put("date", date);
         m.put("Quantity", quantity);
         m.put("action", action);
+        m.put("Commission",com);
         ja.add(m);
         Map outerMap = new HashMap<>(2);
         outerMap.put("CompanyName", companyName);
@@ -184,14 +190,14 @@ public class JsonParserImplementation implements CustomParser {
 
 
   @Override
-  public void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date) {
+  public void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date,String com) {
     String path = "userPortfolios/" + portfolioName + "_output.json";
-    appendFileHelper(companyName, quantity, action, date, path);
+    appendFileHelper(companyName, quantity, action, date, path,com);
   }
 
   @Override
-  public void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date) {
-    appendFileHelper(companyName, quantity, action, date, path);
+  public void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date,String com) {
+    appendFileHelper(companyName, quantity, action, date, path,com);
   }
 
   @Override

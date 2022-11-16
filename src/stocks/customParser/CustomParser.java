@@ -28,7 +28,7 @@ public interface CustomParser {
   Map<String, List<Stock>> readFromPathProvidedByUser(String path);
 
 
-  void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date);
+  void appendIntoFile(String portfolioName, String companyName, String quantity, String action, String date,String com);
 
 
   void writeIntoFile(String portFolioName, Map<String, List<Stock>> map, String type);
@@ -37,5 +37,5 @@ public interface CustomParser {
 
   String getTypeOfLoadedFile(String path);
 
-  void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date);
+  void appendIntoFileUsingFilePath(String path, String portfolioName, String companyName, String quantity, String action, String date,String com);
 }

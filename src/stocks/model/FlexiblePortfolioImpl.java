@@ -16,13 +16,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
 
   @Override
-  public void buyStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
+  public void buyStocks(String companyName, String quantity, String date, String commission, String portfolioName) throws IllegalArgumentException {
     action = "buy";
     this.portfolioName = portfolioName;
-    validateInputsForBuy(companyName, quantity, date);
+    validateInputsForBuy(companyName, quantity, date,commission);
     String cName = companyName.toUpperCase();
     double q = Double.parseDouble(quantity);
-    Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
+    double c = Double.parseDouble(commission);
+    Stock s = new Stock(cName, q, 0.0, action, 0.0, date, c);
     if (stockMap.isEmpty()) {
       Map<String, List<Stock>> m = new HashMap<>();
       List<Stock> list = new ArrayList<>();
@@ -44,7 +45,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String dateBought = stockList.get(i).getDateOfAction();
           if (areDatesEqual(dateBought, date)) {
             double totQty = stockList.get(i).getQty() + q;
-            s = new Stock(companyName, totQty, 0.0, action, 0.0, date);
+            s = new Stock(companyName, totQty, 0.0, action, 0.0, date, c);
             stockList.remove(i);
             stockList.add(s);
             m.put(companyName, stockList);
@@ -77,9 +78,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
-  public void sellStocks(String companyName, String quantity, String date, String portfolioName) throws IllegalArgumentException {
+  public void sellStocks(String companyName, String quantity, String date, String commission, String portfolioName) throws IllegalArgumentException {
     action = "sell";
-    validateInputsForSell(quantity, date);
+    validateInputsForSell(quantity, date,commission);
     if (stockMap.isEmpty()) {
       throw new IllegalArgumentException("It is impossible to sell a stock without first purchasing it.");
     }
@@ -106,7 +107,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
             throw new IllegalArgumentException("Sell date is not in the chronological order.Last date present is " + lastDate);
           } else {
             String cName = companyName.toUpperCase();
-            Stock s = new Stock(cName, q, 0.0, action, 0.0, date);
+            double c = Double.parseDouble(commission);
+            Stock s = new Stock(cName, q, 0.0, action, 0.0, date, c);
             List<Stock> stockList = m1.get(companyName);
             stockList.add(s);
             m1.put(companyName, stockList);
@@ -119,8 +121,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String action) throws IllegalArgumentException {
-    validateInputsForUpdate(portfolioName, companyName, quantity, date, action);
+  private void updatePortfolioHelper(String companyName, String quantity, String date, String portfolioName, String commission, String action) throws IllegalArgumentException {
+    validateInputsForUpdate(portfolioName, companyName, quantity, date, action, commission);
     this.portfolioName = portfolioName;
     if (stockMap.isEmpty()) {
       stockMap = new HashMap<>();
@@ -129,31 +131,31 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
 
     if (action.equalsIgnoreCase("buy")) {
-      buyStocks(companyName, quantity, date, portfolioName);
+      buyStocks(companyName, quantity, date, commission, portfolioName);
     } else if (action.equalsIgnoreCase("sell")) {
-      sellStocks(companyName, quantity, date, portfolioName);
+      sellStocks(companyName, quantity, date, commission, portfolioName);
     }
   }
 
 
   @Override
-  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action) {
+  public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action, String commission) {
     try {
-      updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+      updatePortfolioHelper(companyName, quantity, date, portfolioName, action, commission);
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    parser.appendIntoFile(portfolioName, companyName, quantity, action, date);
+    parser.appendIntoFile(portfolioName, companyName, quantity, action, date, commission);
   }
 
   @Override
-  public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action) {
+  public void updatePortfolioUsingFilePath(String filePath, String companyName, String quantity, String date, String portfolioName, String action, String commission) {
     try {
-      updatePortfolioHelper(companyName, quantity, date, portfolioName, action);
+      updatePortfolioHelper(companyName, quantity, date, portfolioName, action, commission);
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    parser.appendIntoFileUsingFilePath(filePath, portfolioName, companyName, quantity, action, date);
+    parser.appendIntoFileUsingFilePath(filePath, portfolioName, companyName, quantity, action, date, commission);
   }
 
 
@@ -242,12 +244,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           }
           if (listOfStock.getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj) <= 0) {
             noOfRecords++;
-            totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStock.getCompanyTickerSymbol(), listOfStock.getQty(), date);
+            totalCostBasis = totalCostBasis + apiCustomInterface.getStockPriceAsOfCertainDate(listOfStock.getCompanyTickerSymbol(), listOfStock.getQty(), date) + listOfStock.getCommission();
           }
         }
       }
     }
-    totalCostBasis = totalCostBasis + (noOfRecords * commissionPerTransaction);
     String value = String.format("%.2f", totalCostBasis);
     return Double.parseDouble(value);
   }
@@ -356,27 +357,43 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return null;
   }
 
-  private void validateInputsForBuy(String companyName, String quantity, String date) {
+  private void validateInputsForBuy(String companyName, String quantity, String date, String commission) {
     validateIfCompanyExists(companyName);
     validateQuantity(quantity);
     validateDate(date);
     validateDateToCheckIfBeforeIPO(date, companyName);
+    validateCommission(commission);
   }
 
-  private void validateInputsForSell(String quantity, String date) {
+  private void validateInputsForSell(String quantity, String date, String commission) {
     //validation on companyName and date chronological order is already handled in sellStocks method.
     validateQuantity(quantity);
     validateDate(date);
+    validateCommission(commission);
   }
 
-  private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action) {
+  private void validateInputsForUpdate(String portfolioName, String companyName, String quantity, String date, String action, String commission) {
     if (!portfolioName.equals("currentInstance")) {
       validateIfPortfolioDoesntExists(portfolioName);
     }
     if (action.equals("buy")) {
-      validateInputsForBuy(companyName, quantity, date);
+      validateInputsForBuy(companyName, quantity, date, commission);
     } else if (action.equals("sell")) {
-      validateInputsForSell(quantity, date);
+      validateInputsForSell(quantity, date, commission);
+    }
+  }
+
+  private void validateCommission(String com) {
+    if (com == null) {
+      throw new IllegalArgumentException("Invalid Commission provided");
+    }
+    try {
+      double q = Double.parseDouble(com);
+      if (q <= 0 || q > Integer.MAX_VALUE) {
+        throw new IllegalArgumentException("Invalid Commission provided");
+      }
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Commission should be always a positive whole number.");
     }
   }
 

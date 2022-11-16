@@ -114,22 +114,21 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void displayTheTotalCost(double totalCost, String date, String portfolioName) {
-    out.println("This portfolio's commission is $10 per transaction.");
     out.println("Total cost basis from the portfolioName " + portfolioName + " on " + date + " is " + totalCost);
   }
 
 
   @Override
-  public void displayPortfolioPerformance(Map<String, Double> mapToPlot, String portfolioName, String date1, String date2) {
-    out.println("Performance of portfolio " + portfolioName + "from YYY to ZZZ");
+  public void displayPortfolioPerformance(Map<String, Double> mapToPlot, String date1, String date2,String portfolioName) {
+    out.println("Performance of portfolio " + portfolioName + "from "+date1 +" to "+ date2);
     double total = 0.0;
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       total = total + allWeeksInRange.getValue();
     }
-    int base = (int) (total / mapToPlot.size());
+    int base =(int)(total / mapToPlot.size())/2;
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       double val = allWeeksInRange.getValue();
-      int stars = (int) (val * 5 / base);
+      double stars =  (val *5/ base);
 
 
       out.println("");
@@ -141,6 +140,11 @@ public class PortfolioViewImpl implements PortfolioView {
       out.println("");
     }
     out.println("Scale: *=$" + base);
+  }
+
+  @Override
+  public void getCommission() {
+    out.println("Enter the commission for this transaction");
   }
 
   @Override

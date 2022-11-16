@@ -126,9 +126,10 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
+      String com = commissionHelper();
       model.validateIfPortfolioAlreadyExists(portfolioName, portfolio);
       try {
-        model.buyStocks(companyName, quantity, date, portfolioName, portfolio);
+        model.buyStocks(companyName, quantity, date, portfolioName,com, portfolio);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -136,9 +137,9 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
-      //should add more validations for chronological order
+      String com = commissionHelper();
       try {
-        model.sellStocks(companyName, quantity, date, portfolioName, portfolio);
+        model.sellStocks(companyName, quantity, date, portfolioName, com,portfolio);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -178,7 +179,7 @@ public class PortfolioControllerImpl implements PortfolioController {
 
     String companyName = companyHelper(portfolio);
     String quantity = quantityHelper();
-    model.buyStocks(companyName, quantity, null, portfolioName, portfolio);
+    model.buyStocks(companyName, quantity, null, portfolioName,null, portfolio);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -214,8 +215,9 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
+      String com = commissionHelper();
       try {
-        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy");
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "buy",com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -224,9 +226,10 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
+      String com = commissionHelper();
       // add more validations for chronological order for sell dates
       try {
-        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell");
+        model.updatePortfolio(companyName, quantity, date, portfolioName, portfolio, "sell",com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -428,10 +431,11 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
+      String com = commissionHelper();
       try {
         model.updatePortfolioUsingFilePath
                 (path, companyName, quantity,
-                        date, portfolioName, portfolio, "buy");
+                        date, portfolioName, portfolio, "buy",com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -440,11 +444,12 @@ public class PortfolioControllerImpl implements PortfolioController {
       String companyName = companyHelper(portfolio);
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
+      String com = commissionHelper();
       // add more validations for chronological order for sell dates
       try {
         model.updatePortfolioUsingFilePath
                 (path, companyName, quantity, date,
-                        portfolioName, portfolio, "sell");
+                        portfolioName, portfolio, "sell",com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }
@@ -565,6 +570,15 @@ public class PortfolioControllerImpl implements PortfolioController {
     return quantity;
   }
 
+  private String commissionHelper(){
+    view.getCommission();
+    String com = input.nextLine();
+    if(validateCom(com)){
+      return commissionHelper();
+    }
+    return com;
+  }
+
   private void finalExitCondition() {
     view.checkIfUserWantsToExitCompletely();
     String option = input.nextLine();
@@ -651,6 +665,20 @@ public class PortfolioControllerImpl implements PortfolioController {
       }
     } catch (IllegalArgumentException e) {
       view.displayErrorMessage("Quantity should be always a positive whole number.");
+      return true;
+    }
+    return false;
+  }
+
+  private boolean validateCom(String quantity) {
+    try {
+      double q = Double.parseDouble(quantity);
+      if (q <= 0 || q > Integer.MAX_VALUE) {
+        view.displayErrorMessage("Invalid Commission provided");
+        return true;
+      }
+    } catch (IllegalArgumentException e) {
+      view.displayErrorMessage("Commission should be always a positive number.");
       return true;
     }
     return false;
