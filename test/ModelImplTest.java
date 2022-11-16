@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
+import stocks.customapi.APICustomClass;
+import stocks.customapi.APICustomInterface;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
 import stocks.model.PortfolioModel;
@@ -144,11 +146,13 @@ public class ModelImplTest {
   private static final String com = "10";
 
   private StringBuilder mockLog;
+  private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+
 
   @Before
   public void setUp() {
     model = new PortfolioModelImpl();
-    inflexiblePortfolio = new InFlexiblePortfolioImpl();
+    inflexiblePortfolio = new InFlexiblePortfolioImpl(apiCustomInterface);
     mockLog = new StringBuilder();
     mockPortfolio = new MockPortfolio(mockLog);
   }

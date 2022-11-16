@@ -18,6 +18,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import stocks.customapi.APICustomClass;
+import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
 import stocks.customparser.JsonParserImplementation;
 import stocks.customparser.CustomParser;
@@ -46,6 +48,8 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   private final CustomParser jsonParserImplementation;
 
+  private final APICustomInterface apiCustomInterface;
+
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
    *
@@ -57,9 +61,10 @@ public class PortfolioControllerImpl implements PortfolioController {
     this.view = view;
     this.portfolioName = "";
     this.model = model;
+    this.apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
     this.jsonParserImplementation = new JsonParserImplementation();
-    this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
-    this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+    this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl(apiCustomInterface);
+    this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl(apiCustomInterface);
   }
 
   @Override
@@ -95,12 +100,12 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     if (option.equals("1")) {
       //flexible
-      flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+      flexiblePortfolioTypeObj = new FlexiblePortfolioImpl(apiCustomInterface);
       //isFlexible = true;
       createFlexiblePortfolioForCurrentUser(flexiblePortfolioTypeObj);
     } else if (option.equals("2")) {
       //inFlexible
-      inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
+      inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl(apiCustomInterface);
       createInFlexiblePortfolioForCurrentUser(inflexiblePortfolioTypeObj);
     }
   }
@@ -200,7 +205,7 @@ public class PortfolioControllerImpl implements PortfolioController {
       view.displayErrorMessage("Can not update an inflexible portfolio");
       start();
     }
-    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl(apiCustomInterface);
     updateStocks(flexiblePortfolioTypeObj, name);
   }
 
@@ -399,7 +404,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
-      //viewHelper("currentInstance");
       viewHelperForCurrentInstance("currentInstance", filePath);
     } else if (option.equals("2")) {
       finalExitCondition();
@@ -445,7 +449,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       String quantity = quantityHelper();
       String date = dateHelperInFlexiblePortfolio(companyName);
       String com = commissionHelper();
-      // add more validations for chronological order for sell dates
       try {
         model.updatePortfolioUsingFilePath(
                 path, companyName, quantity, date,
@@ -467,7 +470,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        //if its flexible get date as well and pass it model
         List<List<String>> records;
         if (type.equals(flexibleType)) {
           String date = dateHelper();
@@ -481,38 +483,43 @@ public class PortfolioControllerImpl implements PortfolioController {
         dateNotFoundHelper(name, portfolio);
         break;
       case "3":
-        // implement total-cost basis functionality
-        String date = dateHelper();
-        double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
-        view.displayTheTotalCost(totalCost, date, name);
+        if (type.equals(flexibleType)) {
+          String date = dateHelper();
+          double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
+          view.displayTheTotalCost(totalCost, date, name);
+        } else {
+          view.displayErrorMessage("This "
+                  + "operation is not supported in Inflexible portfolio");
+        }
         break;
       case "4":
-        // some part has been implemented. link it and test.
+        if (type.equals(flexibleType)) {
+          String startDate = dateHelper();
+          String endDate = dateHelper();
+          Date start;
+          Date end;
+          try {
+            start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    .parse(startDate);
+            end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    .parse(endDate);
+            if (end.compareTo(start) < 0) {
+              //need to recur until correct dates are entered.
+              view.displayErrorMessage("End date is less than start date."
+                      + " Please enter valid dates");
+            }
 
-        String startDate = dateHelper();
-        String endDate = dateHelper();
-        //display the different message in view and
-        // add more validations for date(end>start date).
 
-        Date start;
-        Date end;
-        try {
-          start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(startDate);
-          end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(endDate);
-          if (end.compareTo(start) < 0) {
-            //need to recur until correct dates are entered.
-            view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+          } catch (Exception e) {
+            view.displayErrorMessage(e.getMessage());
           }
-
-
-        } catch (Exception e) {
-          view.displayErrorMessage(e.getMessage());
+          Map<String, Double> result = model.getPortfolioPerformanceOvertime(
+                  startDate, endDate, name, portfolio);
+          view.displayPortfolioPerformance(result, startDate, endDate, name);
+        } else {
+          view.displayErrorMessage("This "
+                  + "operation is not supported in Inflexible portfolio");
         }
-        Map<String, Double> result = model.getPortfolioPerformanceOvertime(
-                startDate, endDate, name, portfolio);
-        view.displayPortfolioPerformance(result, startDate, endDate, name);
         break;
       default:
         break;

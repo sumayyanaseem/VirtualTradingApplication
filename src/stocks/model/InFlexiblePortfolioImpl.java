@@ -10,12 +10,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customapi.APICustomInterface;
+
 /**
  * This class implements PortfolioModel.
  */
 public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   private static final String action = "add";
+
+  public InFlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
+    super(apiCustomInterface);
+  }
 
   @Override
   public void buyStocks(String cName, String quantity, String date,

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
 
 
@@ -17,6 +18,10 @@ import stocks.customapi.CompanyTickerSymbol;
  */
 public class FlexiblePortfolioImpl extends AbstractPortfolio {
   private static String action;
+
+  public FlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
+    super(apiCustomInterface);
+  }
 
 
   @Override
@@ -134,7 +139,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
   private void updatePortfolioHelper(String companyName, String quantity,
                                      String date, String portfolioName,
-                                     String commission, String action)
+                                     String action,String commission)
           throws IllegalArgumentException {
     validateInputsForUpdate(portfolioName, companyName, quantity, date, action, commission);
     this.portfolioName = portfolioName;

@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 
+import stocks.customapi.APICustomClass;
+import stocks.customapi.APICustomInterface;
 import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
@@ -29,10 +31,12 @@ abstract class AbstractPortfolioTest {
     private static final String date = "2022-10-01";
     private static final String com = "10";
 
+    private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+
     @Override
     @Before
     public void initialisePortfolio() {
-      portfolio = new FlexiblePortfolioImpl();
+      portfolio = new FlexiblePortfolioImpl(apiCustomInterface);
     }
 
     @Test
@@ -543,7 +547,7 @@ abstract class AbstractPortfolioTest {
       String date = "2022-10-10";
       String pName = "testFlexible";
       Double res = portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
-      System.out.println(res);
+      // System.out.println(res);
       assertFalse(res == 0.0);
 
     }
@@ -571,10 +575,10 @@ abstract class AbstractPortfolioTest {
       String name = "currentInstance";
       String date = "2022-08-01";
       double res1 = portfolio.getTotalValueOfPortfolioOnCertainDate(date, name);
-      System.out.println(res1);
+      //System.out.println(res1);
       date = "2022-09-01";
       double res2 = portfolio.getTotalValueOfPortfolioOnCertainDate(date, name);
-      System.out.println(res2);
+      //System.out.println(res2);
       portfolio.viewCompositionOfCurrentPortfolio(name, date);
       assertFalse(res1 == res2);
     }
@@ -603,7 +607,7 @@ abstract class AbstractPortfolioTest {
       assertTrue(portfolio.toString().contains(name));
 
       //Adding third
-      quantity = String.valueOf(generateRandomNumber());
+      quantity = "30";
       cName = "shop";
       buyStocks(cName, quantity, date, name);
       assertTrue(portfolio.toString().contains(quantity));
@@ -661,11 +665,12 @@ abstract class AbstractPortfolioTest {
 
   public static final class InFlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
+    private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
 
     @Override
     @Before
     public void initialisePortfolio() {
-      portfolio = new InFlexiblePortfolioImpl();
+      portfolio = new InFlexiblePortfolioImpl(apiCustomInterface);
     }
 
     @Test
@@ -888,8 +893,8 @@ abstract class AbstractPortfolioTest {
     public void testInvalidDate() {
       String date = "";
       String pName = "testPfName";
-      String expected = "Invalid dateFormat provided." +
-              "Please provide date in YYYY-MM-DD format only.";
+      String expected = "Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.";
       String actual = "";
       try {
         portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
@@ -1033,7 +1038,7 @@ abstract class AbstractPortfolioTest {
       String date = "2022-10-10";
       String pName = "testInFlexible";
       Double res = portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
-      System.out.println(res);
+      // System.out.println(res);
       assertFalse(res == 0.0);
 
     }
@@ -1061,12 +1066,12 @@ abstract class AbstractPortfolioTest {
       String name = "currentInstance";
       String date = "2022-08-01";
       double res1 = portfolio.getTotalValueOfPortfolioOnCertainDate(date, name);
-      System.out.println(res1);
+      // System.out.println(res1);
       date = "2022-09-01";
       double res2 = portfolio.getTotalValueOfPortfolioOnCertainDate(date, name);
-      System.out.println(res2);
+      // System.out.println(res2);
       portfolio.viewCompositionOfCurrentPortfolio(name, null);
-      System.out.println(portfolio.toString());
+      // System.out.println(portfolio.toString());
       assertFalse(res1 == res2);
     }
 
