@@ -1,0 +1,7 @@
+unnamed package
+stocks
+stocks.controller
+stocks.customapi
+stocks.customparser
+stocks.model
+stocks.view

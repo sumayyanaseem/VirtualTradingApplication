@@ -58,7 +58,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String dateBought = stockList.get(i).getDateOfAction();
           if (areDatesEqual(dateBought, date)) {
             double totQty = stockList.get(i).getQty() + q;
-            s = new Stock(companyName, totQty, 0.0, action, 0.0, date, c);
+            s = new Stock(cName, totQty, 0.0, action, 0.0, date, c);
             stockList.remove(i);
             stockList.add(s);
             m.put(companyName, stockList);
@@ -168,7 +168,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    parser.appendIntoFile(portfolioName, companyName, quantity, action, date, commission);
+    String cName = companyName.toUpperCase();
+    parser.appendIntoFile(portfolioName, cName, quantity, action, date, commission);
   }
 
   @Override
@@ -181,8 +182,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
+    String cName = companyName.toUpperCase();
     parser.appendIntoFileUsingFilePath(filePath, portfolioName,
-            companyName, quantity, action, date, commission);
+            cName, quantity, action, date, commission);
   }
 
 

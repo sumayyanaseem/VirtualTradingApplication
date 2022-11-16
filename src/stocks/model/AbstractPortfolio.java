@@ -93,7 +93,11 @@ abstract class AbstractPortfolio implements Portfolio {
     return res.toString();
   }
 
-
+  /**
+   * validate the quantity.
+   *
+   * @param quantity quantity of stocks.
+   */
   protected void validateQuantity(String quantity) {
     if (quantity == null) {
       throw new IllegalArgumentException("Invalid quantity provided");
@@ -108,7 +112,11 @@ abstract class AbstractPortfolio implements Portfolio {
     }
   }
 
-
+  /**
+   * validate the given date.
+   *
+   * @param date given date.
+   */
   protected void validateDate(String date) {
     String format = "yyyy-MM-dd";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
@@ -175,9 +183,21 @@ abstract class AbstractPortfolio implements Portfolio {
     return results;
   }
 
+  /**
+   * Get the values to display in composition.
+   *
+   * @param s    stock of the company.
+   * @param date date required.
+   * @return returns the values of the portfolio until the given date.
+   */
   protected abstract List<String> getResultsToDisplayComposition(Stock s, String date);
 
 
+  /**
+   * validate the give path of the file.
+   *
+   * @param path path of the file.
+   */
   protected void validateFilePath(String path) {
 
     if (path == null) {
