@@ -271,10 +271,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           }
           if (listOfStock.getAction().equals("buy") && dateBoughtObj.compareTo(givenDateObj) <= 0) {
             noOfRecords++;
-            totalCostBasis = totalCostBasis +
-                    apiCustomInterface.getStockPriceAsOfCertainDate(
-                            listOfStock.getCompanyTickerSymbol(),
-                            listOfStock.getQty(), date)
+            totalCostBasis = totalCostBasis
+                    + apiCustomInterface.getStockPriceAsOfCertainDate(
+                    listOfStock.getCompanyTickerSymbol(),
+                    listOfStock.getQty(), date)
                     + listOfStock.getCommission();
           }
         }
@@ -434,8 +434,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         throw new IllegalArgumentException("Invalid Commission provided");
       }
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Commission " +
-              "should be always a positive whole number.");
+      throw new IllegalArgumentException("Commission "
+              + "should be always a positive whole number.");
     }
   }
 

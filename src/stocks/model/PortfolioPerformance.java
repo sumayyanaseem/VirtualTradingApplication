@@ -148,7 +148,8 @@ public class PortfolioPerformance {
     }
   }
 
-  public double getQuantityOnThisDateForGivenCompanyName(
+
+  private double getQuantityOnThisDateForGivenCompanyName(
           String date, String companyName) throws ParseException {
 
     List<Stock> list = portfolioMap.get(companyName);

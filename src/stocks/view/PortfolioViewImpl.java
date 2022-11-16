@@ -76,10 +76,10 @@ public class PortfolioViewImpl implements PortfolioView {
 
   @Override
   public void checkIfUserWantsToViewCompositionOrTotalValue() {
-    out.println("Enter 1: To view composition  " +
-            "2: To get TotalValue of portfolio  " +
-            "3: To get Total CostBasis  " +
-            "4:To display performance of Portfolio");
+    out.println("Enter 1: To view composition  "
+            + "2: To get TotalValue of portfolio  "
+            + "3: To get Total CostBasis  "
+            + "4:To display performance of Portfolio");
   }
 
   @Override
@@ -124,7 +124,10 @@ public class PortfolioViewImpl implements PortfolioView {
 
 
   @Override
-  public void displayPortfolioPerformance(Map<String, Double> mapToPlot, String date1, String date2, String portfolioName) {
+  public void displayPortfolioPerformance(Map<String,
+          Double> mapToPlot, String date1,
+                                          String date2,
+                                          String portfolioName) {
     out.println("Performance of portfolio "
             + portfolioName + "from " + date1 + " to " + date2);
     double total = 0.0;

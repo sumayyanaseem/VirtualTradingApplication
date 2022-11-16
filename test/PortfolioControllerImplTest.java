@@ -90,7 +90,7 @@ public class PortfolioControllerImplTest {
                            String date, String portfolioName,
                            String com, Portfolio portfolio)
             throws IllegalArgumentException {
-
+      return;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class PortfolioControllerImplTest {
                                 String date, String portfolioName,
                                 Portfolio portfolio, String action,
                                 String com) throws IllegalArgumentException {
-
+      return;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class PortfolioControllerImplTest {
                                              String portfolioName, Portfolio portfolio,
                                              String action, String com)
             throws IllegalArgumentException {
-
+      return;
     }
 
     @Override

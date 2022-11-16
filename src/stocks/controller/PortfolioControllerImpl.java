@@ -433,9 +433,9 @@ public class PortfolioControllerImpl implements PortfolioController {
       String date = dateHelperInFlexiblePortfolio(companyName);
       String com = commissionHelper();
       try {
-        model.updatePortfolioUsingFilePath
-                (path, companyName, quantity,
-                        date, portfolioName, portfolio, "buy", com);
+        model.updatePortfolioUsingFilePath(
+                path, companyName, quantity,
+                date, portfolioName, portfolio, "buy", com);
       } catch (IllegalArgumentException e) {
         view.displayErrorMessage(e.getMessage());
       }

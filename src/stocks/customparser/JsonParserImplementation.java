@@ -17,7 +17,6 @@ import java.util.Map;
 
 import stocks.model.Stock;
 
-
 /**
  * This class represents a JSON Parser.
  */
