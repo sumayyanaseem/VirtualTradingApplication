@@ -77,24 +77,37 @@ public class PortfolioControllerImplTest {
     }
 
     @Override
-    public void buyStocks(String companyName, String quantity, String date, String portfolioName, String com, Portfolio portfolio) throws IllegalArgumentException {
+    public void buyStocks(String companyName, String quantity,
+                          String date, String portfolioName,
+                          String com, Portfolio portfolio)
+            throws IllegalArgumentException {
       log.append("inputs for buyStocks: " + quantity + " " + companyName + " " + portfolioName);
 
     }
 
     @Override
-    public void sellStocks(String companyName, String quantity, String date, String portfolioName, String com, Portfolio portfolio) throws IllegalArgumentException {
-
+    public void sellStocks(String companyName, String quantity,
+                           String date, String portfolioName,
+                           String com, Portfolio portfolio)
+            throws IllegalArgumentException {
+      return;
     }
 
     @Override
-    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action, String com) throws IllegalArgumentException {
-
+    public void updatePortfolio(String companyName, String quantity,
+                                String date, String portfolioName,
+                                Portfolio portfolio, String action,
+                                String com) throws IllegalArgumentException {
+      return;
     }
 
     @Override
-    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, Portfolio portfolio, String action, String com) throws IllegalArgumentException {
-
+    public void updatePortfolioUsingFilePath(String path, String companyName,
+                                             String quantity, String date,
+                                             String portfolioName, Portfolio portfolio,
+                                             String action, String com)
+            throws IllegalArgumentException {
+      return;
     }
 
     @Override
@@ -227,9 +240,11 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testAskUserWhatWantsToLoad() {
-    in = new ByteArrayInputStream("3\nuserPortfolios/testInFlexible_output.json\n1\n".getBytes());
+    in = new ByteArrayInputStream(("3\nuserPortfolios/"
+            + "testInFlexible_output.json\n1\n").getBytes());
     String expected = "Enter 1: To view details of this portfolio.  "
-            + "2: To exit and continue further trading. 3: To update loaded portfolio.\n";
+            + "2: To exit and continue further trading. "
+            + "3: To update loaded portfolio.\n";
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
       portfolioController.start();
@@ -260,8 +275,10 @@ public class PortfolioControllerImplTest {
   @Test
   public void testInvalidInputs2() {
     in = new ByteArrayInputStream("2\ntestInFlexible\n7\n".getBytes());
-    String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
-    String error = "Invalid input provided.Please provide a valid input (either 1,2,3 or 4)\n"
+    String expected = "Enter 1: To view composition  "
+            + "2: To get TotalValue of portfolio";
+    String error = "Invalid input provided."
+            + "Please provide a valid input (either 1,2,3 or 4)\n"
             + "Enter 1: To view composition  2: To get TotalValue of portfolio";
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
@@ -317,7 +334,8 @@ public class PortfolioControllerImplTest {
   @Test(expected = NoSuchElementException.class)
   public void testBuyStocks() {
     String expected = "Enter 1: To buy stocks 2: To sell stocks";
-    String e = "Enter the quantity of the stocks.\n" + "Enter the quantity of the stocks.\n";
+    String e = "Enter the quantity of the stocks.\n"
+            + "Enter the quantity of the stocks.\n";
     in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n".getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);
     portfolioController.start();
@@ -382,7 +400,8 @@ public class PortfolioControllerImplTest {
 
   @Test
   public void testViewCompositionOfAPortfolio() {
-    String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio";
+    String expected = "Enter 1: To view composition  "
+            + "2: To get TotalValue of portfolio";
     String output = "inputs for viewCompositionOfCurrentPortfolio: testInFlexible\n";
     in = new ByteArrayInputStream("2\ntestInFlexible\n1\n".getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);

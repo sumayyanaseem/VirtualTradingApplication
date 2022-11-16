@@ -118,7 +118,9 @@ public interface PortfolioView {
 
   void displayTheTotalCost(double totalCost, String date, String portfolioName);
 
-  void displayPortfolioPerformance(Map<String, Double> result, String startDate, String endDate, String portfolioName);
+  void displayPortfolioPerformance(Map<String,
+          Double> result, String startDate,
+                                   String endDate, String portfolioName);
 
   void getCommission();
 }

@@ -404,8 +404,8 @@ abstract class AbstractPortfolioTest {
     public void testInvalidDate() {
       String date = "";
       String pName = "ff";
-      String expected = "Invalid dateFormat provided." +
-              "Please provide date in YYYY-MM-DD format only.";
+      String expected = "Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.";
       String actual = "";
       try {
         portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);
@@ -939,8 +939,8 @@ abstract class AbstractPortfolioTest {
       }
       assertEquals(actual, expected);
 
-      expected = "Future Date provided.Please provide" +
-              " date less then or equal to today";
+      expected = "Future Date provided.Please provide"
+              + " date less then or equal to today";
       date = "2023-10-10";
       actual = "";
       try {

@@ -60,7 +60,7 @@ public class APICustomClass implements APICustomInterface {
    */
   @Override
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {
-    if(qty==0.0){
+    if (qty == 0.0) {
       return 0.0;
     }
     String latestAvailableStkPrice = "0.0";

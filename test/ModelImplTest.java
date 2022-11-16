@@ -70,30 +70,49 @@ public class ModelImplTest {
     }
 
     @Override
-    public void buyStocks(String companyName, String quantity, String date, String com, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
+    public void buyStocks(String companyName, String quantity,
+                          String date, String com, String portfolioName)
+            throws IllegalArgumentException {
+      log.append("inputs for buyStocks: " + companyName + " "
+              + quantity + " " + date + " " + portfolioName + "\n");
 
     }
 
     @Override
-    public void sellStocks(String companyName, String quantity, String date, String com, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for sellStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
+    public void sellStocks(String companyName, String quantity,
+                           String date, String com, String portfolioName)
+            throws IllegalArgumentException {
+      log.append("inputs for sellStocks: "
+              + companyName + " " + quantity + " "
+              + date + " " + portfolioName + "\n");
 
     }
 
     @Override
-    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
-      log.append("inputs for updatePortfolio: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n");
+    public void updatePortfolio(String companyName,
+                                String quantity, String date,
+                                String portfolioName,
+                                String action, String com)
+            throws IllegalArgumentException {
+      log.append("inputs for updatePortfolio: "
+              + companyName + " " + quantity
+              + " " + date + " " + portfolioName + "\n");
 
     }
 
     @Override
-    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
-
+    public void updatePortfolioUsingFilePath(String path,
+                                             String companyName,
+                                             String quantity, String date,
+                                             String portfolioName,
+                                             String action, String com)
+            throws IllegalArgumentException {
+      return;
     }
 
     @Override
-    public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
+    public double getTotalMoneyInvestedOnCertainDate(
+            String date, String portfolioName) {
       log.append("inputs for getTotalMoneyInvestedOnCertainDate: "
               + date + " " + portfolioName + "\n");
       return 0;
@@ -124,7 +143,7 @@ public class ModelImplTest {
 
   private static final String path = "userPortfolios/testInFlexible_output.json";
 
-  private static final String com="10";
+  private static final String com = "10";
 
   private StringBuilder mockLog;
   private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
@@ -141,8 +160,9 @@ public class ModelImplTest {
 
   @Test
   public void testBuyStocks() {
-    String log = "inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "\n";
-    model.buyStocks(companyName, quantity, date, portfolioName, com,mockPortfolio);
+    String log = "inputs for buyStocks: " + companyName
+            + " " + quantity + " " + date + " " + portfolioName + "\n";
+    model.buyStocks(companyName, quantity, date, portfolioName, com, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
 
@@ -151,7 +171,8 @@ public class ModelImplTest {
     String expected = "This operation is not supported in Inflexible portfolio";
     String actual = "";
     try {
-      model.sellStocks(companyName, quantity, date, portfolioName, com,inflexiblePortfolio);
+      model.sellStocks(companyName, quantity,
+              date, portfolioName, com, inflexiblePortfolio);
     } catch (UnsupportedOperationException e) {
       actual = e.getMessage();
     }
@@ -184,7 +205,8 @@ public class ModelImplTest {
 
   @Test
   public void testCreatePortfolioIfCreatedManually() {
-    String log = "inputs for createPortfolioIfCreatedManually: " + " " + portfolioName + "\n";
+    String log = "inputs for createPortfolioIfCreatedManually: "
+            + " " + portfolioName + "\n";
     model.createPortfolioIfCreatedManually(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
   }
@@ -196,7 +218,8 @@ public class ModelImplTest {
     String actual = "";
 
     try {
-      model.updatePortfolio(companyName, quantity, date, portfolioName, inflexiblePortfolio, "action",com);
+      model.updatePortfolio(companyName, quantity, date,
+              portfolioName, inflexiblePortfolio, "action", com);
     } catch (UnsupportedOperationException e) {
       actual = e.getMessage();
     }
