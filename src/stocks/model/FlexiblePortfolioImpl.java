@@ -30,7 +30,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   public void buyStocks(String companyName, String quantity,
                         String date, String commission, String portfolioName)
           throws IllegalArgumentException {
-    action = "buy";
+    this.action = "buy";
     this.portfolioName = portfolioName;
     validateInputsForBuy(companyName, quantity, date, commission);
     String cName = companyName.toUpperCase();
@@ -56,7 +56,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
         List<Stock> stockList = m.get(companyName);
         for (int i = 0; i < stockList.size(); i++) {
           String dateBought = stockList.get(i).getDateOfAction();
-          if (areDatesEqual(dateBought, date)) {
+          if (areDatesEqual(dateBought, date) && action.equals(stockList.get(i).getAction())) {
             double totQty = stockList.get(i).getQty() + q;
             s = new Stock(cName, totQty, 0.0, action, 0.0, date, c);
             stockList.remove(i);
@@ -94,7 +94,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
   public void sellStocks(String companyName, String quantity,
                          String date, String commission, String portfolioName)
           throws IllegalArgumentException {
-    action = "sell";
+    this.action = "sell";
     validateInputsForSell(quantity, date, commission);
     if (stockMap.isEmpty()) {
       throw new IllegalArgumentException("It is impossible to sell a "
