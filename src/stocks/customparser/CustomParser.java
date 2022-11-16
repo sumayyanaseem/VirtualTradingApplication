@@ -28,13 +28,13 @@ public interface CustomParser {
   Map<String, List<Stock>> readFromPathProvidedByUser(String path);
 
   /**
-   *
-   * @param portfolioName
-   * @param companyName
-   * @param quantity
-   * @param action
-   * @param date
-   * @param com
+   * append into the given file.
+   * @param portfolioName name of the portfolio.
+   * @param companyName name of the company.
+   * @param quantity quantity of stocks.
+   * @param action buy/sell.
+   * @param date date of transaction.
+   * @param com commisison of transaction.
    */
   void appendIntoFile(String portfolioName, String companyName, String quantity,
                       String action, String date, String com);

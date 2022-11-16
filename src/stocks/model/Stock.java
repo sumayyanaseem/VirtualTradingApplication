@@ -34,8 +34,8 @@ public class Stock {
   }
 
   /**
-   *
-   * @return
+   * gives commission of this transaction.
+   * @return returns commission.
    */
   public double getCommission() {
     return commission;
