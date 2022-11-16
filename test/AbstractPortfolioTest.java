@@ -893,8 +893,8 @@ abstract class AbstractPortfolioTest {
     public void testInvalidDate() {
       String date = "";
       String pName = "testPfName";
-      String expected = "Invalid dateFormat provided." +
-              "Please provide date in YYYY-MM-DD format only.";
+      String expected = "Invalid dateFormat provided."
+              + "Please provide date in YYYY-MM-DD format only.";
       String actual = "";
       try {
         portfolio.getTotalValueOfPortfolioOnCertainDate(date, pName);

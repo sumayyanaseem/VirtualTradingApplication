@@ -404,7 +404,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
-      //viewHelper("currentInstance");
       viewHelperForCurrentInstance("currentInstance", filePath);
     } else if (option.equals("2")) {
       finalExitCondition();
@@ -471,7 +470,6 @@ public class PortfolioControllerImpl implements PortfolioController {
     }
     switch (option) {
       case "1":
-        //if its flexible get date as well and pass it model
         List<List<String>> records;
         if (type.equals(flexibleType)) {
           String date = dateHelper();
@@ -485,17 +483,19 @@ public class PortfolioControllerImpl implements PortfolioController {
         dateNotFoundHelper(name, portfolio);
         break;
       case "3":
-        String date = dateHelper();
-        double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
-        view.displayTheTotalCost(totalCost, date, name);
+        if (type.equals(flexibleType)) {
+          String date = dateHelper();
+          double totalCost = model.getTotalMoneyInvestedOnCertainDate(date, name, portfolio);
+          view.displayTheTotalCost(totalCost, date, name);
+        } else {
+          view.displayErrorMessage("This "
+                  + "operation is not supported in Inflexible portfolio");
+        }
         break;
       case "4":
         if (type.equals(flexibleType)) {
           String startDate = dateHelper();
           String endDate = dateHelper();
-          //display the different message in view and
-          // add more validations for date(end>start date).
-
           Date start;
           Date end;
           try {
@@ -505,7 +505,8 @@ public class PortfolioControllerImpl implements PortfolioController {
                     .parse(endDate);
             if (end.compareTo(start) < 0) {
               //need to recur until correct dates are entered.
-              view.displayErrorMessage("End date is less than start date. Please enter valid dates");
+              view.displayErrorMessage("End date is less than start date."
+                      + " Please enter valid dates");
             }
 
 
@@ -516,7 +517,8 @@ public class PortfolioControllerImpl implements PortfolioController {
                   startDate, endDate, name, portfolio);
           view.displayPortfolioPerformance(result, startDate, endDate, name);
         } else {
-        //  display error message
+          view.displayErrorMessage("This "
+                  + "operation is not supported in Inflexible portfolio");
         }
         break;
       default:

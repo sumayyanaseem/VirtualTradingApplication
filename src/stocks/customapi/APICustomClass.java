@@ -9,10 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import static stocks.customapi.LocalCacheForAPI.getStockRecordsForCompany;
 import static stocks.customapi.LocalCacheForAPI.insertRecordsIntoCache;
@@ -25,11 +23,8 @@ public class APICustomClass implements APICustomInterface {
   private static final String apiKey = "5KFQLJAEXPPU6DJ9";
   private final String urlString;
 
-  private Map<String, String[]> apiInFo;
-
   public APICustomClass(String url) {
     this.urlString = url;
-    this.apiInFo = new HashMap<>();
   }
 
   /**
@@ -97,37 +92,9 @@ public class APICustomClass implements APICustomInterface {
 
 
     if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
-      //throw new IllegalArgumentException("Stock Price is not available for this past date");
       latestAvailableStkPrice = "0";
     }
     return Double.parseDouble(latestAvailableStkPrice) * qty;
-  }
-
-  @Override
-  public double getStockPriceAsOfCertainMonthEnd(String companyTickerSymbol,
-                                                 String yearMonth,
-                                                 double qty, String output) {
-
-    String[] lines = output.split(System.lineSeparator());
-    List<List<String>> records = new ArrayList<>();
-    double value = 0.0;
-    for (int i = 1; i < lines.length; i++) {
-      String[] values = lines[i].split(",");
-      records.add(Arrays.asList(values));
-    }
-
-
-    for (List<String> record : records) {
-      List<String> infoByDate = new ArrayList<>(record);
-      String availableDate = infoByDate.get(0);
-
-      if (availableDate.substring(0, 7).equals(yearMonth)) {
-        value = Double.parseDouble(infoByDate.get(4));
-        break;
-      }
-
-    }
-    return value * qty;
   }
 
 
@@ -168,8 +135,8 @@ public class APICustomClass implements APICustomInterface {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
 
-    if(interval.equalsIgnoreCase("DAILY")){
-      insertRecordsIntoCache(companyTickerSymbol,output);
+    if (interval.equalsIgnoreCase("DAILY")) {
+      insertRecordsIntoCache(companyTickerSymbol, output);
     }
     return output.toString();
   }
