@@ -3,9 +3,9 @@
 steps for the user to follow:
 
 Note:
-1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.
-( AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
-2.Dates acceptable(From 2022-11-03 to 2022-06-15).
+1. We are currently offering only a selected set of 26 companies to trade from. Given below are the Ticker symbols for these companies.
+( GOOG, AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
+2.Dates acceptable(From Current date to IPO date of the stock).
 
 Note:
 1.Jar file is located in res folder.
@@ -14,13 +14,127 @@ Note:
 
 Run the jar file.
 
-There are three flows in this Application:
-A)Create one or more Portfolios.
-B)View the composition/View the Total Value of a Portfolio.
+There are four flows in this Application:
+A)Create one or more flexible/inflexible Portfolios.
+B)View the composition/View the Total Value of a Portfolio/ViewTotal CostBasis/View Portfolio Performance.
 C)Load a Portfolio into the application.
+D)To update a portfolio
+
 
 
 *********************************************************************************************************************
+setup - how to run our program ( Stocks Assignment - Part 2 )
+->to create a flexible portfolio with buy/sell transactions on 3 different stocks on different dates.
+->query the value and cost basis of that portfolio on two specific dates
+*********************************************************************************************************************
+Run the jar file.
+
+1) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio  4: To update a portfolio"
+   User input: 1
+2) UI: "Enter 1: To create flexible portfolio  2: To create inflexible  portfolio"
+   User input: 1
+2) UI: "Enter the name of the Portfolio"
+   User input: p1
+3) UI: "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio "
+   User input: 1
+3) UI: "Enter the name of the company"
+   User input: AAPL
+4) UI: "Enter the quantity of the stocks"
+   User input: 10
+4) UI: "Enter date( YYYY-MM-DD format only)"
+   User input: 2022-01-01
+4) UI: "Enter the commission for this transaction"
+   User input: 10
+5) UI: "Enter 1: To continue updating this portfolio  2: To exit from this portfolio."
+   User input: 1
+5) UI: "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio"
+   User input: 1
+6) UI: "Enter the name of the company"
+   User input: AMZN
+7) UI: "Enter the quantity of the stocks"
+   User input: 20
+7) UI: "Enter date( YYYY-MM-DD format only)"
+   User input: 2021-10-10
+8) UI: "Enter the commission for this transaction"
+   User input: 5
+8) UI: "Enter 1: To continue updating this portfolio  2: To exit from this portfolio"
+   User input: 1
+8) UI: "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio "
+   User input: 1
+9) UI: "Enter the name of the company"
+   User input: TWTR
+10) UI: "Enter the quantity of the stocks"
+    User input: 50
+7) UI: "Enter date( YYYY-MM-DD format only)"
+   User input: 2014-08-27
+8) UI: "Enter the commission for this transaction"
+   User input: 7
+8) UI: "Enter 1: To continue updating this portfolio  2: To exit from this portfolio"
+   User input: 1
+8) UI: "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio "
+   User input: 2
+9) UI: "Enter the name of the company"
+   User input: AMZN
+10) UI: "Enter the quantity of the stocks"
+    User input: 10
+7) UI: "Enter date( YYYY-MM-DD format only)"
+   User input: 2021-12-12
+8) UI: "Enter the commission for this transaction"
+   User input: 8
+8) UI: "Enter 1: To continue updating this portfolio  2: To exit from this portfolio"
+   User input: 1
+8) UI: "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio "
+   User input: 2
+9) UI: "Enter the name of the company"
+   User input: TWTR
+10) UI: "Enter the quantity of the stocks"
+    User input: 20
+7) UI: "Enter date( YYYY-MM-DD format only)"
+   User input: 2022-11-11
+8) UI: "Enter the commission for this transaction"
+   User input: 10
+11) UI: "Enter 1: To continue updating this portfolio  2: To exit from this portfolio"
+    User input: 2
+12) UI: "Enter 1: To continue trading further. 2: To exit from this session."
+    User input: 1
+27) UI: "Enter 1: To create a Portfolio 2: To query the portfolio details 3: To load a Portfolio  4: To update a portfolio"
+    User input: 2
+29) UI: "Enter the name of the Portfolio"
+    User input: p1
+30) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio"
+    User input: 2
+31) UI: "Enter date( YYYY-MM-DD format only)"
+    User input: 2020-05-11
+33) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 1
+33) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio"
+    User input: 2
+31) UI: "Enter date( YYYY-MM-DD format only)"
+    User input: 2022-11-14
+33) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 1
+33) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio"
+    User input: 2
+31) UI: "Enter date( YYYY-MM-DD format only)"
+    User input: 2022-11-14
+33) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 1
+33) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio"
+    User input: 3
+31) UI: "Enter date( YYYY-MM-DD format only)"
+    User input: 2022-01-01
+34) UI: "Enter 1: To continue querying loaded portfolio  2: To perform actions on other portfolios"
+    User input: 1
+33) UI: "Enter 1: To view composition  2: To get TotalValue of portfolio  3: To get Total CostBasis  4:To display performance of Portfolio"
+    User input: 3
+31) UI: "Enter date( YYYY-MM-DD format only)"
+    User input: 2015-12-12
+
+
+
+
+*********************************************************************************************************************
+setup - ( Stocks Assignment - Part 1 )
 how to run our program to create a portfolio with 3 different stocks, a second portfolio with 2 different stocks and query their value on a specific date.
 *********************************************************************************************************************
 Run the jar file.
@@ -96,6 +210,7 @@ Run the jar file.
 
 
 *********************************************************************************************************************
+Stocks Assignment Part 1:
 generic steps for the user to follow:
 *********************************************************************************************************************
 Run the jar file.
