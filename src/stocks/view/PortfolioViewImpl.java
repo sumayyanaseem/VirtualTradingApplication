@@ -134,7 +134,7 @@ public class PortfolioViewImpl implements PortfolioView {
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       total = total + allWeeksInRange.getValue();
     }
-    int base = (int)((total / mapToPlot.size())/2);
+    int base = (int) ((total / mapToPlot.size()) / 2);
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       double val = allWeeksInRange.getValue();
       double stars = (val * 5 / base);
@@ -147,7 +147,7 @@ public class PortfolioViewImpl implements PortfolioView {
       }
       out.println("");
     }
-    out.println("Scale: *=$" + base/5);
+    out.println("Scale: *=$" + base / 5);
   }
 
   @Override
