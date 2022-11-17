@@ -125,6 +125,13 @@ public class ModelImplTest {
               + startTime + " " + endTime + " " + portfolioName + "\n");
       return null;
     }
+
+    @Override
+    public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
+      log.append("inputs for getPortfolioPerformanceOvertime: "
+              + startDate + " " + endDate + " " + name + "\n");
+      return null;
+    }
   }
 
   private PortfolioModel model;

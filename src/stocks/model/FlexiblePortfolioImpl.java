@@ -400,6 +400,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     return null;
   }
 
+  @Override
+  public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
+    validatePortfolioPerformanceInputs(startDate, endDate, portfolioName);
+    try {
+
+      Map<String, List<Stock>> detailsMap = parser.readFromPathProvidedByUser(path);
+      //create a new map here and pass it to PortfolioPerformance
+      PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
+      return portfolioPerformance.displayCopy(startDate, endDate, portfolioName);
+    } catch (Exception e) {
+      // do nothing
+    }
+    return null;
+  }
+
   private void validatePortfolioPerformanceInputs(String startDate, String endDate, String pName) {
     if (!pName.equals("currentInstance")) {
       validateIfPortfolioDoesntExists(pName);

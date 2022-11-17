@@ -508,8 +508,8 @@ public class PortfolioControllerImpl implements PortfolioController {
               view.displayErrorMessage("End date must be greater than start date."
                       + " Please enter valid dates");
             }
-            Map<String, Double> result = model.getPortfolioPerformanceOvertime(
-                    startDate, endDate, name, portfolio);
+            Map<String, Double> result = model.getPortfolioPerformanceOvertimeForCurrentInstance(
+                    startDate, endDate, name, portfolio, path);
             view.displayPortfolioPerformance(result, startDate, endDate, name);
           } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());

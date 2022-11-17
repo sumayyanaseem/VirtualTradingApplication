@@ -22,6 +22,11 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
+  public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
+    return portfolio.getPortfolioPerformanceOvertimeForCurrentInstance(startDate, endDate, name, portfolio, path);
+  }
+
+  @Override
   public void loadPortfolioUsingFilePath(String filePath, Portfolio portfolio) {
     portfolio.loadPortfolioUsingFilePath(filePath);
   }

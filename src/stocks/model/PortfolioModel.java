@@ -156,4 +156,5 @@ public interface PortfolioModel {
                                                       Portfolio portfolio);
 
 
+  Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path);
 }

@@ -118,6 +118,12 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
   }
 
   @Override
+  public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
+    throw new UnsupportedOperationException("This "
+            + "operation is not supported in Inflexible portfolio");
+  }
+
+  @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");

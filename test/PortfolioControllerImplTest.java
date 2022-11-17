@@ -122,6 +122,11 @@ public class PortfolioControllerImplTest {
             String portfolioName, Portfolio portfolio) {
       return null;
     }
+
+    @Override
+    public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
+      return null;
+    }
   }
 
   private InputStream in;
