@@ -265,6 +265,34 @@ abstract class AbstractPortfolioTest {
     }
 
     @Test
+    public void testPortfolioPerformance12() {
+      String exception = "End date must be greater than start date."
+              + " Please enter valid dates";
+      String actual = "";
+      String pName = "testFlexible";
+      try {
+        portfolio.getPortfolioPerformanceOvertime("2022-10-01", "2020-10-01", pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
+    }
+
+    @Test
+    public void testPortfolioPerformance123() {
+      String exception = "start date must be greater than 1990 year."
+              + " Please enter valid start and end dates";
+      String actual = "";
+      String pName = "testFlexible";
+      try {
+        portfolio.getPortfolioPerformanceOvertime("1888-10-01", "2020-10-01", pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(exception, actual);
+    }
+
+    @Test
     public void testBuyBeforeIPO() {
       String pName = "testFlexible";
       String cName = "goog";

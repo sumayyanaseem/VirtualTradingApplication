@@ -447,6 +447,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
               .parse(startDate);
       Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
               .parse(endDate);
+      Date min = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse("1990-01-01");
+      if (start.compareTo(min) <= 0) {
+        throw new IllegalArgumentException("start date must be greater than 1990 year."
+                + " Please enter valid start and end dates");
+      }
       if (end.compareTo(start) <= 0) {
         throw new IllegalArgumentException("End date must be greater than start date."
                 + " Please enter valid dates");
