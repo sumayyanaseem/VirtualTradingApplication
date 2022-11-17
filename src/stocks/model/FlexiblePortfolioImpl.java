@@ -389,8 +389,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String startTime, String endTime, String portfolioName) {
     validatePortfolioPerformanceInputs(startTime, endTime, portfolioName);
     try {
-
-      Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
+      Map<String, List<Stock>> detailsMap = new HashMap<>();
+      if(portfolioName.equals("currentInstance")){
+        detailsMap = stockMap.get("currentInstance");
+      }else {
+        detailsMap = parser.readFromFile(portfolioName);
+      }
       //create a new map here and pass it to PortfolioPerformance
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);

@@ -11,6 +11,8 @@ Note:
 1.Jar file is located in res folder.
 2.Along with jar file, we need userPortfolios folder to be present in the same folder.
 3.Jar must include resources folder along with src folder.
+4. We are using an external dependency "JSON" for parsing. You need to download jar from the web add it to intelliJ.
+    ( you can download JSON dependency from this link : http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111jar.htm )
 
 Run the jar file.
 

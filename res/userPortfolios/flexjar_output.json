@@ -1,0 +1,74 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "orcl",
+      "Actions": [
+        {
+          "date": "2021-01-01",
+          "Commission": "5.0",
+          "Quantity": "10.0",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "amzn",
+      "Actions": [
+        {
+          "date": "2021-04-10",
+          "Commission": "5.0",
+          "Quantity": "30.0",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-10",
+          "Commission": "5.0",
+          "Quantity": "10.0",
+          "action": "sell"
+        },
+        {
+          "date": "2021-05-10",
+          "Commission": "5.0",
+          "Quantity": "2.0",
+          "action": "sell"
+        },
+        {
+          "date": "2020-01-10",
+          "Commission": "5.0",
+          "Quantity": "5.0",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-10",
+          "Commission": "5.0",
+          "Quantity": "5.0",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-14",
+          "Commission": "5.0",
+          "Quantity": "2.0",
+          "action": "sell"
+        }
+      ]
+    },
+    {
+      "CompanyName": "ccl",
+      "Actions": [
+        {
+          "date": "2003-01-01",
+          "Commission": "5.0",
+          "Quantity": "10.0",
+          "action": "buy"
+        },
+        {
+          "date": "2005-10-10",
+          "Commission": "5.0",
+          "Quantity": "5.0",
+          "action": "sell"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

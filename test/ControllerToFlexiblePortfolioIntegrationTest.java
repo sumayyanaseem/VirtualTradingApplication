@@ -27,6 +27,9 @@ import stocks.view.PortfolioViewImpl;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * test class for integration tests between controller and flexible portfolio.
+ */
 public class ControllerToFlexiblePortfolioIntegrationTest {
 
   private InputStream in;
@@ -163,7 +166,8 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
   public void testPersistAPortfolio() throws IOException {
 
     String expected = "Enter 1: To create flexible portfolio  2: To create inflexible  portfolio\n";
-    in = new ByteArrayInputStream(("1\n1\nff\n1\ngoog\n10\n2020-10-01\n10\n2\n1\n2\nff\n1\n2022-11-14\n").getBytes());
+    in = new ByteArrayInputStream(("1\n1\nff\n1\ngoog\n10"
+            + "\n2020-10-01\n10\n2\n1\n2\nff\n1\n2022-11-14\n").getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
       portfolioController.start();
@@ -188,10 +192,12 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
 
   @Test
   public void testUpdatePortfolio() {
-    String expected = "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio ";
+    String expected = "Enter 1: To buy stocks in this portfolio  "
+            + "2: To sell stocks in this portfolio ";
     String error = "Commission should be always a positive number.\n";
     String error2 = "Invalid Commission provided";
-    in = new ByteArrayInputStream(("4\ntestFlexible\n1\ngoog\n10\n2020-10-01\na\n-2\n0\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
+    in = new ByteArrayInputStream(("4\ntestFlexible\n1\ngoog\n10\n2020-10-"
+            + "01\na\n-2\n0\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
       portfolioController.start();
@@ -206,8 +212,10 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
 
   @Test
   public void testSellStocks() {
-    String expected = "Enter 1: To buy stocks in this portfolio  2: To sell stocks in this portfolio ";
-    in = new ByteArrayInputStream(("4\ntestFlexible\n2\ngoog\n10\n2020-10-01\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
+    String expected = "Enter 1: To buy stocks in this portfolio  "
+            + "2: To sell stocks in this portfolio ";
+    in = new ByteArrayInputStream(("4\ntestFlexible\n2\ngoog\n10\n2020-10-01"
+            + "\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
       portfolioController.start();
@@ -222,7 +230,8 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
   public void testUpdatePortfolioUsingFilePath() {
     String expected = "Enter 1: To view details of this portfolio.  "
             + "2: To exit and continue further trading. 3: To update loaded portfolio.";
-    in = new ByteArrayInputStream(("3\nuserPortfolios/testFlexible_output.json\n3\n1\ngoog\n10\n2020-10-01\na\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
+    in = new ByteArrayInputStream(("3\nuserPortfolios/testFlexible_output.json\n3\n1"
+            + "\ngoog\n10\n2020-10-01\na\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
     portfolioController = new PortfolioControllerImpl(model, in, view);
     try {
       portfolioController.start();
@@ -247,7 +256,8 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
     }
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains("2020-10-01"));
-    assertTrue(bytes.toString().contains("Total cost basis from the portfolioName testFlexible on 2020-10-01 is"));
+    assertTrue(bytes.toString().contains("Total cost basis from "
+            + "the portfolioName testFlexible on 2020-10-01 is"));
 
   }
 
