@@ -1,6 +1,24 @@
                                           VIRTUAL TRADING APPLICATION
                                           ***************************
 
+******************************************************************************************************************************************************************
+DESIGN CHANGES:
+******************************************************************************************************************************************************************
+1) Added an interface "Portfolio" which is implemented by both Flexible and InFlexible portfolios to let the model identify the type of portfolio and redirect the calls to the respective classes.
+
+2) Added an AbstractPortfolio class which implements Portfolio Interface. To remove the redundancy, we have moved the common functionality in
+   both Flexible Portfolio and Inflexible Portfolio to AbstractPortfolio class.
+
+3)Data Structure Change :
+  Initially we were using Map<String, Stock> to store companies as keys and one Stock Class Object because we had only "add" action in inflexible portfolio.
+  Currently, we are using Map<String, List<Stock>> to store multiple Stock objects for a single company. We need multiple Stock class Objects
+  because multiple buy and sell actions can happen in flexible portfolio.
+
+4)API Changes:
+We have added an interface and implement api class , which can be implemented by different api sources in future and currently we are using alpha vantage api n implement.
+
+5)CSV TO JSON:
+We are now persisting the portfolios in json format, as we are allowed to use third party libraries.
 
 ******************************************************************************************************************************************************************
 CURRENT ASSUMPTIONS:
