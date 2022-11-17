@@ -129,7 +129,7 @@ public class PortfolioViewImpl implements PortfolioView {
                                           String date2,
                                           String portfolioName) {
     out.println("Performance of portfolio "
-            + portfolioName + "from " + date1 + " to " + date2);
+            + portfolioName + " from " + date1 + " to " + date2);
     double total = 0.0;
     for (Map.Entry<String, Double> allWeeksInRange : mapToPlot.entrySet()) {
       total = total + allWeeksInRange.getValue();

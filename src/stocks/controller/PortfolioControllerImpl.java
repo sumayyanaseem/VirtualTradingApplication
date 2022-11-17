@@ -512,12 +512,19 @@ public class PortfolioControllerImpl implements PortfolioController {
       String endDate = dateHelper();
       Date start;
       Date end;
+      Date min;
       try {
         start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(startDate);
         end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(endDate);
-        if (end.compareTo(start) <= 0) {
+        min = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse("1990-01-01");
+        if (start.compareTo(min) <= 0) {
+          view.displayErrorMessage("start date must be greater than 1990 year."
+                  + " Please enter valid start and end dates");
+          portfolioPerformanceHelper(type, pName, portfolio);
+        } else if (end.compareTo(start) <= 0) {
           //need to recur until correct dates are entered.
           view.displayErrorMessage("End date must be greater than start date."
                   + " Please enter valid start and end dates");

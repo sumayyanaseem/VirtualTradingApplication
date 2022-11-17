@@ -27,6 +27,15 @@ public class PortfolioPerformance {
   Map<String, Double> mapOfValues;
 
 
+  private boolean isLeapYear(String y) {
+    int year = Integer.parseInt(y);
+    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private long yearsBetween(String date1, String date2) {
     //add validations date 1 < date 2
     long yearsBetween = ChronoUnit.YEARS.between(
@@ -97,7 +106,7 @@ public class PortfolioPerformance {
 
     Map<Integer, Integer> noOfDays = new HashMap<>();
     noOfDays.put(1, 31);
-    noOfDays.put(2, 29);
+    noOfDays.put(2, 28);
     noOfDays.put(3, 31);
     noOfDays.put(4, 30);
     noOfDays.put(5, 31);
@@ -141,6 +150,9 @@ public class PortfolioPerformance {
         key = key + "0" + String.valueOf(xx);
       } else {
         key = key + String.valueOf(xx);
+      }
+      if (key.equals("02") && isLeapYear(monthsbtw.get(i).substring(0, 4))) {
+        daysInThisMonth = 29;
       }
       String endOfMonth = monthsbtw.get(i).substring(0, 5)
               + key + "-" + String.valueOf(daysInThisMonth);
