@@ -371,6 +371,20 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
+
+
+  @Override
+  public void createEmptyPortfolio(String portfolioName, String portfolioType) {
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    this.portfolioName = portfolioName;
+    Map<String,List<Stock>> emptyMap = new HashMap<>();
+    stockMap.put(portfolioName,emptyMap);
+    parser.writeIntoFile(portfolioName, emptyMap, "flexible");
+  }
+
+
   private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
       System.out.println(entry.getKey() + " values is ");
@@ -384,14 +398,20 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
+
+
+
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(
           String startTime, String endTime, String portfolioName) {
     validatePortfolioPerformanceInputs(startTime, endTime, portfolioName);
     try {
-
-      Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
-      //create a new map here and pass it to PortfolioPerformance
+      Map<String, List<Stock>> detailsMap = new HashMap<>();
+      if (portfolioName.equals("currentInstance")) {
+        detailsMap = stockMap.get("currentInstance");
+      } else {
+        detailsMap = parser.readFromFile(portfolioName);
+      }
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
     } catch (Exception e) {
