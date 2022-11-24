@@ -148,6 +148,7 @@ public class PortfolioViewImpl implements PortfolioView {
       out.println("");
     }
     out.println("Scale: *=$" + base / 5);
+<<<<<<< HEAD
   }*/
 
 
@@ -192,6 +193,8 @@ public class PortfolioViewImpl implements PortfolioView {
       out.println("");
     }
     out.println("Scale: *=$" + base );
+=======
+>>>>>>> 39e9c03 (merge)
   }
 
 
