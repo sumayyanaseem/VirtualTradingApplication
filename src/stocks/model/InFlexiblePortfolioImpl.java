@@ -60,7 +60,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   }
 
-
   @Override
   public void createPortfolioIfCreatedManually(String portfolioName) {
     if (portfolioName == null || portfolioName.equals("")) {

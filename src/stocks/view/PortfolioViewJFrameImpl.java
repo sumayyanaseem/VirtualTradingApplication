@@ -8,7 +8,6 @@ import stocks.Features;
 
 public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFrame{
 
-
   private JPanel mainPanel;
   private JButton createPortfolioButton;
   private JButton sellStockButton;

@@ -45,14 +45,6 @@ public interface PortfolioModel {
 
 
   /**
-   * creates and persists a csv file with portfolio info created using manual inputs.
-   *
-   * @param portfolioName the name of the portfolio for which file needs to be written.
-   */
-  void createEmptyPortfolio(String portfolioName, String portfolioType, Portfolio portfolio);
-
-
-  /**
    * validate if the given company name is one among the stocks supported by this application.
    *
    * @param companyName the stock name to be validated.
@@ -164,6 +156,4 @@ public interface PortfolioModel {
                                                       String endTime, String portfolioName,
                                                       IFlexible portfolio);
 
-
-  Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path);
 }

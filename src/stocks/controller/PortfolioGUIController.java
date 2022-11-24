@@ -2,14 +2,13 @@ package stocks.controller;
 
 import stocks.Features;
 import stocks.model.FlexiblePortfolioImpl;
-import stocks.model.PortfolioModel;
 import stocks.view.PortfolioViewJFrame;
 
-public class PortfolioControllerJFrame implements Features {
+public class PortfolioGUIController implements Features {
   private FlexiblePortfolioImpl model;
   private PortfolioViewJFrame view;
 
-  public PortfolioControllerJFrame(FlexiblePortfolioImpl m) {
+  public PortfolioGUIController(FlexiblePortfolioImpl m) {
     model = m;
   }
 
