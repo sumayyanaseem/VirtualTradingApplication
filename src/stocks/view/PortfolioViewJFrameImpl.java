@@ -65,7 +65,7 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
     setLocation(250, 250);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    this.setLayout(new FlowLayout());
+    this.setLayout(new BorderLayout());
 
 
 
@@ -76,7 +76,7 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
 
 
     //Creating the panel and adding components
-    JPanel leftPanel = new JPanel(); // the panel is not visible in output
+  /*  JPanel leftPanel = new JPanel(); // the panel is not visible in output
     leftPanel.setLayout(new FlowLayout());
     leftPanel.add(createPortfolioButton);
     leftPanel.add(buyStockButton);
@@ -86,7 +86,7 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
     this.getContentPane().add(BorderLayout.WEST, leftPanel);
 
     JPanel rightPanel = new JPanel();
-    this.getContentPane().add(BorderLayout.CENTER, rightPanel);
+    this.getContentPane().add(BorderLayout.CENTER, rightPanel);*/
 
     pack();
 
@@ -134,14 +134,17 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
 
   private void addElementToFrame() {
     mainPanel = new JPanel();
-    add(mainPanel);
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    //add(mainPanel);
+    mainPanel.setLayout(new FlowLayout());
+    //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     mainPanel.add(createPortfolioButton);
     mainPanel.add(buyStockButton);
     mainPanel.add(sellStockButton);
     mainPanel.add(dollarCostButton);
     mainPanel.add(queryPortfolioButton);
     mainPanel.add(investButton);
+    this.getContentPane().add(BorderLayout.WEST, mainPanel);
+
 
   }
 
@@ -189,9 +192,23 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
 
   @Override
   public void showDisplayPanelToEnterPortfolioName() {
-    JPanel rightPanel = new JPanel();
-    this.getContentPane().add(BorderLayout.CENTER, rightPanel);
-
+   /* JPanel rightPanel = new JPanel();
+    portfolioNameInput = new JLabel("Enter portfolio name");
+    rightPanel.add(portfolioNameInput);
+    portfolioNameInputTxtField = new JTextField();
+    rightPanel.add(portfolioNameInputTxtField);
+    this.getContentPane().add(BorderLayout.CENTER, rightPanel);*/
+    JFrame frame2 = new JFrame();
+    JPanel newPanel=new JPanel();
+    portfolioNameInput = new JLabel("Enter portfolio name");
+    newPanel.add(portfolioNameInput);
+    portfolioNameInputTxtField = new JTextField(30);
+    newPanel.add(portfolioNameInputTxtField);
+    newPanel.add(createButton);
+    frame2.add(newPanel);
+    frame2.pack();
+    frame2.setVisible(true);
+    //JOptionPane.showMessageDialog(this, "Welcome to Swing!");
   }
 
   @Override

@@ -77,6 +77,13 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
+  //this is not needed in inflexible. check how to remove
+  @Override
+  public void createEmptyPortfolio(String portfolioName, String portfolioType) {
+    throw new UnsupportedOperationException("This operation "
+            + "is not supported in Inflexible portfolio");
+  }
+
 
   @Override
   public void sellStocks(String companyName, String quantity,

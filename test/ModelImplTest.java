@@ -1,4 +1,4 @@
-import org.junit.Before;
+/*import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * The test class for ModelImpl.
  */
-public class ModelImplTest {
+/*public class ModelImplTest {
 
   static class MockPortfolio implements Portfolio {
 
@@ -274,3 +274,4 @@ public class ModelImplTest {
     assertTrue(mockLog.toString().contains(log));
   }
 }
+*/
