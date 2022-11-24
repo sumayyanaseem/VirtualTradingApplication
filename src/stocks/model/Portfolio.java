@@ -41,13 +41,6 @@ public interface Portfolio {
   void createPortfolioIfCreatedManually(String portfolioName);
 
   /**
-   * creates and persists a csv file with portfolio info created using manual inputs.
-   *
-   * @param portfolioName the name of the portfolio for which file needs to be written.
-   */
-  void createEmptyPortfolio(String portfolioName, String portfolioType);
-
-  /**
    * validate if the given company name is one among the stocks supported by this application.
    *
    * @param companyName the stock name to be validated.
@@ -80,7 +73,4 @@ public interface Portfolio {
                  String date, String com, String portfolioName)
           throws IllegalArgumentException;
 
-
-
-  Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path);
 }
