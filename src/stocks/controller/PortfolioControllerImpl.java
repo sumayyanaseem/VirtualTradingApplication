@@ -20,6 +20,7 @@ import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IFlexible;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
+import stocks.view.IViewInterface;
 import stocks.view.PortfolioView;
 
 /**
@@ -47,10 +48,10 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
    * @param in    the input stream.
    * @param view  the view object.
    */
-  public PortfolioControllerImpl(InputStream in, PortfolioView view) {
-    super(view,new Scanner(in));
+  public PortfolioControllerImpl(InputStream in, IViewInterface view) {
+    super((PortfolioView) view,new Scanner(in));
     this.input = new Scanner(in);
-    this.view = view;
+    this.view = (PortfolioView) view;
     this.portfolioName = "";
     this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
     this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();

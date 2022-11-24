@@ -1,4 +1,4 @@
-package stocks;
+package stocks.controller;
 
 public interface Features {
   void displayPanelToEnterPortfolioName();

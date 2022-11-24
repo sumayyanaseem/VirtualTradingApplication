@@ -191,4 +191,8 @@ public class PortfolioViewImpl implements PortfolioView {
             + " 3: To update loaded portfolio.");
   }
 
+  @Override
+  public String guiInUse() {
+    return "console";
+  }
 }

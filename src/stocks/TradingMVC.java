@@ -2,8 +2,8 @@ package stocks;
 
 import stocks.controller.PortfolioGUIController;
 import stocks.model.FlexiblePortfolioImpl;
-import stocks.view.PortfolioViewJFrame;
-import stocks.view.PortfolioViewJFrameImpl;
+import stocks.view.PortfolioGUIView;
+import stocks.view.PortfolioGUIViewImpl;
 
 /**
  * Demonstrates a virtual trading Application. The application is
@@ -22,8 +22,9 @@ public class TradingMVC {
     controller.start();*/
 
     FlexiblePortfolioImpl model = new FlexiblePortfolioImpl();
-    PortfolioGUIController controller = new PortfolioGUIController(model);
-    PortfolioViewJFrame view = new PortfolioViewJFrameImpl();
-    controller.setView(view);
+    PortfolioGUIView view = new PortfolioGUIViewImpl();
+    PortfolioGUIController controller = new PortfolioGUIController(model,view);
+
+
   }
 }

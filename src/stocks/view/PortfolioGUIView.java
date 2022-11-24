@@ -1,8 +1,8 @@
 package stocks.view;
 
-import stocks.Features;
+import stocks.controller.Features;
 
-public interface PortfolioViewJFrame {
+public interface PortfolioGUIView extends IViewInterface {
   void addFeatures(Features features);
 
   void showDisplayPanelToEnterPortfolioName();
