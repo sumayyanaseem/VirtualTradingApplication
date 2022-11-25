@@ -42,6 +42,7 @@ public class QueryPortfolioPanel extends JPanel {
     viewTotalCostBasisBtn.setActionCommand("TOTAL_COST");
     viewTotalValueBtn.setActionCommand("TOTAL_VALUE");
     viewPortfolioCompositionBtn.setActionCommand("DISPLAY_COMPOSITION");
+    jScrollPane.setViewportView(viewPortfolioJTextArea);
     setLayout();
 
   }
@@ -91,20 +92,13 @@ public class QueryPortfolioPanel extends JPanel {
   public void delegateActions(Features feature) {
     viewPortfolioCompositionBtn.addActionListener(l -> {
 
-      List<List<String>> records= feature.viewComposition(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJLabel.getText());
+      List<List<String>> records= feature.viewComposition(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
       StringBuffer detailedOutput = new StringBuffer();
       for (int i = 0; i < records.size(); i++) {
         for (int j = 0; j < records.get(i).size(); j++) {
-          detailedOutput.append("Ticker:\t\t\t\t" + records.get(i).get(j));
-          int len1 = records.get(0).get(j).length();
-          int len2 = records.get(i).get(j).length();
-          int len = len1 - len2;
-          for (int k = 0; k < len; k++) {
-            detailedOutput.append(" ");
-          }
-          detailedOutput.append(" ");
+          detailedOutput.append(records.get(i).get(j)+"\t");
         }
-        detailedOutput.append(" "+"\n");
+        detailedOutput.append("\n");
       }
       viewPortfolioJTextArea.setText(detailedOutput.toString());
       reset();
@@ -114,10 +108,9 @@ public class QueryPortfolioPanel extends JPanel {
 
     viewTotalValueBtn.addActionListener(l -> {
 
-      double value = feature.getTotalValue(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJLabel.getText());
-      String detailedOutput = "Total value of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJLabel.getText() + " is :" + value;
+      double value = feature.getTotalValue(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
+      String detailedOutput = "Total value of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + value;
       viewPortfolioJTextArea.setText(detailedOutput);
-
 
       reset();
       repaint();
@@ -125,8 +118,8 @@ public class QueryPortfolioPanel extends JPanel {
 
     viewTotalCostBasisBtn.addActionListener(l ->{
 
-      double totalCostBasis = feature.getCostBasis(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJLabel.getText());
-      String detailedOutput = "Total Cost Basis of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJLabel.getText() + " is :" + totalCostBasis;
+      double totalCostBasis = feature.getCostBasis(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
+      String detailedOutput = "Total Cost Basis of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + totalCostBasis;
       viewPortfolioJTextArea.setText(detailedOutput);
       reset();
       repaint();

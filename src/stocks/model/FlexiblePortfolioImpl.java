@@ -20,6 +20,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   private static final String format = "YYYY-MM-dd";
 
+  public FlexiblePortfolioImpl(){
+    super();
+  }
+
   @Override
   public void buyStocks(String companyName, String quantity,
                         String date, String commission, String portfolioName)

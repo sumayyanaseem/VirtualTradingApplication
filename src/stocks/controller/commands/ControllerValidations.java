@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Scanner;
-
 
 import stocks.customapi.CompanyTickerSymbol;
 import stocks.model.Portfolio;
@@ -18,11 +16,9 @@ import stocks.view.PortfolioView;
 public class ControllerValidations {
 
   private final PortfolioView view;
-  private final Scanner input;
 
-  public ControllerValidations(PortfolioView view, Scanner input){
+  public ControllerValidations(PortfolioView view){
     this.view=view;
-    this.input=input;
   }
 
   protected boolean validateInputsFromUSer(String input) {
@@ -47,49 +43,39 @@ public class ControllerValidations {
     return false;
   }
 
-  protected String dateHelper() {
-    view.getDate();
-    String date = input.nextLine();
+  protected boolean dateHelper(String date) {
     if (validateDate(date)) {
-      return dateHelper();
+      return true;
     }
-    return date;
+    return false;
   }
 
-  protected String dateHelperInFlexiblePortfolio(String companyName) {
-    view.getDate();
-    String date = input.nextLine();
+  protected boolean dateHelperInFlexiblePortfolio(String date,String companyName) {
     if (validateDate(date) || validateDateToCheckIfBeforeIPO(date, companyName)) {
-      return dateHelperInFlexiblePortfolio(companyName);
+      return true;
     }
-    return date;
+    return false;
   }
 
-  protected String companyHelper(Portfolio portfolio) {
-    view.getCompanyTicker();
-    String companyName = input.nextLine();
+  protected boolean companyHelper(Portfolio portfolio,String companyName) {
     if (validateIfCompanyExists(companyName, portfolio)) {
-      return companyHelper(portfolio);
+      return true;
     }
-    return companyName;
+    return false;
   }
 
-  protected String quantityHelper() {
-    view.getQuantity();
-    String quantity = input.nextLine();
+  protected boolean quantityHelper(String quantity) {
     if (validateQuantity(quantity)) {
-      return quantityHelper();
+      return true;
     }
-    return quantity;
+    return false;
   }
 
-  protected String commissionHelper() {
-    view.getCommission();
-    String com = input.nextLine();
+  protected boolean commissionHelper(String com) {
     if (validateCom(com)) {
-      return commissionHelper();
+      return true;
     }
-    return com;
+    return false;
   }
 
   protected boolean validateDate(String date) {
