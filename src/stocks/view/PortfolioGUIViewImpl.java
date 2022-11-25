@@ -227,7 +227,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
 
   @Override
-  public String guiInUse() {
+  public String interfaceInUse() {
     return "gui";
   }
 }
