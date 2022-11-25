@@ -116,6 +116,11 @@ public class PortfolioControllerImplTest {
 
     }
 
+    @Override
+    public List<String> getListOfPortfolioNames() {
+      return null;
+    }
+
   }
 
   private InputStream in;

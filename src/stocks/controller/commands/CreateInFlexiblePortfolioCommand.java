@@ -5,7 +5,7 @@ import java.util.Scanner;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class CreateInFlexiblePortfolioCommand extends AbstractCommand implements Command{
+public class CreateInFlexiblePortfolioCommand extends ControllerValidations implements Command{
 
   private final PortfolioView view;
 

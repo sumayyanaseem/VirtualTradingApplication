@@ -8,7 +8,7 @@ import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IFlexible;
 import stocks.view.PortfolioView;
 
-public class UpdatePortfolioCommand extends AbstractCommand implements Command {
+public class UpdatePortfolioCommand extends ControllerValidations implements Command {
 
   private final PortfolioView view;
   private final Scanner input;

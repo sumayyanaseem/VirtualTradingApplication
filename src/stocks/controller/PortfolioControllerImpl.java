@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-import stocks.controller.commands.AbstractCommand;
+import stocks.controller.commands.ControllerValidations;
 import stocks.controller.commands.Command;
 import stocks.controller.commands.CreateFlexiblePortfolioCommand;
 import stocks.controller.commands.CreateInFlexiblePortfolioCommand;
@@ -26,7 +26,7 @@ import stocks.view.PortfolioView;
 /**
  * This class implements the methods of Portfolio Controller.
  */
-public class PortfolioControllerImpl extends AbstractCommand implements PortfolioController {
+public class PortfolioControllerImpl extends ControllerValidations implements PortfolioController {
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
