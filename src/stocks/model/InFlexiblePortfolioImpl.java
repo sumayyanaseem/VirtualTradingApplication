@@ -15,6 +15,9 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   private static final String action = "add";
 
+  public InFlexiblePortfolioImpl(){
+    super();
+  }
 
   @Override
   public void buyStocks(String cName, String quantity, String date,

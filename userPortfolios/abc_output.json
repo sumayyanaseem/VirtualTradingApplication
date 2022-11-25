@@ -1,1 +1,1 @@
-{"Companies":[{"CompanyName":"GOOG","Actions":[{"date":"2020-02-02","Commission":"30","Quantity":"20","action":"buy"}]},{"CompanyName":"DASH","Actions":[{"date":"2021-01-09","Quantity":"20","action":"buy","Commission":"30"}]}],"type":"flexible"}
+{"Companies":[{"CompanyName":"GOOG","Actions":[{"date":"2022-10-01","Quantity":"20","action":"buy","Commission":"20"}]}],"type":"flexible"}

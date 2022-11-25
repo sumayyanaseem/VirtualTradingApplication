@@ -19,7 +19,6 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
   private JButton investButton;
   private JButton buyStockButton;
   private JButton exitButton;
-
   private List<String> listOfPortfolios;
 
 
