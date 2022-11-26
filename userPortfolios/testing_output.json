@@ -1,0 +1,956 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "META",
+      "Actions": [
+        {
+          "date": "2015-02-02",
+          "Commission": "flexible",
+          "Quantity": "1333",
+          "action": "buy"
+        },
+        {
+          "date": "2015-03-16",
+          "Commission": "flexible",
+          "Quantity": "1280",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-23",
+          "Commission": "flexible",
+          "Quantity": "1213",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-02",
+          "Commission": "flexible",
+          "Quantity": "1243",
+          "action": "buy"
+        },
+        {
+          "date": "2015-07-13",
+          "Commission": "flexible",
+          "Quantity": "1109",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-21",
+          "Commission": "flexible",
+          "Quantity": "1161",
+          "action": "buy"
+        },
+        {
+          "date": "2015-09-30",
+          "Commission": "flexible",
+          "Quantity": "1114",
+          "action": "buy"
+        },
+        {
+          "date": "2015-11-09",
+          "Commission": "flexible",
+          "Quantity": "939",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-21",
+          "Commission": "flexible",
+          "Quantity": "954",
+          "action": "buy"
+        },
+        {
+          "date": "2016-01-28",
+          "Commission": "flexible",
+          "Quantity": "916",
+          "action": "buy"
+        },
+        {
+          "date": "2016-03-08",
+          "Commission": "flexible",
+          "Quantity": "944",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-18",
+          "Commission": "flexible",
+          "Quantity": "905",
+          "action": "buy"
+        },
+        {
+          "date": "2016-05-27",
+          "Commission": "flexible",
+          "Quantity": "837",
+          "action": "buy"
+        },
+        {
+          "date": "2016-07-06",
+          "Commission": "flexible",
+          "Quantity": "856",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-15",
+          "Commission": "flexible",
+          "Quantity": "807",
+          "action": "buy"
+        },
+        {
+          "date": "2016-09-26",
+          "Commission": "flexible",
+          "Quantity": "785",
+          "action": "buy"
+        },
+        {
+          "date": "2016-11-03",
+          "Commission": "flexible",
+          "Quantity": "833",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-13",
+          "Commission": "flexible",
+          "Quantity": "831",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-23",
+          "Commission": "flexible",
+          "Quantity": "775",
+          "action": "buy"
+        },
+        {
+          "date": "2017-03-03",
+          "Commission": "flexible",
+          "Quantity": "729",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-12",
+          "Commission": "flexible",
+          "Quantity": "716",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-22",
+          "Commission": "flexible",
+          "Quantity": "674",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-03",
+          "Commission": "flexible",
+          "Quantity": "673",
+          "action": "buy"
+        },
+        {
+          "date": "2017-08-10",
+          "Commission": "flexible",
+          "Quantity": "597",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-19",
+          "Commission": "flexible",
+          "Quantity": "579",
+          "action": "buy"
+        },
+        {
+          "date": "2017-10-30",
+          "Commission": "flexible",
+          "Quantity": "555",
+          "action": "buy"
+        },
+        {
+          "date": "2017-12-08",
+          "Commission": "flexible",
+          "Quantity": "558",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-17",
+          "Commission": "flexible",
+          "Quantity": "563",
+          "action": "buy"
+        },
+        {
+          "date": "2018-02-26",
+          "Commission": "flexible",
+          "Quantity": "540",
+          "action": "buy"
+        },
+        {
+          "date": "2018-04-09",
+          "Commission": "flexible",
+          "Quantity": "633",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-17",
+          "Commission": "flexible",
+          "Quantity": "544",
+          "action": "buy"
+        },
+        {
+          "date": "2018-06-26",
+          "Commission": "flexible",
+          "Quantity": "502",
+          "action": "buy"
+        },
+        {
+          "date": "2018-08-06",
+          "Commission": "flexible",
+          "Quantity": "538",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-14",
+          "Commission": "flexible",
+          "Quantity": "616",
+          "action": "buy"
+        },
+        {
+          "date": "2018-10-24",
+          "Commission": "flexible",
+          "Quantity": "684",
+          "action": "buy"
+        },
+        {
+          "date": "2018-12-03",
+          "Commission": "flexible",
+          "Quantity": "708",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-14",
+          "Commission": "flexible",
+          "Quantity": "687",
+          "action": "buy"
+        },
+        {
+          "date": "2019-02-21",
+          "Commission": "flexible",
+          "Quantity": "624",
+          "action": "buy"
+        },
+        {
+          "date": "2019-04-02",
+          "Commission": "flexible",
+          "Quantity": "574",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-13",
+          "Commission": "flexible",
+          "Quantity": "550",
+          "action": "buy"
+        },
+        {
+          "date": "2019-06-21",
+          "Commission": "flexible",
+          "Quantity": "523",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-31",
+          "Commission": "flexible",
+          "Quantity": "514",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-09",
+          "Commission": "flexible",
+          "Quantity": "529",
+          "action": "buy"
+        },
+        {
+          "date": "2019-10-21",
+          "Commission": "flexible",
+          "Quantity": "526",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-29",
+          "Commission": "flexible",
+          "Quantity": "495",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-07",
+          "Commission": "flexible",
+          "Quantity": "469",
+          "action": "buy"
+        },
+        {
+          "date": "2020-02-18",
+          "Commission": "flexible",
+          "Quantity": "459",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-27",
+          "Commission": "flexible",
+          "Quantity": "637",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-06",
+          "Commission": "flexible",
+          "Quantity": "479",
+          "action": "buy"
+        },
+        {
+          "date": "2020-06-15",
+          "Commission": "flexible",
+          "Quantity": "430",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-27",
+          "Commission": "flexible",
+          "Quantity": "428",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-03",
+          "Commission": "flexible",
+          "Quantity": "343",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-13",
+          "Commission": "flexible",
+          "Quantity": "362",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-23",
+          "Commission": "flexible",
+          "Quantity": "372",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-04",
+          "Commission": "flexible",
+          "Quantity": "371",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-10",
+          "Commission": "flexible",
+          "Quantity": "367",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-22",
+          "Commission": "flexible",
+          "Quantity": "340",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "flexible",
+          "Quantity": "310",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-10",
+          "Commission": "flexible",
+          "Quantity": "300",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-20",
+          "Commission": "flexible",
+          "Quantity": "292",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "flexible",
+          "Quantity": "262",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-08",
+          "Commission": "flexible",
+          "Quantity": "302",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-17",
+          "Commission": "flexible",
+          "Quantity": "293",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "flexible",
+          "Quantity": "288",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-07",
+          "Commission": "flexible",
+          "Quantity": "444",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-17",
+          "Commission": "flexible",
+          "Quantity": "481",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "flexible",
+          "Quantity": "552",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-06",
+          "Commission": "flexible",
+          "Quantity": "514",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-15",
+          "Commission": "flexible",
+          "Quantity": "607",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Commission": "flexible",
+          "Quantity": "612",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "GOOG",
+      "Actions": [
+        {
+          "date": "2015-02-02",
+          "Commission": "flexible",
+          "Quantity": "75",
+          "action": "buy"
+        },
+        {
+          "date": "2015-03-16",
+          "Commission": "flexible",
+          "Quantity": "72",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-23",
+          "Commission": "flexible",
+          "Quantity": "73",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-02",
+          "Commission": "flexible",
+          "Quantity": "74",
+          "action": "buy"
+        },
+        {
+          "date": "2015-07-13",
+          "Commission": "flexible",
+          "Quantity": "73",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-21",
+          "Commission": "flexible",
+          "Quantity": "65",
+          "action": "buy"
+        },
+        {
+          "date": "2015-09-30",
+          "Commission": "flexible",
+          "Quantity": "65",
+          "action": "buy"
+        },
+        {
+          "date": "2015-11-09",
+          "Commission": "flexible",
+          "Quantity": "55",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-21",
+          "Commission": "flexible",
+          "Quantity": "53",
+          "action": "buy"
+        },
+        {
+          "date": "2016-01-28",
+          "Commission": "flexible",
+          "Quantity": "54",
+          "action": "buy"
+        },
+        {
+          "date": "2016-03-08",
+          "Commission": "flexible",
+          "Quantity": "57",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-18",
+          "Commission": "flexible",
+          "Quantity": "52",
+          "action": "buy"
+        },
+        {
+          "date": "2016-05-27",
+          "Commission": "flexible",
+          "Quantity": "54",
+          "action": "buy"
+        },
+        {
+          "date": "2016-07-06",
+          "Commission": "flexible",
+          "Quantity": "57",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-15",
+          "Commission": "flexible",
+          "Quantity": "51",
+          "action": "buy"
+        },
+        {
+          "date": "2016-09-26",
+          "Commission": "flexible",
+          "Quantity": "51",
+          "action": "buy"
+        },
+        {
+          "date": "2016-11-03",
+          "Commission": "flexible",
+          "Quantity": "52",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-13",
+          "Commission": "flexible",
+          "Quantity": "50",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-23",
+          "Commission": "flexible",
+          "Quantity": "48",
+          "action": "buy"
+        },
+        {
+          "date": "2017-03-03",
+          "Commission": "flexible",
+          "Quantity": "48",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-12",
+          "Commission": "flexible",
+          "Quantity": "48",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-22",
+          "Commission": "flexible",
+          "Quantity": "42",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-03",
+          "Commission": "flexible",
+          "Quantity": "44",
+          "action": "buy"
+        },
+        {
+          "date": "2017-08-10",
+          "Commission": "flexible",
+          "Quantity": "44",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-19",
+          "Commission": "flexible",
+          "Quantity": "43",
+          "action": "buy"
+        },
+        {
+          "date": "2017-10-30",
+          "Commission": "flexible",
+          "Quantity": "39",
+          "action": "buy"
+        },
+        {
+          "date": "2017-12-08",
+          "Commission": "flexible",
+          "Quantity": "38",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-17",
+          "Commission": "flexible",
+          "Quantity": "35",
+          "action": "buy"
+        },
+        {
+          "date": "2018-02-26",
+          "Commission": "flexible",
+          "Quantity": "34",
+          "action": "buy"
+        },
+        {
+          "date": "2018-04-09",
+          "Commission": "flexible",
+          "Quantity": "39",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-17",
+          "Commission": "flexible",
+          "Quantity": "37",
+          "action": "buy"
+        },
+        {
+          "date": "2018-06-26",
+          "Commission": "flexible",
+          "Quantity": "35",
+          "action": "buy"
+        },
+        {
+          "date": "2018-08-06",
+          "Commission": "flexible",
+          "Quantity": "32",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-14",
+          "Commission": "flexible",
+          "Quantity": "34",
+          "action": "buy"
+        },
+        {
+          "date": "2018-10-24",
+          "Commission": "flexible",
+          "Quantity": "38",
+          "action": "buy"
+        },
+        {
+          "date": "2018-12-03",
+          "Commission": "flexible",
+          "Quantity": "36",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-14",
+          "Commission": "flexible",
+          "Quantity": "38",
+          "action": "buy"
+        },
+        {
+          "date": "2019-02-21",
+          "Commission": "flexible",
+          "Quantity": "36",
+          "action": "buy"
+        },
+        {
+          "date": "2019-04-02",
+          "Commission": "flexible",
+          "Quantity": "33",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-13",
+          "Commission": "flexible",
+          "Quantity": "35",
+          "action": "buy"
+        },
+        {
+          "date": "2019-06-21",
+          "Commission": "flexible",
+          "Quantity": "35",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-31",
+          "Commission": "flexible",
+          "Quantity": "32",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-09",
+          "Commission": "flexible",
+          "Quantity": "33",
+          "action": "buy"
+        },
+        {
+          "date": "2019-10-21",
+          "Commission": "flexible",
+          "Quantity": "32",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-29",
+          "Commission": "flexible",
+          "Quantity": "30",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-07",
+          "Commission": "flexible",
+          "Quantity": "28",
+          "action": "buy"
+        },
+        {
+          "date": "2020-02-18",
+          "Commission": "flexible",
+          "Quantity": "26",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-27",
+          "Commission": "flexible",
+          "Quantity": "36",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-06",
+          "Commission": "flexible",
+          "Quantity": "29",
+          "action": "buy"
+        },
+        {
+          "date": "2020-06-15",
+          "Commission": "flexible",
+          "Quantity": "28",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-27",
+          "Commission": "flexible",
+          "Quantity": "26",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-03",
+          "Commission": "flexible",
+          "Quantity": "24",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-13",
+          "Commission": "flexible",
+          "Quantity": "25",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-23",
+          "Commission": "flexible",
+          "Quantity": "23",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-04",
+          "Commission": "flexible",
+          "Quantity": "23",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-10",
+          "Commission": "flexible",
+          "Quantity": "19",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-22",
+          "Commission": "flexible",
+          "Quantity": "19",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "flexible",
+          "Quantity": "16",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-10",
+          "Commission": "flexible",
+          "Quantity": "15",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-20",
+          "Commission": "flexible",
+          "Quantity": "15",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "flexible",
+          "Quantity": "13",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-08",
+          "Commission": "flexible",
+          "Quantity": "14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-17",
+          "Commission": "flexible",
+          "Quantity": "13",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "flexible",
+          "Quantity": "13",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-07",
+          "Commission": "flexible",
+          "Quantity": "14",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-17",
+          "Commission": "flexible",
+          "Quantity": "14",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "flexible",
+          "Quantity": "16",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-06",
+          "Commission": "flexible",
+          "Quantity": "17",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-15",
+          "Commission": "flexible",
+          "Quantity": "17",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Commission": "flexible",
+          "Quantity": "348",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "DASH",
+      "Actions": [
+        {
+          "date": "2021-01-04",
+          "Commission": "flexible",
+          "Quantity": "431",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-10",
+          "Commission": "flexible",
+          "Quantity": "278",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-22",
+          "Commission": "flexible",
+          "Quantity": "441",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "flexible",
+          "Quantity": "427",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-10",
+          "Commission": "flexible",
+          "Quantity": "414",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-20",
+          "Commission": "flexible",
+          "Quantity": "337",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "flexible",
+          "Quantity": "311",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-08",
+          "Commission": "flexible",
+          "Quantity": "293",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-17",
+          "Commission": "flexible",
+          "Quantity": "261",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "flexible",
+          "Quantity": "384",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-07",
+          "Commission": "flexible",
+          "Quantity": "612",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-17",
+          "Commission": "flexible",
+          "Quantity": "624",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "flexible",
+          "Quantity": "712",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-06",
+          "Commission": "flexible",
+          "Quantity": "857",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-15",
+          "Commission": "flexible",
+          "Quantity": "855",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Quantity": "935",
+          "action": "buy",
+          "Commission": "flexible"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}
