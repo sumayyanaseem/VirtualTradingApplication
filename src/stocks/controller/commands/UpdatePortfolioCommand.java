@@ -2,6 +2,7 @@ package stocks.controller.commands;
 
 import java.util.Scanner;
 
+import stocks.controller.ControllerValidations;
 import stocks.customparser.CustomParser;
 import stocks.customparser.JsonParserImplementation;
 import stocks.model.FlexiblePortfolioImpl;
@@ -9,7 +10,7 @@ import stocks.model.IFlexible;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class UpdatePortfolioCommand extends ControllerValidations implements Command {
+public class UpdatePortfolioCommand implements Command {
 
   private final PortfolioView view;
   private final Scanner input;
@@ -17,11 +18,13 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private IFlexible flexiblePortfolioTypeObj;
 
   private final CustomParser jsonParserImplementation;
+
+  private ControllerValidations controllerValidations;
   public UpdatePortfolioCommand(PortfolioView view, Scanner input){
-    super(view);
     this.view = view;
     this.input = input;
     this.jsonParserImplementation = new JsonParserImplementation();
+    this.controllerValidations = new ControllerValidations(view);
   }
 
   @Override
@@ -32,12 +35,12 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private void updatePortfolio() {
     view.getPortfolioName();
     String name = input.nextLine();
-    if (validateIfPortfolioDoesntExists(name)) {
+    if (controllerValidations.validateIfPortfolioDoesntExists(name)) {
       updatePortfolio();
     }
     String type = jsonParserImplementation.getTypeOfFile(name);
     if (!type.equals("flexible")) {
-      view.displayErrorMessage("Can not update an inflexible portfolio");
+      view.displayMessage("Can not update an inflexible portfolio");
       throw new IllegalArgumentException("start again");
     }
     flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
@@ -47,7 +50,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private void updateStocks(IFlexible portfolio, String portfolioName) {
     view.displayMessageToBuyOrSell();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       updateStocks(portfolio, portfolioName);
     }
     if (option.equals("1")) {
@@ -60,7 +63,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
       try {
         portfolio.updatePortfolio(companyName, quantity, date, portfolioName, "buy", com);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     } else if (option.equals("2")) {
       //2 for sell
@@ -72,7 +75,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
       try {
         portfolio.updatePortfolio(companyName, quantity, date, portfolioName, "sell", com);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     }
     continueUpdatingPortfolio(portfolio, portfolioName);
@@ -81,7 +84,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private String quantityHelper1() {
     view.getQuantity();
     String quantity = input.nextLine();
-    if (quantityHelper(quantity)) {
+    if (controllerValidations.quantityHelper(quantity)) {
       return quantityHelper1();
     }
     return quantity;
@@ -91,7 +94,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private String commissionHelper1(){
     view.getCommission();
     String com = input.nextLine();
-    if (commissionHelper(com)) {
+    if (controllerValidations.commissionHelper(com)) {
       return commissionHelper1();
     }
     return com;
@@ -100,7 +103,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio,companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -109,7 +112,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;
@@ -119,7 +122,7 @@ public class UpdatePortfolioCommand extends ControllerValidations implements Com
   private void continueUpdatingPortfolio(IFlexible portfolio, String portfolioName) {
     view.checkIfUserWantsToContinueUpdatingPortfolio();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       continueUpdatingPortfolio(portfolio, portfolioName);
     }
     if (option.equals("1")) {

@@ -59,10 +59,10 @@ public class LoadPortfolioCommand implements Command{
         portfolioTypeObj.loadPortfolioUsingFilePath(filePath);
       }
     } catch (RuntimeException e) {
-      view.displayErrorMessage(e.getMessage());
+      view.displayMessage(e.getMessage());
       loadPortfolio();
     } catch (IOException | org.json.simple.parser.ParseException e) {
-      view.displayErrorMessage(e.getMessage());
+      view.displayMessage(e.getMessage());
       throw new IllegalArgumentException("start again");
     }
   }

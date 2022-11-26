@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
-public class QueryPortfolioPanel extends JPanel {
+public class QueryPortfolioPanel extends JPanel implements PanelInterface {
 
   private JComboBox<String> portfoliosToViewJCombo;
   private JLabel enterPortfolioNameJLabel;
@@ -64,8 +64,8 @@ public class QueryPortfolioPanel extends JPanel {
                             .addComponent(viewTotalValueBtn, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                             .addComponent(viewTotalCostBasisBtn, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
-                    )
-                    .addGap(32, 32, 32));
+            )
+            .addGap(32, 32, 32));
     layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -89,14 +89,15 @@ public class QueryPortfolioPanel extends JPanel {
     );
   }
 
+  @Override
   public void delegateActions(Features feature) {
     viewPortfolioCompositionBtn.addActionListener(l -> {
 
-      List<List<String>> records= feature.viewComposition(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
+      List<List<String>> records = feature.viewComposition(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
       StringBuffer detailedOutput = new StringBuffer();
       for (int i = 0; i < records.size(); i++) {
         for (int j = 0; j < records.get(i).size(); j++) {
-          detailedOutput.append(records.get(i).get(j)+"\t");
+          detailedOutput.append(records.get(i).get(j) + "\t");
         }
         detailedOutput.append("\n");
       }
@@ -116,7 +117,7 @@ public class QueryPortfolioPanel extends JPanel {
       repaint();
     });
 
-    viewTotalCostBasisBtn.addActionListener(l ->{
+    viewTotalCostBasisBtn.addActionListener(l -> {
 
       double totalCostBasis = feature.getCostBasis(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
       String detailedOutput = "Total Cost Basis of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + totalCostBasis;

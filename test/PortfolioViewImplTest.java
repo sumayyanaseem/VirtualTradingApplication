@@ -23,7 +23,6 @@ public class PortfolioViewImplTest {
 
   private OutputStream bytes;
 
-
   @Before
   public void setUp() {
     bytes = new ByteArrayOutputStream();
@@ -127,7 +126,7 @@ public class PortfolioViewImplTest {
 
   @Test
   public void testDisplayErrorMessage() {
-    portfolioView.displayErrorMessage("dummy message");
+    portfolioView.displayMessage("dummy message");
     assertEquals(bytes.toString(), "dummy message\n");
   }
 
