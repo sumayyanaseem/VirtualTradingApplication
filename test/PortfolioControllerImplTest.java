@@ -43,7 +43,7 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To create a Portfolio 2: To query the portfolio details "
             + "3: To load a Portfolio  4: To update a portfolio\n";
     in = new ByteArrayInputStream("".getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {
