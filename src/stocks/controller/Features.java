@@ -1,13 +1,23 @@
 package stocks.controller;
 
+import java.util.List;
+import java.util.Map;
+
 public interface Features {
-  void displayPanelToEnterPortfolioName();
   void createPortfolio(String pName, String pType);
-  void displayPanelToEnterBuyInfo();
-  void addBoughtStockToPortfolio(String ticker, String date, String qty, String comm, String pName);
-  void displayPanelToEnterSellInfo();
-  void addSoldStockToPortfolio(String ticker, String date, String qty, String comm, String pName);
-  void displayPanelToQueryPortfolioDetails();
-  void getTotalValue(String pName, String date);
-  void getCostBasis(String pName, String date);
+
+  void buyStock(String ticker, String date, String qty, String comm, String pName);
+
+
+  void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) ;
+
+  void sellStock(String ticker, String date, String qty, String comm, String pName);
+
+  double getTotalValue(String pName, String date);
+
+  double getCostBasis(String pName, String date);
+
+  List<List<String>> viewComposition(String pName, String date);
+
+  void exitTheProgram();
 }

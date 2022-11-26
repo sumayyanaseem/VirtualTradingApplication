@@ -1,13 +1,9 @@
-import org.junit.Test;
+/*import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
-import stocks.controller.PortfolioControllerImpl;
 import stocks.model.DollarCostStrategyImpl;
-import stocks.model.InvestmentStrategyInterface;
 
 import static org.junit.Assert.assertTrue;
 
@@ -100,4 +96,4 @@ public class DollarCostAveragingTest {
 
 
 
-}
+}*/

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class CreateInFlexiblePortfolioCommand extends AbstractCommand implements Command{
+public class CreateInFlexiblePortfolioCommand extends ControllerValidations implements Command{
 
   private final PortfolioView view;
 
@@ -14,7 +14,7 @@ public class CreateInFlexiblePortfolioCommand extends AbstractCommand implements
   private Portfolio inflexiblePortfolioTypeObj;
 
   public CreateInFlexiblePortfolioCommand(PortfolioView view,Scanner input, Portfolio inflexiblePortfolioTypeObj ){
-    super(view,input);
+    super(view);
     this.view = view;
     this.input = input;
     this.inflexiblePortfolioTypeObj=inflexiblePortfolioTypeObj;
@@ -37,9 +37,9 @@ public class CreateInFlexiblePortfolioCommand extends AbstractCommand implements
 
   private void addStocks(Portfolio portfolio, String portfolioName) {
 
-    String companyName = companyHelper(portfolio);
-    String quantity = quantityHelper();
-    portfolio.buyStocks(companyName, quantity, null, portfolioName, null);
+    String companyName = companyHelper1(portfolio);
+    String quantity = quantityHelper1();
+    portfolio.buyStocks(companyName, quantity, null, null, portfolioName);
     stoppingCondition(portfolio, portfolioName);
   }
 
@@ -55,6 +55,24 @@ public class CreateInFlexiblePortfolioCommand extends AbstractCommand implements
       portfolio.createPortfolioIfCreatedManually(portfolioName);
     }
 
+  }
+
+  private String companyHelper1(Portfolio portfolio) {
+    view.getCompanyTicker();
+    String companyName = input.nextLine();
+    if (companyHelper(portfolio,companyName)) {
+      return companyHelper1(portfolio);
+    }
+    return companyName;
+  }
+
+  private String quantityHelper1() {
+    view.getQuantity();
+    String quantity = input.nextLine();
+    if (quantityHelper(quantity)) {
+      return quantityHelper1();
+    }
+    return quantity;
   }
 
 

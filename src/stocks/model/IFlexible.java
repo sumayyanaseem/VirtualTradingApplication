@@ -1,5 +1,6 @@
 package stocks.model;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IFlexible extends Portfolio{
@@ -88,4 +89,9 @@ public interface IFlexible extends Portfolio{
    */
   void createEmptyPortfolio(String portfolioName, String portfolioType);
 
-}
+  List<String> getListOfPortfolioNames();
+
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) ;
+
+
+  }

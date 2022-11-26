@@ -20,6 +20,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   private static final String format = "YYYY-MM-dd";
 
+  public FlexiblePortfolioImpl(){
+    super();
+  }
+
   @Override
   public void buyStocks(String companyName, String quantity,
                         String date, String commission, String portfolioName)
@@ -378,6 +382,19 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
     parser.writeIntoFile(portfolioName, emptyMap, "flexible");
   }
 
+  @Override
+  public List<String> getListOfPortfolioNames() {
+    return new ArrayList<>(stockMap.keySet());
+  }
+
+  @Override
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
+    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd);
+
+    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+
+  }
+
 
   private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
@@ -440,6 +457,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       //do nothing
     }
   }
+
 
   private void validateInputsForBuy(String companyName,
                                     String quantity, String date,

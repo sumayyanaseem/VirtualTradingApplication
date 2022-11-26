@@ -1,92 +1,86 @@
 package stocks.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import stocks.model.IFlexible;
 import stocks.view.IViewInterface;
 import stocks.view.PortfolioGUIView;
 
-public class PortfolioGUIController implements Features,PortfolioController{
+public class PortfolioGUIController implements Features, PortfolioController {
   private IFlexible model;
   private PortfolioGUIView view;
 
   public PortfolioGUIController(IFlexible m, IViewInterface v) {
     model = m;
-    this.view= (PortfolioGUIView) v;
+    this.view = (PortfolioGUIView) v;
     view.addFeatures(this);
-  }
-
-  @Override
-  public void displayPanelToEnterPortfolioName() {
-    view.showDisplayPanelToEnterPortfolioName();
   }
 
   @Override
   public void createPortfolio(String pName, String pType) {
     try {
       model.createEmptyPortfolio(pName, pType);
-      view.showDialogue("portfolio "+pName+" created successfully");
-    }
-    catch(Exception e){
-      view.showDialogue("Error creating portfolio "+pName+" : "+e.getMessage());
+      view.updatePortfolioList(model.getListOfPortfolioNames());
+      view.showDialogue("portfolio " + pName + " created successfully");
+    } catch (Exception e) {
+      view.showDialogue("Error creating portfolio " + pName + " : " + e.getMessage());
     }
   }
 
   @Override
-  public void displayPanelToEnterBuyInfo() {
-    view.showDisplayPanelToEnterBuyInfo();
-  }
-
-  @Override
-  public void addBoughtStockToPortfolio(String ticker, String date, String qty, String comm, String pName) {
+  public void buyStock(String ticker, String date, String qty, String comm, String pName) {
     try {
-      model.buyStocks(ticker, qty, date, comm, pName);
-      view.showDialogue("Buy order executed successfully");
-    }
-    catch(Exception e){
-      view.showDialogue("Error while trying to buy the stock : "+e.getMessage());
+      model.updatePortfolio(ticker, qty, date, pName, "buy", comm);
+      view.showDialogue("Bought stocks successfully");
+    } catch (Exception e) {
+      view.showDialogue("Error while trying to buy the stock : " + e.getMessage());
     }
   }
 
   @Override
-  public void displayPanelToEnterSellInfo() {
-    view.showDisplayPanelToEnterSellInfo();
-  }
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
 
-  @Override
-  public void addSoldStockToPortfolio(String ticker, String date, String qty, String comm, String pName) {
     try {
-      model.sellStocks(ticker, qty, date, comm, pName);
-      view.showDialogue("Sell order executed successfully");
+      model.dollarCostStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
+      view.showDialogue("Bought stocks successfully");
+    } catch (Exception e) {
+      view.showDialogue("Error while trying to buy the stock : " + e.getMessage());
     }
-    catch(Exception e){
-      view.showDialogue("Error while trying to sell the stock : "+e.getMessage());
-    }
+
   }
 
-  @Override
-  public void displayPanelToQueryPortfolioDetails() {
-    view.showDisplayPanelToEnterSellInfo();
-  }
 
   @Override
-  public void getTotalValue(String pName, String date) {
+  public void sellStock(String ticker, String date, String qty, String comm, String pName) {
     try {
-     double val= model.getTotalValueOfPortfolioOnCertainDate(date, pName);
-      view.showDialogue("Total value of portfolio "+pName+" on "+date+" is :"+val);
-    }
-    catch(Exception e){
-      view.showDialogue("Error while trying fetch total value : "+e.getMessage());
+      model.updatePortfolio(ticker, qty, date, pName, "sell", comm);
+      view.showDialogue("Sold stocks successfully");
+    } catch (Exception e) {
+      view.showDialogue("Error while trying to sell the stock : " + e.getMessage());
     }
   }
 
   @Override
-  public void getCostBasis(String pName, String date) {
-    try {
-      double val= model.getTotalMoneyInvestedOnCertainDate(date, pName);
-      view.showDialogue("Total Cost Basis of portfolio "+pName+" on "+date+" is :"+val);
-    }
-    catch(Exception e){
-      view.showDialogue("Error while trying fetch total cost basis : "+e.getMessage());
-    }
+  public double getTotalValue(String pName, String date) {
+    return model.getTotalValueOfPortfolioOnCertainDate(date, pName);
+  }
+
+  @Override
+  public double getCostBasis(String pName, String date) {
+
+    return model.getTotalMoneyInvestedOnCertainDate(date, pName);
+
+  }
+
+  @Override
+  public List<List<String>> viewComposition(String pName, String date) {
+    return model.viewCompositionOfCurrentPortfolio(pName, date);
+  }
+
+  @Override
+  public void exitTheProgram() {
+    view.exitGracefully();
   }
 
   @Override

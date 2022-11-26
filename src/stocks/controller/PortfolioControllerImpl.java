@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-import stocks.controller.commands.AbstractCommand;
+import stocks.controller.commands.ControllerValidations;
 import stocks.controller.commands.Command;
 import stocks.controller.commands.CreateFlexiblePortfolioCommand;
 import stocks.controller.commands.CreateInFlexiblePortfolioCommand;
@@ -26,7 +26,7 @@ import stocks.view.PortfolioView;
 /**
  * This class implements the methods of Portfolio Controller.
  */
-public class PortfolioControllerImpl extends AbstractCommand implements PortfolioController {
+public class PortfolioControllerImpl extends ControllerValidations implements PortfolioController {
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
@@ -49,9 +49,9 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
    * @param view  the view object.
    */
   public PortfolioControllerImpl(InputStream in, IViewInterface view) {
-    super((PortfolioView) view,new Scanner(in));
-    this.input = new Scanner(in);
+    super((PortfolioView) view);
     this.view = (PortfolioView) view;
+    this.input=new Scanner(in);
     this.portfolioName = "";
     this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
     this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
@@ -209,10 +209,10 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
     }
     if (option.equals("1")) {
       //1 for buy
-      String companyName = companyHelper(portfolio);
-      String quantity = quantityHelper();
-      String date = dateHelperInFlexiblePortfolio(companyName);
-      String com = commissionHelper();
+      String companyName = companyHelper1(portfolio);
+      String quantity = quantityHelper1();
+      String date = dateHelperInFlexiblePortfolio1(companyName);
+      String com = commissionHelper1();
       try {
         portfolio.updatePortfolioUsingFilePath(
                 path, companyName, quantity,
@@ -222,10 +222,10 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
       }
     } else if (option.equals("2")) {
       //2 for sell
-      String companyName = companyHelper(portfolio);
-      String quantity = quantityHelper();
-      String date = dateHelperInFlexiblePortfolio(companyName);
-      String com = commissionHelper();
+      String companyName = companyHelper1(portfolio);
+      String quantity = quantityHelper1();
+      String date = dateHelperInFlexiblePortfolio1(companyName);
+      String com = commissionHelper1();
       try {
         portfolio.updatePortfolioUsingFilePath(
                 path, companyName, quantity, date,
@@ -235,6 +235,52 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
       }
     }
     continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
+  }
+
+  private String commissionHelper1(){
+    view.getCommission();
+    String com = input.nextLine();
+    if (commissionHelper(com)) {
+      return commissionHelper1();
+    }
+    return com;
+  }
+
+  private String quantityHelper1() {
+    view.getQuantity();
+    String quantity = input.nextLine();
+    if (quantityHelper(quantity)) {
+      return quantityHelper1();
+    }
+    return quantity;
+  }
+
+  private String companyHelper1(Portfolio portfolio) {
+    view.getCompanyTicker();
+    String companyName = input.nextLine();
+    if (companyHelper(portfolio,companyName)) {
+      return companyHelper1(portfolio);
+    }
+    return companyName;
+  }
+
+
+  protected String dateHelperInFlexiblePortfolio1(String companyName) {
+    view.getDate();
+    String date = input.nextLine();
+    if (dateHelperInFlexiblePortfolio(date,companyName)) {
+      return dateHelperInFlexiblePortfolio1(companyName);
+    }
+    return date;
+  }
+
+  protected String dateHelper1() {
+    view.getDate();
+    String date = input.nextLine();
+    if (dateHelper(date)) {
+      return dateHelper1();
+    }
+    return date;
   }
 
 
@@ -298,7 +344,7 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
       case "1":
         List<List<String>> records;
         if (type.equals(flexibleType)) {
-          String date = dateHelper();
+          String date = dateHelper1();
           records = flexible.viewCompositionOfCurrentPortfolio(name, date);
         } else {
           records = portfolio.viewCompositionOfCurrentPortfolio(name, null);
@@ -314,7 +360,7 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
         break;
       case "3":
         if (type.equals(flexibleType)) {
-          String date = dateHelper();
+          String date = dateHelper1();
           double totalCost = flexible.getTotalMoneyInvestedOnCertainDate(date, name);
           view.displayTheTotalCost(totalCost, date, name);
         } else {
@@ -346,8 +392,8 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
 
   private void portfolioPerformanceHelper(String type, String pName, IFlexible portfolio) {
     if (type.equals(flexibleType)) {
-      String startDate = dateHelper();
-      String endDate = dateHelper();
+      String startDate = dateHelper1();
+      String endDate = dateHelper1();
       Date start;
       Date end;
       Date min;
@@ -384,7 +430,7 @@ public class PortfolioControllerImpl extends AbstractCommand implements Portfoli
 
 
   private void dateNotFoundHelper(String name, Portfolio portfolio) {
-    String date = dateHelper();
+    String date = dateHelper1();
     String val = null;
     try {
       val = String.format("%.2f", portfolio.getTotalValueOfPortfolioOnCertainDate(

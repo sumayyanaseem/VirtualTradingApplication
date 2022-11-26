@@ -22,15 +22,22 @@ import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 
 
-
-public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements InvestmentStrategyInterface {
+public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements StrategyInterface {
   private final APICustomInterface apiCustom;
-  public DollarCostStrategyImpl(){
+  private final int investmentInterval;
+  private final String dateStart;
+  private final String dateEnd;
+
+  public DollarCostStrategyImpl(int investmentInterval,String dateStart,String dateEnd){
+    this.investmentInterval = investmentInterval;
+    this.dateStart = dateStart;
+    this.dateEnd= dateEnd;
     apiCustom = new APICustomClass();
   }
 
+
   @Override
-  public void dollarCostAveragingStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, int investmentInterval, String dateStart, String dateEnd, double commissionFee)
+  public void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount,  double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {
