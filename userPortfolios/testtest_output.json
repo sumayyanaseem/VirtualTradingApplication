@@ -1,0 +1,326 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "GOOG",
+      "Actions": [
+        {
+          "date": "2021-05-05",
+          "Commission": "20.0",
+          "Quantity": "0.17",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-04",
+          "Commission": "20.0",
+          "Quantity": "0.16",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-05",
+          "Commission": "20.0",
+          "Quantity": "0.16",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-03",
+          "Commission": "20.0",
+          "Quantity": "0.15",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-02",
+          "Commission": "20.0",
+          "Quantity": "0.14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-04",
+          "Commission": "20.0",
+          "Quantity": "0.15",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-01",
+          "Commission": "20.0",
+          "Quantity": "0.14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-01",
+          "Commission": "20.0",
+          "Quantity": "0.14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-31",
+          "Commission": "20.0",
+          "Quantity": "0.14",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-31",
+          "Commission": "20.0",
+          "Quantity": "0.15",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-01",
+          "Commission": "20.0",
+          "Quantity": "0.15",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-31",
+          "Commission": "20.0",
+          "Quantity": "0.14",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-02",
+          "Commission": "20.0",
+          "Quantity": "0.17",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-31",
+          "Commission": "20.0",
+          "Quantity": "0.18",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-29",
+          "Commission": "20.0",
+          "Quantity": "0.18",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-29",
+          "Commission": "20.0",
+          "Quantity": "3.43",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-29",
+          "Commission": "20.0",
+          "Quantity": "3.63",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "META",
+      "Actions": [
+        {
+          "date": "2021-05-05",
+          "Commission": "20.0",
+          "Quantity": "0.63",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-04",
+          "Commission": "20.0",
+          "Quantity": "0.61",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-05",
+          "Commission": "20.0",
+          "Quantity": "0.56",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-03",
+          "Commission": "20.0",
+          "Quantity": "0.57",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-02",
+          "Commission": "20.0",
+          "Quantity": "0.53",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-04",
+          "Commission": "20.0",
+          "Quantity": "0.61",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-01",
+          "Commission": "20.0",
+          "Quantity": "0.61",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-01",
+          "Commission": "20.0",
+          "Quantity": "0.64",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-31",
+          "Commission": "20.0",
+          "Quantity": "0.59",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-31",
+          "Commission": "20.0",
+          "Quantity": "0.64",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-01",
+          "Commission": "20.0",
+          "Quantity": "0.98",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-31",
+          "Commission": "20.0",
+          "Quantity": "0.90",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-02",
+          "Commission": "20.0",
+          "Quantity": "0.95",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-31",
+          "Commission": "20.0",
+          "Quantity": "1.03",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-29",
+          "Commission": "20.0",
+          "Quantity": "1.22",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-29",
+          "Commission": "20.0",
+          "Quantity": "1.26",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-29",
+          "Commission": "20.0",
+          "Quantity": "1.26",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "ORCL",
+      "Actions": [
+        {
+          "date": "2021-05-05",
+          "Commission": "20.0",
+          "Quantity": "17.68",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-04",
+          "Commission": "20.0",
+          "Quantity": "16.89",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-05",
+          "Commission": "20.0",
+          "Quantity": "17.11",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-03",
+          "Commission": "20.0",
+          "Quantity": "15.60",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-02",
+          "Commission": "20.0",
+          "Quantity": "15.59",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-04",
+          "Commission": "20.0",
+          "Quantity": "15.68",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-01",
+          "Commission": "20.0",
+          "Quantity": "14.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-01",
+          "Commission": "20.0",
+          "Quantity": "15.60",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-31",
+          "Commission": "20.0",
+          "Quantity": "16.05",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-31",
+          "Commission": "20.0",
+          "Quantity": "17.25",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-01",
+          "Commission": "20.0",
+          "Quantity": "18.42",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-31",
+          "Commission": "20.0",
+          "Quantity": "16.92",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-02",
+          "Commission": "20.0",
+          "Quantity": "18.92",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-31",
+          "Commission": "20.0",
+          "Quantity": "19.47",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-29",
+          "Commission": "20.0",
+          "Quantity": "20.23",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-29",
+          "Commission": "20.0",
+          "Quantity": "17.99",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-29",
+          "Quantity": "18.87",
+          "action": "buy",
+          "Commission": "20.0"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

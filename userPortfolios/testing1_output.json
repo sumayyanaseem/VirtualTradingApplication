@@ -1,0 +1,1262 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "META",
+      "Actions": [
+        {
+          "date": "2015-02-02",
+          "Commission": "10.234",
+          "Quantity": "1333.51",
+          "action": "buy"
+        },
+        {
+          "date": "2015-03-04",
+          "Commission": "10.234",
+          "Quantity": "1236.17",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-03",
+          "Commission": "10.234",
+          "Quantity": "1226.17",
+          "action": "buy"
+        },
+        {
+          "date": "2015-05-04",
+          "Commission": "10.234",
+          "Quantity": "1268.87",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-02",
+          "Commission": "10.234",
+          "Quantity": "1243.09",
+          "action": "buy"
+        },
+        {
+          "date": "2015-07-02",
+          "Commission": "10.234",
+          "Quantity": "1145.67",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-03",
+          "Commission": "10.234",
+          "Quantity": "1062.25",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-31",
+          "Commission": "10.234",
+          "Quantity": "1118.19",
+          "action": "buy"
+        },
+        {
+          "date": "2015-09-30",
+          "Commission": "10.234",
+          "Quantity": "1114.45",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-30",
+          "Commission": "10.234",
+          "Quantity": "980.68",
+          "action": "buy"
+        },
+        {
+          "date": "2015-11-30",
+          "Commission": "10.234",
+          "Quantity": "959.32",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-29",
+          "Commission": "10.234",
+          "Quantity": "932.31",
+          "action": "buy"
+        },
+        {
+          "date": "2016-01-28",
+          "Commission": "10.234",
+          "Quantity": "916.51",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-29",
+          "Commission": "10.234",
+          "Quantity": "935.28",
+          "action": "buy"
+        },
+        {
+          "date": "2016-03-28",
+          "Commission": "10.234",
+          "Quantity": "879.58",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-27",
+          "Commission": "10.234",
+          "Quantity": "918.36",
+          "action": "buy"
+        },
+        {
+          "date": "2016-05-27",
+          "Commission": "10.234",
+          "Quantity": "837.66",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-27",
+          "Commission": "10.234",
+          "Quantity": "917.68",
+          "action": "buy"
+        },
+        {
+          "date": "2016-07-26",
+          "Commission": "10.234",
+          "Quantity": "824.95",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-25",
+          "Commission": "10.234",
+          "Quantity": "807.17",
+          "action": "buy"
+        },
+        {
+          "date": "2016-09-26",
+          "Commission": "10.234",
+          "Quantity": "785.48",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-24",
+          "Commission": "10.234",
+          "Quantity": "750.30",
+          "action": "buy"
+        },
+        {
+          "date": "2016-11-23",
+          "Commission": "10.234",
+          "Quantity": "827.54",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-23",
+          "Commission": "10.234",
+          "Quantity": "852.73",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-23",
+          "Commission": "10.234",
+          "Quantity": "775.61",
+          "action": "buy"
+        },
+        {
+          "date": "2017-02-21",
+          "Commission": "10.234",
+          "Quantity": "747.83",
+          "action": "buy"
+        },
+        {
+          "date": "2017-03-23",
+          "Commission": "10.234",
+          "Quantity": "716.69",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-24",
+          "Commission": "10.234",
+          "Quantity": "687.43",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-22",
+          "Commission": "10.234",
+          "Quantity": "674.58",
+          "action": "buy"
+        },
+        {
+          "date": "2017-06-21",
+          "Commission": "10.234",
+          "Quantity": "649.73",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-21",
+          "Commission": "10.234",
+          "Quantity": "608.16",
+          "action": "buy"
+        },
+        {
+          "date": "2017-08-21",
+          "Commission": "10.234",
+          "Quantity": "596.02",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-19",
+          "Commission": "10.234",
+          "Quantity": "579.64",
+          "action": "buy"
+        },
+        {
+          "date": "2017-10-19",
+          "Commission": "10.234",
+          "Quantity": "572.87",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-20",
+          "Commission": "10.234",
+          "Quantity": "559.47",
+          "action": "buy"
+        },
+        {
+          "date": "2017-12-18",
+          "Commission": "10.234",
+          "Quantity": "553.04",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-17",
+          "Commission": "10.234",
+          "Quantity": "563.06",
+          "action": "buy"
+        },
+        {
+          "date": "2018-02-16",
+          "Commission": "10.234",
+          "Quantity": "563.82",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-19",
+          "Commission": "10.234",
+          "Quantity": "579.51",
+          "action": "buy"
+        },
+        {
+          "date": "2018-04-17",
+          "Commission": "10.234",
+          "Quantity": "592.91",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-17",
+          "Commission": "10.234",
+          "Quantity": "544.19",
+          "action": "buy"
+        },
+        {
+          "date": "2018-06-18",
+          "Commission": "10.234",
+          "Quantity": "504.26",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-16",
+          "Commission": "10.234",
+          "Quantity": "482.56",
+          "action": "buy"
+        },
+        {
+          "date": "2018-08-15",
+          "Commission": "10.234",
+          "Quantity": "557.01",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-14",
+          "Commission": "10.234",
+          "Quantity": "616.07",
+          "action": "buy"
+        },
+        {
+          "date": "2018-10-15",
+          "Commission": "10.234",
+          "Quantity": "651.38",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-13",
+          "Commission": "10.234",
+          "Quantity": "703.43",
+          "action": "buy"
+        },
+        {
+          "date": "2018-12-13",
+          "Commission": "10.234",
+          "Quantity": "689.61",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-14",
+          "Commission": "10.234",
+          "Quantity": "687.81",
+          "action": "buy"
+        },
+        {
+          "date": "2019-02-11",
+          "Commission": "10.234",
+          "Quantity": "603.17",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-13",
+          "Commission": "10.234",
+          "Quantity": "576.80",
+          "action": "buy"
+        },
+        {
+          "date": "2019-04-12",
+          "Commission": "10.234",
+          "Quantity": "558.35",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-13",
+          "Commission": "10.234",
+          "Quantity": "550.84",
+          "action": "buy"
+        },
+        {
+          "date": "2019-06-11",
+          "Commission": "10.234",
+          "Quantity": "561.48",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-11",
+          "Commission": "10.234",
+          "Quantity": "496.94",
+          "action": "buy"
+        },
+        {
+          "date": "2019-08-12",
+          "Commission": "10.234",
+          "Quantity": "539.46",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-09",
+          "Commission": "10.234",
+          "Quantity": "529.77",
+          "action": "buy"
+        },
+        {
+          "date": "2019-10-09",
+          "Commission": "10.234",
+          "Quantity": "556.02",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-08",
+          "Commission": "10.234",
+          "Quantity": "524.00",
+          "action": "buy"
+        },
+        {
+          "date": "2019-12-09",
+          "Commission": "10.234",
+          "Quantity": "496.67",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-07",
+          "Commission": "10.234",
+          "Quantity": "469.35",
+          "action": "buy"
+        },
+        {
+          "date": "2020-02-06",
+          "Commission": "10.234",
+          "Quantity": "474.27",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-09",
+          "Commission": "10.234",
+          "Quantity": "589.97",
+          "action": "buy"
+        },
+        {
+          "date": "2020-04-06",
+          "Commission": "10.234",
+          "Quantity": "604.05",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-06",
+          "Commission": "10.234",
+          "Quantity": "479.69",
+          "action": "buy"
+        },
+        {
+          "date": "2020-06-05",
+          "Commission": "10.234",
+          "Quantity": "433.33",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-06",
+          "Commission": "10.234",
+          "Quantity": "416.18",
+          "action": "buy"
+        },
+        {
+          "date": "2020-08-04",
+          "Commission": "10.234",
+          "Quantity": "400.27",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-03",
+          "Commission": "10.234",
+          "Quantity": "343.50",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-05",
+          "Commission": "10.234",
+          "Quantity": "377.86",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-02",
+          "Commission": "10.234",
+          "Quantity": "382.61",
+          "action": "buy"
+        },
+        {
+          "date": "2020-12-02",
+          "Commission": "10.234",
+          "Quantity": "347.80",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-04",
+          "Commission": "10.234",
+          "Quantity": "371.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-01",
+          "Commission": "10.234",
+          "Quantity": "381.66",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-02",
+          "Commission": "10.234",
+          "Quantity": "386.10",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-01",
+          "Commission": "10.234",
+          "Quantity": "334.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "10.234",
+          "Quantity": "310.00",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-01",
+          "Commission": "10.234",
+          "Quantity": "303.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-30",
+          "Commission": "10.234",
+          "Quantity": "287.60",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-30",
+          "Commission": "10.234",
+          "Quantity": "280.66",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "10.234",
+          "Quantity": "262.70",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-28",
+          "Commission": "10.234",
+          "Quantity": "293.56",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-28",
+          "Commission": "10.234",
+          "Quantity": "315.54",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-29",
+          "Commission": "10.234",
+          "Quantity": "295.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "10.234",
+          "Quantity": "288.87",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-26",
+          "Commission": "10.234",
+          "Quantity": "339.41",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-25",
+          "Commission": "10.234",
+          "Quantity": "475.10",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-28",
+          "Commission": "10.234",
+          "Quantity": "447.25",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "10.234",
+          "Quantity": "552.64",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-26",
+          "Commission": "10.234",
+          "Quantity": "521.84",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-27",
+          "Commission": "10.234",
+          "Quantity": "590.01",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-25",
+          "Commission": "10.234",
+          "Quantity": "600.06",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Commission": "10.234",
+          "Quantity": "612.52",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "GOOG",
+      "Actions": [
+        {
+          "date": "2015-02-02",
+          "Commission": "10.234",
+          "Quantity": "75.69",
+          "action": "buy"
+        },
+        {
+          "date": "2015-03-04",
+          "Commission": "10.234",
+          "Quantity": "69.76",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-03",
+          "Commission": "10.234",
+          "Quantity": "74.69",
+          "action": "buy"
+        },
+        {
+          "date": "2015-05-04",
+          "Commission": "10.234",
+          "Quantity": "73.97",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-02",
+          "Commission": "10.234",
+          "Quantity": "74.19",
+          "action": "buy"
+        },
+        {
+          "date": "2015-07-02",
+          "Commission": "10.234",
+          "Quantity": "76.42",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-03",
+          "Commission": "10.234",
+          "Quantity": "63.37",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-31",
+          "Commission": "10.234",
+          "Quantity": "64.70",
+          "action": "buy"
+        },
+        {
+          "date": "2015-09-30",
+          "Commission": "10.234",
+          "Quantity": "65.74",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-30",
+          "Commission": "10.234",
+          "Quantity": "56.27",
+          "action": "buy"
+        },
+        {
+          "date": "2015-11-30",
+          "Commission": "10.234",
+          "Quantity": "53.86",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-29",
+          "Commission": "10.234",
+          "Quantity": "51.51",
+          "action": "buy"
+        },
+        {
+          "date": "2016-01-28",
+          "Commission": "10.234",
+          "Quantity": "54.72",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-29",
+          "Commission": "10.234",
+          "Quantity": "57.33",
+          "action": "buy"
+        },
+        {
+          "date": "2016-03-28",
+          "Commission": "10.234",
+          "Quantity": "54.53",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-27",
+          "Commission": "10.234",
+          "Quantity": "56.67",
+          "action": "buy"
+        },
+        {
+          "date": "2016-05-27",
+          "Commission": "10.234",
+          "Quantity": "54.60",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-27",
+          "Commission": "10.234",
+          "Quantity": "59.86",
+          "action": "buy"
+        },
+        {
+          "date": "2016-07-26",
+          "Commission": "10.234",
+          "Quantity": "54.17",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-25",
+          "Commission": "10.234",
+          "Quantity": "51.99",
+          "action": "buy"
+        },
+        {
+          "date": "2016-09-26",
+          "Commission": "10.234",
+          "Quantity": "51.67",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-24",
+          "Commission": "10.234",
+          "Quantity": "49.19",
+          "action": "buy"
+        },
+        {
+          "date": "2016-11-23",
+          "Commission": "10.234",
+          "Quantity": "52.56",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-23",
+          "Commission": "10.234",
+          "Quantity": "50.64",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-23",
+          "Commission": "10.234",
+          "Quantity": "48.82",
+          "action": "buy"
+        },
+        {
+          "date": "2017-02-21",
+          "Commission": "10.234",
+          "Quantity": "48.10",
+          "action": "buy"
+        },
+        {
+          "date": "2017-03-23",
+          "Commission": "10.234",
+          "Quantity": "48.92",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-24",
+          "Commission": "10.234",
+          "Quantity": "46.36",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-22",
+          "Commission": "10.234",
+          "Quantity": "42.47",
+          "action": "buy"
+        },
+        {
+          "date": "2017-06-21",
+          "Commission": "10.234",
+          "Quantity": "41.69",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-21",
+          "Commission": "10.234",
+          "Quantity": "41.11",
+          "action": "buy"
+        },
+        {
+          "date": "2017-08-21",
+          "Commission": "10.234",
+          "Quantity": "44.12",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-19",
+          "Commission": "10.234",
+          "Quantity": "43.39",
+          "action": "buy"
+        },
+        {
+          "date": "2017-10-19",
+          "Commission": "10.234",
+          "Quantity": "40.63",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-20",
+          "Commission": "10.234",
+          "Quantity": "39.28",
+          "action": "buy"
+        },
+        {
+          "date": "2017-12-18",
+          "Commission": "10.234",
+          "Quantity": "37.14",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-17",
+          "Commission": "10.234",
+          "Quantity": "35.34",
+          "action": "buy"
+        },
+        {
+          "date": "2018-02-16",
+          "Commission": "10.234",
+          "Quantity": "36.54",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-19",
+          "Commission": "10.234",
+          "Quantity": "36.37",
+          "action": "buy"
+        },
+        {
+          "date": "2018-04-17",
+          "Commission": "10.234",
+          "Quantity": "37.24",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-17",
+          "Commission": "10.234",
+          "Quantity": "37.09",
+          "action": "buy"
+        },
+        {
+          "date": "2018-06-18",
+          "Commission": "10.234",
+          "Quantity": "34.09",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-16",
+          "Commission": "10.234",
+          "Quantity": "33.79",
+          "action": "buy"
+        },
+        {
+          "date": "2018-08-15",
+          "Commission": "10.234",
+          "Quantity": "32.94",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-14",
+          "Commission": "10.234",
+          "Quantity": "34.11",
+          "action": "buy"
+        },
+        {
+          "date": "2018-10-15",
+          "Commission": "10.234",
+          "Quantity": "36.62",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-13",
+          "Commission": "10.234",
+          "Quantity": "38.61",
+          "action": "buy"
+        },
+        {
+          "date": "2018-12-13",
+          "Commission": "10.234",
+          "Quantity": "37.67",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-14",
+          "Commission": "10.234",
+          "Quantity": "38.29",
+          "action": "buy"
+        },
+        {
+          "date": "2019-02-11",
+          "Commission": "10.234",
+          "Quantity": "36.53",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-13",
+          "Commission": "10.234",
+          "Quantity": "33.52",
+          "action": "buy"
+        },
+        {
+          "date": "2019-04-12",
+          "Commission": "10.234",
+          "Quantity": "32.84",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-13",
+          "Commission": "10.234",
+          "Quantity": "35.33",
+          "action": "buy"
+        },
+        {
+          "date": "2019-06-11",
+          "Commission": "10.234",
+          "Quantity": "37.08",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-11",
+          "Commission": "10.234",
+          "Quantity": "34.96",
+          "action": "buy"
+        },
+        {
+          "date": "2019-08-12",
+          "Commission": "10.234",
+          "Quantity": "34.05",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-09",
+          "Commission": "10.234",
+          "Quantity": "33.21",
+          "action": "buy"
+        },
+        {
+          "date": "2019-10-09",
+          "Commission": "10.234",
+          "Quantity": "33.27",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-08",
+          "Commission": "10.234",
+          "Quantity": "30.50",
+          "action": "buy"
+        },
+        {
+          "date": "2019-12-09",
+          "Commission": "10.234",
+          "Quantity": "29.77",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-07",
+          "Commission": "10.234",
+          "Quantity": "28.71",
+          "action": "buy"
+        },
+        {
+          "date": "2020-02-06",
+          "Commission": "10.234",
+          "Quantity": "27.10",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-09",
+          "Commission": "10.234",
+          "Quantity": "32.91",
+          "action": "buy"
+        },
+        {
+          "date": "2020-04-06",
+          "Commission": "10.234",
+          "Quantity": "33.70",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-06",
+          "Commission": "10.234",
+          "Quantity": "29.69",
+          "action": "buy"
+        },
+        {
+          "date": "2020-06-05",
+          "Commission": "10.234",
+          "Quantity": "27.81",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-06",
+          "Commission": "10.234",
+          "Quantity": "26.74",
+          "action": "buy"
+        },
+        {
+          "date": "2020-08-04",
+          "Commission": "10.234",
+          "Quantity": "27.30",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-03",
+          "Commission": "10.234",
+          "Quantity": "24.36",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-05",
+          "Commission": "10.234",
+          "Quantity": "26.92",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-02",
+          "Commission": "10.234",
+          "Quantity": "24.60",
+          "action": "buy"
+        },
+        {
+          "date": "2020-12-02",
+          "Commission": "10.234",
+          "Quantity": "21.88",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-04",
+          "Commission": "10.234",
+          "Quantity": "23.14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-01",
+          "Commission": "10.234",
+          "Quantity": "21.04",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-02",
+          "Commission": "10.234",
+          "Quantity": "19.27",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-01",
+          "Commission": "10.234",
+          "Quantity": "18.71",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "10.234",
+          "Quantity": "16.70",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-01",
+          "Commission": "10.234",
+          "Quantity": "16.46",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-30",
+          "Commission": "10.234",
+          "Quantity": "15.96",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-30",
+          "Commission": "10.234",
+          "Quantity": "14.79",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "10.234",
+          "Quantity": "13.75",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-28",
+          "Commission": "10.234",
+          "Quantity": "14.69",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-28",
+          "Commission": "10.234",
+          "Quantity": "13.69",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-29",
+          "Commission": "10.234",
+          "Quantity": "13.69",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "10.234",
+          "Quantity": "13.51",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-26",
+          "Commission": "10.234",
+          "Quantity": "15.48",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-25",
+          "Commission": "10.234",
+          "Quantity": "14.87",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-28",
+          "Commission": "10.234",
+          "Quantity": "14.09",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "10.234",
+          "Quantity": "16.74",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-26",
+          "Commission": "10.234",
+          "Quantity": "18.47",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-27",
+          "Commission": "10.234",
+          "Quantity": "17.15",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-25",
+          "Commission": "10.234",
+          "Quantity": "369.65",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Commission": "10.234",
+          "Quantity": "348.74",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "DASH",
+      "Actions": [
+        {
+          "date": "2021-01-04",
+          "Commission": "10.234",
+          "Quantity": "431.07",
+          "action": "buy"
+        },
+        {
+          "date": "2021-02-01",
+          "Commission": "10.234",
+          "Quantity": "313.86",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-02",
+          "Commission": "10.234",
+          "Quantity": "373.62",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-01",
+          "Commission": "10.234",
+          "Quantity": "450.65",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-03",
+          "Commission": "10.234",
+          "Quantity": "427.14",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-01",
+          "Commission": "10.234",
+          "Quantity": "401.96",
+          "action": "buy"
+        },
+        {
+          "date": "2021-06-30",
+          "Commission": "10.234",
+          "Quantity": "336.45",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-30",
+          "Commission": "10.234",
+          "Quantity": "344.25",
+          "action": "buy"
+        },
+        {
+          "date": "2021-08-30",
+          "Commission": "10.234",
+          "Quantity": "311.36",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-28",
+          "Commission": "10.234",
+          "Quantity": "290.81",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-28",
+          "Commission": "10.234",
+          "Quantity": "306.12",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-29",
+          "Commission": "10.234",
+          "Quantity": "327.85",
+          "action": "buy"
+        },
+        {
+          "date": "2021-12-27",
+          "Commission": "10.234",
+          "Quantity": "384.52",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-26",
+          "Commission": "10.234",
+          "Quantity": "591.31",
+          "action": "buy"
+        },
+        {
+          "date": "2022-02-25",
+          "Commission": "10.234",
+          "Quantity": "597.97",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-28",
+          "Commission": "10.234",
+          "Quantity": "524.34",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-26",
+          "Commission": "10.234",
+          "Quantity": "712.08",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-26",
+          "Commission": "10.234",
+          "Quantity": "814.22",
+          "action": "buy"
+        },
+        {
+          "date": "2022-06-27",
+          "Commission": "10.234",
+          "Quantity": "842.70",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-25",
+          "Commission": "10.234",
+          "Quantity": "836.12",
+          "action": "buy"
+        },
+        {
+          "date": "2022-08-24",
+          "Quantity": "935.75",
+          "action": "buy",
+          "Commission": "10.234"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

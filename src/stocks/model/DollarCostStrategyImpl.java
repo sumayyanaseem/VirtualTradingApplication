@@ -93,7 +93,7 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Inv
 
     /////// just added for testing purpose. this will not be neeeded once we integrate with GUI logic because from GUI
     //// create empty portfolio will be called before hand only.
-    createEmptyPortfolio(portfolioName,"flexible");
+    //createEmptyPortfolio(portfolioName,"flexible");
     ///////
 
     while (dateToInvest.compareTo(dateEndObj) <= 0) {
@@ -297,9 +297,9 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Inv
               + " doesn't exist for the provided date");
     }*/
 
-    long sharesCount = (long) ( amount / pricePerStock );
+    double sharesCount = (double) ( amount / pricePerStock );
 
-    if (sharesCount == 0) {
+    if (sharesCount == 0.0) {
       throw new IllegalArgumentException("shares can't be bought. You don't have enough funds");
     }
 
@@ -308,7 +308,7 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Inv
             date, String.valueOf(commissionFee), portfolioName);
 
 
-    parser.appendIntoFile(portfolioName,tickerSymbol.trim().toUpperCase(),String.valueOf(sharesCount),"buy",date,"flexible");
+    parser.appendIntoFile(portfolioName,tickerSymbol.trim().toUpperCase(),String.format("%.2f",sharesCount),"buy",date,String.valueOf(commissionFee));
     /*Stock stock = new Stock(tickerSymbol.trim().toUpperCase(), sharesCount, 0.0, "buy",
             0.0, date, commissionFee);*/
 

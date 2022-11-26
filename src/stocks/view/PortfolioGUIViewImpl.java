@@ -138,7 +138,9 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     });
     dollarCostButton.addActionListener(l -> {
       DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
-      jSplitPane.setRightComponent(vp);
+      JScrollPane jScrollPane = new JScrollPane(vp);
+
+      jSplitPane.setRightComponent(jScrollPane);
       vp.delegateActions(feature);
 
     });
