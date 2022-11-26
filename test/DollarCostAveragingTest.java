@@ -1,19 +1,6 @@
-import org.junit.Test;
-
-import java.io.ByteArrayInputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
-import stocks.controller.PortfolioControllerImpl;
-import stocks.model.DollarCostStrategyImpl;
-import stocks.model.InvestmentStrategyInterface;
-
-import static org.junit.Assert.assertTrue;
-
 public class DollarCostAveragingTest {
 
-  @Test
+ /* @Test
   public void testDollarCostStrategyStarAndEnd() {
     Map<String, Double> stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG",25.0);
@@ -96,7 +83,7 @@ public class DollarCostAveragingTest {
 
     dc.dollarCostAveragingStrategy("samplefutureendmoreamnt",stockAndPercent, 10000,90,"2020-08-01","2024-01-01",5.0);
 
-  }
+  }*/
 
 
 
