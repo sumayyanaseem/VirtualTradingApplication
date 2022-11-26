@@ -146,11 +146,6 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     //totalCostBasisButton.addActionListener(evt -> feature.getCostBasis(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
   }
 
-  @Override
-  public void showDialogue(String message) {
-    JOptionPane.showMessageDialog(null, message, "InfoBox: " + "Message",
-            JOptionPane.INFORMATION_MESSAGE);
-  }
 
   @Override
   public void displayMessage(String message) {

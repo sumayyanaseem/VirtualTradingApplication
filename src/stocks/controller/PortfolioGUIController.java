@@ -43,9 +43,9 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
     try {
       model.dollarCostStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
-      view.showDialogue("Bought stocks successfully");
+      view.displayMessage("Bought stocks successfully");
     } catch (Exception e) {
-      view.showDialogue("Error while trying to buy the stock : " + e.getMessage());
+      view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
     }
 
   }
