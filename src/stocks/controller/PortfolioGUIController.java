@@ -39,6 +39,11 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
+  public void investFixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+
+  }
+
+  @Override
   public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
 
     try {

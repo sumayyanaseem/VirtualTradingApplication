@@ -8,6 +8,7 @@ public interface Features {
 
   void buyStock(String ticker, String date, String qty, String comm, String pName);
 
+  void investFixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee,String date) ;
 
   void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) ;
 
