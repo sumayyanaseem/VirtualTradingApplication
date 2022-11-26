@@ -14,6 +14,9 @@ public class TradingMVCTest {
 
   @Test
   public void testStartApplicationForGUI(){
+    String[] args=new String[1];
+    args[0]="gui";
+    TradingMVC.main(args);
 
   }
 }
