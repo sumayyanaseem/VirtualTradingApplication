@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-import stocks.controller.commands.ControllerValidations;
 import stocks.controller.commands.Command;
 import stocks.controller.commands.CreateFlexiblePortfolioCommand;
 import stocks.controller.commands.CreateInFlexiblePortfolioCommand;
@@ -26,12 +25,14 @@ import stocks.view.PortfolioView;
 /**
  * This class implements the methods of Portfolio Controller.
  */
-public class PortfolioControllerImpl extends ControllerValidations implements PortfolioController {
+public class PortfolioControllerImpl  implements PortfolioController {
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
 
   private Portfolio inflexiblePortfolioTypeObj;
+
+  private ControllerValidations controllerValidations;
 
   private IFlexible flexiblePortfolioTypeObj;
 
@@ -49,20 +50,20 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
    * @param view  the view object.
    */
   public PortfolioControllerImpl(InputStream in, IViewInterface view) {
-    super((PortfolioView) view);
     this.view = (PortfolioView) view;
     this.input=new Scanner(in);
     this.portfolioName = "";
     this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
     this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     this.jsonParserImplementation = new JsonParserImplementation();
+    this.controllerValidations =  new ControllerValidations((PortfolioView) view);
   }
 
   @Override
   public void start() {
     view.callToViewToChooseCreateOrView();
     String option = String.valueOf(input.nextLine());
-    if (validateInitialInputsFromUser(option)) {
+    if (controllerValidations.validateInitialInputsFromUser(option)) {
       start();
     }
     switch (option) {
@@ -87,7 +88,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private void create(){
     view.createFlexibleOrInFlexiblePortfolio();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       create();
     }
     if (option.equals("1")) {
@@ -120,7 +121,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private void viewHelper2(String name) {
     view.askUserIfheWantsTOContinueViewing();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       viewHelper2(name);
     }
     if (option.equals("1")) {
@@ -136,7 +137,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
     view.checkIfUserWantsToViewCompositionOrTotalValue();
 
     String option = String.valueOf(input.nextLine());
-    if (validateInitialInputsFromUser(option)) {
+    if (controllerValidations.validateInitialInputsFromUser(option)) {
       viewHelperForCurrentInstance(name, filePath);
     }
     String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
@@ -149,7 +150,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private void viewHelper2ForCurrentInstance(String name, String filePath) {
     view.askUserIfheWantsTOContinueViewing();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       viewHelper2ForCurrentInstance(name, filePath);
     }
     if (option.equals("1")) {
@@ -176,7 +177,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private void exitFromLoadPortfolio(String filePath) {
     view.callExitFromLoad();
     String option = input.nextLine();
-    if (validateInputsFromUSerAfterLoad(option)) {
+    if (controllerValidations.validateInputsFromUSerAfterLoad(option)) {
       exitFromLoadPortfolio(filePath);
     }
     if (option.equals("1")) {
@@ -191,7 +192,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private void finalExitCondition() {
     view.checkIfUserWantsToExitCompletely();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       finalExitCondition();
     }
     if (option.equals("1")) {
@@ -204,7 +205,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
           String path, IFlexible portfolio, String portfolioName) {
     view.displayMessageToBuyOrSell();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       updateStocksForCurrentInstance(path, portfolio, portfolioName);
     }
     if (option.equals("1")) {
@@ -218,7 +219,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
                 path, companyName, quantity,
                 date, portfolioName, "buy", com);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     } else if (option.equals("2")) {
       //2 for sell
@@ -231,7 +232,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
                 path, companyName, quantity, date,
                 portfolioName, "sell", com);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     }
     continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
@@ -240,7 +241,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private String commissionHelper1(){
     view.getCommission();
     String com = input.nextLine();
-    if (commissionHelper(com)) {
+    if (controllerValidations.commissionHelper(com)) {
       return commissionHelper1();
     }
     return com;
@@ -249,7 +250,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private String quantityHelper1() {
     view.getQuantity();
     String quantity = input.nextLine();
-    if (quantityHelper(quantity)) {
+    if (controllerValidations.quantityHelper(quantity)) {
       return quantityHelper1();
     }
     return quantity;
@@ -258,7 +259,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio,companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -268,7 +269,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;
@@ -277,7 +278,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   protected String dateHelper1() {
     view.getDate();
     String date = input.nextLine();
-    if (dateHelper(date)) {
+    if (controllerValidations.dateHelper(date)) {
       return dateHelper1();
     }
     return date;
@@ -289,7 +290,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
     this.portfolioName = "currentInstance";
     String type = jsonParserImplementation.getTypeOfLoadedFile(filePath);
     if (!type.equals("flexible")) {
-      view.displayErrorMessage("Can not update an inflexible portfolio");
+      view.displayMessage("Can not update an inflexible portfolio");
       start();
     }
     updateStocksForCurrentInstance(filePath, flexiblePortfolioTypeObj, portfolioName);
@@ -299,7 +300,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
           String path, IFlexible portfolio, String portfolioName) {
     view.checkIfUserWantsToContinueUpdatingPortfolio();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
     }
     if (option.equals("1")) {
@@ -322,7 +323,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
     view.checkIfUserWantsToViewCompositionOrTotalValue();
 
     String option = String.valueOf(input.nextLine());
-    if (validateInitialInputsFromUser(option)) {
+    if (controllerValidations.validateInitialInputsFromUser(option)) {
       viewHelper(name);
     }
     String type = null;
@@ -364,7 +365,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
           double totalCost = flexible.getTotalMoneyInvestedOnCertainDate(date, name);
           view.displayTheTotalCost(totalCost, date, name);
         } else {
-          view.displayErrorMessage("This "
+          view.displayMessage("This "
                   + "operation is not supported in Inflexible portfolio");
         }
         break;
@@ -384,7 +385,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
   private String pNameHelper() {
     view.getPortfolioName();
     String name = input.nextLine();
-    if (validateIfPortfolioDoesntExists(name)) {
+    if (controllerValidations.validateIfPortfolioDoesntExists(name)) {
       return pNameHelper();
     }
     return name;
@@ -405,12 +406,12 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
         min = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse("1990-01-01");
         if (start.compareTo(min) <= 0) {
-          view.displayErrorMessage("start date must be greater than 1990 year."
+          view.displayMessage("start date must be greater than 1990 year."
                   + " Please enter valid start and end dates");
           portfolioPerformanceHelper(type, pName, portfolio);
         } else if (end.compareTo(start) <= 0) {
           //need to recur until correct dates are entered.
-          view.displayErrorMessage("End date must be greater than start date."
+          view.displayMessage("End date must be greater than start date."
                   + " Please enter valid start and end dates");
           portfolioPerformanceHelper(type, pName, portfolio);
         } else {
@@ -419,11 +420,11 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
           view.displayPortfolioPerformance(result, startDate, endDate, pName);
         }
       } catch (Exception e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
 
     } else {
-      view.displayErrorMessage("This "
+      view.displayMessage("This "
               + "operation is not supported in Inflexible portfolio");
     }
   }
@@ -436,7 +437,7 @@ public class PortfolioControllerImpl extends ControllerValidations implements Po
       val = String.format("%.2f", portfolio.getTotalValueOfPortfolioOnCertainDate(
               date, name));
     } catch (IllegalArgumentException e) {
-      view.displayErrorMessage(e.getMessage());
+      view.displayMessage(e.getMessage());
       dateNotFoundHelper(name, portfolio);
     }
     if (val != null) {

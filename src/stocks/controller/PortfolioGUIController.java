@@ -21,9 +21,9 @@ public class PortfolioGUIController implements Features, PortfolioController {
     try {
       model.createEmptyPortfolio(pName, pType);
       view.updatePortfolioList(model.getListOfPortfolioNames());
-      view.showDialogue("portfolio " + pName + " created successfully");
+      view.displayMessage("portfolio " + pName + " created successfully");
     } catch (Exception e) {
-      view.showDialogue("Error creating portfolio " + pName + " : " + e.getMessage());
+      view.displayMessage("Error creating portfolio " + pName + " : " + e.getMessage());
     }
   }
 
@@ -31,9 +31,9 @@ public class PortfolioGUIController implements Features, PortfolioController {
   public void buyStock(String ticker, String date, String qty, String comm, String pName) {
     try {
       model.updatePortfolio(ticker, qty, date, pName, "buy", comm);
-      view.showDialogue("Bought stocks successfully");
+      view.displayMessage("Bought stocks successfully");
     } catch (Exception e) {
-      view.showDialogue("Error while trying to buy the stock : " + e.getMessage());
+      view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
     }
   }
 
@@ -41,9 +41,9 @@ public class PortfolioGUIController implements Features, PortfolioController {
   public void sellStock(String ticker, String date, String qty, String comm, String pName) {
     try {
       model.updatePortfolio(ticker, qty, date, pName, "sell", comm);
-      view.showDialogue("Sold stocks successfully");
+      view.displayMessage("Sold stocks successfully");
     } catch (Exception e) {
-      view.showDialogue("Error while trying to sell the stock : " + e.getMessage());
+      view.displayMessage("Error while trying to sell the stock : " + e.getMessage());
     }
   }
 

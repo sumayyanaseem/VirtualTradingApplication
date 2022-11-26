@@ -160,7 +160,7 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void displayComposition(List<List<String>> records) {
     if (records == null || records.isEmpty()) {
-      displayErrorMessage("Composition is not available for given date");
+      displayMessage("Composition is not available for given date");
     }
     if (records != null && !records.isEmpty()) {
       for (int i = 0; i < records.size(); i++) {
@@ -180,7 +180,7 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void displayErrorMessage(String message) {
+  public void displayMessage(String message) {
     out.println(message);
   }
 

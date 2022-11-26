@@ -2,10 +2,11 @@ package stocks.controller.commands;
 
 import java.util.Scanner;
 
+import stocks.controller.ControllerValidations;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class CreateInFlexiblePortfolioCommand extends ControllerValidations implements Command{
+public class CreateInFlexiblePortfolioCommand  implements Command{
 
   private final PortfolioView view;
 
@@ -13,11 +14,13 @@ public class CreateInFlexiblePortfolioCommand extends ControllerValidations impl
 
   private Portfolio inflexiblePortfolioTypeObj;
 
+  private ControllerValidations controllerValidations;
+
   public CreateInFlexiblePortfolioCommand(PortfolioView view,Scanner input, Portfolio inflexiblePortfolioTypeObj ){
-    super(view);
     this.view = view;
     this.input = input;
     this.inflexiblePortfolioTypeObj=inflexiblePortfolioTypeObj;
+    this.controllerValidations = new ControllerValidations(view);
   }
 
   @Override
@@ -29,7 +32,7 @@ public class CreateInFlexiblePortfolioCommand extends ControllerValidations impl
   private void createInFlexiblePortfolioForCurrentUser(Portfolio portfolio) {
     view.getPortfolioName();
     String portfolioName = input.nextLine();
-    if (validateIfPortfolioExists(portfolioName, portfolio)) {
+    if (controllerValidations.validateIfPortfolioExists(portfolioName, portfolio)) {
       createInFlexiblePortfolioForCurrentUser(portfolio);
     }
     addStocks(portfolio, portfolioName);
@@ -46,7 +49,7 @@ public class CreateInFlexiblePortfolioCommand extends ControllerValidations impl
   private void stoppingCondition(Portfolio portfolio, String portfolioName) {
     view.askUserIfHeWantsToContinueTradingInCurrentPortfolio();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       stoppingCondition(portfolio, portfolioName);
     }
     if (option.equals("1")) {
@@ -60,7 +63,7 @@ public class CreateInFlexiblePortfolioCommand extends ControllerValidations impl
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio,companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -69,7 +72,7 @@ public class CreateInFlexiblePortfolioCommand extends ControllerValidations impl
   private String quantityHelper1() {
     view.getQuantity();
     String quantity = input.nextLine();
-    if (quantityHelper(quantity)) {
+    if (controllerValidations.quantityHelper(quantity)) {
       return quantityHelper1();
     }
     return quantity;

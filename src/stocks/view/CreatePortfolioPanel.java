@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
-public class CreatePortfolioPanel extends JPanel{
+public class CreatePortfolioPanel extends JPanel implements PanelInterface {
 
   // in create portfolio panel
   private JLabel portfolioNameLabel;
@@ -16,7 +16,7 @@ public class CreatePortfolioPanel extends JPanel{
     initialiseAllComponents();
   }
 
-  private void initialiseAllComponents(){
+  private void initialiseAllComponents() {
     portfolioNameLabel = new JLabel("Enter the name of portfolio");
     portfolioNameInputTxtField = new JTextField();
     createPortfolioBtn = new JButton("Create Portfolio");
@@ -25,11 +25,11 @@ public class CreatePortfolioPanel extends JPanel{
 
   }
 
-  private void addCommandActionsToComponents(){
+  private void addCommandActionsToComponents() {
     createPortfolioBtn.setActionCommand("CREATE");
   }
 
-  private void setLayout(){
+  private void setLayout() {
     GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
@@ -56,15 +56,14 @@ public class CreatePortfolioPanel extends JPanel{
     );
   }
 
+  @Override
   public void delegateActions(Features f) {
     createPortfolioBtn.addActionListener(l -> {
       try {
         if (portfolioNameInputTxtField.getText().equals("")) {
           displayMessage("Error", "Portfolio name cannot be empty!!");
         } else {
-          //validation on portfolioName //check if its already exists.
-          f.createPortfolio(portfolioNameInputTxtField.getText(),"flexible");
-          //displayMessage("Successful","Portfolio created successfully");
+          f.createPortfolio(portfolioNameInputTxtField.getText(), "flexible");
           reset();
           portfolioNameInputTxtField.repaint();
         }

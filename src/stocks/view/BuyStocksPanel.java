@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
-public class BuyStocksPanel extends JPanel {
+public class BuyStocksPanel extends JPanel implements PanelInterface {
 
   private JButton buyStocksBtn;
   private JLabel enterCommissionJLabel;
@@ -43,22 +43,22 @@ public class BuyStocksPanel extends JPanel {
 
   }
 
-  private void setLayout(){
+  private void setLayout() {
     GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(enterTickerJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(enterTickerJTextField)
-                                    .addComponent(enterDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                                    .addComponent(enterDateJTextField)
-                                    .addComponent(enterStocksJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(enterStocksJTextField)
-                                    .addComponent(enterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(buyStocksBtn)
-                                    .addComponent(enterCommissionJLabel)
-                                    .addComponent(enterCommissionJTextField)
-                                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                    .addComponent(enterTickerJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterTickerJTextField)
+                    .addComponent(enterDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addComponent(enterDateJTextField)
+                    .addComponent(enterStocksJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterStocksJTextField)
+                    .addComponent(enterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buyStocksBtn)
+                    .addComponent(enterCommissionJLabel)
+                    .addComponent(enterCommissionJTextField)
+                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
 
     layout.setVerticalGroup(
@@ -90,16 +90,9 @@ public class BuyStocksPanel extends JPanel {
     );
   }
 
-  public void delegateActions(Features feature){
+  @Override
+  public void delegateActions(Features feature) {
     buyStocksBtn.addActionListener(l -> {
-     /* Validator v = new Validator();
-      if (v.checkDateValidity(enterDateJTextField.getText())) {
-        return;
-      } else if (v.checkNumberOfStocksValidity(enterStocksJTextField.getText())) {
-        return;
-      } else if (v.checkCommissionValidity(enterCommissionJTextField.getText())) {
-        return;
-      }*/
       feature.buyStock(enterTickerJTextField.getText(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
       reset();
       repaint();

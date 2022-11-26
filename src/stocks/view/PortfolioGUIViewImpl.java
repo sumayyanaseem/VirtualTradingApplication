@@ -22,7 +22,6 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
   private List<String> listOfPortfolios;
 
 
-
   public PortfolioGUIViewImpl() {
     super("Virtual Stock Trading Application");
     listOfPortfolios = new ArrayList<>();
@@ -36,9 +35,9 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     setLocation(250, 250);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setMainLayout();
-   jSplitPane.setLeftComponent(mainPanel);
-   setDynamicLayout();
-   jSplitPane.setRightComponent(dynamicPanel);
+    jSplitPane.setLeftComponent(mainPanel);
+    setDynamicLayout();
+    jSplitPane.setRightComponent(dynamicPanel);
     pack();
     setVisible(true);
   }
@@ -70,7 +69,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
   }
 
-  private void setDynamicLayout(){
+  private void setDynamicLayout() {
     GroupLayout groupLayout = new GroupLayout(dynamicPanel);
     dynamicPanel.setLayout(groupLayout);
     groupLayout.setHorizontalGroup(
@@ -109,52 +108,42 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
   public void addFeatures(Features feature) {
 
     //create portfolio
-    createPortfolioButton.addActionListener(l -> {
-      CreatePortfolioPanel cp = new CreatePortfolioPanel();
-      jSplitPane.setRightComponent(cp);
-      cp.delegateActions(feature);
+    createPortfolioButton.addActionListener(event -> {
+      CreatePortfolioPanel createPortfolioPanel = new CreatePortfolioPanel();
+      jSplitPane.setRightComponent(createPortfolioPanel);
+      createPortfolioPanel.delegateActions(feature);
     });
 
 
     //terminate the program.
-    exitButton.addActionListener(l -> feature.exitTheProgram());
+    exitButton.addActionListener(event -> feature.exitTheProgram());
 
-    buyStockButton.addActionListener(l -> {
-      BuyStocksPanel bs = new BuyStocksPanel(this.listOfPortfolios);
-      jSplitPane.setRightComponent(bs);
-      bs.delegateActions(feature);
+    buyStockButton.addActionListener(event -> {
+      BuyStocksPanel buyStocksPanel = new BuyStocksPanel(this.listOfPortfolios);
+      jSplitPane.setRightComponent(buyStocksPanel);
+      buyStocksPanel.delegateActions(feature);
     });
 
-    //sellStockButton.addActionListener(evt -> feature.displayPanelToEnterSellInfo());
-
-    queryPortfolioButton.addActionListener(l -> {
-      QueryPortfolioPanel vp = new QueryPortfolioPanel(this.listOfPortfolios);
-      jSplitPane.setRightComponent(vp);
-      vp.delegateActions(feature);
-
+    sellStockButton.addActionListener(event -> {
+      SellStocksPanel sellStocksPanel = new SellStocksPanel(this.listOfPortfolios);
+      jSplitPane.setRightComponent(sellStocksPanel);
+      sellStocksPanel.delegateActions(feature);
     });
 
 
-
-   // totalValueButton.addActionListener(evt -> feature.getTotalValue(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
-    //totalCostBasisButton.addActionListener(evt -> feature.getCostBasis(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
-  }
-
-  @Override
-  public void showDialogue(String message) {
-    JOptionPane.showMessageDialog(null, message, "InfoBox: " + "Message",
-            JOptionPane.INFORMATION_MESSAGE);
-  }
-
-  @Override
-  public void showDisplayPanelToEnterBuyInfo() {
+    queryPortfolioButton.addActionListener(event -> {
+      QueryPortfolioPanel queryPortfolioPanel = new QueryPortfolioPanel(this.listOfPortfolios);
+      jSplitPane.setRightComponent(queryPortfolioPanel);
+      queryPortfolioPanel.delegateActions(feature);
+    });
 
   }
 
   @Override
-  public void showDisplayPanelToEnterSellInfo() {
-
+  public void displayMessage(String message) {
+    JOptionPane.showMessageDialog(null, message, null,JOptionPane.INFORMATION_MESSAGE);
   }
+
 
   @Override
   public void exitGracefully() {
