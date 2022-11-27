@@ -40,12 +40,16 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       throw new IllegalArgumentException("The portfolio name cannot be null or empty.");
     }
 
+    if(stockAndPercent==null || stockAndPercent.isEmpty()){
+      throw new IllegalArgumentException("Stocks and weights map provided is empty.");
+    }
+
     if (dateStart == null || dateStart.equals("")) {
-      throw new IllegalArgumentException("start date can't be empty or null");
+      throw new IllegalArgumentException("Start date can't be empty or null");
     }
 
     if (dateEnd == null) {
-      throw new IllegalArgumentException("end date is null");
+      throw new IllegalArgumentException("End date is null");
     }
 
     if (investmentInterval < 0 || investmentInterval==0 && !dateStart.equals(dateEnd)) {
@@ -176,8 +180,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 */
     if (stockAndPercent != null && stockAndPercent.size()<1) {
-        throw new IllegalArgumentException("Portfolio should consist atleast one stock to apply "
-                + "dollar cost strategy");
+      throw new IllegalArgumentException("Portfolio should consist atleast one stock to apply "
+              + "dollar cost strategy");
     }
 
 
@@ -186,12 +190,12 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
 
-    if (investmentAmount < 0.00) {
-      throw new IllegalArgumentException("amount cant be less than 0");
+    if (investmentAmount <= 0.00) {
+      throw new IllegalArgumentException("Amount cant be less than 0");
     }
 
     if (commissionFee < 0.00) {
-      throw new IllegalArgumentException("commission fee cant be less than 0");
+      throw new IllegalArgumentException("Commission fee cant be less than 0");
     }
 
     validateMapEntriesAndPercent(stockAndPercent);

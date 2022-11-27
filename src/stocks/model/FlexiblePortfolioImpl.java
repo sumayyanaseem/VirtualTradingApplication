@@ -1,5 +1,6 @@
 package stocks.model;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -384,15 +385,29 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   @Override
   public List<String> getListOfPortfolioNames() {
-    return new ArrayList<>(stockMap.keySet());
+
+    String[] pathnames;
+    String path="userPortfolios/";
+    File f = new File(path);
+    // Populates the array with names of files and directories
+    pathnames = f.list();
+    List<String> list=new ArrayList<>();
+    // For each pathname in the pathnames array
+    for (String pathname : pathnames) {
+      String type =parser.getTypeOfLoadedFile(path+pathname);
+      if(type.equalsIgnoreCase("flexible")){
+        System.out.println(parser.getPortfolioNameFromFileName(pathname));
+        list.add(parser.getPortfolioNameFromFileName(pathname));
+      }
+    }
+
+    return list;
   }
 
   @Override
   public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
     StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
-
     strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
-
   }
 
   @Override

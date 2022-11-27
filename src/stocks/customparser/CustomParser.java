@@ -75,5 +75,7 @@ public interface CustomParser {
                                    String companyName, String quantity,
                                    String action, String date, String com);
 
+  String getPortfolioNameFromFileName(String fileName);
+
 
 }
