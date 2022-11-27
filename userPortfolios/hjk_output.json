@@ -1,0 +1,1 @@
+{"Companies":[{"CompanyName":"META","Actions":[{"date":"2022-01-03","Commission":"10.0","Quantity":"2.95","action":"buy"}]},{"CompanyName":"GOOG","Actions":[{"date":"2022-01-03","Quantity":"0.34","action":"buy","Commission":"10.0"}]}],"type":"flexible"}

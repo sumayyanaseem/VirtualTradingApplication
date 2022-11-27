@@ -63,6 +63,11 @@ public class PortfolioGUIControllerTest {
     }
 
     @Override
+    public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+
+    }
+
+    @Override
     public List<String> getStocksInPortfolio(String portfolioName) {
       return null;
     }

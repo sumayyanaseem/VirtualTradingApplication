@@ -18,7 +18,7 @@ import stocks.customapi.CompanyTickerSymbol;
 public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexible {
   private static String action;
 
-  private static final String format = "YYYY-MM-dd";
+  private static final String format = "yyyy-MM-dd";
 
   public FlexiblePortfolioImpl(){
     super();
@@ -345,7 +345,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       if (checkIfDateIsLessThanGivenDate(date, stock)) {
         List<String> temp = new ArrayList<>();
         temp.add(stock.getCompanyTickerSymbol());
-        temp.add(String.valueOf(stock.getQty()));
+        temp.add(String.format("%.2f",stock.getQty()));
         temp.add(stock.getDateOfAction());
         temp.add(stock.getAction());
         return temp;
@@ -390,6 +390,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   @Override
   public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
     StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
+
+    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+
+  }
+
+  @Override
+  public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) throws IllegalArgumentException {
+    StrategyInterface strategy = new FixedCostStrategyImpl(date,this);
 
     strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
 

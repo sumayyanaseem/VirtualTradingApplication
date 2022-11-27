@@ -95,7 +95,7 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
   @Override
   public void delegateActions(Features feature) {
     sellStocksBtn.addActionListener(l -> {
-      feature.sellStock(enterTickerJTextField.getText(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
+      feature.sellStock(enterTickerJTextField.getText().toUpperCase(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
       reset();
       repaint();
     });

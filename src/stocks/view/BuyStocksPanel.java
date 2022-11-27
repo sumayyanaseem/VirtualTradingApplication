@@ -93,7 +93,7 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
   @Override
   public void delegateActions(Features feature) {
     buyStocksBtn.addActionListener(l -> {
-      feature.buyStock(enterTickerJTextField.getText(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
+      feature.buyStock(enterTickerJTextField.getText().toUpperCase(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
       reset();
       repaint();
     });
