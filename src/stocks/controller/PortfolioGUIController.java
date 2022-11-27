@@ -8,8 +8,8 @@ import stocks.view.IViewInterface;
 import stocks.view.PortfolioGUIView;
 
 public class PortfolioGUIController implements Features, PortfolioController {
-  private IFlexible model;
-  private PortfolioGUIView view;
+  private final IFlexible model;
+  private final PortfolioGUIView view;
 
   public PortfolioGUIController(IFlexible m, IViewInterface v) {
     model = m;
@@ -91,5 +91,10 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void start() {
 
+  }
+
+  @Override
+  public List<String> getStocksInPortfolio(String portfolioName){
+    return model.getStocksInPortfolio(portfolioName);
   }
 }
