@@ -311,11 +311,14 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Str
     }
 
 
-    buyStocks(tickerSymbol.trim().toUpperCase(), String.valueOf(sharesCount),
-            date, String.valueOf(commissionFee), portfolioName);
+  //  buyStocks(tickerSymbol.trim().toUpperCase(), String.valueOf(sharesCount),
+    //        date, String.valueOf(commissionFee), portfolioName);
 
+    updatePortfolio(tickerSymbol.trim().toUpperCase(), String.format("%.2f",sharesCount),
+            date, portfolioName,
+            "buy", String.valueOf(commissionFee));
 
-    parser.appendIntoFile(portfolioName,tickerSymbol.trim().toUpperCase(),String.format("%.2f",sharesCount),"buy",date,String.valueOf(commissionFee));
+    //parser.appendIntoFile(portfolioName,tickerSymbol.trim().toUpperCase(),String.format("%.2f",sharesCount),"buy",date,String.valueOf(commissionFee));
     /*Stock stock = new Stock(tickerSymbol.trim().toUpperCase(), sharesCount, 0.0, "buy",
             0.0, date, commissionFee);*/
 

@@ -2,7 +2,7 @@ package stocks.model;
 
 import java.util.Map;
 
-public interface StrategyInterface extends IFlexible{
+public interface StrategyInterface {
   //void applyStrategyOnPortfolio();
 
   void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndWeights,
