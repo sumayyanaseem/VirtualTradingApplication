@@ -389,10 +389,17 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   @Override
   public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
-    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd);
+    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
 
     strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
 
+  }
+
+  @Override
+  public List<String> getStocksInPortfolio(String portfolioName) {
+    this.portfolioName = portfolioName;
+    Map<String,List<Stock>>  map = stockMap.get(portfolioName);
+    return new ArrayList<String>(map.keySet());
   }
 
 

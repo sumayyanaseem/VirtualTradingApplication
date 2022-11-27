@@ -1,20 +1,11 @@
 package stocks.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -22,17 +13,20 @@ import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 
 
-public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements StrategyInterface {
+public class DollarCostStrategyImpl implements StrategyInterface {
   private final APICustomInterface apiCustom;
   private final int investmentInterval;
   private final String dateStart;
   private final String dateEnd;
 
-  public DollarCostStrategyImpl(int investmentInterval,String dateStart,String dateEnd){
+  private final IFlexible flexible;
+
+  public DollarCostStrategyImpl(int investmentInterval,String dateStart,String dateEnd,IFlexible flexible){
     this.investmentInterval = investmentInterval;
     this.dateStart = dateStart;
     this.dateEnd= dateEnd;
     apiCustom = new APICustomClass();
+    this.flexible = flexible;
   }
 
 
@@ -72,7 +66,7 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Str
     }
 
 
-      validateMapAndValuesForDollarCostStrategy(stockAndPercent, investmentAmount,
+    validateMapAndValuesForDollarCostStrategy(stockAndPercent, investmentAmount,
               investmentInterval, commissionFee);
 
     if (!dateEnd.equals("")) {
@@ -187,7 +181,7 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Str
 
 
     for (String stockName : stockAndPercent.keySet()) {
-      validateIfCompanyExists(stockName.trim().toUpperCase());
+      flexible.validateIfCompanyExists(stockName.trim().toUpperCase());
     }
 
 
@@ -310,34 +304,10 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Str
       throw new IllegalArgumentException("shares can't be bought. You don't have enough funds");
     }
 
+     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), String.format("%.2f",sharesCount),
+             date, portfolioName,
+             "buy", String.valueOf(commissionFee));
 
-  //  buyStocks(tickerSymbol.trim().toUpperCase(), String.valueOf(sharesCount),
-    //        date, String.valueOf(commissionFee), portfolioName);
-
-    updatePortfolio(tickerSymbol.trim().toUpperCase(), String.format("%.2f",sharesCount),
-            date, portfolioName,
-            "buy", String.valueOf(commissionFee));
-
-    //parser.appendIntoFile(portfolioName,tickerSymbol.trim().toUpperCase(),String.format("%.2f",sharesCount),"buy",date,String.valueOf(commissionFee));
-    /*Stock stock = new Stock(tickerSymbol.trim().toUpperCase(), sharesCount, 0.0, "buy",
-            0.0, date, commissionFee);*/
-
-   /* if(!stockMap.containsKey(portfolioName))
-    {
-      Map<String,List<Stock>> mm=new HashMap<>();
-      stockMap.put(portfolioName,mm);
-    }*/
-
-  /*  Map<String,List<Stock>> m=stockMap.get(portfolioName);
-
-    if(m.containsKey(tickerSymbol)) {
-      m.get(tickerSymbol).add(stock);
-    }
-    else {
-      List<Stock> l=new ArrayList<>();
-      l.add(stock);
-      m.put(tickerSymbol,l);
-    }*/
 
 
   }
@@ -404,9 +374,5 @@ public class DollarCostStrategyImpl extends FlexiblePortfolioImpl implements Str
             && calInstance.get(Calendar.DAY_OF_WEEK_IN_MONTH) == 4);
 
   }
-
-
-
-
 
 }

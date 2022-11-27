@@ -51,6 +51,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
             .addComponent(sellStockButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(queryPortfolioButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(dollarCostButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(investButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(exitButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
     groupLayout.setVerticalGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(groupLayout.createSequentialGroup()
@@ -63,6 +64,8 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
                     .addComponent(queryPortfolioButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addComponent(dollarCostButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(investButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()));
@@ -89,7 +92,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     sellStockButton = new JButton("Sell");
     dollarCostButton = new JButton("Dollar Cost Averaging Strategy");
     queryPortfolioButton = new JButton("View");
-    investButton = new JButton("Invest");
+    investButton = new JButton("Invest Fixed Amount Strategy");
     exitButton = new JButton("Exit");
   }
 
@@ -114,7 +117,6 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
       createPortfolioPanel.delegateActions(feature);
     });
 
-
     //terminate the program.
     exitButton.addActionListener(event -> feature.exitTheProgram());
 
@@ -136,6 +138,8 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
       jSplitPane.setRightComponent(queryPortfolioPanel);
       queryPortfolioPanel.delegateActions(feature);
     });
+
+
     dollarCostButton.addActionListener(l -> {
       DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
       JScrollPane jScrollPane = new JScrollPane(vp);
@@ -144,8 +148,15 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
       vp.delegateActions(feature);
 
     });
-   // totalValueButton.addActionListener(evt -> feature.getTotalValue(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
-    //totalCostBasisButton.addActionListener(evt -> feature.getCostBasis(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
+
+    investButton.addActionListener(l -> {
+      InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel = new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
+      JScrollPane jScrollPane = new JScrollPane(investFixedAmountStrategyPanel);
+      jSplitPane.setRightComponent(jScrollPane);
+      investFixedAmountStrategyPanel.delegateActions(feature);
+
+    });
+
   }
 
 
