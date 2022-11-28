@@ -11,8 +11,6 @@ import java.util.Map;
 
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
-import stocks.customparser.CustomParser;
-import stocks.customparser.JsonParserImplementation;
 
 
 public class DollarCostStrategyImpl implements StrategyInterface {
@@ -52,7 +50,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       throw new IllegalArgumentException("End date is null");
     }
 
-    if (investmentInterval < 0 || investmentInterval==0 && !dateStart.equals(dateEnd)) {
+    if (investmentInterval <=0) {
       throw new IllegalArgumentException("Can't apply strategy with specified interval."
               + " Investment interval should be atleast one day");
     }
@@ -93,21 +91,6 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
     LocalDate actualDateOfInvestment = dateStartObj;
 
-
-    //try to understand why this is needed and make equivalent change in our code
-
-   /* PortfolioInterface portfolio = getPortfolio(portfolioName);
-
-    if (portfolio == null) {
-      portfolio = new Portfolio(portfolioName.trim().toUpperCase());
-      this.portfolios.add(portfolio);
-    }*/
-
-    /////// just added for testing purpose. this will not be neeeded once we integrate with GUI logic because from GUI
-    //// create empty portfolio will be called before hand only.
-    //createEmptyPortfolio(portfolioName,"flexible");
-    ///////
-
     while (dateToInvest.compareTo(dateEndObj) <= 0) {
 
       if (isHoliday(cal)) {
@@ -117,8 +100,6 @@ public class DollarCostStrategyImpl implements StrategyInterface {
         continue;
       }
 
-      //String time = "15:59";
-      //String investmentDateString = this.getDateInFormat(dateToInvest) + " " + time;
       String dt = dateToInvest.format(formatter);
       invest(portfolioName, stockAndPercent, investmentAmount, commissionFee, dt);
 
@@ -310,7 +291,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
     String qtyStr = String.format("%.2f",sharesCount);
-    System.out.println(qtyStr);
+   // System.out.println(qtyStr);
     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr ,date, portfolioName,"buy", String.valueOf(commissionFee));
 
   }

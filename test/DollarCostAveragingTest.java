@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import stocks.model.FlexiblePortfolioImpl;
@@ -111,6 +112,14 @@ public class DollarCostAveragingTest {
     try {
       flexible.createEmptyPortfolio(pName,"flexible");
       flexible.dollarCostStrategy(pName,stockAndPercent,10000,commission,5,"2020-01-01", "2021-03-31");
+      List<List<String>> results=flexible.viewCompositionOfCurrentPortfolio(pName,"2020-01-31");
+      for(List<String> list:results){
+          String dates=list.get(2).toString();
+          System.out.println(dates.charAt(1));
+         //assertTrue(s.contains("2020-01-02"));
+         //assertFalse(s.contains("2020-01-01"));
+
+      }
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
