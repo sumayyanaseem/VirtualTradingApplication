@@ -1,6 +1,7 @@
 package stocks.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import stocks.model.IFlexible;
 import stocks.view.IViewInterface;
@@ -36,6 +37,19 @@ public class PortfolioGUIController implements Features, PortfolioController {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
     }
   }
+
+  @Override
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
+
+    try {
+      model.dollarCostStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
+      view.displayMessage("Bought stocks successfully");
+    } catch (Exception e) {
+      view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
+    }
+
+  }
+
 
   @Override
   public void sellStock(String ticker, String date, String qty, String comm, String pName) {

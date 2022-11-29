@@ -136,8 +136,16 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
       jSplitPane.setRightComponent(queryPortfolioPanel);
       queryPortfolioPanel.delegateActions(feature);
     });
+    dollarCostButton.addActionListener(l -> {
+      DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
+      jSplitPane.setRightComponent(vp);
+      vp.delegateActions(feature);
 
+    });
+   // totalValueButton.addActionListener(evt -> feature.getTotalValue(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
+    //totalCostBasisButton.addActionListener(evt -> feature.getCostBasis(viewPortfoliosToQuery.getSelectedItem().toString(), viewOnDateInputTxtField.getText()));
   }
+
 
   @Override
   public void displayMessage(String message) {
