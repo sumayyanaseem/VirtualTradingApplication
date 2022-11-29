@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
-public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface{
+public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface {
 
   private JLabel getEnterPortfolioNameJLabel;
   private JComboBox<String> portfolioNamesJCombo;
@@ -28,7 +28,6 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
   private JTextField enterStockAndPercentsJTextField;
   private JButton investBtn;
 
-
   private List<String> portfolioList;
 
   public DollarCostAvgStrategyPanel(List<String> portfolioList) {
@@ -47,7 +46,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     enterCommissionJLabel = new JLabel("Enter Commission");
     enterCommissionJTextField = new JTextField(30);
     displayStocksJLabel = new JLabel("Stocks Available in Portfolio:");
-    displayStocks = new JTextArea(5,10);
+    displayStocks = new JTextArea(5, 10);
     enterStockAndPercentsJLabel = new JLabel("Enter stock1 weight1,stock 2 weight 2,...(ex: META 50,GOOG 20...");
     enterStockAndPercentsJTextField = new JTextField(30);
 
@@ -59,11 +58,13 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
 
   }
 
-  private void setLayout(){
+  private void setLayout() {
     GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(getEnterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJTextField)
                     .addComponent(enterStartDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
@@ -78,17 +79,18 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                     .addComponent(displayStocks)
                     .addComponent(enterStockAndPercentsJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStockAndPercentsJTextField)
-                    .addComponent(getEnterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
                     .addComponent(investBtn));
-
-
 
 
     layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
+                            .addComponent(getEnterPortfolioNameJLabel)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(35, 35, 35)
                             .addComponent(enterAmountJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterAmountJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -115,27 +117,32 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                             .addComponent(displayStocks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
-
                             .addComponent(enterStockAndPercentsJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterStockAndPercentsJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
 
-                            .addComponent(getEnterPortfolioNameJLabel)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(35, 35, 35)
                             .addComponent(investBtn)
                             .addGap(43, 43, 43))
     );
   }
 
 
-
-
   @Override
-  public void delegateActions(Features feature){
+  public void delegateActions(Features feature) {
+    portfolioNamesJCombo.addActionListener(l -> {
+      String display = "";
+      int count = 1;
+      for (String stock : feature.getStocksInPortfolio(portfolioNamesJCombo.getSelectedItem().toString())) {
+        display = display + count + ". " + stock + "\n";
+        count++;
+      }
+
+      display = display.trim();
+      displayStocks.setText(display);
+
+    });
     investBtn.addActionListener(l -> {
      /* Validator v = new Validator();
       if (v.checkDateValidity(enterDateJTextField.getText())) {
@@ -153,23 +160,19 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
       String dateEnd = enterEndDateJTextField.getText();
       String stocksAndPercents = enterStockAndPercentsJTextField.getText();
       String[] splitData = stocksAndPercents.split(",");
-      Map<String,Double> mapOfPercents = new HashMap<>();
-      for(int i=0;i<splitData.length;i++)
-      {
+      Map<String, Double> mapOfPercents = new HashMap<>();
+      for (int i = 0; i < splitData.length; i++) {
         String[] eachStock = splitData[i].split(" ");
-        String comapany=eachStock[0].trim();
+        String comapany = eachStock[0].trim();
         Double percent = Double.valueOf(eachStock[1].trim());
-        mapOfPercents.put(comapany,percent);
+        mapOfPercents.put(comapany, percent);
       }
-      feature.dollarCostStrategy(portfolioName,mapOfPercents,investmentAmount, commissionFee, investmentInterval,dateStart, dateEnd );
+      feature.dollarCostStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
       reset();
       repaint();
     });
 
   }
-
-  //(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
-
 
   private void reset() {
     enterAmountJTextField.setText("");
@@ -181,9 +184,6 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     enterCommissionJTextField.setText("");
     displayStocks.setText("");
     enterStockAndPercentsJTextField.setText("");
-
-
-
 
   }
 }

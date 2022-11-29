@@ -1,6 +1,8 @@
 package stocks.view;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -28,7 +30,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
     investBtn = new JButton("Invest");
     investBtn.setActionCommand("INVEST");
 
-    enterAmountJLabel = new JLabel("Enter Investment Amount");
+    enterAmountJLabel = new JLabel("Enter Fixed Investment Amount");
     enterAmountJTextField = new JTextField(30);
     enterStartDateJLabel = new JLabel("Enter Date( YYYY-MM-DD ):");
     enterStartDateJTextField = new JTextField(30);
@@ -50,6 +52,8 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
     this.setLayout(layout);
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(getEnterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJTextField)
                     .addComponent(enterStartDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
@@ -60,8 +64,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
                     .addComponent(displayStocks)
                     .addComponent(enterStockAndPercentsJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStockAndPercentsJTextField)
-                    .addComponent(getEnterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
                     .addComponent(investBtn));
 
 
@@ -71,6 +74,10 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
+                            .addComponent(getEnterPortfolioNameJLabel)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(35, 35, 35)
                             .addComponent(enterAmountJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterAmountJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -96,10 +103,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
                             .addGap(26, 26, 26)
 
 
-                            .addComponent(getEnterPortfolioNameJLabel)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(35, 35, 35)
+
                             .addComponent(investBtn)
                             .addGap(43, 43, 43))
     );
@@ -108,6 +112,47 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
 
   @Override
   public void delegateActions(Features feature) {
+    portfolioNamesJCombo.addActionListener(l -> {
+      String display = "";
+      int count = 1;
+      for (String stock : feature.getStocksInPortfolio(portfolioNamesJCombo.getSelectedItem().toString())) {
+        display = display + count + ". " + stock + "\n";
+        count++;
+      }
+
+      display = display.trim();
+      displayStocks.setText(display);
+
+    });
+    investBtn.addActionListener(l->{
+      String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
+      double investmentAmount = Double.valueOf(enterAmountJTextField.getText());
+      double commissionFee = Double.valueOf(enterCommissionJTextField.getText());
+      String dateStart = enterStartDateJTextField.getText();
+      String stocksAndPercents = enterStockAndPercentsJTextField.getText();
+      String[] splitData = stocksAndPercents.split(",");
+      Map<String, Double> mapOfPercents = new HashMap<>();
+      for (int i = 0; i < splitData.length; i++) {
+        String[] eachStock = splitData[i].split(" ");
+        String company = eachStock[0].trim();
+        Double percent = Double.valueOf(eachStock[1].trim());
+        mapOfPercents.put(company, percent);
+      }
+      feature.investFixedAmountStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee,dateStart);
+      reset();
+      repaint();
+    });
+  }
+
+
+  private void reset() {
+    enterAmountJTextField.setText("");
+    enterAmountJTextField.setText("");
+    enterStartDateJTextField.setText("");
+    enterCommissionJTextField.setText("");
+    enterCommissionJTextField.setText("");
+    displayStocks.setText("");
+    enterStockAndPercentsJTextField.setText("");
 
   }
 }

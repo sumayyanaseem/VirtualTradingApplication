@@ -387,6 +387,21 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
     return new ArrayList<>(stockMap.keySet());
   }
 
+  @Override
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
+    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
+
+    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+
+  }
+
+  @Override
+  public List<String> getStocksInPortfolio(String portfolioName) {
+    this.portfolioName = portfolioName;
+    Map<String,List<Stock>>  map = stockMap.get(portfolioName);
+    return new ArrayList<String>(map.keySet());
+  }
+
 
   private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
@@ -449,6 +464,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       //do nothing
     }
   }
+
 
   private void validateInputsForBuy(String companyName,
                                     String quantity, String date,

@@ -151,7 +151,8 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
     investButton.addActionListener(l -> {
       InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel = new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
-      jSplitPane.setRightComponent(investFixedAmountStrategyPanel);
+      JScrollPane jScrollPane = new JScrollPane(investFixedAmountStrategyPanel);
+      jSplitPane.setRightComponent(jScrollPane);
       investFixedAmountStrategyPanel.delegateActions(feature);
 
     });
