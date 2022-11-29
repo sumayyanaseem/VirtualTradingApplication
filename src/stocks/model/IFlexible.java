@@ -92,6 +92,7 @@ public interface IFlexible extends Portfolio{
   List<String> getListOfPortfolioNames();
 
    void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) ;
+   void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,double investmentAmount,double commissionFee,String date);
 
-   List<String> getStocksInPortfolio(String portfolioName);
+  List<String> getStocksInPortfolio(String portfolioName);
   }

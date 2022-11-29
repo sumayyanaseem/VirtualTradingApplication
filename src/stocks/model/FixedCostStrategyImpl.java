@@ -11,29 +11,22 @@ import java.util.Map;
 
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
-import stocks.customparser.CustomParser;
-import stocks.customparser.JsonParserImplementation;
 
-
-public class DollarCostStrategyImpl implements StrategyInterface {
+public class FixedCostStrategyImpl implements StrategyInterface {
   private final APICustomInterface apiCustom;
-  private final int investmentInterval;
   private final String dateStart;
-  private final String dateEnd;
 
   private final IFlexible flexible;
 
-  public DollarCostStrategyImpl(int investmentInterval,String dateStart,String dateEnd,IFlexible flexible){
-    this.investmentInterval = investmentInterval;
+  public FixedCostStrategyImpl(String dateStart,IFlexible flexible){
     this.dateStart = dateStart;
-    this.dateEnd= dateEnd;
     apiCustom = new APICustomClass();
     this.flexible = flexible;
   }
 
 
   @Override
-  public void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount,  double commissionFee)
+  public void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {
@@ -41,46 +34,20 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
     if (dateStart == null || dateStart.equals("")) {
-      throw new IllegalArgumentException("start date can't be empty or null");
-    }
-
-    if (dateEnd == null) {
-      throw new IllegalArgumentException("end date is null");
-    }
-
-    if (investmentInterval < 0 || investmentInterval==0 && !dateStart.equals(dateEnd)) {
-      throw new IllegalArgumentException("Can't apply strategy with specified interval."
-              + " Investment interval should be atleast one day");
+      throw new IllegalArgumentException("date can't be empty or null");
     }
 
     validateDateFormat(dateStart);
-    if(!dateEnd.equals(""))
-    validateDateFormat(dateEnd);
 
 
     String format = "yyyy-MM-dd";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
     LocalDate dateStartObj = LocalDate.parse(dateStart, formatter);
 
-    LocalDate dateEndObj;
-    if (dateEnd.equals("")) {
-      dateEndObj = LocalDate.now();
-    } else {
-      dateEndObj = LocalDate.parse(dateEnd, formatter);
-    }
-    if (dateStartObj.compareTo(dateEndObj) > 0) {
-      throw new IllegalArgumentException("start date can't be after end date. Strategy can't be applied.");
-    }
-
 
     validateMapAndValuesForDollarCostStrategy(stockAndPercent, investmentAmount,
-              investmentInterval, commissionFee);
+             commissionFee);
 
-    if (!dateEnd.equals("")) {
-      if (dateEndObj.compareTo(LocalDate.now()) > 0) {
-        dateEndObj = LocalDate.now();
-      }
-    }
 
 
     LocalDate dateToInvest = dateStartObj;
@@ -99,85 +66,34 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       this.portfolios.add(portfolio);
     }*/
 
-    /////// just added for testing purpose. this will not be neeeded once we integrate with GUI logic because from GUI
-    //// create empty portfolio will be called before hand only.
-    //createEmptyPortfolio(portfolioName,"flexible");
-    ///////
 
-    while (dateToInvest.compareTo(dateEndObj) <= 0) {
-
-      if (isHoliday(cal)) {
+    while(isHoliday(cal))
+    {
         dateToInvest = dateToInvest.plusDays(1);
         cal = GregorianCalendar.from(dateToInvest
                 .atStartOfDay(ZoneId.systemDefault()));
-        continue;
-      }
 
-      //String time = "15:59";
-      //String investmentDateString = this.getDateInFormat(dateToInvest) + " " + time;
+    }
+
+
       String dt = dateToInvest.format(formatter);
       invest(portfolioName, stockAndPercent, investmentAmount, commissionFee, dt);
 
-      dateToInvest = actualDateOfInvestment.plusDays(investmentInterval);
-      actualDateOfInvestment = dateToInvest;
-      cal = GregorianCalendar.from(dateToInvest
-              .atStartOfDay(ZoneId.systemDefault()));
+
     }
 
-
-
-   /* if (actualEnddate == null) {
-
-      portfolio.addStrategy(new DollarCostStrategy(startdate, investmentInterval,
-              commissionFee, amount, stockNameAndWeight,
-              actualInvestmentDate));
-    } else {
-
-      portfolio.addStrategy(new DollarCostStrategy(startdate, actualEnddate, investmentInterval,
-              commissionFee, amount, stockNameAndWeight,
-              actualInvestmentDate));
-    }*/
-
-
-  }
 
 
   private void validateMapAndValuesForDollarCostStrategy(
-                                                         Map<String, Double> stockAndPercent,
-                                                         double investmentAmount, int investmentInterval,
-                                                         double commissionFee)
+          Map<String, Double> stockAndPercent,
+          double investmentAmount,
+          double commissionFee)
           throws IllegalArgumentException {
 
 
-  /*  if (dateEnd == null) {
-      throw new IllegalArgumentException("end date is null");
-    }
-    if (dateStart == null || dateStart.equals("")) {
-      throw new IllegalArgumentException("start date can't be empty or null");
-    }
-
-    validateDateFormat(dateStart);
-    validateDateFormat(dateEnd);
-
-
-       String format = "yyyy-MM-dd";
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
-       LocalDate dateStartObj = LocalDate.parse(dateStart, formatter);
-
-       LocalDate dateEndObj;
-       if (dateEnd.equals("")) {
-         dateEndObj = LocalDate.now();
-       } else {
-         dateEndObj = LocalDate.parse(dateEnd, formatter);
-       }
-       if (dateStartObj.compareTo(dateEndObj) > 0) {
-         throw new IllegalArgumentException("start date can't be after end date. Strategy can't be applied.");
-       }
-
-*/
     if (stockAndPercent != null && stockAndPercent.size()<1) {
-        throw new IllegalArgumentException("Portfolio should consist atleast one stock to apply "
-                + "dollar cost strategy");
+      throw new IllegalArgumentException("Portfolio should consist atleast one stock to apply "
+              + "dollar cost strategy");
     }
 
 
@@ -247,17 +163,10 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 
   public void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
-                       double commissionFee, String date) throws IllegalArgumentException {
+                     double commissionFee, String date) throws IllegalArgumentException {
 
-   /* PortfolioInterface portfolio = getPortfolio(portfolioName);
 
-    if (portfolio == null) {
-      throw new IllegalArgumentException("The portfolio does not exist.");
-    }*/
 
-   // isAmountCommissionPercentageValid(amount, commissionFee, stockNameAndWeight);
-
-    StringBuilder investmentSummary = new StringBuilder();
     for (Map.Entry<String, Double> entry : stockAndPercent.entrySet()) {
 
       String companyName = entry.getKey();
@@ -267,24 +176,24 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       if(investment==0.0)
         continue;
 
-        try {
-          executeBuy(companyName, portfolioName, investment, date, commissionFee);
+      try {
+        executeBuy(companyName, portfolioName, investment, date, commissionFee);
 
-          //investmentSummary.append("Successfully invested in " + tickerSymbol + "\n");
-        } catch (IllegalArgumentException e) {
-          //catch this exception where you are calling dollar cost averaging.
-          //throw new IllegalArgumentException(e.getMessage());
-        }
+
+      } catch (IllegalArgumentException e) {
+        //catch this exception where you are calling dollar cost averaging.
+        //throw new IllegalArgumentException(e.getMessage());
+      }
 
 
     }
-    //return investmentSummary.deleteCharAt(investmentSummary.length() - 1).toString();
+
   }
 
 
 
   public void executeBuy(String tickerSymbol, String portfolioName, double amount,
-                               String date, double commissionFee)
+                         String date, double commissionFee)
           throws IllegalArgumentException {
 
     //validateDataofBuyShare(tickerSymbol, portfolioName, amount, date, commissionFee);
@@ -307,7 +216,10 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
     String qtyStr = String.format("%.2f",sharesCount);
     System.out.println(qtyStr);
-    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr ,date, portfolioName,"buy", String.valueOf(commissionFee));
+    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr ,
+            date, portfolioName,
+            "buy", String.valueOf(commissionFee));
+
 
   }
 
@@ -331,7 +243,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 
     if (calInstance.get(Calendar.DAY_OF_MONTH) == 1 && calInstance.get(Calendar.MONTH) == 0
-            ) {
+    ) {
       return true;
     }
 
@@ -360,7 +272,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
     if (calInstance.get(Calendar.DAY_OF_WEEK) == 2 && calInstance.get(Calendar.MONTH) == 8
             && calInstance.get(Calendar.DAY_OF_WEEK_IN_MONTH) == 1
-            ) {
+    ) {
       return true;
     }
 

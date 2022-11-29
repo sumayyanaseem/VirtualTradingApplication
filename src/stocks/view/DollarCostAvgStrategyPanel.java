@@ -162,7 +162,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
       String[] splitData = stocksAndPercents.split(",");
       Map<String, Double> mapOfPercents = new HashMap<>();
       for (int i = 0; i < splitData.length; i++) {
-        String[] eachStock = splitData[i].split(" ");
+        String[] eachStock = splitData[i].trim().split("\\s+");
         String comapany = eachStock[0].trim();
         Double percent = Double.valueOf(eachStock[1].trim());
         mapOfPercents.put(comapany, percent);

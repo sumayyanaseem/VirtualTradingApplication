@@ -133,10 +133,10 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
       String[] splitData = stocksAndPercents.split(",");
       Map<String, Double> mapOfPercents = new HashMap<>();
       for (int i = 0; i < splitData.length; i++) {
-        String[] eachStock = splitData[i].split(" ");
-        String company = eachStock[0].trim();
+        String[] eachStock = splitData[i].trim().split("\\s+");
+        String comapany = eachStock[0].trim().toUpperCase();
         Double percent = Double.valueOf(eachStock[1].trim());
-        mapOfPercents.put(company, percent);
+        mapOfPercents.put(comapany, percent);
       }
       feature.investFixedAmountStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee,dateStart);
       reset();

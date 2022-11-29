@@ -40,7 +40,12 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void investFixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
-
+    try {
+      model.fixedAmountStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,date);
+      view.displayMessage("Bought stocks successfully");
+    } catch (Exception e) {
+      view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
+    }
   }
 
   @Override
@@ -73,9 +78,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public double getCostBasis(String pName, String date) {
-
     return model.getTotalMoneyInvestedOnCertainDate(date, pName);
-
   }
 
   @Override
