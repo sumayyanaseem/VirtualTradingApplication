@@ -501,7 +501,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testInvalidCompanyName() {
 
-      String cName = "net";
+      String cName = "net123";
       String quantity = String.valueOf(100);
       String expected = "Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.";
@@ -993,7 +993,7 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testInvalidCompanyName() {
 
-      String cName = "net";
+      String cName = "net123";
       String quantity = String.valueOf(100);
       String expected = "Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.";

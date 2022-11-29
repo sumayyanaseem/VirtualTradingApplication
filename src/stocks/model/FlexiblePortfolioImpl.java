@@ -394,10 +394,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
     List<String> list=new ArrayList<>();
     // For each pathname in the pathnames array
     for (String pathname : pathnames) {
-      String type =parser.getTypeOfLoadedFile(path+pathname);
-      if(type.equalsIgnoreCase("flexible")){
-        System.out.println(parser.getPortfolioNameFromFileName(pathname));
-        list.add(parser.getPortfolioNameFromFileName(pathname));
+      if(!pathname.contains("test")) {
+        String type = parser.getTypeOfLoadedFile(path + pathname);
+        if (type.equalsIgnoreCase("flexible")) {
+          System.out.println(parser.getPortfolioNameFromFileName(pathname));
+          list.add(parser.getPortfolioNameFromFileName(pathname));
+        }
       }
     }
 

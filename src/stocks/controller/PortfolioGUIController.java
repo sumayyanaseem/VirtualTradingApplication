@@ -15,6 +15,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
     model = m;
     this.view = (PortfolioGUIView) v;
     view.addFeatures(this);
+    view.updatePortfolioList(model.getListOfPortfolioNames());
   }
 
   @Override
