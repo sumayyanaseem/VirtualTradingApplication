@@ -111,6 +111,16 @@ public class PortfolioControllerImplTest {
       return;
     }
 
+    @Override
+    public void createEmptyPortfolio(String portfolioName, String portfolioType) {
+
+    }
+
+    @Override
+    public List<String> getListOfPortfolioNames() {
+      return null;
+    }
+
   }
 
   private InputStream in;

@@ -378,6 +378,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
     parser.writeIntoFile(portfolioName, emptyMap, "flexible");
   }
 
+  @Override
+  public List<String> getListOfPortfolioNames() {
+    return new ArrayList<>(stockMap.keySet());
+  }
+
 
   private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {

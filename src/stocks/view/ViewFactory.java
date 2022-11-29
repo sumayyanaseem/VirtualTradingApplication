@@ -1,6 +1,6 @@
 package stocks.view;
 
-public class viewFactory {
+public class ViewFactory {
 
   public static IViewInterface generateViewFactory(String type) {
     if (type.equals("GUI")) {

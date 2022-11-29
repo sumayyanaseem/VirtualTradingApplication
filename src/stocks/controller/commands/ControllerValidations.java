@@ -15,12 +15,12 @@ import stocks.customapi.CompanyTickerSymbol;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class AbstractCommand {
+public class ControllerValidations {
 
   private final PortfolioView view;
   private final Scanner input;
 
-  public  AbstractCommand(PortfolioView view,Scanner input){
+  public ControllerValidations(PortfolioView view, Scanner input){
     this.view=view;
     this.input=input;
   }

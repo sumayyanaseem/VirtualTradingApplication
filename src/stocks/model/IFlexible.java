@@ -1,5 +1,6 @@
 package stocks.model;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IFlexible extends Portfolio{
@@ -79,5 +80,15 @@ public interface IFlexible extends Portfolio{
   void sellStocks(String companyName, String quantity,
                   String date, String com, String portfolioName)
           throws IllegalArgumentException;
+
+
+  /**
+   * creates and persists a csv file with portfolio info created using manual inputs.
+   *
+   * @param portfolioName the name of the portfolio for which file needs to be written.
+   */
+  void createEmptyPortfolio(String portfolioName, String portfolioType);
+
+  List<String> getListOfPortfolioNames();
 
 }
