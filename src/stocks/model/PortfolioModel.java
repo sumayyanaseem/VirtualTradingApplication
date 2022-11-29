@@ -43,7 +43,6 @@ public interface PortfolioModel {
    */
   void createPortfolioIfCreatedManually(String portfolioName, IFlexible portfolio);
 
-
   /**
    * validate if the given company name is one among the stocks supported by this application.
    *
@@ -155,5 +154,6 @@ public interface PortfolioModel {
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
                                                       String endTime, String portfolioName,
                                                       IFlexible portfolio);
+
 
 }
