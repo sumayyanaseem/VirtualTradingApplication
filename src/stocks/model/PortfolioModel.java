@@ -43,6 +43,15 @@ public interface PortfolioModel {
    */
   void createPortfolioIfCreatedManually(String portfolioName, Portfolio portfolio);
 
+
+  /**
+   * creates and persists a csv file with portfolio info created using manual inputs.
+   *
+   * @param portfolioName the name of the portfolio for which file needs to be written.
+   */
+  void createEmptyPortfolio(String portfolioName, String portfolioType, Portfolio portfolio);
+
+
   /**
    * validate if the given company name is one among the stocks supported by this application.
    *

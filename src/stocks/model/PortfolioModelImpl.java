@@ -43,6 +43,11 @@ public class PortfolioModelImpl implements PortfolioModel {
   }
 
   @Override
+  public void createEmptyPortfolio(String portfolioName, String portfolioType, Portfolio portfolio) {
+    portfolio.createEmptyPortfolio(portfolioName, portfolioType);
+  }
+
+  @Override
   public void validateIfCompanyExists(String companyName, Portfolio portfolio) {
     portfolio.validateIfCompanyExists(companyName);
   }
