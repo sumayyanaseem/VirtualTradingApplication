@@ -1,20 +1,16 @@
 package stocks.controller;
 
-import stocks.Features;
-import stocks.model.FlexiblePortfolioImpl;
-import stocks.view.PortfolioViewJFrame;
+import stocks.model.IFlexible;
+import stocks.view.IViewInterface;
+import stocks.view.PortfolioGUIView;
 
-public class PortfolioGUIController implements Features {
-  private FlexiblePortfolioImpl model;
-  private PortfolioViewJFrame view;
+public class PortfolioGUIController implements Features,PortfolioController{
+  private IFlexible model;
+  private PortfolioGUIView view;
 
-  public PortfolioGUIController(FlexiblePortfolioImpl m) {
+  public PortfolioGUIController(IFlexible m, IViewInterface v) {
     model = m;
-  }
-
-  public void setView(PortfolioViewJFrame v) {
-    view = v;
-    //provide view with all the callbacks
+    this.view= (PortfolioGUIView) v;
     view.addFeatures(this);
   }
 
@@ -91,5 +87,10 @@ public class PortfolioGUIController implements Features {
     catch(Exception e){
       view.showDialogue("Error while trying fetch total cost basis : "+e.getMessage());
     }
+  }
+
+  @Override
+  public void start() {
+
   }
 }

@@ -1,9 +1,9 @@
 package stocks;
 
-import stocks.controller.PortfolioController;
-import stocks.controller.PortfolioControllerImpl;
-import stocks.view.PortfolioView;
-import stocks.view.PortfolioViewImpl;
+import stocks.controller.PortfolioGUIController;
+import stocks.model.FlexiblePortfolioImpl;
+import stocks.view.PortfolioGUIView;
+import stocks.view.PortfolioGUIViewImpl;
 
 /**
  * Demonstrates a virtual trading Application. The application is
@@ -17,8 +17,14 @@ public class TradingMVC {
    * @param args Not used.
    */
   public static void main(String[] args) {
-    PortfolioView view = new PortfolioViewImpl(System.out);
+   /* PortfolioView view = new PortfolioViewImpl(System.out);
     PortfolioController controller = new PortfolioControllerImpl( System.in, view);
-    controller.start();
+    controller.start();*/
+
+    FlexiblePortfolioImpl model = new FlexiblePortfolioImpl();
+    PortfolioGUIView view = new PortfolioGUIViewImpl();
+    PortfolioGUIController controller = new PortfolioGUIController(model,view);
+
+
   }
 }

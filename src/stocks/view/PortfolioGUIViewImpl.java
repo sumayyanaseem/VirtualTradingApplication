@@ -4,9 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import stocks.Features;
+import stocks.controller.Features;
 
-public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFrame{
+public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
   private JPanel mainPanel;
   private JButton createPortfolioButton;
@@ -56,7 +56,7 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
   //write others later
 
 
-  public PortfolioViewJFrameImpl() {
+  public PortfolioGUIViewImpl() {
 
     super("Virtual Stock Trading Application");
 
@@ -226,4 +226,8 @@ public class PortfolioViewJFrameImpl extends JFrame implements PortfolioViewJFra
   }
 
 
+  @Override
+  public String guiInUse() {
+    return "gui";
+  }
 }
