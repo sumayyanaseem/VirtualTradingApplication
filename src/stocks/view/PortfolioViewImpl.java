@@ -192,7 +192,7 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public String guiInUse() {
+  public String interfaceInUse() {
     return "console";
   }
 }

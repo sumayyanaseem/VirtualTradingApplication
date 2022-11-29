@@ -1,0 +1,265 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "GOOG",
+      "Actions": [
+        {
+          "date": "2020-08-03",
+          "Commission": "flexible",
+          "Quantity": "67",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-30",
+          "Commission": "flexible",
+          "Quantity": "61",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-28",
+          "Commission": "flexible",
+          "Quantity": "53",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-28",
+          "Commission": "flexible",
+          "Quantity": "42",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-27",
+          "Commission": "flexible",
+          "Quantity": "36",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-25",
+          "Commission": "flexible",
+          "Quantity": "36",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-24",
+          "Commission": "flexible",
+          "Quantity": "38",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-25",
+          "Commission": "flexible",
+          "Quantity": "40",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-22",
+          "Commission": "flexible",
+          "Quantity": "922",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-20",
+          "Commission": "flexible",
+          "Quantity": "994",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "META",
+      "Actions": [
+        {
+          "date": "2020-08-03",
+          "Commission": "flexible",
+          "Quantity": "1190",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-30",
+          "Commission": "flexible",
+          "Quantity": "1140",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-28",
+          "Commission": "flexible",
+          "Quantity": "1132",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-28",
+          "Commission": "flexible",
+          "Quantity": "976",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-27",
+          "Commission": "flexible",
+          "Quantity": "815",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-25",
+          "Commission": "flexible",
+          "Quantity": "912",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-24",
+          "Commission": "flexible",
+          "Quantity": "971",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-25",
+          "Commission": "flexible",
+          "Quantity": "1604",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-22",
+          "Commission": "flexible",
+          "Quantity": "1772",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-20",
+          "Commission": "flexible",
+          "Quantity": "2280",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "TWTR",
+      "Actions": [
+        {
+          "date": "2020-08-03",
+          "Commission": "flexible",
+          "Quantity": "2748",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-30",
+          "Commission": "flexible",
+          "Quantity": "2417",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-28",
+          "Commission": "flexible",
+          "Quantity": "1939",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-28",
+          "Commission": "flexible",
+          "Quantity": "1522",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-27",
+          "Commission": "flexible",
+          "Quantity": "1463",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-25",
+          "Commission": "flexible",
+          "Quantity": "1610",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-24",
+          "Commission": "flexible",
+          "Quantity": "2852",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-25",
+          "Commission": "flexible",
+          "Quantity": "1934",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-22",
+          "Commission": "flexible",
+          "Quantity": "2510",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-20",
+          "Commission": "flexible",
+          "Quantity": "1906",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "ORCL",
+      "Actions": [
+        {
+          "date": "2020-08-03",
+          "Commission": "flexible",
+          "Quantity": "8931",
+          "action": "buy"
+        },
+        {
+          "date": "2020-10-30",
+          "Commission": "flexible",
+          "Quantity": "8911",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-28",
+          "Commission": "flexible",
+          "Quantity": "8167",
+          "action": "buy"
+        },
+        {
+          "date": "2021-04-28",
+          "Commission": "flexible",
+          "Quantity": "6687",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-27",
+          "Commission": "flexible",
+          "Quantity": "5694",
+          "action": "buy"
+        },
+        {
+          "date": "2021-10-25",
+          "Commission": "flexible",
+          "Quantity": "5107",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-24",
+          "Commission": "flexible",
+          "Quantity": "6066",
+          "action": "buy"
+        },
+        {
+          "date": "2022-04-25",
+          "Commission": "flexible",
+          "Quantity": "6495",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-22",
+          "Commission": "flexible",
+          "Quantity": "6675",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-20",
+          "Quantity": "7220",
+          "action": "buy",
+          "Commission": "flexible"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

@@ -84,7 +84,7 @@ public class APICustomClass implements APICustomInterface {
   }
 
 
-  private String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
+  public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
 
     String stockSymbol = companyTickerSymbol; //ticker symbol for Google
