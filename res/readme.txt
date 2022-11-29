@@ -22,7 +22,8 @@
 16) Our program doesn't crash when user enters invalid inputs. Validations are done at every point and error is displayed to user.
     Our program keeps asking user to enter inputs until he enters a valid input format.
 17)when the date provided by the users falls on the weekend,we are pickingup the stock value from the last nearest working day from the given date.
-
+18) Allows user to view the portfolio's performance over a range of time period. Currently we are supporting daily, weekly, monthly, quarterly
+    and yearly time frames.
 
 Note:
 1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.

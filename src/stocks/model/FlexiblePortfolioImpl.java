@@ -389,9 +389,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
           String startTime, String endTime, String portfolioName) {
     validatePortfolioPerformanceInputs(startTime, endTime, portfolioName);
     try {
-
-      Map<String, List<Stock>> detailsMap = parser.readFromFile(portfolioName);
-      //create a new map here and pass it to PortfolioPerformance
+      Map<String, List<Stock>> detailsMap = new HashMap<>();
+      if (portfolioName.equals("currentInstance")) {
+        detailsMap = stockMap.get("currentInstance");
+      } else {
+        detailsMap = parser.readFromFile(portfolioName);
+      }
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
     } catch (Exception e) {
@@ -427,6 +430,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
               .parse(startDate);
       Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
               .parse(endDate);
+      Date min = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse("1990-01-01");
+      if (start.compareTo(min) <= 0) {
+        throw new IllegalArgumentException("start date must be greater than 1990 year."
+                + " Please enter valid start and end dates");
+      }
       if (end.compareTo(start) <= 0) {
         throw new IllegalArgumentException("End date must be greater than start date."
                 + " Please enter valid dates");

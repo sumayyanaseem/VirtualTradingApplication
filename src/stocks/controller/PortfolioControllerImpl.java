@@ -21,8 +21,8 @@ import java.util.Scanner;
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
-import stocks.customparser.JsonParserImplementation;
 import stocks.customparser.CustomParser;
+import stocks.customparser.JsonParserImplementation;
 import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
@@ -52,9 +52,10 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
+   *
    * @param model the model object.
-   * @param in the input stream.
-   * @param view the view object.
+   * @param in    the input stream.
+   * @param view  the view object.
    */
   public PortfolioControllerImpl(PortfolioModel model, InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
