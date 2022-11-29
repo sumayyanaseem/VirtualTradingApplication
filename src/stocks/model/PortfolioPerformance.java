@@ -50,7 +50,7 @@ public class PortfolioPerformance {
 
 
   PortfolioPerformance(Map<String, List<Stock>> portfolioMap) {
-    apiCustom = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    apiCustom = new APICustomClass();
     this.portfolioMap = portfolioMap;
     mapOfValues = new LinkedHashMap<>();
   }

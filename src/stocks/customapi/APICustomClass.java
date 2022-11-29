@@ -21,11 +21,7 @@ import static stocks.customapi.LocalCacheForAPI.insertRecordsIntoCache;
 public class APICustomClass implements APICustomInterface {
 
   private static final String apiKey = "5KFQLJAEXPPU6DJ9";
-  private final String urlString;
-
-  public APICustomClass(String url) {
-    this.urlString = url;
-  }
+  private static final String urlString="https://www.alphavantage.co/query?function=TIME_SERIES_";
 
   @Override
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {

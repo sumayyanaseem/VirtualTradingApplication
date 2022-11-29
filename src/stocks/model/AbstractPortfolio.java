@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
 import stocks.customparser.CustomParser;
@@ -25,10 +26,10 @@ abstract class AbstractPortfolio implements Portfolio {
   protected final APICustomInterface apiCustomInterface;
   protected final CustomParser parser;
 
-  public AbstractPortfolio(APICustomInterface apiCustomInterface) {
+  public AbstractPortfolio() {
     this.portfolioName = "";
     this.stockMap = new HashMap<>();
-    this.apiCustomInterface = apiCustomInterface;
+    this.apiCustomInterface = new APICustomClass();
     this.parser = new JsonParserImplementation();
   }
 

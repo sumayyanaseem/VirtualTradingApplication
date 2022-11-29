@@ -1,25 +1,9 @@
-/*import org.junit.Before;
-import org.junit.Test;
-
-import java.util.List;
-import java.util.Map;
-
-import stocks.customapi.APICustomClass;
-import stocks.customapi.APICustomInterface;
-import stocks.model.InFlexiblePortfolioImpl;
-import stocks.model.Portfolio;
-import stocks.model.PortfolioModel;
-import stocks.model.PortfolioModelImpl;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 /**
  * The test class for ModelImpl.
  */
-/*public class ModelImplTest {
+public class ModelImplTest {
 
-  static class MockPortfolio implements Portfolio {
+  /* static class MockPortfolio implements Portfolio {
 
     private final StringBuilder log;
 
@@ -123,13 +107,6 @@ import static org.junit.Assert.assertTrue;
             String startTime, String endTime, String portfolioName) {
       log.append("inputs for getPortfolioPerformanceOvertime: "
               + startTime + " " + endTime + " " + portfolioName + "\n");
-      return null;
-    }
-
-    @Override
-    public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
-      log.append("inputs for getPortfolioPerformanceOvertime: "
-              + startDate + " " + endDate + " " + name + "\n");
       return null;
     }
   }
@@ -272,6 +249,5 @@ import static org.junit.Assert.assertTrue;
             + portfolioName + "\n";
     model.validateIfPortfolioDoesntExists(portfolioName, mockPortfolio);
     assertTrue(mockLog.toString().contains(log));
-  }
+  }*/
 }
-*/

@@ -9,22 +9,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
 
 
 /**
  * This class represents a Flexible Portfolio.
  */
-public class FlexiblePortfolioImpl extends AbstractPortfolio {
+public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexible {
   private static String action;
 
   private static final String format = "YYYY-MM-dd";
-
-  public FlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
-    super(apiCustomInterface);
-  }
-
 
   @Override
   public void buyStocks(String companyName, String quantity,

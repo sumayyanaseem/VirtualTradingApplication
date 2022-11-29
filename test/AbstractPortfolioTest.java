@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customapi.APICustomClass;
-import stocks.customapi.APICustomInterface;
 import stocks.model.FlexiblePortfolioImpl;
+import stocks.model.IFlexible;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
 
@@ -24,9 +23,6 @@ import static org.junit.Assert.assertTrue;
  * class represents test cases for abstract portfolio.
  */
 abstract class AbstractPortfolioTest {
-  protected Portfolio portfolio;
-
-  protected abstract void initialisePortfolio();
 
   protected final int min = 1;
   protected final int max = 100;
@@ -42,13 +38,10 @@ abstract class AbstractPortfolioTest {
 
     private static final String date = "2022-10-01";
     private static final String com = "10";
-
-    private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
-
-    @Override
+    private IFlexible portfolio;
     @Before
     public void initialisePortfolio() {
-      portfolio = new FlexiblePortfolioImpl(apiCustomInterface);
+      portfolio = new FlexiblePortfolioImpl();
     }
 
     @Test
@@ -886,12 +879,11 @@ abstract class AbstractPortfolioTest {
    */
   public static final class InFlexiblePortfolioImplTest extends AbstractPortfolioTest {
 
-    private final APICustomInterface apiCustomInterface = new APICustomClass("https://www.alphavantage.co/query?function=TIME_SERIES_");
+    private Portfolio portfolio;
 
-    @Override
     @Before
     public void initialisePortfolio() {
-      portfolio = new InFlexiblePortfolioImpl(apiCustomInterface);
+      portfolio = new InFlexiblePortfolioImpl();
     }
 
     @Test
@@ -1170,64 +1162,6 @@ abstract class AbstractPortfolioTest {
         actual = e.getMessage();
       }
       assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testViewCostBasis() {
-
-      String exception = "This operation is not supported in Inflexible portfolio";
-      String actual = "";
-      String pName = "testPfName";
-      String date = "2020-10-01";
-      try {
-        portfolio.getTotalMoneyInvestedOnCertainDate(date, pName);
-      } catch (UnsupportedOperationException e) {
-        actual = e.getMessage();
-      }
-      assertEquals(exception, actual);
-
-    }
-
-    @Test
-    public void testPortfolioPerformance() {
-      String exception = "This operation is not supported in Inflexible portfolio";
-      String actual = "";
-      String pName = "testPfName";
-      String date = "2020-10-01";
-      try {
-        portfolio.getPortfolioPerformanceOvertime(date, date, pName);
-      } catch (UnsupportedOperationException e) {
-        actual = e.getMessage();
-      }
-      assertEquals(exception, actual);
-    }
-
-    @Test
-    public void testSellStocks() {
-      String exception = "This operation is not supported in Inflexible portfolio";
-      String actual = "";
-      String pName = "testPfName";
-      String date = "2020-10-01";
-      try {
-        portfolio.sellStocks("dummy", "10", date, "20", pName);
-      } catch (UnsupportedOperationException e) {
-        actual = e.getMessage();
-      }
-      assertEquals(exception, actual);
-    }
-
-    @Test
-    public void testUpdatePortfolio() {
-      String exception = "This operation is not supported in Inflexible portfolio";
-      String actual = "";
-      String pName = "testPfName";
-      String date = "2020-10-01";
-      try {
-        portfolio.updatePortfolio("dummy", "10", "buy", date, "20", pName);
-      } catch (UnsupportedOperationException e) {
-        actual = e.getMessage();
-      }
-      assertEquals(exception, actual);
     }
 
 

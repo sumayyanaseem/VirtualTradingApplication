@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import stocks.customapi.APICustomInterface;
-
 /**
  * This class implements PortfolioModel.
  */
@@ -17,9 +15,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   private static final String action = "add";
 
-  public InFlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
-    super(apiCustomInterface);
-  }
 
   @Override
   public void buyStocks(String cName, String quantity, String date,
@@ -77,58 +72,6 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
-  //this is not needed in inflexible. check how to remove
-  @Override
-  public void createEmptyPortfolio(String portfolioName, String portfolioType) {
-    throw new UnsupportedOperationException("This operation "
-            + "is not supported in Inflexible portfolio");
-  }
-
-
-  @Override
-  public void sellStocks(String companyName, String quantity,
-                         String date, String com, String portfolioName) {
-    throw new UnsupportedOperationException("This "
-            + "operation is not supported in Inflexible portfolio");
-  }
-
-  @Override
-  public void updatePortfolio(String companyName,
-                              String quantity, String date,
-                              String portfolioName,
-                              String action, String com) {
-    throw new UnsupportedOperationException("This operation "
-            + "is not supported in Inflexible portfolio");
-  }
-
-  @Override
-  public void updatePortfolioUsingFilePath(String path, String companyName,
-                                           String quantity, String date,
-                                           String portfolioName,
-                                           String action, String com)
-          throws IllegalArgumentException {
-    throw new UnsupportedOperationException("This operation is "
-            + "not supported in Inflexible portfolio");
-  }
-
-  @Override
-  public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-    throw new UnsupportedOperationException("This operation is "
-            + "not supported in Inflexible portfolio");
-  }
-
-  @Override
-  public Map<String, Double> getPortfolioPerformanceOvertime(
-          String startTime, String endTime, String portfolioName) {
-    throw new UnsupportedOperationException("This "
-            + "operation is not supported in Inflexible portfolio");
-  }
-
-  @Override
-  public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
-    throw new UnsupportedOperationException("This "
-            + "operation is not supported in Inflexible portfolio");
-  }
 
   @Override
   public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
