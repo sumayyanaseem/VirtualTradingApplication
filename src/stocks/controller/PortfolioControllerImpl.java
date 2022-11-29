@@ -21,8 +21,8 @@ import java.util.Scanner;
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
-import stocks.customparser.CustomParser;
 import stocks.customparser.JsonParserImplementation;
+import stocks.customparser.CustomParser;
 import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.InFlexiblePortfolioImpl;
 import stocks.model.Portfolio;
@@ -52,10 +52,9 @@ public class PortfolioControllerImpl implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
-   *
    * @param model the model object.
-   * @param in    the input stream.
-   * @param view  the view object.
+   * @param in the input stream.
+   * @param view the view object.
    */
   public PortfolioControllerImpl(PortfolioModel model, InputStream in, PortfolioView view) {
     this.input = new Scanner(in);
@@ -494,7 +493,32 @@ public class PortfolioControllerImpl implements PortfolioController {
         }
         break;
       case "4":
-        portfolioPerformanceHelper(type, name, portfolio);
+        if (type.equals(flexibleType)) {
+          String startDate = dateHelper();
+          String endDate = dateHelper();
+          Date start;
+          Date end;
+          try {
+            start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    .parse(startDate);
+            end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    .parse(endDate);
+            if (end.compareTo(start) <= 0) {
+              //need to recur until correct dates are entered.
+              view.displayErrorMessage("End date must be greater than start date."
+                      + " Please enter valid dates");
+            }
+            Map<String, Double> result = model.getPortfolioPerformanceOvertimeForCurrentInstance(
+                    startDate, endDate, name, portfolio, path);
+            view.displayPortfolioPerformance(result, startDate, endDate, name);
+          } catch (Exception e) {
+            view.displayErrorMessage(e.getMessage());
+          }
+
+        } else {
+          view.displayErrorMessage("This "
+                  + "operation is not supported in Inflexible portfolio");
+        }
         break;
       default:
         break;
@@ -503,44 +527,6 @@ public class PortfolioControllerImpl implements PortfolioController {
       viewHelper2ForCurrentInstance(name, path);
     } else {
       viewHelper2(name);
-    }
-  }
-
-  private void portfolioPerformanceHelper(String type, String pName, Portfolio portfolio) {
-    if (type.equals(flexibleType)) {
-      String startDate = dateHelper();
-      String endDate = dateHelper();
-      Date start;
-      Date end;
-      Date min;
-      try {
-        start = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(startDate);
-        end = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse(endDate);
-        min = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                .parse("1990-01-01");
-        if (start.compareTo(min) <= 0) {
-          view.displayErrorMessage("start date must be greater than 1990 year."
-                  + " Please enter valid start and end dates");
-          portfolioPerformanceHelper(type, pName, portfolio);
-        } else if (end.compareTo(start) <= 0) {
-          //need to recur until correct dates are entered.
-          view.displayErrorMessage("End date must be greater than start date."
-                  + " Please enter valid start and end dates");
-          portfolioPerformanceHelper(type, pName, portfolio);
-        } else {
-          Map<String, Double> result = model.getPortfolioPerformanceOvertime(
-                  startDate, endDate, pName, portfolio);
-          view.displayPortfolioPerformance(result, startDate, endDate, pName);
-        }
-      } catch (Exception e) {
-        view.displayErrorMessage(e.getMessage());
-      }
-
-    } else {
-      view.displayErrorMessage("This "
-              + "operation is not supported in Inflexible portfolio");
     }
   }
 
