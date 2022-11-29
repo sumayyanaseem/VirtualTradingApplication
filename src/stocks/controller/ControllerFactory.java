@@ -7,7 +7,7 @@ import stocks.view.IViewInterface;
 public interface ControllerFactory {
 
 
-  public static PortfolioController generateControllerFactory(String type, IViewInterface iv, IFlexible im) {
+  static PortfolioController generateControllerFactory(String type, IViewInterface iv, IFlexible im) {
     if (type.equals("GUI")) {
       return new PortfolioGUIController(im, iv);
     } else if (type.equals("CONSOLE")) {

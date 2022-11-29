@@ -26,13 +26,12 @@ public class TradingMVC {
     } else {
       throw new IllegalArgumentException("Type of User Interface Not Specified");
     }
-    if (type.equals("GUI") || type.equals("CONSOLE") ) {
-      //TODO:make changes to get correct model for gui and console.
+    if (type.equals("GUI") || type.equals("CONSOLE")) {
       IFlexible im = new FlexiblePortfolioImpl();
       IViewInterface iv = ViewFactory.generateViewFactory(type);
       PortfolioController controller = ControllerFactory.generateControllerFactory(type, iv, im);
       controller.start();
-    }  else {
+    } else {
       throw new IllegalArgumentException("Invalid Type of User Interface");
     }
   }

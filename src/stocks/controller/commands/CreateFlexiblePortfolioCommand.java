@@ -2,22 +2,25 @@ package stocks.controller.commands;
 
 import java.util.Scanner;
 
+import stocks.controller.ControllerValidations;
 import stocks.model.IFlexible;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
-public class CreateFlexiblePortfolioCommand extends ControllerValidations implements Command  {
+public class CreateFlexiblePortfolioCommand implements Command  {
 
   private final PortfolioView view;
   private final Scanner input;
 
   private IFlexible flexiblePortfolioTypeObj;
 
+  private ControllerValidations controllerValidations;
+
   public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input,IFlexible flexiblePortfolioTypeObj ){
-    super(view);
     this.view = view;
     this.input = input;
     this.flexiblePortfolioTypeObj=flexiblePortfolioTypeObj;
+    this.controllerValidations = new ControllerValidations(view);
   }
 
   @Override
@@ -29,7 +32,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private void createFlexiblePortfolioForCurrentUser(IFlexible portfolio) {
     view.getPortfolioName();
     String portfolioName = input.nextLine();
-    if (validateIfPortfolioExists(portfolioName, portfolio)) {
+    if (controllerValidations.validateIfPortfolioExists(portfolioName, portfolio)) {
       createFlexiblePortfolioForCurrentUser(portfolio);
     }
     buyOrSellStocksHelper(portfolio, portfolioName);
@@ -38,7 +41,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private void buyOrSellStocksHelper(IFlexible portfolio, String portfolioName) {
     view.displayMessageToBuyOrSell();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       buyOrSellStocksHelper(portfolio, portfolioName);
     }
     if (option.equals("1")) {
@@ -50,7 +53,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
       try {
         portfolio.buyStocks(companyName, quantity, date, com,portfolioName);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     } else if (option.equals("2")) {
       String companyName = companyHelper1(portfolio);
@@ -60,7 +63,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
       try {
         portfolio.sellStocks(companyName, quantity, date, com,portfolioName);
       } catch (IllegalArgumentException e) {
-        view.displayErrorMessage(e.getMessage());
+        view.displayMessage(e.getMessage());
       }
     }
     continueBuyingOrSellingInPortfolio(portfolio, portfolioName);
@@ -70,7 +73,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;
@@ -79,7 +82,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private String commissionHelper1(){
     view.getCommission();
     String com = input.nextLine();
-    if (commissionHelper(com)) {
+    if (controllerValidations.commissionHelper(com)) {
       return commissionHelper1();
     }
     return com;
@@ -88,7 +91,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private String quantityHelper1() {
     view.getQuantity();
     String quantity = input.nextLine();
-    if (quantityHelper(quantity)) {
+    if (controllerValidations.quantityHelper(quantity)) {
       return quantityHelper1();
     }
     return quantity;
@@ -97,7 +100,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio,companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -106,7 +109,7 @@ public class CreateFlexiblePortfolioCommand extends ControllerValidations implem
   private void continueBuyingOrSellingInPortfolio(IFlexible portfolio, String portfolioName) {
     view.checkIfUserWantsToContinueUpdatingPortfolio();
     String option = input.nextLine();
-    if (validateInputsFromUSer(option)) {
+    if (controllerValidations.validateInputsFromUSer(option)) {
       continueBuyingOrSellingInPortfolio(portfolio, portfolioName);
     }
     if (option.equals("1")) {
