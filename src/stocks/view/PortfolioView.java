@@ -8,7 +8,7 @@ import java.util.Map;
  * This interface acts as view for virtual-trading application.
  * It has implemented methods required for displaying messages and outputs to user.
  */
-public interface PortfolioView {
+public interface PortfolioView extends IViewInterface {
 
 
   /**
@@ -86,11 +86,6 @@ public interface PortfolioView {
    */
   void displayComposition(List<List<String>> records);
 
-
-  /**
-   * displays the given error message.
-   */
-  void displayErrorMessage(String message);
 
 
   /**

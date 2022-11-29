@@ -1,11 +1,12 @@
 package stocks;
 
+
+import stocks.controller.ControllerFactory;
 import stocks.controller.PortfolioController;
-import stocks.controller.PortfolioControllerImpl;
-import stocks.model.PortfolioModel;
-import stocks.model.PortfolioModelImpl;
-import stocks.view.PortfolioView;
-import stocks.view.PortfolioViewImpl;
+import stocks.model.FlexiblePortfolioImpl;
+import stocks.model.IFlexible;
+import stocks.view.IViewInterface;
+import stocks.view.ViewFactory;
 
 /**
  * Demonstrates a virtual trading Application. The application is
@@ -19,9 +20,19 @@ public class TradingMVC {
    * @param args Not used.
    */
   public static void main(String[] args) {
-    PortfolioView view = new PortfolioViewImpl(System.out);
-    PortfolioModel model = new PortfolioModelImpl();
-    PortfolioController controller = new PortfolioControllerImpl(model, System.in, view);
-    controller.start();
+    String type = "";
+    if (args.length != 0) {
+      type = args[0].toUpperCase();
+    } else {
+      throw new IllegalArgumentException("Type of User Interface Not Specified");
+    }
+    if (type.equals("GUI") || type.equals("CONSOLE")) {
+      IFlexible im = new FlexiblePortfolioImpl();
+      IViewInterface iv = ViewFactory.generateViewFactory(type);
+      PortfolioController controller = ControllerFactory.generateControllerFactory(type, iv, im);
+      controller.start();
+    } else {
+      throw new IllegalArgumentException("Invalid Type of User Interface");
+    }
   }
 }

@@ -123,7 +123,7 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
 
-  @Override
+ @Override
   public void displayPortfolioPerformance(Map<String,
           Double> mapToPlot, String date1,
                                           String date2,
@@ -150,6 +150,7 @@ public class PortfolioViewImpl implements PortfolioView {
     out.println("Scale: *=$" + base / 5);
   }
 
+
   @Override
   public void getCommission() {
     out.println(
@@ -159,7 +160,7 @@ public class PortfolioViewImpl implements PortfolioView {
   @Override
   public void displayComposition(List<List<String>> records) {
     if (records == null || records.isEmpty()) {
-      displayErrorMessage("Composition is not available for given date");
+      displayMessage("Composition is not available for given date");
     }
     if (records != null && !records.isEmpty()) {
       for (int i = 0; i < records.size(); i++) {
@@ -179,7 +180,7 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
   @Override
-  public void displayErrorMessage(String message) {
+  public void displayMessage(String message) {
     out.println(message);
   }
 
@@ -190,4 +191,8 @@ public class PortfolioViewImpl implements PortfolioView {
             + " 3: To update loaded portfolio.");
   }
 
+  @Override
+  public String interfaceInUse() {
+    return "console";
+  }
 }

@@ -18,14 +18,14 @@ public interface PortfolioModel {
    */
   double getTotalValueOfPortfolioOnCertainDate(String date,
                                                String portfolioName,
-                                               Portfolio portfolio);
+                                               IFlexible portfolio);
 
   /**
    * creates a portfolio using the data given by user in a file format.
    *
    * @param filePath the path of the file where the stocks data is entered by the user.
    */
-  void loadPortfolioUsingFilePath(String filePath, Portfolio portfolio);
+  void loadPortfolioUsingFilePath(String filePath, IFlexible portfolio);
 
   /**
    * gives the information about the given portfolio's composition.
@@ -34,35 +34,35 @@ public interface PortfolioModel {
    * @return the composition of portfolio in a list format.
    */
   List<List<String>> viewCompositionOfCurrentPortfolio(
-          String portfolioName, String date, Portfolio portfolio);
+          String portfolioName, String date, IFlexible portfolio);
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.
    *
    * @param portfolioName the name of the portfolio for which file needs to be written.
    */
-  void createPortfolioIfCreatedManually(String portfolioName, Portfolio portfolio);
+  void createPortfolioIfCreatedManually(String portfolioName, IFlexible portfolio);
 
   /**
    * validate if the given company name is one among the stocks supported by this application.
    *
    * @param companyName the stock name to be validated.
    */
-  void validateIfCompanyExists(String companyName, Portfolio portfolio);
+  void validateIfCompanyExists(String companyName, IFlexible portfolio);
 
   /**
    * validate if the given portfolio is already persisted.
    *
    * @param portfolioName the portfolio to be validated.
    */
-  void validateIfPortfolioAlreadyExists(String portfolioName, Portfolio portfolio);
+  void validateIfPortfolioAlreadyExists(String portfolioName, IFlexible portfolio);
 
   /**
    * validate if the given portfolio is not already present.
    *
    * @param name the name of the portfolio to be validated.
    */
-  void validateIfPortfolioDoesntExists(String name, Portfolio portfolio);
+  void validateIfPortfolioDoesntExists(String name, IFlexible portfolio);
 
   /**
    * Buy stocks of a company and add to the portfolio.
@@ -91,7 +91,7 @@ public interface PortfolioModel {
    */
   void sellStocks(String companyName, String quantity,
                   String date, String portfolioName,
-                  String com, Portfolio portfolio)
+                  String com, IFlexible portfolio)
           throws IllegalArgumentException;
 
   /**
@@ -109,7 +109,7 @@ public interface PortfolioModel {
    */
   void updatePortfolio(String companyName, String quantity,
                        String date, String portfolioName,
-                       Portfolio portfolio, String action, String com)
+                       IFlexible portfolio, String action, String com)
           throws IllegalArgumentException;
 
   /**
@@ -128,7 +128,7 @@ public interface PortfolioModel {
    */
   void updatePortfolioUsingFilePath(String path, String companyName,
                                     String quantity, String date, String portfolioName,
-                                    Portfolio portfolio, String action, String com)
+                                    IFlexible portfolio, String action, String com)
           throws IllegalArgumentException;
 
   /**
@@ -140,7 +140,7 @@ public interface PortfolioModel {
    * @return returns total amount invested till this date along with commission.
    */
   double getTotalMoneyInvestedOnCertainDate(String date,
-                                            String portfolioName, Portfolio portfolio);
+                                            String portfolioName, IFlexible portfolio);
 
   /**
    * get portfolioPerformance over the range of time.
@@ -153,7 +153,7 @@ public interface PortfolioModel {
    */
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
                                                       String endTime, String portfolioName,
-                                                      Portfolio portfolio);
+                                                      IFlexible portfolio);
 
 
   Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path);

@@ -1,5 +1,6 @@
 package stocks.model;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,22 +10,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customapi.APICustomInterface;
 import stocks.customapi.CompanyTickerSymbol;
 
 
 /**
  * This class represents a Flexible Portfolio.
  */
-public class FlexiblePortfolioImpl extends AbstractPortfolio {
+public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexible {
   private static String action;
 
-  private static final String format = "YYYY-MM-dd";
+  private static final String format = "yyyy-MM-dd";
 
-  public FlexiblePortfolioImpl(APICustomInterface apiCustomInterface) {
-    super(apiCustomInterface);
+  public FlexiblePortfolioImpl(){
+    super();
   }
-
 
   @Override
   public void buyStocks(String companyName, String quantity,
@@ -347,7 +346,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       if (checkIfDateIsLessThanGivenDate(date, stock)) {
         List<String> temp = new ArrayList<>();
         temp.add(stock.getCompanyTickerSymbol());
-        temp.add(String.valueOf(stock.getQty()));
+        temp.add(String.format("%.2f",stock.getQty()));
         temp.add(stock.getDateOfAction());
         temp.add(stock.getAction());
         return temp;
@@ -371,6 +370,62 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
     }
   }
 
+
+
+  @Override
+  public void createEmptyPortfolio(String portfolioName, String portfolioType) {
+    if (portfolioName == null || portfolioName.equals("")) {
+      throw new IllegalArgumentException("Invalid portfolioName provided");
+    }
+    this.portfolioName = portfolioName;
+    Map<String,List<Stock>> emptyMap = new HashMap<>();
+    stockMap.put(portfolioName,emptyMap);
+    parser.writeIntoFile(portfolioName, emptyMap, "flexible");
+  }
+
+  @Override
+  public List<String> getListOfPortfolioNames() {
+
+    String[] pathnames;
+    String path="userPortfolios/";
+    File f = new File(path);
+    // Populates the array with names of files and directories
+    pathnames = f.list();
+    List<String> list=new ArrayList<>();
+    // For each pathname in the pathnames array
+    for (String pathname : pathnames) {
+      String type =parser.getTypeOfLoadedFile(path+pathname);
+      if(type.equalsIgnoreCase("flexible")){
+        System.out.println(parser.getPortfolioNameFromFileName(pathname));
+        list.add(parser.getPortfolioNameFromFileName(pathname));
+      }
+    }
+
+    return list;
+  }
+
+  @Override
+  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
+    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
+    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+  }
+
+  @Override
+  public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) throws IllegalArgumentException {
+    StrategyInterface strategy = new FixedCostStrategyImpl(date,this);
+
+    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+
+  }
+
+  @Override
+  public List<String> getStocksInPortfolio(String portfolioName) {
+    this.portfolioName = portfolioName;
+    Map<String,List<Stock>>  map = stockMap.get(portfolioName);
+    return new ArrayList<String>(map.keySet());
+  }
+
+
   private void printMap(Map<String, List<Stock>> stockMap) {
     for (Map.Entry<String, List<Stock>> entry : stockMap.entrySet()) {
       System.out.println(entry.getKey() + " values is ");
@@ -383,6 +438,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
 
     }
   }
+
+
+
 
   @Override
   public Map<String, Double> getPortfolioPerformanceOvertime(
@@ -444,6 +502,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio {
       //do nothing
     }
   }
+
 
   private void validateInputsForBuy(String companyName,
                                     String quantity, String date,
