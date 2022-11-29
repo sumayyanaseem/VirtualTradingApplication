@@ -29,7 +29,11 @@ public class PortfolioPerformance {
 
   private boolean isLeapYear(String y) {
     int year = Integer.parseInt(y);
-    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   private long yearsBetween(String date1, String date2) {
