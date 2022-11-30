@@ -123,7 +123,7 @@ abstract class AbstractPortfolio implements Portfolio {
    *
    * @param date given date.
    */
-  protected void validateDate(String date) {
+  protected void validateDate(String date) throws IllegalArgumentException {
     String format = "yyyy-MM-dd";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
     try {

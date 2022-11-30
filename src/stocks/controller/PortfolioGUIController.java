@@ -32,6 +32,12 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void buyStock(String ticker, String date, String qty, String comm, String pName) {
     try {
+      try {
+        double d = Integer.parseInt(qty);
+      } catch (NumberFormatException nfe) {
+        view.displayMessage("quantity should be an integer");
+        return;
+      }
       model.updatePortfolio(ticker, qty, date, pName, "buy", comm);
       view.displayMessage("Bought stocks successfully");
     } catch (Exception e) {
@@ -73,8 +79,18 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
-  public double getTotalValue(String pName, String date) {
-    return model.getTotalValueOfPortfolioOnCertainDate(date, pName);
+  public double getTotalValue (String pName, String date) throws IllegalArgumentException{
+    double val=0.0;
+    try {
+      val = model.getTotalValueOfPortfolioOnCertainDate(date, pName);
+    }
+    catch(Exception e)
+    {
+      view.displayMessage("Error while trying to sell the stock : " + e.getMessage());
+      throw new IllegalArgumentException(e);
+    }
+
+    return val;
   }
 
   @Override

@@ -108,8 +108,14 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
 
 
     viewTotalValueBtn.addActionListener(l -> {
-
-      double value = feature.getTotalValue(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
+      double value;
+      try {
+        value = feature.getTotalValue(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
+      }
+      catch(Exception e)
+      {
+        return;
+      }
       String detailedOutput = "Total value of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + value;
       viewPortfolioJTextArea.setText(detailedOutput);
 
