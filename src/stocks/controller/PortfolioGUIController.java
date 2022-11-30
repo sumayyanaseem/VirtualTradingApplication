@@ -96,9 +96,4 @@ public class PortfolioGUIController implements Features, PortfolioController {
   public void start() {
 
   }
-
-  @Override
-  public List<String> getStocksInPortfolio(String portfolioName){
-    return model.getStocksInPortfolio(portfolioName);
-  }
 }

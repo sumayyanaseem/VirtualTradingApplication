@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Locale;
 
-import stocks.customapi.CompanyTickerSymbol;
 import stocks.model.Portfolio;
 import stocks.view.IViewInterface;
 
@@ -51,7 +50,7 @@ public class ControllerValidations {
   }
 
   public boolean dateHelperInFlexiblePortfolio(String date,String companyName) {
-    if (validateDate(date) || validateDateToCheckIfBeforeIPO(date, companyName)) {
+    if (validateDate(date)) {
       return true;
     }
     return false;
@@ -184,29 +183,6 @@ public class ControllerValidations {
     } catch (IllegalArgumentException e) {
       view.displayMessage(e.getMessage());
       return true;
-    }
-    return false;
-  }
-
-  public boolean validateDateToCheckIfBeforeIPO(String date, String companyName) {
-    for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
-      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
-        try {
-          Date givenDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(date);
-          Date ipoDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                  .parse(companyTickerSymbol.getEndDate());
-
-          if (givenDate.compareTo(ipoDate) < 0) {
-            view.displayMessage("Given date is before IPO Date.Please provide a valid date.");
-            return true;
-          }
-          break;
-        } catch (ParseException e) {
-          view.displayMessage(e.getMessage());
-          return true;
-        }
-      }
     }
     return false;
   }

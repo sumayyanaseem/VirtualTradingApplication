@@ -21,6 +21,4 @@ public interface Features {
   List<List<String>> viewComposition(String pName, String date);
 
   void exitTheProgram();
-
-  List<String> getStocksInPortfolio(String portfolioName);
 }

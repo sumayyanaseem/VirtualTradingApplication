@@ -34,7 +34,20 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     }
 
     if (dateStart == null || dateStart.equals("")) {
-      throw new IllegalArgumentException("date can't be empty or null");
+      throw new IllegalArgumentException("Date can't be empty or null");
+    }
+
+    if (stockAndPercent == null || stockAndPercent.isEmpty()) {
+      throw new IllegalArgumentException("Stocks and weights map provided is empty.");
+    }
+
+
+    if (investmentAmount <=0) {
+      throw new IllegalArgumentException("amount cant be less than 0");
+    }
+
+    if (commissionFee <= 0) {
+      throw new IllegalArgumentException("commission fee cant be less than 0");
     }
 
     validateDateFormat(dateStart);
@@ -44,27 +57,13 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
     LocalDate dateStartObj = LocalDate.parse(dateStart, formatter);
 
-
-    validateMapAndValuesForDollarCostStrategy(stockAndPercent, investmentAmount,
-             commissionFee);
+    validateMapAndValuesForDollarCostStrategy(stockAndPercent);
 
 
 
     LocalDate dateToInvest = dateStartObj;
     Calendar cal = GregorianCalendar.from(dateToInvest.atStartOfDay(
             ZoneId.systemDefault()));
-
-    LocalDate actualDateOfInvestment = dateStartObj;
-
-
-    //try to understand why this is needed and make equivalent change in our code
-
-   /* PortfolioInterface portfolio = getPortfolio(portfolioName);
-
-    if (portfolio == null) {
-      portfolio = new Portfolio(portfolioName.trim().toUpperCase());
-      this.portfolios.add(portfolio);
-    }*/
 
 
     while(isHoliday(cal))
@@ -85,29 +84,12 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
 
   private void validateMapAndValuesForDollarCostStrategy(
-          Map<String, Double> stockAndPercent,
-          double investmentAmount,
-          double commissionFee)
+          Map<String, Double> stockAndPercent)
           throws IllegalArgumentException {
-
-
-    if (stockAndPercent != null && stockAndPercent.size()<1) {
-      throw new IllegalArgumentException("Portfolio should consist atleast one stock to apply "
-              + "dollar cost strategy");
-    }
 
 
     for (String stockName : stockAndPercent.keySet()) {
       flexible.validateIfCompanyExists(stockName.trim().toUpperCase());
-    }
-
-
-    if (investmentAmount < 0.00) {
-      throw new IllegalArgumentException("amount cant be less than 0");
-    }
-
-    if (commissionFee < 0.00) {
-      throw new IllegalArgumentException("commission fee cant be less than 0");
     }
 
     validateMapEntriesAndPercent(stockAndPercent);
@@ -211,11 +193,11 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     double sharesCount = (double) ( amount / pricePerStock );
 
     if (sharesCount == 0.0) {
-      throw new IllegalArgumentException("shares can't be bought. You don't have enough funds");
+      throw new IllegalArgumentException("Shares can't be bought. You don't have enough funds");
     }
 
     String qtyStr = String.format("%.2f",sharesCount);
-    System.out.println(qtyStr);
+   // System.out.println(qtyStr);
     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr ,
             date, portfolioName,
             "buy", String.valueOf(commissionFee));

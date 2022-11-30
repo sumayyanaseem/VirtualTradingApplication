@@ -10,6 +10,7 @@ import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IFlexible;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DollarCostAveragingTest {
@@ -84,6 +85,15 @@ public class DollarCostAveragingTest {
     }
     assertEquals(actual,expected);
 
+    expected="Stocks and weights map provided is empty.";
+    actual="";
+    try {
+      flexible.dollarCostStrategy(pName,new HashMap<>(),10000,commission,5, "2022-10-01","2022-10-01");
+    } catch (Exception e) {
+      actual=e.getMessage();
+    }
+    assertEquals(actual,expected);
+
     expected="Amount cant be less than 0";
     actual="";
     try {
@@ -113,13 +123,19 @@ public class DollarCostAveragingTest {
       flexible.createEmptyPortfolio(pName,"flexible");
       flexible.dollarCostStrategy(pName,stockAndPercent,10000,commission,5,"2020-01-01", "2021-03-31");
       List<List<String>> results=flexible.viewCompositionOfCurrentPortfolio(pName,"2020-01-31");
+      StringBuilder  dates=new StringBuilder();
       for(List<String> list:results){
-          String dates=list.get(2).toString();
-          System.out.println(dates.charAt(1));
-         //assertTrue(s.contains("2020-01-02"));
-         //assertFalse(s.contains("2020-01-01"));
-
+          dates.append(list.get(2).toString());
       }
+      assertTrue(dates.toString().contains("2020-01-02"));
+      //Jan 1st is holiday and is not included.
+      assertFalse(dates.toString().contains("2020-01-01"));
+      //Dec 25th
+      assertFalse(dates.toString().contains("2020-12-25"));
+      //July 4th
+      assertFalse(dates.toString().contains("2020-07-04"));
+      //Nov 11
+      assertFalse(dates.toString().contains("2020-11-11"));
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
