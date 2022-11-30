@@ -74,11 +74,6 @@ public class PortfolioGUIControllerTest {
     }
 
     @Override
-    public List<String> getStocksInPortfolio(String portfolioName) {
-      return null;
-    }
-
-    @Override
     public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
       return 0;
     }

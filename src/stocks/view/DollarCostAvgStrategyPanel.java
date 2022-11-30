@@ -75,8 +75,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                     .addComponent(enterIntervalJTextField)
                     .addComponent(enterCommissionJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterCommissionJTextField)
-                    .addComponent(displayStocksJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(displayStocks)
+
                     .addComponent(enterStockAndPercentsJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStockAndPercentsJTextField)
 
@@ -112,10 +111,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                             .addComponent(enterCommissionJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
-                            .addComponent(displayStocksJLabel)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(displayStocks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
+
 
                             .addComponent(enterStockAndPercentsJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -131,27 +127,8 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
 
   @Override
   public void delegateActions(Features feature) {
-    portfolioNamesJCombo.addActionListener(l -> {
-      String display = "";
-      int count = 1;
-      for (String stock : feature.getStocksInPortfolio(portfolioNamesJCombo.getSelectedItem().toString())) {
-        display = display + count + ". " + stock + "\n";
-        count++;
-      }
 
-      display = display.trim();
-      displayStocks.setText(display);
-
-    });
     investBtn.addActionListener(l -> {
-     /* Validator v = new Validator();
-      if (v.checkDateValidity(enterDateJTextField.getText())) {
-        return;
-      } else if (v.checkNumberOfStocksValidity(enterStocksJTextField.getText())) {
-        return;
-      } else if (v.checkCommissionValidity(enterCommissionJTextField.getText())) {
-        return;
-      }*/
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
       double investmentAmount = Double.valueOf(enterAmountJTextField.getText());
       double commissionFee = Double.valueOf(enterCommissionJTextField.getText());

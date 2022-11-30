@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import stocks.customapi.CompanyTickerSymbol;
-
 
 /**
  * This class represents a Flexible Portfolio.
@@ -394,10 +392,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
     List<String> list=new ArrayList<>();
     // For each pathname in the pathnames array
     for (String pathname : pathnames) {
-      String type =parser.getTypeOfLoadedFile(path+pathname);
-      if(type.equalsIgnoreCase("flexible")){
-        System.out.println(parser.getPortfolioNameFromFileName(pathname));
-        list.add(parser.getPortfolioNameFromFileName(pathname));
+      if(!pathname.contains("test")) {
+        String type = parser.getTypeOfLoadedFile(path + pathname);
+        if (type.equalsIgnoreCase("flexible")) {
+          System.out.println(parser.getPortfolioNameFromFileName(pathname));
+          list.add(parser.getPortfolioNameFromFileName(pathname));
+        }
       }
     }
 
@@ -416,13 +416,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
     strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
 
-  }
-
-  @Override
-  public List<String> getStocksInPortfolio(String portfolioName) {
-    this.portfolioName = portfolioName;
-    Map<String,List<Stock>>  map = stockMap.get(portfolioName);
-    return new ArrayList<String>(map.keySet());
   }
 
 
@@ -455,21 +448,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       }
       PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
       return portfolioPerformance.displayCopy(startTime, endTime, portfolioName);
-    } catch (Exception e) {
-      // do nothing
-    }
-    return null;
-  }
-
-  @Override
-  public Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path) {
-    validatePortfolioPerformanceInputs(startDate, endDate, portfolioName);
-    try {
-
-      Map<String, List<Stock>> detailsMap = parser.readFromPathProvidedByUser(path);
-      //create a new map here and pass it to PortfolioPerformance
-      PortfolioPerformance portfolioPerformance = new PortfolioPerformance(detailsMap);
-      return portfolioPerformance.displayCopy(startDate, endDate, portfolioName);
     } catch (Exception e) {
       // do nothing
     }
@@ -552,24 +530,12 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   private void validateDateToCheckIfBeforeIPO(String date, String companyName) {
-    for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
-      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
-        try {
-          Date givenDate = new SimpleDateFormat(format, Locale.ENGLISH)
-                  .parse(date);
-          Date ipoDate = new SimpleDateFormat(format, Locale.ENGLISH)
-                  .parse(companyTickerSymbol.getEndDate());
-
-          if (givenDate.compareTo(ipoDate) < 0) {
-            throw new IllegalArgumentException("Given date "
-                    + "is before IPO Date.Please provide a valid date.");
-          }
-          break;
-        } catch (ParseException e) {
-          throw new IllegalArgumentException(e.getMessage());
-        }
-      }
+    try {
+      apiCustomInterface.checkIPODate(companyName,date);
+    } catch(Exception e ){
+      throw new IllegalArgumentException(e.getMessage());
     }
+
   }
 
 }

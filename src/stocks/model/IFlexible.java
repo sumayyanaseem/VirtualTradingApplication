@@ -63,7 +63,7 @@ public interface IFlexible extends Portfolio{
    */
   Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
                                                       String endTime,
-                                                      String portfolioName);
+                                                      String portfolioName) throws IllegalArgumentException;
 
 
   /**
@@ -91,8 +91,7 @@ public interface IFlexible extends Portfolio{
 
   List<String> getListOfPortfolioNames();
 
-   void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) ;
-   void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,double investmentAmount,double commissionFee,String date);
+   void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) throws IllegalArgumentException;
+   void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,double investmentAmount,double commissionFee,String date) throws IllegalArgumentException;
 
-  List<String> getStocksInPortfolio(String portfolioName);
   }

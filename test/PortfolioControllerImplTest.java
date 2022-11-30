@@ -78,7 +78,7 @@ public class PortfolioControllerImplTest {
     String expected = "Enter 1: To create a Portfolio "
             + "2: To query the portfolio details 3: To load a Portfolio";
     String exp1 = "Enter the name of the company\n";
-    in = new ByteArrayInputStream("1\n1\nsample\n1\ndash\n200\n".getBytes());
+    in = new ByteArrayInputStream("1\n1\nsample12\n1\ndash\n200\n".getBytes());
     portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();

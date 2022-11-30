@@ -38,6 +38,50 @@ public class APICustomClass implements APICustomInterface {
     return price;
   }
 
+  @Override
+  public void checkIPODate(String companyName,String date){
+    Date availableDateObj = null;
+    Date givenDateObj;
+    boolean flag=false;
+    String[] lines = getStockRecordsForCompany(companyName);
+    if (lines == null) {
+      String output = fetchOutputStringFromURLByInterval(companyName, "DAILY");
+      lines = output.split(System.lineSeparator());
+    }
+    List<List<String>> records = new ArrayList<>();
+    for (int i = 1; i < lines.length; i++) {
+      String[] values = lines[i].split(",");
+      records.add(Arrays.asList(values));
+    }
+    try {
+      givenDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+              .parse(date);
+      for (List<String> record : records) {
+        List<String> infoByDate = new ArrayList<>(record);
+        String availableDate = infoByDate.get(0);
+        availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                .parse(availableDate);
+        if (availableDateObj.compareTo(givenDateObj) <= 0) {
+          flag=true;
+          break;
+        }
+
+      }
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("file not found in our records "
+              + "for given company " + companyName);
+    }
+
+
+    if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
+      if(!flag){
+        throw new IllegalArgumentException("Given date "
+                + "is before IPO Date.Please provide a valid date.");
+      }
+    }
+
+  }
+
 
   @Override
   public double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date) {

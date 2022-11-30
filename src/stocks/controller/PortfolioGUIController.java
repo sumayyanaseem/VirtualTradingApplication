@@ -15,6 +15,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
     model = m;
     this.view = (PortfolioGUIView) v;
     view.addFeatures(this);
+    view.updatePortfolioList(model.getListOfPortfolioNames());
   }
 
   @Override
@@ -94,10 +95,5 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void start() {
 
-  }
-
-  @Override
-  public List<String> getStocksInPortfolio(String portfolioName){
-    return model.getStocksInPortfolio(portfolioName);
   }
 }

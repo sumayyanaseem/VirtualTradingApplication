@@ -1,7 +1,6 @@
 package stocks.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * This interface acts as model for virtual-trading application.
@@ -17,14 +16,14 @@ public interface Portfolio {
    * @param portfolioName the portfolio for which total value is needed.
    * @return the total value calculated for given date.
    */
-  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName);
+  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) throws IllegalArgumentException;
 
   /**
    * creates a portfolio using the data given by user in a file format.
    *
    * @param filePath the path of the file where the stocks data is entered by the user.
    */
-  void loadPortfolioUsingFilePath(String filePath);
+  void loadPortfolioUsingFilePath(String filePath) throws IllegalArgumentException;
 
   /**
    * gives the information about the given portfolio's composition.
@@ -32,35 +31,35 @@ public interface Portfolio {
    * @param portfolioName the name of the portfolio for which composition is needed.
    * @return the composition of portfolio in a list format.
    */
-  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date);
+  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) throws IllegalArgumentException;
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.
    *
    * @param portfolioName the name of the portfolio for which file needs to be written.
    */
-  void createPortfolioIfCreatedManually(String portfolioName);
+  void createPortfolioIfCreatedManually(String portfolioName) throws IllegalArgumentException;
 
   /**
    * validate if the given company name is one among the stocks supported by this application.
    *
    * @param companyName the stock name to be validated.
    */
-  void validateIfCompanyExists(String companyName);
+  void validateIfCompanyExists(String companyName) throws IllegalArgumentException;
 
   /**
    * validate if the given portfolio is already persisted.
    *
    * @param portfolioName the portfolio to be validated.
    */
-  void validateIfPortfolioAlreadyExists(String portfolioName);
+  void validateIfPortfolioAlreadyExists(String portfolioName) throws IllegalArgumentException;
 
   /**
    * validate if the given portfolio is not already present.
    *
    * @param name the name of the portfolio to be validated.
    */
-  void validateIfPortfolioDoesntExists(String name);
+  void validateIfPortfolioDoesntExists(String name) throws IllegalArgumentException ;
 
 
   /**
@@ -76,5 +75,4 @@ public interface Portfolio {
 
 
 
-  Map<String, Double> getPortfolioPerformanceOvertimeForCurrentInstance(String startDate, String endDate, String name, Portfolio portfolio, String path);
 }
