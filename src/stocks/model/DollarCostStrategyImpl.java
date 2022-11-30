@@ -11,6 +11,8 @@ import java.util.Map;
 
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
+import stocks.customparser.CustomParser;
+import stocks.customparser.JsonParserImplementation;
 
 
 public class DollarCostStrategyImpl implements StrategyInterface {
