@@ -24,5 +24,5 @@ public interface APICustomInterface {
    */
   double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date);
 
-  void checkIPODate(String companyName,String date);
+  void checkIPODate(String companyName,String date) throws IllegalArgumentException;
 }
