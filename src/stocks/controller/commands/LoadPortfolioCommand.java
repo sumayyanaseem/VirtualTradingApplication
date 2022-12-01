@@ -40,7 +40,8 @@ public class LoadPortfolioCommand implements Command {
    * @param filePath                   the path of file to be loaded.
    */
   public LoadPortfolioCommand(PortfolioView view,
-                              Portfolio inflexiblePortfolioTypeObj, IFlexible flexiblePortfolioTypeObj, String filePath) {
+                              Portfolio inflexiblePortfolioTypeObj,
+                              IFlexible flexiblePortfolioTypeObj, String filePath) {
     this.view = view;
     this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;
     this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;

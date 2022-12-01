@@ -64,7 +64,8 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void investFixedAmountStrategy(String portfolioName,
-                                        Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+                                        Map<String, String> stockAndPercent,
+                                        double investmentAmount, double commissionFee, String date) {
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
@@ -88,7 +89,9 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void dollarCostStrategy(String portfolioName,
-                                 Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
+                                 Map<String, String> stockAndPercent,
+                                 double investmentAmount, double commissionFee,
+                                 int investmentInterval, String dateStart, String dateEnd) {
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
@@ -103,7 +106,8 @@ public class PortfolioGUIController implements Features, PortfolioController {
         stockPercentValues.put(entry.getKey(), val);
       }
       model.dollarCostStrategy(portfolioName,
-              stockPercentValues, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
+              stockPercentValues, investmentAmount,
+              commissionFee, investmentInterval, dateStart, dateEnd);
       view.displayMessage("Bought stocks via dollar cost strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());

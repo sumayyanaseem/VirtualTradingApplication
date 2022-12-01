@@ -77,27 +77,33 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(getEnterPortfolioNameJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(portfolioNamesJCombo, 0,
                             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJTextField)
                     .addComponent(enterStartDateJLabel,
                             GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addComponent(enterStartDateJTextField)
                     .addComponent(enterEndDateJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterEndDateJTextField)
                     .addComponent(enterIntervalJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterIntervalJTextField)
                     .addComponent(enterCommissionJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterCommissionJTextField)
 
                     .addComponent(enterStockAndPercentsJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStockAndPercentsJTextField)
 
                     .addComponent(investBtn));
@@ -110,39 +116,46 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                             .addComponent(getEnterPortfolioNameJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(portfolioNamesJCombo,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterAmountJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterAmountJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterStartDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterStartDateJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterEndDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterEndDateJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterIntervalJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(enterIntervalJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(enterCommissionJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterCommissionJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
 
                             .addComponent(enterStockAndPercentsJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterStockAndPercentsJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
 

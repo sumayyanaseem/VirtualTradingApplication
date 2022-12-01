@@ -54,7 +54,8 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
     jScrollPane = new JScrollPane();
 
 
-    portfoliosToViewJCombo.setModel(new DefaultComboBoxModel<>(portfolioList.toArray(new String[0])));
+    portfoliosToViewJCombo.setModel(
+            new DefaultComboBoxModel<>(portfolioList.toArray(new String[0])));
 
     viewTotalCostBasisBtn.setActionCommand("TOTAL_COST");
     viewTotalValueBtn.setActionCommand("TOTAL_VALUE");
@@ -70,9 +71,11 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
     layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane)
             .addComponent(enterPortfolioNameJLabel,
-                    GroupLayout.Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    GroupLayout.Alignment.LEADING, 0,
+                    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(portfoliosToViewJCombo,
-                    GroupLayout.Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    GroupLayout.Alignment.LEADING, 0,
+                    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(enterDateJLabel,
                     GroupLayout.Alignment.LEADING,
                     GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -81,13 +84,16 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
             .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createSequentialGroup()
                             .addComponent(viewPortfolioCompositionBtn,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                             .addComponent(viewTotalValueBtn,
-                                    GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
+                                    GroupLayout.PREFERRED_SIZE,
+                                    280, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                             .addComponent(viewTotalCostBasisBtn,
-                                    GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
+                                    GroupLayout.PREFERRED_SIZE,
+                                    280, GroupLayout.PREFERRED_SIZE))
             )
             .addGap(32, 32, 32));
     layout.setVerticalGroup(
@@ -98,12 +104,14 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
                             .addComponent(enterPortfolioNameJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(portfoliosToViewJCombo,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(16, 16, 16)
                             .addComponent(enterDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterDateJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(16, 16, 16)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(viewPortfolioCompositionBtn)
@@ -143,7 +151,8 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
         return;
       }
       String detailedOutput = "Total value of portfolio "
-              + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + value;
+              + portfoliosToViewJCombo.getSelectedItem().toString()
+              + " on " + enterDateJTextField.getText() + " is :" + value;
       viewPortfolioJTextArea.setText(detailedOutput);
 
       reset();
@@ -155,7 +164,8 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
       double totalCostBasis = feature.getCostBasis(
               portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
       String detailedOutput = "Total Cost Basis of portfolio "
-              + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + totalCostBasis;
+              + portfoliosToViewJCombo.getSelectedItem().toString()
+              + " on " + enterDateJTextField.getText() + " is :" + totalCostBasis;
       viewPortfolioJTextArea.setText(detailedOutput);
       reset();
       repaint();

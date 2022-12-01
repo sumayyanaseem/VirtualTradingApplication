@@ -16,8 +16,9 @@ public interface Portfolio {
    * @param portfolioName the portfolio for which total value is needed.
    * @return the total value calculated for given date.
    */
-  double getTotalValueOfPortfolioOnCertainDate(String date,
-                                               String portfolioName) throws IllegalArgumentException;
+  double getTotalValueOfPortfolioOnCertainDate(
+          String date,
+          String portfolioName) throws IllegalArgumentException;
 
   /**
    * creates a portfolio using the data given by user in a file format.

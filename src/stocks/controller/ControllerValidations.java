@@ -69,10 +69,7 @@ public class ControllerValidations {
    * @return valid/invalid date provided ?
    */
   public boolean dateHelper(String date) {
-    if (validateDate(date)) {
-      return true;
-    }
-    return false;
+    return validateDate(date);
   }
 
   /**

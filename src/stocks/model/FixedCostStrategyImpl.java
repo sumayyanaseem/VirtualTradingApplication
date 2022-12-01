@@ -39,7 +39,8 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
   @Override
   public void applyStrategyOnPortfolio(String portfolioName,
-                                       Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
+                                       Map<String, Double> stockAndPercent,
+                                       double investmentAmount, double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {

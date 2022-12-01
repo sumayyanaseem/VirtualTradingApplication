@@ -293,8 +293,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date,
-                                                      String portfolioName) throws IllegalArgumentException {
+  public double getTotalValueOfPortfolioOnCertainDate(
+          String date,
+          String portfolioName) throws IllegalArgumentException {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
@@ -418,8 +419,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   @Override
-  public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,
-                                  double investmentAmount, double commissionFee, String date) throws IllegalArgumentException {
+  public void fixedAmountStrategy(String portfolioName,
+                                  Map<String, Double> stockAndPercent,
+                                  double investmentAmount,
+                                  double commissionFee, String date) throws IllegalArgumentException {
     StrategyInterface strategy = new FixedCostStrategyImpl(date, this);
     strategy.applyStrategyOnPortfolio(portfolioName,
             stockAndPercent, investmentAmount, commissionFee);

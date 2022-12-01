@@ -46,7 +46,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
   @Override
   public void applyStrategyOnPortfolio(String portfolioName,
-                                       Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
+                                       Map<String, Double> stockAndPercent,
+                                       double investmentAmount, double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {
@@ -190,7 +191,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       double percentValue = stockEntry.getValue();
 
       if (percentValue < 0) {
-        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive percentages only");
+        throw new IllegalArgumentException("Specified percent value is negative. "
+                + "Please enter positive percentages only");
       }
       totalSum += percentValue;
 
