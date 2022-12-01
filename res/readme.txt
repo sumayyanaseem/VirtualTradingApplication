@@ -25,7 +25,17 @@
 18) Allows user to view the portfolio's performance over a range of time period. Currently we are supporting daily, weekly, monthly, quarterly
     and yearly time frames.
 
+Working features of GUI:
+------------------------
+We are supporting below functionalities for a flexible portfolio from GUI:
+1) creating a portfolio
+2) buy/sell stocks on newly created portfolios in that current session or on the portfolios created in the past
+3) Dollar cost and fixed cost strategies on newly created portfolios in that current session or on the portfolios created in the past
+4) View the details of newly created portfolios in that current session or on the portfolios created in the past.
+   view composition/ view total value/ view total cost basis are supported.
+5) Exit the application.
+
+
 Note:
-1. We are currently offering only a selected set of 25 companies to trade from. Given below are the Ticker symbols for these companies.
-( GOOG, AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
-2.Dates acceptable(From current date to IPO date).
+1. We are supporting all stocks available in alphavantage API.
+2. Dates acceptable(From current date to IPO date).

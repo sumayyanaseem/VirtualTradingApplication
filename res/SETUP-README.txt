@@ -27,6 +27,55 @@ D)To update a portfolio
 
 
 *********************************************************************************************************************
+setup - how to run our program ( Stocks Assignment - Part 3 )
+*********************************************************************************************************************
+
+
+Start program using:
+   for interacting with GUI:                java -jar Stocks.jar GUI
+   for interacting with text based UI:      java -jar Stocks.jar console
+
+Steps to be followed to use GUI:
+---------------------------------
+We have various buttons on the left pane of the GUI. When you click any button on the left pane, a corresponding
+right pane loads up where user needs to give inputs for whatever action he wishes to perform.
+
+1) Click on "create" button on the left. On the right pane, enter portfolio name and hit "create portfolio" button.
+   An empty portfolio gets created.
+
+2) Now if you wish to add stocks to this newly created portfolio, then click on "Buy" button in left pane.
+    On right pane, from the drop down select the portfolio which you just created.
+    enter all the required details asked in the exact format (if specified on the label of the field).
+    hit on "Buy Stocks" button.
+
+    (If you wish to buy stocks in other portfolios other than the one which was created just now, then select the
+    already existing portfolio from the dropdown and enter all other details required.)
+
+3) If you wish to sell the stocks from portfolio, then click on "Sell" button on left pane.
+    On right pane, select the portfolio from which you want to sell the stocks. enter all other required details
+    asked in the exact format (if specified on the label of the field). Hit the "Sell Stocks" button.
+
+4) If you wish to query details of any portfolio. Click on "View" button on left pane.
+    On right pane, select the portfolio that you want to query and enter the date as of which you want to query the portfolio details.
+    After entering these two values, then click on any of the three buttons below.
+    After clicking one button, if you wish to click any other button next, then enter the date again before clicking the other button.
+
+    a) "View Composition" button to list the details of all stocks in the portfolio.
+    b) "View Total Value" button to get the total value of portfolio as of specified date.
+    c) "View Total Cost" button to get the total cost basis as of the specified date.
+
+5) If you wish to apply dollar cost strategy on any portfolio ( may be newly created empty one or an existing portfolio )
+   Click on "Dollar Cost Strategy" button on left pane. On right pane, enter all the required details in specified formats.
+   and hit "invest" button.
+
+6)  If you wish to apply Fixed cost strategy on any portfolio ( may be newly created empty one or an existing portfolio )
+      Click on "Fixed Cost Strategy" button on left pane. On right pane, enter all the required details in specified formats.
+      and hit "invest" button.
+
+7) To exit the application, click on "Exit" button on left pane.
+
+
+*********************************************************************************************************************
 setup - how to run our program ( Stocks Assignment - Part 2 )
 ->to create a flexible portfolio with buy/sell transactions on 3 different stocks on different dates.
 ->query the value and cost basis of that portfolio on two specific dates

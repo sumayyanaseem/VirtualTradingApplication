@@ -4,11 +4,7 @@
 ******************************************************************************************************************************************************************
 DESIGN CHANGES:
 ******************************************************************************************************************************************************************
-1) Added an interface "Portfolio" which is implemented by both Flexible and InFlexible portfolios to let the model identify the type of portfolio and redirect the calls to the respective classes.
-
-2) Added an AbstractPortfolio class which implements Portfolio Interface. To remove the redundancy, we have moved the common functionality in
-   both Flexible Portfolio and Inflexible Portfolio to AbstractPortfolio class.
-
+1)
 3)Data Structure Change :
   Initially we were using Map<String, Stock> to store companies as keys and one Stock Class Object because we had only "add" action in inflexible portfolio.
   Currently, we are using Map<String, List<Stock>> to store multiple Stock objects for a single company. We need multiple Stock class Objects
