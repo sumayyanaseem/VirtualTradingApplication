@@ -23,7 +23,7 @@ import stocks.view.IViewInterface;
 import stocks.view.PortfolioView;
 
 /**
- * This class implements the methods of Portfolio Controller.
+ * This class implements the methods of Portfolio Controller for text based view.
  */
 public class PortfolioControllerImpl  implements PortfolioController {
   private String portfolioName;
@@ -41,6 +41,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
   private static final String flexibleType = "flexible";
 
   private static final String inflexibleType = "inflexible";
+
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.

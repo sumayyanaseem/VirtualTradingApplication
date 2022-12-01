@@ -75,6 +75,11 @@ public interface CustomParser {
                                    String companyName, String quantity,
                                    String action, String date, String com);
 
+
+  /**
+   * fetches the portfolio name from file name.
+   * @param fileName filename from which portfolio name needs to be fetched.
+   */
   String getPortfolioNameFromFileName(String fileName);
 
 

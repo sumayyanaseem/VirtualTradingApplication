@@ -24,5 +24,11 @@ public interface APICustomInterface {
    */
   double getStockPriceAsOfCertainDate(String companyTickerSymbol, double qty, String date);
 
+  /**
+   * checks if given date with the IPO date for a stock.
+   *
+   * @param companyName name of the company.
+   * @param date to check with IPO date .
+   */
   void checkIPODate(String companyName,String date) throws IllegalArgumentException;
 }

@@ -8,10 +8,19 @@ import stocks.model.IFlexible;
 import stocks.view.IViewInterface;
 import stocks.view.PortfolioGUIView;
 
+/**
+ * This class implements the methods of Portfolio Controller for GUI.
+ */
 public class PortfolioGUIController implements Features, PortfolioController {
   private final IFlexible model;
   private final PortfolioGUIView view;
 
+  /**
+   * Constructs PortfolioGUIController with given model and view objects.
+   *
+   * @param m    the model object.
+   * @param v  the view object.
+   */
   public PortfolioGUIController(IFlexible m, IViewInterface v) {
     model = m;
     this.view = (PortfolioGUIView) v;
