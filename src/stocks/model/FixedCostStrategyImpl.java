@@ -38,7 +38,8 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
 
   @Override
-  public void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
+  public void applyStrategyOnPortfolio(String portfolioName,
+                                       Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {
@@ -139,7 +140,8 @@ public class FixedCostStrategyImpl implements StrategyInterface {
       double percentValue = stockEntry.getValue();
 
       if (percentValue < 0) {
-        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive percentages only");
+        throw new IllegalArgumentException("Specified percent value is negative. "
+                + "Please enter positive percentages only");
       }
       totalSum += percentValue;
 
@@ -152,8 +154,8 @@ public class FixedCostStrategyImpl implements StrategyInterface {
   }
 
 
-  public void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
-                     double commissionFee, String date) throws IllegalArgumentException {
+  private void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
+                      double commissionFee, String date) throws IllegalArgumentException {
 
 
     for (Map.Entry<String, Double> entry : stockAndPercent.entrySet()) {
@@ -162,8 +164,9 @@ public class FixedCostStrategyImpl implements StrategyInterface {
       double percent = entry.getValue();
       double investment = (amount * percent) / 100.00;
 
-      if (investment == 0.0)
+      if (investment == 0.0) {
         continue;
+      }
 
       try {
         executeBuy(companyName, portfolioName, investment, date, commissionFee);
@@ -180,20 +183,13 @@ public class FixedCostStrategyImpl implements StrategyInterface {
   }
 
 
-  public void executeBuy(String tickerSymbol, String portfolioName, double amount,
-                         String date, double commissionFee)
+  private void executeBuy(String tickerSymbol, String portfolioName, double amount,
+                          String date, double commissionFee)
           throws IllegalArgumentException {
 
-    //validateDataofBuyShare(tickerSymbol, portfolioName, amount, date, commissionFee);
 
-
-    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(), 1, date);
-
-    /*if (sharePrice == 0.00) {
-
-      throw new IllegalArgumentException("stock data for the ticker " + tickerSymbol + ""
-              + " doesn't exist for the provided date");
-    }*/
+    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(
+            tickerSymbol.trim().toUpperCase(), 1, date);
 
     double sharesCount = amount / pricePerStock;
 
@@ -214,8 +210,9 @@ public class FixedCostStrategyImpl implements StrategyInterface {
   private boolean isHoliday(Calendar calInstance) {
 
 
-    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7)
+    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7) {
       return true;
+    }
 
     if (calInstance.get(Calendar.DAY_OF_WEEK) == 1) {
       return true;

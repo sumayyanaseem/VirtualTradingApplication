@@ -1,6 +1,13 @@
 package stocks.view;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
+
 
 import stocks.controller.Features;
 
@@ -43,9 +50,12 @@ public class CreatePortfolioPanel extends JPanel implements PanelInterface {
                     .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(portfolioNameLabel, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(portfolioNameLabel,
+                                            GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(createPortfolioBtn, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                            .addComponent(createPortfolioBtn,
+                                                    GroupLayout.Alignment.LEADING,
+                                                    GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                                             .addComponent(portfolioNameInputTxtField, GroupLayout.Alignment.LEADING)))
                             .addContainerGap(278, Short.MAX_VALUE))
     );
@@ -55,7 +65,8 @@ public class CreatePortfolioPanel extends JPanel implements PanelInterface {
                             .addContainerGap()
                             .addComponent(portfolioNameLabel)
                             .addGap(18, 18, 18)
-                            .addComponent(portfolioNameInputTxtField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(portfolioNameInputTxtField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(createPortfolioBtn)
                             .addContainerGap(400, Short.MAX_VALUE))

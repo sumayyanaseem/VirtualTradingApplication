@@ -20,7 +20,7 @@ public class ControllerValidations {
   private final IViewInterface view;
 
   /**
-   * Constructs the ControllerValidations object by taking view object as input
+   * Constructs the ControllerValidations object by taking view object as input.
    *
    * @param view represents view object
    */
@@ -83,10 +83,7 @@ public class ControllerValidations {
    * @return valid/invalid date provided ?
    */
   public boolean dateHelperInFlexiblePortfolio(String date, String companyName) {
-    if (validateDate(date)) {
-      return true;
-    }
-    return false;
+    return validateDate(date);
   }
 
   /**
@@ -97,10 +94,7 @@ public class ControllerValidations {
    * @return valid/invalid company provided ?
    */
   public boolean companyHelper(Portfolio portfolio, String companyName) {
-    if (validateIfCompanyExists(companyName, portfolio)) {
-      return true;
-    }
-    return false;
+    return validateIfCompanyExists(companyName, portfolio);
   }
 
   /**
@@ -110,10 +104,7 @@ public class ControllerValidations {
    * @return valid/invalid company provided ?
    */
   public boolean quantityHelper(String quantity) {
-    if (validateQuantity(quantity)) {
-      return true;
-    }
-    return false;
+    return validateQuantity(quantity);
   }
 
 
@@ -124,10 +115,7 @@ public class ControllerValidations {
    * @return valid/invalid commission provided ?
    */
   public boolean commissionHelper(String com) {
-    if (validateCom(com)) {
-      return true;
-    }
-    return false;
+    return validateCom(com);
   }
 
   /**

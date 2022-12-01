@@ -34,7 +34,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
    * @param flexible           portfolio interface object for flexible portfolio.
    */
 
-  public DollarCostStrategyImpl(int investmentInterval, String dateStart, String dateEnd, IFlexible flexible) {
+  public DollarCostStrategyImpl(int investmentInterval,
+                                String dateStart, String dateEnd, IFlexible flexible) {
     this.investmentInterval = investmentInterval;
     this.dateStart = dateStart;
     this.dateEnd = dateEnd;
@@ -44,7 +45,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 
   @Override
-  public void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
+  public void applyStrategyOnPortfolio(String portfolioName,
+                                       Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee)
           throws IllegalArgumentException {
 
     if (portfolioName == null || portfolioName.equals("")) {
@@ -69,8 +71,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
     validateDateFormat(dateStart);
-    if (!dateEnd.equals(""))
+    if (!dateEnd.equals("")) {
       validateDateFormat(dateEnd);
+    }
 
 
     String format = "yyyy-MM-dd";
@@ -84,7 +87,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       dateEndObj = LocalDate.parse(dateEnd, formatter);
     }
     if (dateStartObj.compareTo(dateEndObj) > 0) {
-      throw new IllegalArgumentException("start date can't be after end date. Strategy can't be applied.");
+      throw new IllegalArgumentException("start date can't be after end date. "
+              + "Strategy can't be applied.");
     }
 
 
@@ -199,7 +203,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
   }
 
 
-  public void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
+  private void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
                      double commissionFee, String date) throws IllegalArgumentException {
 
     for (Map.Entry<String, Double> entry : stockAndPercent.entrySet()) {
@@ -208,8 +212,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       double percent = entry.getValue();
       double investment = (amount * percent) / 100.00;
 
-      if (investment == 0.0)
+      if (investment == 0.0) {
         continue;
+      }
 
       try {
         executeBuy(companyName, portfolioName, investment, date, commissionFee);
@@ -221,11 +226,12 @@ public class DollarCostStrategyImpl implements StrategyInterface {
   }
 
 
-  public void executeBuy(String tickerSymbol, String portfolioName, double amount,
+  private void executeBuy(String tickerSymbol, String portfolioName, double amount,
                          String date, double commissionFee)
           throws IllegalArgumentException {
 
-    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(), 1, date);
+    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(),
+            1, date);
 
     double sharesCount = amount / pricePerStock;
 
@@ -234,7 +240,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
     String qtyStr = String.format("%.2f", sharesCount);
-    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr, date, portfolioName, "buy", String.valueOf(commissionFee));
+    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(),
+            qtyStr, date, portfolioName, "buy", String.valueOf(commissionFee));
 
   }
 
@@ -242,8 +249,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
   private boolean isHoliday(Calendar calInstance) {
 
 
-    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7)
+    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7) {
       return true;
+    }
 
     if (calInstance.get(Calendar.DAY_OF_WEEK) == 1) {
       return true;

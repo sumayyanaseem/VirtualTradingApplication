@@ -123,7 +123,8 @@ abstract class AbstractPortfolioTest {
     @Test
     public void testInvalidSell3() {
       String pName = "testFlexible";
-      String expected = "Sell date is not in the chronological order.Last date present is Sat Oct 01 00:00:00 EDT 2022";
+      String expected = "Sell date is not "
+              + "in the chronological order.Last date present is Sat Oct 01 00:00:00 EDT 2022";
       String actual = "";
       String cName = "goog";
       String quantity = "10";

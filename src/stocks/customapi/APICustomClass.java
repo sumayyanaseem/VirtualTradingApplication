@@ -128,7 +128,7 @@ public class APICustomClass implements APICustomInterface {
   }
 
 
-  public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
+  private String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
 
     URL url;
@@ -144,7 +144,8 @@ public class APICustomClass implements APICustomInterface {
       url = new URL(this.urlString
               + interval
               + "&symbol"
-              + "=" + companyTickerSymbol + "&apikey=" + apiKey + "&datatype=csv" + "&outputsize=full");
+              + "=" + companyTickerSymbol + "&apikey="
+              + apiKey + "&datatype=csv" + "&outputsize=full");
 
     } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "

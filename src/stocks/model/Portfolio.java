@@ -16,7 +16,8 @@ public interface Portfolio {
    * @param portfolioName the portfolio for which total value is needed.
    * @return the total value calculated for given date.
    */
-  double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) throws IllegalArgumentException;
+  double getTotalValueOfPortfolioOnCertainDate(String date,
+                                               String portfolioName) throws IllegalArgumentException;
 
   /**
    * creates a portfolio using the data given by user in a file format.
@@ -31,7 +32,8 @@ public interface Portfolio {
    * @param portfolioName the name of the portfolio for which composition is needed.
    * @return the composition of portfolio in a list format.
    */
-  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) throws IllegalArgumentException;
+  List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName,
+                                                       String date) throws IllegalArgumentException;
 
   /**
    * creates and persists a csv file with portfolio info created using manual inputs.

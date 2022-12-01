@@ -48,14 +48,16 @@ public class DollarCostAveragingTest {
     flexible.createEmptyPortfolio(pName, "flexible");
     try {
 
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, null, "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, null, "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
     assertEquals(actual, expected);
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -64,7 +66,8 @@ public class DollarCostAveragingTest {
     expected = "End date is null";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2022-10-01", null);
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2022-10-01", null);
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -73,7 +76,8 @@ public class DollarCostAveragingTest {
     expected = "The portfolio name cannot be null or empty.";
     actual = "";
     try {
-      flexible.dollarCostStrategy(null, stockAndPercent, 10000, commission, 5, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(null,
+              stockAndPercent, 10000, commission, 5, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -82,7 +86,8 @@ public class DollarCostAveragingTest {
     expected = "Stocks and weights map provided is empty.";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, null, 10000, commission, 5, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, null,
+              10000, commission, 5, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -91,7 +96,8 @@ public class DollarCostAveragingTest {
     expected = "Stocks and weights map provided is empty.";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, new HashMap<>(), 10000, commission, 5, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, new HashMap<>(),
+              10000, commission, 5, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -100,7 +106,8 @@ public class DollarCostAveragingTest {
     expected = "Amount cant be less than 0";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 0, commission, 5, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              0, commission, 5, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -109,7 +116,8 @@ public class DollarCostAveragingTest {
     expected = "Can't apply strategy with specified interval. Investment interval should be atleast one day";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 1000, commission, 0, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              1000, commission, 0, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -118,7 +126,8 @@ public class DollarCostAveragingTest {
     expected = "Commission fee cant be less than 0";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 1000, 0, 4, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              1000, 0, 4, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -127,7 +136,8 @@ public class DollarCostAveragingTest {
     expected = "Commission fee cant be less than 0";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 1000, -10, 4, "2022-10-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              1000, -10, 4, "2022-10-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -136,7 +146,8 @@ public class DollarCostAveragingTest {
     expected = "Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 1000, 20, 4, "2022-01", "2022-10-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              1000, 20, 4, "2022-01", "2022-10-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -145,7 +156,8 @@ public class DollarCostAveragingTest {
     expected = "Invalid dateFormat provided.Please provide date in YYYY-MM-DD format only.";
     actual = "";
     try {
-      flexible.dollarCostStrategy(pName, stockAndPercent, 1000, 20, 4, "2022-01-02", "2022-01");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              1000, 20, 4, "2022-01-02", "2022-01");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -160,7 +172,8 @@ public class DollarCostAveragingTest {
   public void testWhenDatesFallOnHoliday() {
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-01-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-01-01", "2021-03-31");
       List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2020-01-31");
       StringBuilder dates = new StringBuilder();
       StringBuilder company = new StringBuilder();
@@ -211,7 +224,8 @@ public class DollarCostAveragingTest {
 
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-08-01", "");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-08-01", "");
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -231,7 +245,8 @@ public class DollarCostAveragingTest {
     String actual = "";
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-08-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-08-01", "2021-03-31");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -252,7 +267,8 @@ public class DollarCostAveragingTest {
     String actual = "";
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-08-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-08-01", "2021-03-31");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -274,7 +290,8 @@ public class DollarCostAveragingTest {
     String actual = "";
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-08-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-08-01", "2021-03-31");
     } catch (Exception e) {
       actual = e.getMessage();
     }
@@ -288,7 +305,8 @@ public class DollarCostAveragingTest {
   public void testDollarCostStrategyEndDateIsFuture() {
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000, commission, 5, "2020-08-01", "2024-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000, commission, 5, "2020-08-01", "2024-03-31");
       List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2022-11-11");
       StringBuilder dates = new StringBuilder();
       StringBuilder company = new StringBuilder();
@@ -330,7 +348,8 @@ public class DollarCostAveragingTest {
     stockAndPercent.put("TWTR", 10.0);
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000.43, commission, 5, "2020-08-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000.43, commission, 5, "2020-08-01", "2021-03-31");
       List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2021-01-31");
       assertTrue(results.size() > 1);
       StringBuilder company = new StringBuilder();
@@ -362,7 +381,8 @@ public class DollarCostAveragingTest {
     stockAndPercent.put("TWTR", 10.5);
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
-      flexible.dollarCostStrategy(pName, stockAndPercent, 10000.56, commission, 5, "2020-08-01", "2021-03-31");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000.56, commission, 5, "2020-08-01", "2021-03-31");
       List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2021-01-31");
       assertTrue(results.size() > 1);
       StringBuilder company = new StringBuilder();

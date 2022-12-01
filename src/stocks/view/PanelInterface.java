@@ -3,12 +3,12 @@ package stocks.view;
 import stocks.controller.Features;
 
 /**
- * an interface to create different panels
+ * An interface to create different panels.
  */
 public interface PanelInterface {
 
   /**
-   * method to delegate actions on button click
+   * method to delegate actions on button click.
    *
    * @param feature feature object which has various actions that can called on portfolios.
    */

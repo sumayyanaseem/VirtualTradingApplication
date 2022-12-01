@@ -91,6 +91,7 @@ public class PortfolioPerformance {
    * @param date1         the start date of the range.
    * @param date2         the end date of the range.
    * @param portfolioName the portfolio for which values are needed.
+   *
    */
   public Map<String, Double> displayCopy(String date1,
                                          String date2,

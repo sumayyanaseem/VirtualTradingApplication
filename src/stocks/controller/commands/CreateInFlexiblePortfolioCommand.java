@@ -28,7 +28,8 @@ public class CreateInFlexiblePortfolioCommand implements Command {
    * @param input                      the scanner object that reads the input
    * @param inflexiblePortfolioTypeObj the object of an inflexible portfolio.
    */
-  public CreateInFlexiblePortfolioCommand(PortfolioView view, Scanner input, Portfolio inflexiblePortfolioTypeObj) {
+  public CreateInFlexiblePortfolioCommand(PortfolioView view,
+                                          Scanner input, Portfolio inflexiblePortfolioTypeObj) {
     this.view = view;
     this.input = input;
     this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;

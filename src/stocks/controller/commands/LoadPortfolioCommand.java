@@ -31,14 +31,16 @@ public class LoadPortfolioCommand implements Command {
 
   /**
    * Constructs the load command object by taking scanner, view objects to read input
-   * and display output using view respectively, and also takes flexible and inflexible portfolio objects.
+   * and display output using view respectively,
+   * and also takes flexible and inflexible portfolio objects.
    *
    * @param view                       represents view object
    * @param inflexiblePortfolioTypeObj the object of an inflexible portfolio.
    * @param flexiblePortfolioTypeObj   the object of an flexible portfolio.
    * @param filePath                   the path of file to be loaded.
    */
-  public LoadPortfolioCommand(PortfolioView view, Portfolio inflexiblePortfolioTypeObj, IFlexible flexiblePortfolioTypeObj, String filePath) {
+  public LoadPortfolioCommand(PortfolioView view,
+                              Portfolio inflexiblePortfolioTypeObj, IFlexible flexiblePortfolioTypeObj, String filePath) {
     this.view = view;
     this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;
     this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;
