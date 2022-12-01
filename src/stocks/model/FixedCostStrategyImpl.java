@@ -87,12 +87,11 @@ public class FixedCostStrategyImpl implements StrategyInterface {
           Map<String, Double> stockAndPercent)
           throws IllegalArgumentException {
 
+    validateMapEntriesAndPercent(stockAndPercent);
 
     for (String stockName : stockAndPercent.keySet()) {
       flexible.validateIfCompanyExists(stockName.trim().toUpperCase());
     }
-
-    validateMapEntriesAndPercent(stockAndPercent);
 
   }
 
@@ -131,7 +130,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
       double percentValue = stockEntry.getValue();
 
       if (percentValue < 0) {
-        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive persentages only");
+        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive percentages only");
       }
       totalSum += percentValue;
 

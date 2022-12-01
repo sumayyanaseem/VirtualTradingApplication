@@ -126,7 +126,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
 
 
   @Override
-  public void delegateActions(Features feature) {
+  public void delegateActions(Features feature) throws IllegalArgumentException {
 
     investBtn.addActionListener(l -> {
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
@@ -140,9 +140,14 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
       Map<String, Double> mapOfPercents = new HashMap<>();
       for (int i = 0; i < splitData.length; i++) {
         String[] eachStock = splitData[i].trim().split("\\s+");
-        String comapany = eachStock[0].trim();
-        Double percent = Double.valueOf(eachStock[1].trim());
-        mapOfPercents.put(comapany, percent);
+        String company = eachStock[0].trim();
+        Double percent;
+        try {
+         percent = Double.parseDouble(eachStock[1].trim());
+        } catch(Exception e){
+          throw new IllegalArgumentException("percentValue can't be empty or null");
+        }
+        mapOfPercents.put(company, percent);
       }
       feature.dollarCostStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
       reset();
@@ -161,6 +166,5 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     enterCommissionJTextField.setText("");
     displayStocks.setText("");
     enterStockAndPercentsJTextField.setText("");
-
   }
 }
