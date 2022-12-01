@@ -15,11 +15,9 @@ public class UpdatePortfolioCommand implements Command {
   private final PortfolioView view;
   private final Scanner input;
 
-  private IFlexible flexiblePortfolioTypeObj;
-
   private final CustomParser jsonParserImplementation;
 
-  private ControllerValidations controllerValidations;
+  private final ControllerValidations controllerValidations;
   public UpdatePortfolioCommand(PortfolioView view, Scanner input){
     this.view = view;
     this.input = input;
@@ -43,7 +41,7 @@ public class UpdatePortfolioCommand implements Command {
       view.displayMessage("Can not update an inflexible portfolio");
       throw new IllegalArgumentException("start again");
     }
-    flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
+    IFlexible flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     updateStocks(flexiblePortfolioTypeObj, name);
   }
 

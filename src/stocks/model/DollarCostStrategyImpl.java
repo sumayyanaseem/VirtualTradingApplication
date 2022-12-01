@@ -76,7 +76,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 
     validateMapAndValuesForDollarCostStrategy(stockAndPercent, investmentAmount,
-            investmentInterval, commissionFee);
+            commissionFee);
 
     if (!dateEnd.equals("")) {
       if (dateEndObj.compareTo(LocalDate.now()) > 0) {
@@ -114,7 +114,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
   private void validateMapAndValuesForDollarCostStrategy(
           Map<String, Double> stockAndPercent,
-          double investmentAmount, int investmentInterval,
+          double investmentAmount,
           double commissionFee)
           throws IllegalArgumentException {
 
@@ -214,7 +214,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
     double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(), 1, date);
 
-    double sharesCount = (double) (amount / pricePerStock);
+    double sharesCount = amount / pricePerStock;
 
     if (sharesCount == 0.0) {
       throw new IllegalArgumentException("shares can't be bought. You don't have enough funds");

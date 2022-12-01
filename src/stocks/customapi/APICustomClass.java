@@ -26,7 +26,7 @@ public class APICustomClass implements APICustomInterface {
   @Override
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
 
-    double price = -1;
+    double price;
     String[] lines = getStockRecordsForCompany(companyTickerSymbol);
     if (lines == null) {
       String output = fetchOutputStringFromURLByInterval(companyTickerSymbol, "DAILY");
@@ -131,7 +131,6 @@ public class APICustomClass implements APICustomInterface {
   public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
 
-    String stockSymbol = companyTickerSymbol; //ticker symbol for Google
     URL url;
 
     try {
@@ -145,7 +144,7 @@ public class APICustomClass implements APICustomInterface {
       url = new URL(this.urlString
               + interval
               + "&symbol"
-              + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv" + "&outputsize=full");
+              + "=" + companyTickerSymbol + "&apikey=" + apiKey + "&datatype=csv" + "&outputsize=full");
 
     } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "
@@ -161,7 +160,7 @@ public class APICustomClass implements APICustomInterface {
         output.append((char) b);
       }
     } catch (IOException e) {
-      throw new IllegalArgumentException("No price data found for " + stockSymbol);
+      throw new IllegalArgumentException("No price data found for " + companyTickerSymbol);
     }
 
     if (interval.equalsIgnoreCase("DAILY")) {

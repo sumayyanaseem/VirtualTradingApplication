@@ -12,9 +12,9 @@ public class CreateInFlexiblePortfolioCommand  implements Command{
 
   private final Scanner input;
 
-  private Portfolio inflexiblePortfolioTypeObj;
+  private final Portfolio inflexiblePortfolioTypeObj;
 
-  private ControllerValidations controllerValidations;
+  private final ControllerValidations controllerValidations;
 
   public CreateInFlexiblePortfolioCommand(PortfolioView view,Scanner input, Portfolio inflexiblePortfolioTypeObj ){
     this.view = view;

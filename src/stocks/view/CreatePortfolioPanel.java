@@ -61,20 +61,20 @@ public class CreatePortfolioPanel extends JPanel implements PanelInterface {
     createPortfolioBtn.addActionListener(l -> {
       try {
         if (portfolioNameInputTxtField.getText().equals("")) {
-          displayMessage("Error", "Portfolio name cannot be empty!!");
+          displayMessage("Portfolio name cannot be empty!!");
         } else {
           f.createPortfolio(portfolioNameInputTxtField.getText(), "flexible");
           reset();
           portfolioNameInputTxtField.repaint();
         }
       } catch (Exception e) {
-        displayMessage("Error", "Portfolio already exists!");
+        displayMessage("Portfolio already exists!");
       }
     });
   }
 
-  private void displayMessage(String title, String message) {
-    JOptionPane.showMessageDialog(null, message, "InfoBox: " + title,
+  private void displayMessage(String message) {
+    JOptionPane.showMessageDialog(null, message, "InfoBox: " + "Error",
             JOptionPane.INFORMATION_MESSAGE);
   }
 

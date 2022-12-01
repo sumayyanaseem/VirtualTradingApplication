@@ -190,9 +190,4 @@ public class PortfolioViewImpl implements PortfolioView {
             + " 2: To exit and continue further trading."
             + " 3: To update loaded portfolio.");
   }
-
-  @Override
-  public String interfaceInUse() {
-    return "console";
-  }
 }

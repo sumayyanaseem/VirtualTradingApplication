@@ -44,7 +44,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
   public void buyStock(String ticker, String date, String qty, String comm, String pName) {
     try {
       try {
-        double d = Integer.parseInt(qty);
+        Integer.parseInt(qty);
       } catch (NumberFormatException nfe) {
         view.displayMessage("quantity should be an integer");
         return;
@@ -59,7 +59,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void investFixedAmountStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, String date) {
     Map<String,Double> stockPercentValues = new HashMap<>();
-    Double val=0.0;
+    double val;
     try {
       for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
       {
@@ -84,7 +84,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void dollarCostStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
     Map<String,Double> stockPercentValues = new HashMap<>();
-    Double val=0.0;
+    double val;
     try {
       for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
       {
@@ -120,7 +120,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public double getTotalValue(String pName, String date) throws IllegalArgumentException {
-    double val = 0.0;
+    double val;
     try {
       val = model.getTotalValueOfPortfolioOnCertainDate(date, pName);
     } catch (Exception e) {

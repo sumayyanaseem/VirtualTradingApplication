@@ -32,7 +32,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
 
   private Portfolio inflexiblePortfolioTypeObj;
 
-  private ControllerValidations controllerValidations;
+  private final ControllerValidations controllerValidations;
 
   private IFlexible flexiblePortfolioTypeObj;
 
@@ -44,8 +44,6 @@ public class PortfolioControllerImpl  implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
-   *
-   *
    * @param in    the input stream.
    * @param view  the view object.
    */
@@ -164,7 +162,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
     view.getFilePath();
     String filePath = input.nextLine();
     try {
-      Command cmd = new LoadPortfolioCommand(view, input, inflexiblePortfolioTypeObj, flexiblePortfolioTypeObj, filePath);
+      Command cmd = new LoadPortfolioCommand(view, inflexiblePortfolioTypeObj, flexiblePortfolioTypeObj, filePath);
       cmd.execute();
     } catch(IllegalArgumentException e){
       if(e.getMessage().equals("start again")){

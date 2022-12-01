@@ -9,9 +9,9 @@ import stocks.controller.Features;
 
 public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
-  private JPanel mainPanel;
-  private JPanel dynamicPanel;
-  private JSplitPane jSplitPane;
+  private final JPanel mainPanel;
+  private final JPanel dynamicPanel;
+  private final JSplitPane jSplitPane;
   private JButton createPortfolioButton;
   private JButton sellStockButton;
   private JButton queryPortfolioButton;
@@ -184,11 +184,5 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
   @Override
   public void updatePortfolioList(List<String> listOfPortfolios) {
     this.listOfPortfolios = listOfPortfolios;
-  }
-
-
-  @Override
-  public String interfaceInUse() {
-    return "gui";
   }
 }

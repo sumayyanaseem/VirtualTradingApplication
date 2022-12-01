@@ -129,17 +129,12 @@ public class PortfolioGUIControllerTest {
     }
   }
 
-  class MockView implements PortfolioGUIView {
+  static class MockView implements PortfolioGUIView {
 
     private final StringBuilder log;
 
     public MockView(StringBuilder log) {
       this.log = log;
-    }
-
-    @Override
-    public String interfaceInUse() {
-      return null;
     }
 
     @Override
@@ -183,7 +178,7 @@ public class PortfolioGUIControllerTest {
   private static final String date = "2020-10-01";
   private static final String qty = "20";
   private static final String comm = "30";
-  private String pName = "GUI_test_controller";
+  private final String pName = "GUI_test_controller";
 
   @Before
   public void setUp() {

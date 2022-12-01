@@ -439,7 +439,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
           String startTime, String endTime, String portfolioName) {
     validatePortfolioPerformanceInputs(startTime, endTime, portfolioName);
     try {
-      Map<String, List<Stock>> detailsMap = new HashMap<>();
+      Map<String, List<Stock>> detailsMap;
       if (portfolioName.equals("currentInstance")) {
         detailsMap = stockMap.get("currentInstance");
       } else {

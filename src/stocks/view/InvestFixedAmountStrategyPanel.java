@@ -10,23 +10,20 @@ import stocks.controller.Features;
 
 public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInterface {
 
-  private JLabel getEnterPortfolioNameJLabel;
-  private JComboBox<String> portfolioNamesJCombo;
-  private JLabel enterAmountJLabel;
-  private JTextField enterAmountJTextField;
-  private JLabel enterStartDateJLabel;
-  private JTextField enterStartDateJTextField;
-  private JLabel enterCommissionJLabel;
-  private JTextField enterCommissionJTextField;
-  private JLabel displayStocksJLabel;
-  private JTextArea displayStocks;
-  private JLabel enterStockAndPercentsJLabel;
-  private JTextField enterStockAndPercentsJTextField;
-  private JButton investBtn;
-  private List<String> portfolioList;
+  private final JLabel getEnterPortfolioNameJLabel;
+  private final JComboBox<String> portfolioNamesJCombo;
+  private final JLabel enterAmountJLabel;
+  private final JTextField enterAmountJTextField;
+  private final JLabel enterStartDateJLabel;
+  private final JTextField enterStartDateJTextField;
+  private final JLabel enterCommissionJLabel;
+  private final JTextField enterCommissionJTextField;
+  private final JTextArea displayStocks;
+  private final JLabel enterStockAndPercentsJLabel;
+  private final JTextField enterStockAndPercentsJTextField;
+  private final JButton investBtn;
 
   public InvestFixedAmountStrategyPanel(List<String> portfolioList) {
-    this.portfolioList = portfolioList;
     investBtn = new JButton("Invest");
     investBtn.setActionCommand("INVEST");
 
@@ -36,7 +33,6 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
     enterStartDateJTextField = new JTextField(30);
     enterCommissionJLabel = new JLabel("Enter Commission");
     enterCommissionJTextField = new JTextField(30);
-    displayStocksJLabel = new JLabel("Stocks Available in Portfolio:");
     displayStocks = new JTextArea(5, 10);
     enterStockAndPercentsJLabel = new JLabel("Enter stock1 weight1,stock 2 weight 2,...(ex: META 50,GOOG 20...");
     enterStockAndPercentsJTextField = new JTextField(30);
@@ -105,8 +101,8 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
   public void delegateActions(Features feature) throws IllegalArgumentException {
     investBtn.addActionListener(l -> {
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
-      double investmentAmount = Double.valueOf(enterAmountJTextField.getText());
-      double commissionFee = Double.valueOf(enterCommissionJTextField.getText());
+      double investmentAmount = Double.parseDouble(enterAmountJTextField.getText());
+      double commissionFee = Double.parseDouble(enterCommissionJTextField.getText());
       String dateStart = enterStartDateJTextField.getText();
       String stocksAndPercents = enterStockAndPercentsJTextField.getText();
       String[] splitData = stocksAndPercents.split(",");

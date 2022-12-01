@@ -5,7 +5,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 import stocks.model.IFlexible;
 import stocks.model.Portfolio;
@@ -15,11 +14,9 @@ public class LoadPortfolioCommand implements Command{
 
   private final PortfolioView view;
 
-  private final Scanner input;
+  private final Portfolio inflexiblePortfolioTypeObj;
 
-  private Portfolio inflexiblePortfolioTypeObj;
-
-  private IFlexible flexiblePortfolioTypeObj;
+  private final IFlexible flexiblePortfolioTypeObj;
 
   private static final String flexibleType = "flexible";
 
@@ -27,9 +24,8 @@ public class LoadPortfolioCommand implements Command{
 
   private final String filePath;
 
-  public LoadPortfolioCommand(PortfolioView view,  Scanner input,Portfolio inflexiblePortfolioTypeObj,IFlexible flexiblePortfolioTypeObj,String filePath){
+  public LoadPortfolioCommand(PortfolioView view,Portfolio inflexiblePortfolioTypeObj,IFlexible flexiblePortfolioTypeObj,String filePath){
     this.view = view;
-    this.input = input;
     this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;
     this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;
     this.filePath=filePath;

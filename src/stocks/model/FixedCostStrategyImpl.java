@@ -189,7 +189,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
               + " doesn't exist for the provided date");
     }*/
 
-    double sharesCount = (double) ( amount / pricePerStock );
+    double sharesCount = amount / pricePerStock;
 
     if (sharesCount == 0.0) {
       throw new IllegalArgumentException("Shares can't be bought. You don't have enough funds");
