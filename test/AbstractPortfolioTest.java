@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -64,6 +63,76 @@ abstract class AbstractPortfolioTest {
       String date = "2022-10-01";
       try {
         portfolio.sellStocks(cName, quantity, date, com, pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testInvalidSell() {
+      String pName = "testFlexible";
+      String expected = "As the given company's stock does not exist "
+              + "with in current portfolio, it cannot be sold.";
+      String actual = "";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      try {
+        portfolio.buyStocks(cName, quantity, date, com, pName);
+        portfolio.sellStocks("dash", quantity, date, com, pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testInvalidSell1() {
+      String pName = "testFlexible";
+      String expected = "trying to sell before buying";
+      String actual = "";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      try {
+        portfolio.buyStocks(cName, quantity, date, com, pName);
+        portfolio.sellStocks(cName, quantity, "2022-09-01", com, pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testInvalidSell2() {
+      String pName = "testFlexible";
+      String expected = "The given quantity exceeds the net quantity.";
+      String actual = "";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      try {
+        portfolio.buyStocks(cName, quantity, date, com, pName);
+        portfolio.sellStocks(cName, "20", date, com, pName);
+      } catch (IllegalArgumentException e) {
+        actual = e.getMessage();
+      }
+      assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testInvalidSell3() {
+      String pName = "testFlexible";
+      String expected = "Sell date is not in the chronological order.Last date present is Sat Oct 01 00:00:00 EDT 2022";
+      String actual = "";
+      String cName = "goog";
+      String quantity = "10";
+      String date = "2022-10-01";
+      try {
+        portfolio.buyStocks(cName, quantity, "2022-03-04", com, pName);
+        portfolio.sellStocks(cName, "5", date, com, pName);
+        portfolio.sellStocks(cName, "5", "2022-09-30", com, pName);
       } catch (IllegalArgumentException e) {
         actual = e.getMessage();
       }

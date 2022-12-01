@@ -16,9 +16,9 @@ public class CreateInFlexiblePortfolioCommand  implements Command{
 
   private final Scanner input;
 
-  private Portfolio inflexiblePortfolioTypeObj;
+  private final Portfolio inflexiblePortfolioTypeObj;
 
-  private ControllerValidations controllerValidations;
+  private final ControllerValidations controllerValidations;
 
   /**
    * Constructs the command object by taking scanner, view objects to read input

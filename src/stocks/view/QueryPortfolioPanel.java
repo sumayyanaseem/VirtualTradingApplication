@@ -8,20 +8,18 @@ import stocks.controller.Features;
 
 public class QueryPortfolioPanel extends JPanel implements PanelInterface {
 
-  private JComboBox<String> portfoliosToViewJCombo;
-  private JLabel enterPortfolioNameJLabel;
-  private JLabel enterDateJLabel;
-  private JTextField enterDateJTextField;
-  private JButton viewPortfolioCompositionBtn;
-  private JButton viewTotalValueBtn;
-  private JButton viewTotalCostBasisBtn;
-  private JTextArea viewPortfolioJTextArea;
+  private final JComboBox<String> portfoliosToViewJCombo;
+  private final JLabel enterPortfolioNameJLabel;
+  private final JLabel enterDateJLabel;
+  private final JTextField enterDateJTextField;
+  private final JButton viewPortfolioCompositionBtn;
+  private final JButton viewTotalValueBtn;
+  private final JButton viewTotalCostBasisBtn;
+  private final JTextArea viewPortfolioJTextArea;
 
-  private JScrollPane jScrollPane;
-  private List<String> portfolioList;
+  private final JScrollPane jScrollPane;
 
   public QueryPortfolioPanel(List<String> portfolioList) {
-    this.portfolioList = portfolioList;
     enterDateJLabel = new JLabel("Enter Date(YYYY-MM-DD)");
     enterPortfolioNameJLabel = new JLabel("Enter Portfolio name");
     viewPortfolioCompositionBtn = new JButton("View Composition");
@@ -94,7 +92,7 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
     viewPortfolioCompositionBtn.addActionListener(l -> {
 
       List<List<String>> records = feature.viewComposition(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
-      StringBuffer detailedOutput = new StringBuffer();
+      StringBuilder detailedOutput = new StringBuilder();
       for (int i = 0; i < records.size(); i++) {
         for (int j = 0; j < records.get(i).size(); j++) {
           detailedOutput.append(records.get(i).get(j) + "\t");

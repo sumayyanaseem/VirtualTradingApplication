@@ -16,9 +16,9 @@ public class CreateFlexiblePortfolioCommand implements Command  {
   private final PortfolioView view;
   private final Scanner input;
 
-  private IFlexible flexiblePortfolioTypeObj;
+  private final IFlexible flexiblePortfolioTypeObj;
 
-  private ControllerValidations controllerValidations;
+  private final ControllerValidations controllerValidations;
 
   /**
    * Constructs the command object by taking scanner, view objects to read input

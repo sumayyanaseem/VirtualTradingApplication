@@ -8,22 +8,20 @@ import stocks.controller.Features;
 
 public class SellStocksPanel extends JPanel implements PanelInterface {
 
-  private JButton sellStocksBtn;
-  private JLabel enterCommissionJLabel;
-  private JTextField enterCommissionJTextField;
-  private JLabel enterDateJLabel;
-  private JTextField enterDateJTextField;
-  private JLabel enterPortfolioNameJLabel;
-  private JLabel enterStocksJLabel;
-  private JTextField enterStocksJTextField;
-  private JLabel enterTickerJLabel;
-  private JTextField enterTickerJTextField;
-  private JComboBox<String> portfolioNamesJCombo;
-  private List<String> portfolioList;
+  private final JButton sellStocksBtn;
+  private final JLabel enterCommissionJLabel;
+  private final JTextField enterCommissionJTextField;
+  private final JLabel enterDateJLabel;
+  private final JTextField enterDateJTextField;
+  private final JLabel enterPortfolioNameJLabel;
+  private final JLabel enterStocksJLabel;
+  private final JTextField enterStocksJTextField;
+  private final JLabel enterTickerJLabel;
+  private final JTextField enterTickerJTextField;
+  private final JComboBox<String> portfolioNamesJCombo;
 
   public SellStocksPanel(List<String> portfolioList) {
 
-    this.portfolioList = portfolioList;
     sellStocksBtn = new JButton("Sell Stocks");
     sellStocksBtn.setActionCommand("SELL");
     enterCommissionJLabel = new JLabel("Enter Commission");
