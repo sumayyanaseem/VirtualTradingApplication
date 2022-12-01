@@ -3,9 +3,7 @@
 steps for the user to follow:
 
 Note:
-1. We are currently offering only a selected set of 26 companies to trade from. Given below are the Ticker symbols for these companies.
-( GOOG, AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
-2.Dates acceptable(From Current date to IPO date of the stock).
+1.Dates acceptable(From Current date to IPO date of the stock).
 
 Note:
 1.Jar file is located in res folder.

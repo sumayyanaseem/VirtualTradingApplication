@@ -17,7 +17,7 @@ DESIGN CHANGES:
     In current design, We added a new view interface ( "PortfolioGUIView.java") to support GUI related view actions.
     We added a common interface "IViewInterface.java" which is extended by both "PortfolioView.java" and PortfolioGUIView.java and has a common method.
 
-3) In current design, we are using command design pattern.
+3) In current design, we are using command design pattern in the TEXT UI controller to determine the actions asked by the user.
 
 ******************************************************************************************************************************************************************
 CURRENT ASSUMPTIONS:
@@ -37,7 +37,7 @@ CURRENT ASSUMPTIONS:
 CURRENT DESIGN:(Using MVC Pattern)
 ******************************************************************************************************************************************************************
 TradingMVC.java is the starting point of application.
-
+It takes two argumnets -GUI or Console to decide which type of view is being asked by the user.
 Text based UI's View object - displays output messages to user. It uses System.out stream.
 GUI based view object - creating frames, generates panels, displays pop ups.
 Controller takes user input and uses view Object to display messages to user. Hence, controller Object is created using System.in stream and view Object.
@@ -46,7 +46,8 @@ Controller has model object as one of the parameters(Here we are using the compo
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 CONTROLLER:
 ----------
-PortfolioController.java is Controller interface
+Two Controllers are present , one for GUI and one for Text UI and generating Controller Objects at runtime using Controller Factory.
+PortfolioController.java is common Controller interface.
 
 Role of Controller:
 Takes user input and delegates the actions to Model and View accordingly.
@@ -68,7 +69,9 @@ start:  a)start method which takes a new model object to trigger the start of ou
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 VIEW:
 ----
+PortfolioGUIView is GUI View interface.
 PortfolioView.java is view Interface.
+View Factory is used to determine the view instance at runtime based on type of view being asked.
 
 Role of View:
 We have below 3 categories for methods of view.
@@ -94,7 +97,6 @@ Role of FlexiblePortfolioImpl.java: This class implements all methods in Portfol
 Role of InFlexiblePortfolioImpl.java: This class implements all methods in Portfolio.java which are supported for a InFlexible Portfolio.
 Role of AbstractPortfolio.java: This Abstract class has the common functionality of both FlexiblePortfolioImpl.java and InFlexiblePortfolioImpl.java portfolio classes.
 
-
 Methods supported by both Flexible and Inflexible portfolios class:
 1)getTotalValueOfPortfolioOnCertainDate
 2)loadPortfolioUsingFilePath
@@ -111,6 +113,8 @@ Additional methods supported by Flexible portfolios class:
 12)updatePortfolioUsingFilePath
 13)getTotalMoneyInvestedOnCertainDate
 14)getPortfolioPerformanceOvertime
+15)Apply DollarCost Avg strategy
+16)Apply Fixed Cost Startegy
 
 
 ******************************************************************************************************************************************************************
@@ -120,8 +124,7 @@ CUSTOM CLASSES
 We have created 2 custom classes to support certain Model functionalities.
 1) APICustomInterface and APICustomClass
 2) CustomParser and JsonParserImplementation
-3) CompanyTickerSymbol
-4) LocalCacheForAPI
+3) LocalCacheForAPI
 
 APICustomClass.java description : This class provides methods to fetch the stock price
 a) fetchLatestStockPriceOfThisCompany
@@ -139,9 +142,6 @@ h) appendIntoFileUsingFilePath
 i) getTypeOfFile
 j) getTypeOfLoadedFile
 
-
-CompanyTickerSymbol.java description: It's an enum with all the supported company names and their respective IPO dates.
-
 LocalCacheForAPI.java description: It is used to cache the values after querying Alphavantage API.
 
 ******************************************************************************************************************************************************************
@@ -150,5 +150,4 @@ Possible Future Enhancements:
 
 1. Determine the Profit or Loss of any particular stock or of the total portfolio.
 2. Determine the top performing stocks in a portfolio (or) top performing Portfolios among all the portfolios owned by user.
-3. Support all the companies listed on stock exchange.
 ******************************************************************************************************************************************************************
