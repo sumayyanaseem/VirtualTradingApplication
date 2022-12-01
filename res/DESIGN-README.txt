@@ -114,7 +114,7 @@ Additional methods supported by Flexible portfolios class:
 13)getTotalMoneyInvestedOnCertainDate
 14)getPortfolioPerformanceOvertime
 15)Apply DollarCost Avg strategy
-16)Apply Fixed Cost Startegy
+16)Apply Fixed Cost Strategy
 
 
 ******************************************************************************************************************************************************************
