@@ -12,7 +12,9 @@ import java.util.Map;
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 
-
+/**
+ * This class represents implementation for dollar cost strategy.
+ */
 public class DollarCostStrategyImpl implements StrategyInterface {
   private final APICustomInterface apiCustom;
   private final int investmentInterval;
@@ -20,6 +22,17 @@ public class DollarCostStrategyImpl implements StrategyInterface {
   private final String dateEnd;
 
   private final IFlexible flexible;
+
+
+  /**
+   * constructs an object for DollarCostStrategyImpl class with given date range, interval
+   * and flexible portfolio object.
+   *
+   * @param investmentInterval the interval at which investment needs to be done.
+   * @param dateStart start date of investment.
+   * @param dateEnd end date of investment.
+   * @param flexible portfolio interface object for flexible portfolio.
+   */
 
   public DollarCostStrategyImpl(int investmentInterval, String dateStart, String dateEnd, IFlexible flexible) {
     this.investmentInterval = investmentInterval;

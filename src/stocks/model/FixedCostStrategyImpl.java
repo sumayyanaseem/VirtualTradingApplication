@@ -12,11 +12,23 @@ import java.util.Map;
 import stocks.customapi.APICustomClass;
 import stocks.customapi.APICustomInterface;
 
+/**
+ * This class represents implementation for fixed cost strategy.
+ */
 public class FixedCostStrategyImpl implements StrategyInterface {
   private final APICustomInterface apiCustom;
   private final String dateStart;
 
   private final IFlexible flexible;
+
+
+  /**
+   * constructs an object for FixedCostStrategyImpl class with given start date and
+   * flexible portfolio object.
+   *
+   * @param dateStart start date of investment.
+   * @param flexible portfolio interface object for flexible portfolio.
+   */
 
   public FixedCostStrategyImpl(String dateStart,IFlexible flexible){
     this.dateStart = dateStart;

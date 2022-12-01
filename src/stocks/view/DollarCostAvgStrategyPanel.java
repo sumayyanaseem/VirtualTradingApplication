@@ -8,6 +8,9 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+/**
+ * This class represents a panel for creating DollarCostAvgStrategy.
+ */
 public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface {
 
   private final JLabel getEnterPortfolioNameJLabel;
@@ -27,6 +30,10 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
   private final JTextField enterStockAndPercentsJTextField;
   private final JButton investBtn;
 
+  /**
+   * constructs an DollarCostAvgStrategyPanel object.
+   * @param portfolioList contains list of portfolios.
+   */
   public DollarCostAvgStrategyPanel(List<String> portfolioList) {
     investBtn = new JButton("Invest");
     investBtn.setActionCommand("INVEST");

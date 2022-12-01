@@ -7,6 +7,10 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+
+/**
+ * Represents class to create GUI frame.
+ */
 public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
   private final JPanel mainPanel;
@@ -21,7 +25,9 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
   private JButton exitButton;
   private List<String> listOfPortfolios;
 
-
+  /**
+   * constructs an PortfolioGUIViewImpl object.
+   */
   public PortfolioGUIViewImpl() {
     super("Virtual Stock Trading Application");
     listOfPortfolios = new ArrayList<>();

@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+/**
+ * This class represents a panel for buy stocks.
+ */
 public class BuyStocksPanel extends JPanel implements PanelInterface {
 
   private final JButton buyStocksBtn;
@@ -20,6 +23,10 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
   private final JTextField enterTickerJTextField;
   private final JComboBox<String> portfolioNamesJCombo;
 
+  /**
+   * constructs an buy stocks panel object.
+   * @param portfolioList contains list of portfolios.
+   */
   public BuyStocksPanel(List<String> portfolioList) {
     buyStocksBtn = new JButton("Buy Stocks");
     buyStocksBtn.setActionCommand("BUY");

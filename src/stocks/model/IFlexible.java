@@ -89,9 +89,36 @@ public interface IFlexible extends Portfolio{
    */
   void createEmptyPortfolio(String portfolioName, String portfolioType);
 
+  /**
+   * gets the list of all portfolio names available.
+   *
+   * @return list of strings of portfolio names
+   */
   List<String> getListOfPortfolioNames();
 
+  /**
+   * implements dollar cost strategy on a given portfolio .
+   *
+   * @param portfolioName the name of the portfolio for which file needs to be written.
+   * @param stockAndPercent the stocks and percent values.
+   * @param investmentAmount the amount to be invested.
+   * @param commissionFee the commission charged for transaction.
+   * @param investmentInterval the interval for investment.
+   * @param dateStart the start date for investment.
+   * @param dateEnd the end date for investment.
+   */
    void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) throws IllegalArgumentException;
+
+
+  /**
+   * implements dollar cost strategy on a given portfolio .
+   *
+   * @param portfolioName the name of the portfolio for which file needs to be written.
+   * @param stockAndPercent the stocks and percent values.
+   * @param investmentAmount the amount to be invested.
+   * @param commissionFee the commission charged for transaction.
+   * @param date the start date for investment.
+   */
    void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,double investmentAmount,double commissionFee,String date) throws IllegalArgumentException;
 
   }

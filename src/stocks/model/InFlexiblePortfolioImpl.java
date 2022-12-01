@@ -15,6 +15,10 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   private static final String action = "add";
 
+  /**
+   * constructs an object for InFlexiblePortfolioImpl class.
+
+   */
   public InFlexiblePortfolioImpl(){
     super();
   }

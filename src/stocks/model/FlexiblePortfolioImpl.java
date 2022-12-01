@@ -19,6 +19,11 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   private static final String format = "yyyy-MM-dd";
 
+
+  /**
+   * constructs an object for FlexiblePortfolioImpl class.
+
+   */
   public FlexiblePortfolioImpl(){
     super();
   }

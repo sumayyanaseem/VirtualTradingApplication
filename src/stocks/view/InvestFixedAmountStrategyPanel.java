@@ -8,6 +8,9 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+/**
+ * This class represents a panel for creating InvestFixedAmountStrategy.
+ */
 public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInterface {
 
   private final JLabel getEnterPortfolioNameJLabel;
@@ -23,6 +26,10 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
   private final JTextField enterStockAndPercentsJTextField;
   private final JButton investBtn;
 
+  /**
+   * constructs an InvestFixedAmountStrategyPanel object.
+   * @param portfolioList contains list of portfolios.
+   */
   public InvestFixedAmountStrategyPanel(List<String> portfolioList) {
     investBtn = new JButton("Invest");
     investBtn.setActionCommand("INVEST");

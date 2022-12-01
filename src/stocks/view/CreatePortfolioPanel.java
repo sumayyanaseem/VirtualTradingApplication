@@ -3,7 +3,9 @@ package stocks.view;
 import javax.swing.*;
 
 import stocks.controller.Features;
-
+/**
+ * This class represents a panel for creating a portfolio.
+ */
 public class CreatePortfolioPanel extends JPanel implements PanelInterface {
 
   // in create portfolio panel
@@ -12,6 +14,9 @@ public class CreatePortfolioPanel extends JPanel implements PanelInterface {
   private JTextField portfolioNameInputTxtField;
   private JButton createPortfolioBtn;
 
+  /**
+   * constructs an CreatePortfolioPanel object.
+   */
   public CreatePortfolioPanel() {
     initialiseAllComponents();
   }

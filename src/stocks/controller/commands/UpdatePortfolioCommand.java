@@ -22,7 +22,6 @@ public class UpdatePortfolioCommand implements Command {
   private final CustomParser jsonParserImplementation;
 
   private final ControllerValidations controllerValidations;
-  private ControllerValidations controllerValidations;
 
   /**
    * Constructs the update command object by taking scanner, view objects to read input
