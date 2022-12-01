@@ -89,10 +89,6 @@ public class PortfolioControllerImplTest {
     System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(exp1));
-    String log = "validateIfPortfolioAlreadyExists : sample";
-    //assertTrue(mockLog.toString().contains(log));
-    log = "validateIfCompanyExists : dash";
-    //assertTrue(mockLog.toString().contains(log));
   }
 
   @Test
@@ -109,10 +105,7 @@ public class PortfolioControllerImplTest {
     }
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(exp1));
-    String log = "validateIfPortfolioAlreadyExists : sample12";
-    //assertTrue(mockLog.toString().contains(log));
-    log = "validateIfCompanyExists : xyz";
-    //assertTrue(mockLog.toString().contains(log));
+
   }
 
   @Test
@@ -206,8 +199,6 @@ public class PortfolioControllerImplTest {
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
-    //assertTrue(mockLog.toString().contains(exp));
-    // System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
 
     File f = new File("userPortfolios/" + portfolioName + "_output.json");
@@ -303,7 +294,6 @@ public class PortfolioControllerImplTest {
       System.out.println(e.getMessage());
     }
     assertTrue(bytes.toString().contains(expected));
-    //assertTrue(mockLog.toString().contains(output));
   }
 
   @Test
