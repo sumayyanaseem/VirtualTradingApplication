@@ -113,8 +113,10 @@ public interface IFlexible extends Portfolio {
    * @param dateEnd            the end date for investment.
    */
   void dollarCostStrategy(String portfolioName,
-                          Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee,
-                          int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException;
+                          Map<String, Double> stockAndPercent,
+                          double investmentAmount, double commissionFee,
+                          int investmentInterval,
+                          String dateStart, String dateEnd) throws IllegalArgumentException;
 
 
   /**

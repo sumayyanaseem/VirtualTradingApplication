@@ -37,16 +37,21 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void updatePortfolio(String companyName, String quantity,
-                                String date, String portfolioName, String action, String com) throws IllegalArgumentException {
+                                String date, String portfolioName,
+                                String action, String com) throws IllegalArgumentException {
       log.append("inputs for updatePortfolio: " + companyName + " "
-              + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
+              + quantity + " " + date + " " + portfolioName + " "
+              + action + "  " + com + "\n");
     }
 
     @Override
     public void updatePortfolioUsingFilePath(String path, String companyName,
-                                             String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
+                                             String quantity, String date,
+                                             String portfolioName, String action,
+                                             String com) throws IllegalArgumentException {
       log.append("inputs for updatePortfolioUsingFilePath: " + path
-              + " " + companyName + " " + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
+              + " " + companyName + " " + quantity + " "
+              + date + " " + portfolioName + " " + action + "  " + com + "\n");
 
     }
 
@@ -61,7 +66,8 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void sellStocks(String companyName, String quantity,
-                           String date, String com, String portfolioName) throws IllegalArgumentException {
+                           String date, String com,
+                           String portfolioName) throws IllegalArgumentException {
       log.append("inputs for sellStocks: " + companyName + " "
               + quantity + " " + date + " " + portfolioName + "    " + com + "\n");
 
@@ -69,7 +75,8 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void createEmptyPortfolio(String portfolioName, String portfolioType) {
-      log.append("inputs for createEmptyPortfolio: " + portfolioName + "    " + portfolioType + "\n");
+      log.append("inputs for createEmptyPortfolio: "
+              + portfolioName + "    " + portfolioType + "\n");
 
     }
 
@@ -81,16 +88,20 @@ public class PortfolioGUIControllerTest {
     @Override
     public void dollarCostStrategy(String portfolioName,
                                    Map<String, Double> stockAndPercent, double investmentAmount,
-                                   double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
+                                   double commissionFee,
+                                   int investmentInterval, String dateStart, String dateEnd) {
       log.append("inputs for dollarCostStrategy: " + portfolioName + " "
-              + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
+              + stockAndPercent + " " + investmentAmount + " "
+              + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
     }
 
     @Override
     public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,
-                                    double investmentAmount, double commissionFee, String date) {
+                                    double investmentAmount,
+                                    double commissionFee, String date) {
       log.append("inputs for fixedAmountStrategy: " + portfolioName + " "
-              + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + date + "\n");
+              + stockAndPercent + " " + investmentAmount + " "
+              + commissionFee + "    " + date + "\n");
 
     }
 
@@ -180,15 +191,9 @@ public class PortfolioGUIControllerTest {
   }
 
 
-  private MockView view;
-
   private PortfolioGUIController portfolioController;
 
   private PortfolioGUIController portfolioGUIController;
-
-  private MockModel mockModel;
-
-  private IFlexible model;
 
   private StringBuilder mockModelLog;
 
@@ -204,11 +209,11 @@ public class PortfolioGUIControllerTest {
   @Before
   public void setUp() {
     mockViewLog = new StringBuilder();
-    view = new MockView(mockViewLog);
+    MockView view = new MockView(mockViewLog);
     mockModelLog = new StringBuilder();
-    mockModel = new MockModel(mockModelLog);
+    MockModel mockModel = new MockModel(mockModelLog);
     portfolioController = new PortfolioGUIController(mockModel, view);
-    model = new FlexiblePortfolioImpl();
+    IFlexible model = new FlexiblePortfolioImpl();
     portfolioGUIController = new PortfolioGUIController(model, view);
   }
 
@@ -335,7 +340,8 @@ public class PortfolioGUIControllerTest {
 
   @Test
   public void testDollarCost() {
-    String view = "inputs for displayMessage: Bought stocks via dollar cost strategy successfully";
+    String view = "inputs for displayMessage: "
+            + "Bought stocks via dollar cost strategy successfully";
     Map<String, String> stockAndPercent = new HashMap<>();
     stockAndPercent.put("goog", "10.5");
     stockAndPercent.put("META", "29.5");
@@ -354,7 +360,8 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
     portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
-            10000, 20, 30, "2020-01-01", "2022-11-11");
+            10000, 20, 30,
+            "2020-01-01", "2022-11-11");
 
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
@@ -362,7 +369,8 @@ public class PortfolioGUIControllerTest {
 
   @Test
   public void testFixedCost() {
-    String view = "inputs for displayMessage: Bought stocks via fixed amount strategy successfully\n";
+    String view = "inputs for displayMessage:"
+            + " Bought stocks via fixed amount strategy successfully\n";
     Map<String, String> stockAndPercent = new HashMap<>();
     stockAndPercent.put("goog", "10.5");
     stockAndPercent.put("META", "29.5");

@@ -50,7 +50,8 @@ public interface Features {
    * @param dateEnd          the end date of investment.
    */
   void dollarCostStrategy(String portfolioName, Map<String, String> stockAndPercent,
-                          double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd);
+                          double investmentAmount, double commissionFee,
+                          int investmentInterval, String dateStart, String dateEnd);
 
   /**
    * method to sellStocks in a portfolio.

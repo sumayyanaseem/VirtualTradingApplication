@@ -64,16 +64,19 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(enterTickerJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterTickerJTextField)
                     .addComponent(enterDateJLabel,
                             GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addComponent(enterDateJTextField)
                     .addComponent(enterStocksJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStocksJTextField)
                     .addComponent(enterPortfolioNameJLabel,
-                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            GroupLayout.DEFAULT_SIZE,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sellStocksBtn)
                     .addComponent(enterCommissionJLabel)
                     .addComponent(enterCommissionJTextField)
@@ -88,12 +91,14 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
                             .addComponent(enterTickerJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterTickerJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterDateJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterStocksJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -104,12 +109,14 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
                             .addComponent(enterCommissionJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterCommissionJTextField,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(enterPortfolioNameJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(portfolioNamesJCombo,
-                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    GroupLayout.PREFERRED_SIZE,
+                                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(sellStocksBtn)
                             .addGap(43, 43, 43))
@@ -121,7 +128,9 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
   public void delegateActions(Features feature) {
     sellStocksBtn.addActionListener(l -> {
       feature.sellStock(enterTickerJTextField.getText().toUpperCase(),
-              enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
+              enterDateJTextField.getText(),
+              enterStocksJTextField.getText(), enterCommissionJTextField.getText(),
+              portfolioNamesJCombo.getSelectedItem().toString());
       reset();
       repaint();
     });

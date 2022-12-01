@@ -65,8 +65,12 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void investFixedAmountStrategy(String portfolioName,
                                         Map<String, String> stockAndPercent,
+<<<<<<< HEAD
                                         double investmentAmount,
                                         double commissionFee, String date) {
+=======
+                                        double investmentAmount, double commissionFee, String date) {
+>>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
@@ -91,9 +95,14 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void dollarCostStrategy(String portfolioName,
                                  Map<String, String> stockAndPercent,
+<<<<<<< HEAD
                                  double investmentAmount,
                                  double commissionFee, int investmentInterval,
                                  String dateStart, String dateEnd) {
+=======
+                                 double investmentAmount, double commissionFee,
+                                 int investmentInterval, String dateStart, String dateEnd) {
+>>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
@@ -107,9 +116,15 @@ public class PortfolioGUIController implements Features, PortfolioController {
         }
         stockPercentValues.put(entry.getKey(), val);
       }
+<<<<<<< HEAD
       model.dollarCostStrategy(portfolioName, stockPercentValues,
               investmentAmount, commissionFee, investmentInterval,
               dateStart, dateEnd);
+=======
+      model.dollarCostStrategy(portfolioName,
+              stockPercentValues, investmentAmount,
+              commissionFee, investmentInterval, dateStart, dateEnd);
+>>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
       view.displayMessage("Bought stocks via dollar cost strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());

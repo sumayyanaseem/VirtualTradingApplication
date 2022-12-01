@@ -191,8 +191,13 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       double percentValue = stockEntry.getValue();
 
       if (percentValue < 0) {
+<<<<<<< HEAD
         throw new IllegalArgumentException("Specified percent value is "
                 + "negative. Please enter positive percentages only");
+=======
+        throw new IllegalArgumentException("Specified percent value is negative. "
+                + "Please enter positive percentages only");
+>>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
       }
       totalSum += percentValue;
 
