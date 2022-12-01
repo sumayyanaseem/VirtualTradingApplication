@@ -471,11 +471,6 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testWhenDatesFallBetweenIPOWithMultipleStocks() {
-
-  }
-
-  @Test
   public void testWhenDatesFallBetweenIPO() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 100.0);
