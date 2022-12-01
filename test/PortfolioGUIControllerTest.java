@@ -249,7 +249,8 @@ public class PortfolioGUIControllerTest {
 
   @Test
   public void testTotalValueMockModel() {
-    String log = "inputs for getTotalValueOfPortfolioOnCertainDate: GUI_test_controller    2020-10-01";
+    String log = "inputs for getTotalValueOfPortfolioOnCertainDate:"
+            + " GUI_test_controller    2020-10-01";
     portfolioController.getTotalValue(pName, date);
     //System.out.println(mockModelLog.toString());
     System.out.println(mockViewLog.toString());

@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"stocks"},{"l":"stocks.controller"},{"l":"stocks.controller.commands"},{"l":"stocks.customapi"},{"l":"stocks.customparser"},{"l":"stocks.model"},{"l":"stocks.view"}]
