@@ -1,5 +1,9 @@
 package stocks.view;
 
+
+/**
+ * Common interface between GUI and Text UI.
+ */
 public interface IViewInterface {
 
   /**
