@@ -293,14 +293,9 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   @Override
-<<<<<<< HEAD
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName)
-          throws IllegalArgumentException {
-=======
   public double getTotalValueOfPortfolioOnCertainDate(
           String date,
           String portfolioName) throws IllegalArgumentException {
->>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
