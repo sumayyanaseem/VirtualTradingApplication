@@ -3,7 +3,16 @@ package stocks.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
+import javax.swing.GroupLayout;
+
 
 import stocks.controller.Features;
 
