@@ -137,16 +137,11 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
       String dateEnd = enterEndDateJTextField.getText();
       String stocksAndPercents = enterStockAndPercentsJTextField.getText();
       String[] splitData = stocksAndPercents.split(",");
-      Map<String, Double> mapOfPercents = new HashMap<>();
+      Map<String, String> mapOfPercents = new HashMap<>();
       for (int i = 0; i < splitData.length; i++) {
         String[] eachStock = splitData[i].trim().split("\\s+");
         String company = eachStock[0].trim();
-        Double percent;
-        try {
-         percent = Double.parseDouble(eachStock[1].trim());
-        } catch(Exception e){
-          throw new IllegalArgumentException("percentValue can't be empty or null");
-        }
+        String percent = eachStock[1].trim();
         mapOfPercents.put(company, percent);
       }
       feature.dollarCostStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);

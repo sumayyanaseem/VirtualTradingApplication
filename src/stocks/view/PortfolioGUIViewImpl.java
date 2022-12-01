@@ -135,7 +135,10 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
     queryPortfolioButton.addActionListener(event -> {
       QueryPortfolioPanel queryPortfolioPanel = new QueryPortfolioPanel(this.listOfPortfolios);
-      jSplitPane.setRightComponent(queryPortfolioPanel);
+      JScrollPane scrollPane = new JScrollPane(queryPortfolioPanel);
+      scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+      jSplitPane.setRightComponent(scrollPane);
       queryPortfolioPanel.delegateActions(feature);
     });
 
@@ -144,13 +147,8 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
       dollarCostButton.addActionListener(l -> {
         DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
         JScrollPane jScrollPane = new JScrollPane(vp);
-
         jSplitPane.setRightComponent(jScrollPane);
-        try {
           vp.delegateActions(feature);
-        } catch(IllegalArgumentException e){
-          displayMessage(e.getMessage());
-        }
 
       });
 

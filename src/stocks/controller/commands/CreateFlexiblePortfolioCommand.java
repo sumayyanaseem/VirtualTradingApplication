@@ -8,9 +8,8 @@ import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
 /**
- * This represents the create command class that provides a method
- * which reads portfolio name to run
- * the create portfolio command.
+ * This represents the create command class that provides methods to create a
+ * flexible portfolio through execute method.
  */
 public class CreateFlexiblePortfolioCommand implements Command  {
 
@@ -21,6 +20,14 @@ public class CreateFlexiblePortfolioCommand implements Command  {
 
   private ControllerValidations controllerValidations;
 
+  /**
+   * Constructs the command object by taking scanner, view objects to read input
+   * and display output using view respectively.
+   *
+   * @param view    represents view object
+   * @param input the scanner object that reads the input
+   * @param flexiblePortfolioTypeObj the object of a flexible portfolio.
+   */
   public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input,IFlexible flexiblePortfolioTypeObj ){
     this.view = view;
     this.input = input;

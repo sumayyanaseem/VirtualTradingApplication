@@ -1,5 +1,6 @@
 package stocks.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,16 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void createPortfolio(String pName, String pType) {
+    try
+    {
+      model.validateIfPortfolioAlreadyExists(pName);
+
+    }
+    catch(Exception e)
+    {
+      view.displayMessage("portfolio already exists with this name. Try a new name");
+      return;
+    }
     try {
       model.createEmptyPortfolio(pName, pType);
       view.updatePortfolioList(model.getListOfPortfolioNames());
@@ -56,10 +67,24 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
-  public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
-
+  public void dollarCostStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
+    Map<String,Double> stockPercentValues = new HashMap<>();
+    Double val=0.0;
     try {
-      model.dollarCostStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
+      for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
+      {
+        try{
+          val=Double.parseDouble(entry.getValue());
+
+        }
+        catch(Exception e)
+        {
+          view.displayMessage("percentages should be in numbers");
+          return;
+        }
+        stockPercentValues.put(entry.getKey(),val);
+      }
+        model.dollarCostStrategy(portfolioName, stockPercentValues,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
       view.displayMessage("Bought stocks successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
