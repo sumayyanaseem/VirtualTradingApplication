@@ -91,9 +91,28 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void dollarCostStrategy(String portfolioName,
                                  Map<String, String> stockAndPercent,
-                                 double investmentAmount,
-                                 double commissionFee, int investmentInterval,
+                                 String investmentAmount,
+                                 String commissionFee, String investmentInterval,
                                  String dateStart, String dateEnd) {
+    int investInterval = 0;
+    double commFee = 0;
+    double investmentAnt = 0;
+    try {
+      investmentAnt = Double.parseDouble(investmentAmount);
+    } catch (Exception e) {
+      view.displayMessage("Please provide valid investmentAmount");
+    }
+    try {
+      commFee = Double.parseDouble(commissionFee);
+    } catch (Exception e) {
+      view.displayMessage("Please provide valid CommissionFee");
+    }
+    try {
+
+      investInterval = Integer.parseInt(investmentInterval);
+    } catch (Exception e) {
+      view.displayMessage("InvestmentInterval must be positive whole number");
+    }
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
@@ -108,7 +127,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
         stockPercentValues.put(entry.getKey(), val);
       }
       model.dollarCostStrategy(portfolioName, stockPercentValues,
-              investmentAmount, commissionFee, investmentInterval,
+              investmentAnt, commFee, investInterval,
               dateStart, dateEnd);
       view.displayMessage("Bought stocks via dollar cost strategy successfully");
     } catch (Exception e) {
@@ -158,6 +177,6 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void start() {
-      //do nothing
+    //do nothing
   }
 }

@@ -15,7 +15,7 @@ public interface StrategyInterface {
    * @param stockAndWeights a map which stores stocks and its corresponding weights.
    * @param investmentAmount amount to be invested using tis strategy.
    * @param commission the amount charged for this transaction.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException throws exception for invalid inputs.
    */
   void applyStrategyOnPortfolio(String portfolioName,
                                 Map<String, Double> stockAndWeights,

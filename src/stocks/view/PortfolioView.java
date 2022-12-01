@@ -78,8 +78,8 @@ public interface PortfolioView extends IViewInterface {
   /**
    * displays the message to user asking if he wants view composition or calculate total value.
    * @param date the date as of which the total value is needed.
-   * @param val
-   * @param portfolioName
+   * @param val total value.
+   * @param portfolioName name of the portfolio.
    */
   void displayTotalValue(String date, String val, String portfolioName);
 
