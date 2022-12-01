@@ -53,7 +53,8 @@ public class CreatePortfolioPanel extends JPanel implements PanelInterface {
                                     .addComponent(portfolioNameLabel,
                                             GroupLayout.PREFERRED_SIZE, 400,
                                             GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING,
+                                    .addGroup(layout.createParallelGroup(
+                                            GroupLayout.Alignment.TRAILING,
                                                     false)
                                             .addComponent(createPortfolioBtn,
                                                     GroupLayout.Alignment.LEADING,
