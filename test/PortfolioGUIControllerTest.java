@@ -260,6 +260,7 @@ public class PortfolioGUIControllerTest {
       //System.out.println(value);
       assertTrue(value==0);
       double costBasis=portfolioGUIController.getCostBasis(pName,date);
+      //System.out.println(costBasis);
       assertTrue(costBasis!=0);
 
       Map<String,String> stockAndPercent = new HashMap<>();
