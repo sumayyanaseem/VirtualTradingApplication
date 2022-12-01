@@ -4,23 +4,25 @@
 ******************************************************************************************************************************************************************
 DESIGN CHANGES:
 ******************************************************************************************************************************************************************
-1)
-3)Data Structure Change :
-  Initially we were using Map<String, Stock> to store companies as keys and one Stock Class Object because we had only "add" action in inflexible portfolio.
-  Currently, we are using Map<String, List<Stock>> to store multiple Stock objects for a single company. We need multiple Stock class Objects
-  because multiple buy and sell actions can happen in flexible portfolio.
+1) Initially we had "Portfolio.java" interface which had union of all the methods that can be supported by flexible and inflexible portfolios.
+    Hence, FlexiblePortfolioImpl and InFlexiblePortfolioImpl had to implement each of these methods.
+    Some methods like sell stocks etc which were not supported by inflexible, we were just throwing an exception saying unsopperted action for inflexible.
 
-4)API Changes:
-We have added an interface and implement api class , which can be implemented by different api sources in future and currently we are using alpha vantage api n implement.
+    In current design, in "Portfolio.java" interface, we are keeping only those functions which are commonly supported by both flexible and inflexible.
+    For any additional methods that a flexible portfolio needs, we have introduced a new interface IFlexible. ( we made this interface extend the Portfolio interface which all other has common methods )
+    Hence FlexiblePortfolioImpl.java just implements Portfolio.java interface.
+    InflexiblePortfolioImpl.java implements IFlexible.java interface.
 
-5)CSV TO JSON:
-We are now persisting the portfolios in json format, as we are allowed to use third party libraries.
+2) Earlier we had only "PortfolioView.java" interface to support text based view actions.
+    In current design, We added a new view interface ( "PortfolioGUIView.java") to support GUI related view actions.
+    We added a common interface "IViewInterface.java" which is extended by both "PortfolioView.java" and PortfolioGUIView.java and has a common method.
+
+3) In current design, we are using command design pattern.
 
 ******************************************************************************************************************************************************************
 CURRENT ASSUMPTIONS:
 ******************************************************************************************************************************************************************
-1. We are currently offering only a selected set of 26 companies to trade from. Given below are the Ticker symbols for these companies.
-   ( GOOG, AAPL, ABNB, AMZN, CCL, COIN, DASH, DKNG, F, GT, OBM, INTC, META, NU, NVDA, NXPL, ORCL, SHOP, SOFI, T, TLRY, TREX, TSLA, TSP, TWTR, UBER )
+1. We are supported all stocks present in Alphavantage API.
 2. Stock prices for the above companies are available only for a specific range of dates ( From today's date to Stock's IPO date ).
    Hence the user will be able to get any kind of values from his portfolio only within this range.
 3. We are currently using JSON format to save the files. Reading/writing in done from JSON formatted files.
@@ -36,8 +38,8 @@ CURRENT DESIGN:(Using MVC Pattern)
 ******************************************************************************************************************************************************************
 TradingMVC.java is the starting point of application.
 
-Objects of model, view and controller are created as described below:
-View object is used to display output messages to user. It uses System.out stream.
+Text based UI's View object - displays output messages to user. It uses System.out stream.
+GUI based view object - creating frames, generates panels, displays pop ups.
 Controller takes user input and uses view Object to display messages to user. Hence, controller Object is created using System.in stream and view Object.
 Controller has model object as one of the parameters(Here we are using the composition technique).
 
@@ -74,35 +76,6 @@ a)Displays the output messages to the user on text based UI, for the user to ent
 b)Displays certain results queried by user.
 c)Also, displays error messages to user.
 
-Methods in View Class:
-category 'a':
-1) callToViewToChooseCreateOrView
-2) askUserOnHowToCreatePortfolio
-3) getFilePath
-4) getPortfolioName
-5) getBuyOrSellChoiceFromUser
-6) getQuantity
-7) getCompanyTicker
-8) askUserIfHeWantsToContinueTradingInCurrentPortfolio
-9) checkIfUserWantsToExitCompletely
-10) createOrUpdateExistingPortfolio
-11) checkIfUserWantsToViewCompositionOrTotalValue
-12) getDate
-13) callExitFromLoad
-14) askUserIfheWantsTOContinueViewing
-15) getCommission
-16) createFlexibleOrInFlexiblePortfolio
-17) checkIfUserWantsToContinueUpdatingPortfolio
-18) displayMessageToBuyOrSell
-
-category 'b':
-19) displayTotalValue
-20) displayComposition
-21) displayPortfolioPerformance
-22) displayTheTotalCost
-
-category 'c':
-23) displayErrorMessage
 
 --------------------------------------------------------------------------------------------------------------------------------------
 MODEL:
