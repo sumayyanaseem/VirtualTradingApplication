@@ -343,6 +343,24 @@ public class PortfolioGUIControllerTest {
   }
 
   @Test
+  public void testDollarCostWithFractionalInterval(){
+    String view = "inputs for displayMessage: Error while "
+            + "trying to buy the stock : " +
+            "Can't apply strategy with specified interval."
+            + " Investment interval should be atleast one day\n";
+    Map<String, String> stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", "10.5");
+    stockAndPercent.put("META", "29.5");
+    stockAndPercent.put("ORCL", "49.5");
+    stockAndPercent.put("TWTR", "10.5");
+    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
+            "10000", "20", "30.5",
+            "2020-01-01", "2022-11-11");
+    System.out.println(mockViewLog.toString());
+    assertTrue(mockViewLog.toString().contains(view));
+  }
+
+  @Test
   public void testDollarCost() {
     String view = "inputs for displayMessage: "
             + "Bought stocks via dollar cost strategy successfully";
