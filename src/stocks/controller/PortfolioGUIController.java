@@ -57,9 +57,24 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
-  public void investFixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+  public void investFixedAmountStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+    Map<String,Double> stockPercentValues = new HashMap<>();
+    Double val=0.0;
     try {
-      model.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+      for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
+      {
+        try{
+          val=Double.parseDouble(entry.getValue());
+
+        }
+        catch(Exception e)
+        {
+          view.displayMessage("percentages should be in numbers");
+          return;
+        }
+        stockPercentValues.put(entry.getKey(),val);
+      }
+      model.fixedAmountStrategy(portfolioName, stockPercentValues, investmentAmount, commissionFee, date);
       view.displayMessage("Bought stocks via fixed amount strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());

@@ -12,6 +12,7 @@ import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IFlexible;
 import stocks.view.PortfolioGUIView;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PortfolioGUIControllerTest {
@@ -240,30 +241,70 @@ public class PortfolioGUIControllerTest {
   }
 
   @Test
-  public void testCreateEmptyPortfolio(){
+  public void testEndToEndTesting() {
     String view ="inputs for displayMessage: portfolio GUI_test_controller created successfully";
-    portfolioGUIController.createPortfolio(pName,"flexible");
-    assertTrue(mockViewLog.toString().contains(view));
-  }
-
-  @Test
-  public void testEndToEndStock() {
-    String view ="inputs for displayMessage: Bought stocks successfully";
     try {
+      portfolioGUIController.createPortfolio(pName,"flexible");
+      assertTrue(mockViewLog.toString().contains(view));
+      view ="inputs for displayMessage: Bought stocks successfully";
       portfolioGUIController.buyStock(ticker, date, qty, comm, pName);
-      //System.out.println(mockViewLog.toString());
+      System.out.println(mockViewLog.toString());
       assertTrue(mockViewLog.toString().contains(view));
       view ="inputs for displayMessage: Sold stocks successfully";
       portfolioGUIController.sellStock(ticker, date, qty, comm, pName);
-     // System.out.println(mockViewLog.toString());
       assertTrue(mockViewLog.toString().contains(view));
 
-      portfolioGUIController.viewComposition(pName,date);
+
 
       double value=portfolioGUIController.getTotalValue(pName,date);
+      //System.out.println(value);
       assertTrue(value==0);
       double costBasis=portfolioGUIController.getCostBasis(pName,date);
       assertTrue(costBasis!=0);
+
+      Map<String,String> stockAndPercent = new HashMap<>();
+      stockAndPercent.put("goog", "10.5");
+      stockAndPercent.put("META", "29.5");
+      stockAndPercent.put("ORCL", "49.5");
+      stockAndPercent.put("TWTR", "10.5");
+      portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30,"2020-01-01","2022-11-11");
+      System.out.println(mockViewLog.toString());
+      assertTrue(mockViewLog.toString().contains(view));
+
+      view="inputs for displayMessage: Bought stocks via fixed amount strategy successfully\n";
+      stockAndPercent = new HashMap<>();
+      stockAndPercent.put("goog", "10.5");
+      stockAndPercent.put("META", "29.5");
+      stockAndPercent.put("ORCL", "49.5");
+      stockAndPercent.put("TWTR", "10.5");
+      portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
+      System.out.println(mockViewLog.toString());
+      assertTrue(mockViewLog.toString().contains(view));
+
+      List<List<String>> results = portfolioGUIController.viewComposition(pName,date);
+
+      StringBuilder dates = new StringBuilder();
+      StringBuilder company = new StringBuilder();
+      for (List<String> list : results) {
+        dates.append(list.get(2).toString());
+        company.append(list.get(0).toString());
+      }
+
+      assertTrue(dates.toString().contains("2020-01-02"));
+      //Jan 1st is holiday and is not included.
+      assertFalse(dates.toString().contains("2020-01-01"));
+      //Dec 25th
+      assertFalse(dates.toString().contains("2020-12-25"));
+      //July 4th
+      assertFalse(dates.toString().contains("2020-07-04"));
+      //Nov 11
+      assertFalse(dates.toString().contains("2020-11-11"));
+
+      assertTrue(company.toString().contains("GOOG"));
+      assertTrue(company.toString().contains("META"));
+      assertTrue(company.toString().contains("ORCL"));
+      assertTrue(company.toString().contains("TWTR"));
+
 
     } catch(Exception e){
       System.out.println(e.getMessage());
@@ -276,12 +317,23 @@ public class PortfolioGUIControllerTest {
   @Test
   public void testDollarCost(){
     String view="inputs for displayMessage: Bought stocks via dollar cost strategy successfully";
-    Map<String,Double> stockAndPercent = new HashMap<>();
-    stockAndPercent.put("goog", 10.5);
-    stockAndPercent.put("META", 29.5);
-    stockAndPercent.put("ORCL", 49.5);
-    stockAndPercent.put("TWTR", 10.5);
+    Map<String,String> stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", "10.5");
+    stockAndPercent.put("META", "29.5");
+    stockAndPercent.put("ORCL", "49.5");
+    stockAndPercent.put("TWTR", "10.5");
     portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30,"2020-01-01","2022-11-11");
+    System.out.println(mockViewLog.toString());
+    assertTrue(mockViewLog.toString().contains(view));
+
+   view="inputs for displayMessage: percentages should be in numbers";
+    stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", null);
+    stockAndPercent.put("META", "29.5");
+    stockAndPercent.put("ORCL", "49.5");
+    stockAndPercent.put("TWTR", "10.5");
+    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30,"2020-01-01","2022-11-11");
+
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
   }
@@ -289,13 +341,22 @@ public class PortfolioGUIControllerTest {
   @Test
   public void testFixedCost(){
     String view="inputs for displayMessage: Bought stocks via fixed amount strategy successfully\n";
-    Map<String,Double> stockAndPercent = new HashMap<>();
-    stockAndPercent.put("goog", 10.5);
-    stockAndPercent.put("META", 29.5);
-    stockAndPercent.put("ORCL", 49.5);
-    stockAndPercent.put("TWTR", 10.5);
+    Map<String,String> stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", "10.5");
+    stockAndPercent.put("META", "29.5");
+    stockAndPercent.put("ORCL", "49.5");
+    stockAndPercent.put("TWTR", "10.5");
     portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
     System.out.println(mockViewLog.toString());
+    assertTrue(mockViewLog.toString().contains(view));
+
+    view="inputs for displayMessage: percentages should be in numbers";
+    stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", null);
+    stockAndPercent.put("META", "29.5");
+    stockAndPercent.put("ORCL", "49.5");
+    stockAndPercent.put("TWTR", "10.5");
+    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
     assertTrue(mockViewLog.toString().contains(view));
   }
 
