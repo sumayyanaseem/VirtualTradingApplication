@@ -56,8 +56,9 @@ public class PortfolioGUIControllerTest {
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
-                                                               String endTime, String portfolioName) {
+    public Map<String, Double> getPortfolioPerformanceOvertime(
+            String startTime,
+            String endTime, String portfolioName) {
       log.append("inputs for getPortfolioPerformanceOvertime: " + startTime + " "
               + endTime + " " + portfolioName + "\n");
 
@@ -90,9 +91,11 @@ public class PortfolioGUIControllerTest {
                                    Map<String, Double> stockAndPercent, double investmentAmount,
                                    double commissionFee,
                                    int investmentInterval, String dateStart, String dateEnd) {
-      log.append("inputs for dollarCostStrategy: " + portfolioName + " "
+      log.append("inputs for dollarCostStrategy: "
+              + portfolioName + " "
               + stockAndPercent + " " + investmentAmount + " "
-              + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
+              + commissionFee + "    " + investmentInterval
+              + " " + dateStart + " " + dateEnd + "\n");
     }
 
     @Override
@@ -181,7 +184,7 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void exitGracefully() {
-
+    //do nothing;
     }
 
     @Override
@@ -237,7 +240,8 @@ public class PortfolioGUIControllerTest {
 
   @Test
   public void testViewCompositionMockModel() {
-    String log = "inputs for viewCompositionOfCurrentPortfolio: GUI_test_controller    2020-10-01";
+    String log = "inputs for "
+            + "viewCompositionOfCurrentPortfolio: GUI_test_controller    2020-10-01";
     portfolioController.viewComposition(pName, date);
     System.out.println(mockModelLog.toString());
     assertTrue(mockModelLog.toString().contains(log));

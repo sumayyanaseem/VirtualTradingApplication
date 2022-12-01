@@ -108,7 +108,8 @@ public class DollarCostAveragingTest {
     }
     assertEquals(actual, expected);
 
-    expected = "Can't apply strategy with specified interval. Investment interval should be atleast one day";
+    expected = "Can't apply strategy with specified interval."
+            + " Investment interval should be atleast one day";
     actual = "";
     try {
       flexible.dollarCostStrategy(pName, stockAndPercent,
