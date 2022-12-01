@@ -7,6 +7,11 @@ import stocks.model.IFlexible;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
+/**
+ * This represents the create command class that provides a method
+ * which reads portfolio name to run
+ * the create portfolio command.
+ */
 public class CreateFlexiblePortfolioCommand implements Command  {
 
   private final PortfolioView view;
