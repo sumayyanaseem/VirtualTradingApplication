@@ -107,7 +107,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
 
 
   @Override
-  public void delegateActions(Features feature) {
+  public void delegateActions(Features feature) throws IllegalArgumentException{
     investBtn.addActionListener(l->{
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
       double investmentAmount = Double.valueOf(enterAmountJTextField.getText());
@@ -119,6 +119,9 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
       for (int i = 0; i < splitData.length; i++) {
         String[] eachStock = splitData[i].trim().split("\\s+");
         String comapany = eachStock[0].trim().toUpperCase();
+        if (eachStock[1].trim() == null || eachStock[1].trim().equals("")) {
+          throw new IllegalArgumentException("percentValue can't be empty or null");
+        }
         Double percent = Double.valueOf(eachStock[1].trim());
         mapOfPercents.put(comapany, percent);
       }

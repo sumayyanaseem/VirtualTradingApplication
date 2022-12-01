@@ -123,22 +123,19 @@ public class DollarCostStrategyImpl implements StrategyInterface {
               + "dollar cost strategy");
     }
 
-
-    for (String stockName : stockAndPercent.keySet()) {
-      flexible.validateIfCompanyExists(stockName.trim().toUpperCase());
-    }
-
-
     if (investmentAmount <= 0.00) {
       throw new IllegalArgumentException("Amount cant be less than 0");
     }
 
-    if (commissionFee < 0.00) {
+    if (commissionFee <= 0.00) {
       throw new IllegalArgumentException("Commission fee cant be less than 0");
     }
-
     validateMapEntriesAndPercent(stockAndPercent);
 
+
+    for (String stockName : stockAndPercent.keySet()) {
+      flexible.validateIfCompanyExists(stockName.trim().toUpperCase());
+    }
   }
 
   private void validateDateFormat(String date) {
@@ -176,7 +173,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       double percentValue = stockEntry.getValue();
 
       if (percentValue < 0) {
-        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive persentages only");
+        throw new IllegalArgumentException("Specified percent value is negative. Please enter positive percentages only");
       }
       totalSum += percentValue;
 

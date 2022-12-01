@@ -140,22 +140,32 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     });
 
 
-    dollarCostButton.addActionListener(l -> {
-      DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
-      JScrollPane jScrollPane = new JScrollPane(vp);
 
-      jSplitPane.setRightComponent(jScrollPane);
-      vp.delegateActions(feature);
+      dollarCostButton.addActionListener(l -> {
+        DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
+        JScrollPane jScrollPane = new JScrollPane(vp);
 
-    });
+        jSplitPane.setRightComponent(jScrollPane);
+        try {
+          vp.delegateActions(feature);
+        } catch(IllegalArgumentException e){
+          displayMessage(e.getMessage());
+        }
 
-    investButton.addActionListener(l -> {
-      InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel = new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
-      JScrollPane jScrollPane = new JScrollPane(investFixedAmountStrategyPanel);
-      jSplitPane.setRightComponent(jScrollPane);
-      investFixedAmountStrategyPanel.delegateActions(feature);
+      });
 
-    });
+
+    try {
+      investButton.addActionListener(l -> {
+        InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel = new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
+        JScrollPane jScrollPane = new JScrollPane(investFixedAmountStrategyPanel);
+        jSplitPane.setRightComponent(jScrollPane);
+        investFixedAmountStrategyPanel.delegateActions(feature);
+
+      });
+    } catch(IllegalArgumentException e ){
+      displayMessage(e.getMessage());
+    }
 
   }
 

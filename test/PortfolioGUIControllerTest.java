@@ -54,7 +54,7 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void createEmptyPortfolio(String portfolioName, String portfolioType) {
-      log.append("inputs for createEmptyPortfolio: "  + portfolioName + "    " + portfolioType + "\n");
+      log.append("inputs for createEmptyPortfolio: " + portfolioName + "    " + portfolioType + "\n");
 
     }
 
@@ -65,51 +65,63 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
-      log.append("inputs for dollarCostStrategy: " + portfolioName + " " + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + investmentInterval +" "+dateStart +" "+dateEnd+"\n");
+      log.append("inputs for dollarCostStrategy: " + portfolioName + " " + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
     }
 
     @Override
     public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
+      log.append("inputs for fixedAmountStrategy: " + portfolioName + " " + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + date + "\n");
 
     }
 
     @Override
     public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
+      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: " + portfolioName + "    " + date + "\n");
+
       return 0;
     }
 
     @Override
     public void loadPortfolioUsingFilePath(String filePath) {
+      log.append("inputs for loadPortfolioUsingFilePath: " + filePath + "\n");
+
 
     }
 
     @Override
     public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
+      log.append("inputs for viewCompositionOfCurrentPortfolio: " + portfolioName + "    " + date + "\n");
+
       return null;
     }
 
     @Override
     public void createPortfolioIfCreatedManually(String portfolioName) {
+      log.append("inputs for createPortfolioIfCreatedManually: " + portfolioName + "\n");
 
     }
 
     @Override
     public void validateIfCompanyExists(String companyName) {
+      log.append("inputs for validateIfCompanyExists: " + companyName + "\n");
 
     }
 
     @Override
     public void validateIfPortfolioAlreadyExists(String portfolioName) {
+      log.append("inputs for validateIfPortfolioAlreadyExists: " + portfolioName + "\n");
 
     }
 
     @Override
     public void validateIfPortfolioDoesntExists(String name) {
+      log.append("inputs for validateIfPortfolioDoesntExists: " + name + "\n");
 
     }
 
     @Override
     public void buyStocks(String companyName, String quantity, String date, String com, String portfolioName) throws IllegalArgumentException {
+      log.append("inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + com + " " + portfolioName + "\n");
 
     }
   }
@@ -129,12 +141,12 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void displayMessage(String s) {
-      log.append("inputs for displayMessage: " + s  + "\n");
+      log.append("inputs for displayMessage: " + s + "\n");
     }
 
     @Override
     public void addFeatures(Features features) {
-      log.append("inputs for addFeatures: " + features  + "\n");
+      log.append("inputs for addFeatures: " + features + "\n");
     }
 
     @Override
@@ -144,7 +156,7 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void updatePortfolioList(List<String> list) {
-      log.append("inputs for updatePortfolioList: " + list  + "\n");
+      log.append("inputs for updatePortfolioList: " + list + "\n");
     }
   }
 
