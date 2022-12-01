@@ -184,7 +184,7 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public void exitGracefully() {
-    //do nothing;
+      //do nothing;
     }
 
     @Override
@@ -343,10 +343,10 @@ public class PortfolioGUIControllerTest {
   }
 
   @Test
-  public void testDollarCostWithFractionalInterval(){
+  public void testDollarCostWithFractionalInterval() {
     String view = "inputs for displayMessage: Error while "
-            + "trying to buy the stock : " +
-            "Can't apply strategy with specified interval."
+            + "trying to buy the stock : "
+            + "Can't apply strategy with specified interval."
             + " Investment interval should be atleast one day\n";
     Map<String, String> stockAndPercent = new HashMap<>();
     stockAndPercent.put("goog", "10.5");

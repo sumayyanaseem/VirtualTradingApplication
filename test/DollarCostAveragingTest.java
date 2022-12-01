@@ -58,7 +58,7 @@ public class DollarCostAveragingTest {
     }
     assertEquals(actual, expected);
 
-    expected="start date can't be after end date. Strategy can't be applied.";
+    expected = "start date can't be after end date. Strategy can't be applied.";
     actual = "";
     try {
       flexible.dollarCostStrategy(pName, stockAndPercent,
@@ -358,7 +358,7 @@ public class DollarCostAveragingTest {
 
   @Test
   public void testDollarCostStrategyWithFractionalInvestment() {
-     stockAndPercent = new HashMap<>();
+    stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 10.0);
     stockAndPercent.put("META", 30.0);
     stockAndPercent.put("ORCL", 50.0);
@@ -422,14 +422,14 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testWhenDatesFallOnSameDay(){
+  public void testWhenDatesFallOnSameDay() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 10.0);
     stockAndPercent.put("META", 30.0);
     stockAndPercent.put("ORCL", 50.0);
     stockAndPercent.put("TWTR", 10.0);
-    String expected="InvestmentInterval should be one when start equals end date";
-    String actual="";
+    String expected = "InvestmentInterval should be one when start equals end date";
+    String actual = "";
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
       flexible.dollarCostStrategy(pName, stockAndPercent,
@@ -437,10 +437,10 @@ public class DollarCostAveragingTest {
               "2020-08-01", "2020-08-01");
 
     } catch (Exception e) {
-      actual=e.getMessage();
+      actual = e.getMessage();
       System.out.println(e.getMessage());
     }
-    assertEquals(actual,expected);
+    assertEquals(actual, expected);
 
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
@@ -471,12 +471,12 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testWhenDatesFallBetweenIPOWithMultipleStocks(){
+  public void testWhenDatesFallBetweenIPOWithMultipleStocks() {
 
   }
 
   @Test
-  public void testWhenDatesFallBetweenIPO(){
+  public void testWhenDatesFallBetweenIPO() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 100.0);
     try {
@@ -516,11 +516,11 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testWhenDatesFallBeforeIPO(){
+  public void testWhenDatesFallBeforeIPO() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 100.0);
-    String expected="Given Dates range is before IPO";
-    String actual="";
+    String expected = "Given Dates range is before IPO";
+    String actual = "";
     try {
       flexible.createEmptyPortfolio(pName, "flexible");
       flexible.dollarCostStrategy(pName, stockAndPercent,
@@ -530,10 +530,10 @@ public class DollarCostAveragingTest {
       assertTrue(results.size() == 0);
 
     } catch (Exception e) {
-      actual=e.getMessage();
+      actual = e.getMessage();
       System.out.println(e.getMessage());
     }
-    assertEquals(actual,expected);
+    assertEquals(actual, expected);
     File f = new File("userPortfolios/" + pName + "_output.json");
     assertTrue(f.exists());
     f.deleteOnExit();

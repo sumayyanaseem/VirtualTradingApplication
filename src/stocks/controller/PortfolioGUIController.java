@@ -94,28 +94,28 @@ public class PortfolioGUIController implements Features, PortfolioController {
                                  String investmentAmount,
                                  String commissionFee, String investmentInterval,
                                  String dateStart, String dateEnd) {
-    int investInterval=0;
-    double commFee=0;
+    int investInterval = 0;
+    double commFee = 0;
     double investmentAnt = 0;
     try {
       investmentAnt = Double.parseDouble(investmentAmount);
-    } catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage("Please provide valid investmentAmount");
     }
-    try{
+    try {
       commFee = Double.parseDouble(commissionFee);
-    } catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage("Please provide valid CommissionFee");
     }
     try {
 
       investInterval = Integer.parseInt(investmentInterval);
-    } catch(Exception e){
+    } catch (Exception e) {
       view.displayMessage("InvestmentInterval must be positive whole number");
     }
     Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
-    try{
+    try {
       for (Map.Entry<String, String> entry : stockAndPercent.entrySet()) {
         try {
           val = Double.parseDouble(entry.getValue());
@@ -177,6 +177,6 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void start() {
-      //do nothing
+    //do nothing
   }
 }

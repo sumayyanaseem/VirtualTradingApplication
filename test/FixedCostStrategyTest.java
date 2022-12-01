@@ -272,23 +272,24 @@ public class FixedCostStrategyTest {
 
 
   @Test
-  public void testWhenDatesFallBeforeIPO(){
+  public void testWhenDatesFallBeforeIPO() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 100.0);
-    String expected="Given Date is before IPO";
-    String actual="";
+    String expected = "Given Date is before IPO";
+    String actual = "";
     try {
       portfolio.createEmptyPortfolio(portfolioName, "flexible");
       portfolio.fixedAmountStrategy(portfolioName,
               stockAndPercent, investmentAmount, commissionFee, "2004-10-01");
-      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(portfolioName, "2021-01-31");
+      List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(
+              portfolioName, "2021-01-31");
       assertTrue(results.size() == 0);
 
     } catch (Exception e) {
-      actual=e.getMessage();
+      actual = e.getMessage();
       System.out.println(e.getMessage());
     }
-    assertEquals(actual,expected);
+    assertEquals(actual, expected);
     File f = new File("userPortfolios/" + portfolioName + "_output.json");
     assertTrue(f.exists());
     f.deleteOnExit();
