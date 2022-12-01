@@ -59,8 +59,8 @@ public class PortfolioGUIController implements Features, PortfolioController {
   @Override
   public void investFixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
     try {
-      model.fixedAmountStrategy(portfolioName, stockAndPercent,investmentAmount,commissionFee,date);
-      view.displayMessage("Bought stocks successfully");
+      model.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+      view.displayMessage("Bought stocks via fixed amount strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
     }
@@ -85,7 +85,7 @@ public class PortfolioGUIController implements Features, PortfolioController {
         stockPercentValues.put(entry.getKey(),val);
       }
         model.dollarCostStrategy(portfolioName, stockPercentValues,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
-      view.displayMessage("Bought stocks successfully");
+      view.displayMessage("Bought stocks via dollar cost strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());
     }
@@ -104,13 +104,11 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
-  public double getTotalValue (String pName, String date) throws IllegalArgumentException{
-    double val=0.0;
+  public double getTotalValue(String pName, String date) throws IllegalArgumentException {
+    double val = 0.0;
     try {
       val = model.getTotalValueOfPortfolioOnCertainDate(date, pName);
-    }
-    catch(Exception e)
-    {
+    } catch (Exception e) {
       view.displayMessage("Error while trying to sell the stock : " + e.getMessage());
       throw new IllegalArgumentException(e);
     }

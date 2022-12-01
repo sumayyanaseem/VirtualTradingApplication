@@ -1,16 +1,18 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import stocks.controller.Features;
 import stocks.controller.PortfolioGUIController;
+import stocks.model.FlexiblePortfolioImpl;
 import stocks.model.IFlexible;
 import stocks.view.PortfolioGUIView;
+
+import static org.junit.Assert.assertTrue;
 
 public class PortfolioGUIControllerTest {
 
@@ -165,63 +167,137 @@ public class PortfolioGUIControllerTest {
 
   private PortfolioGUIController portfolioController;
 
-  private MockModel model;
+  private PortfolioGUIController portfolioGUIController;
+
+  private MockModel mockModel;
+
+  private IFlexible model;
 
   private StringBuilder mockModelLog;
 
   private StringBuilder mockViewLog;
 
-  private OutputStream bytes;
 
   private static final String ticker = "goog";
   private static final String date = "2020-10-01";
   private static final String qty = "20";
   private static final String comm = "30";
-  private String pName = "testGUIController";
+  private String pName = "GUI_test_controller";
 
   @Before
   public void setUp() {
-    bytes = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(bytes);
     mockViewLog = new StringBuilder();
     view = new MockView(mockViewLog);
     mockModelLog = new StringBuilder();
-    model = new MockModel(mockModelLog);
-    portfolioController = new PortfolioGUIController(model, view);
+    mockModel = new MockModel(mockModelLog);
+    portfolioController = new PortfolioGUIController(mockModel, view);
+    model = new FlexiblePortfolioImpl();
+    portfolioGUIController = new PortfolioGUIController(model,view);
   }
 
   @Test
-  public void testBuyStock() {
+  public void testBuyStockMockModel() {
+    String log = "inputs for updatePortfolio: goog 20 2020-10-01 GUI_test_controller buy  30";
+    String view ="inputs for displayMessage: Bought stocks successfully";
     portfolioController.buyStock(ticker, date, qty, comm, pName);
+    assertTrue(mockModelLog.toString().contains(log));
+    assertTrue(mockViewLog.toString().contains(view));
   }
 
   @Test
-  public void testSellStock() {
+  public void testSellStockMockModel() {
+    String log = "inputs for updatePortfolio: goog 20 2020-10-01 GUI_test_controller sell  30";
+    String view ="inputs for displayMessage: Sold stocks successfully";
     portfolioController.sellStock(ticker, date, qty, comm, pName);
+    assertTrue(mockModelLog.toString().contains(log));
+    assertTrue(mockViewLog.toString().contains(view));
   }
 
   @Test
-  public void testViewComposition() {
-    // portfolioController.viewComposition();
+  public void testViewCompositionMockModel() {
+    String log = "inputs for viewCompositionOfCurrentPortfolio: GUI_test_controller    2020-10-01";
+    portfolioController.viewComposition(pName,date);
+    System.out.println(mockModelLog.toString());
+    assertTrue(mockModelLog.toString().contains(log));
   }
 
   @Test
-  public void testTotalValue() {
-    // portfolioController.getTotalValue();
+  public void testTotalValueMockModel() {
+    String log = "inputs for getTotalValueOfPortfolioOnCertainDate: GUI_test_controller    2020-10-01";
+    portfolioController.getTotalValue(pName,date);
+    //System.out.println(mockModelLog.toString());
+    System.out.println(mockViewLog.toString());
+    assertTrue(mockModelLog.toString().contains(log));
+   // assertTrue(mockViewLog.toString().contains(view));
   }
 
   @Test
-  public void testTotalCostBasis() {
-    // portfolioController.getCostBasis();
+  public void testTotalCostBasisMockModel() {
+    String log = "inputs for getTotalMoneyInvestedOnCertainDate: 2020-10-01 GUI_test_controller";
+    portfolioController.getCostBasis(pName,date);
+    System.out.println(mockModelLog.toString());
+    assertTrue(mockModelLog.toString().contains(log));
   }
 
   @Test
-  public void testDollarCostStrategy() {
-    // portfolioController.dollarCostStrategy();
+  public void testCreateEmptyPortfolio(){
+    String view ="inputs for displayMessage: portfolio GUI_test_controller created successfully";
+    portfolioGUIController.createPortfolio(pName,"flexible");
+    assertTrue(mockViewLog.toString().contains(view));
   }
 
   @Test
-  public void testInvestFixedAmount() {
-    // portfolioController.investFixedAmountStrategy();
+  public void testEndToEndStock() {
+    String view ="inputs for displayMessage: Bought stocks successfully";
+    try {
+      portfolioGUIController.buyStock(ticker, date, qty, comm, pName);
+      //System.out.println(mockViewLog.toString());
+      assertTrue(mockViewLog.toString().contains(view));
+      view ="inputs for displayMessage: Sold stocks successfully";
+      portfolioGUIController.sellStock(ticker, date, qty, comm, pName);
+     // System.out.println(mockViewLog.toString());
+      assertTrue(mockViewLog.toString().contains(view));
+
+      portfolioGUIController.viewComposition(pName,date);
+
+      double value=portfolioGUIController.getTotalValue(pName,date);
+      assertTrue(value==0);
+      double costBasis=portfolioGUIController.getCostBasis(pName,date);
+      assertTrue(costBasis!=0);
+
+    } catch(Exception e){
+      System.out.println(e.getMessage());
+    }
+   File f = new File("userPortfolios/" + pName+ "_output.json");
+    assertTrue(f.exists());
+    f.deleteOnExit();
   }
+
+  @Test
+  public void testDollarCost(){
+    String view="inputs for displayMessage: Bought stocks via dollar cost strategy successfully";
+    Map<String,Double> stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", 10.5);
+    stockAndPercent.put("META", 29.5);
+    stockAndPercent.put("ORCL", 49.5);
+    stockAndPercent.put("TWTR", 10.5);
+    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30,"2020-01-01","2022-11-11");
+    System.out.println(mockViewLog.toString());
+    assertTrue(mockViewLog.toString().contains(view));
+  }
+
+  @Test
+  public void testFixedCost(){
+    String view="inputs for displayMessage: Bought stocks via fixed amount strategy successfully\n";
+    Map<String,Double> stockAndPercent = new HashMap<>();
+    stockAndPercent.put("goog", 10.5);
+    stockAndPercent.put("META", 29.5);
+    stockAndPercent.put("ORCL", 49.5);
+    stockAndPercent.put("TWTR", 10.5);
+    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
+    System.out.println(mockViewLog.toString());
+    assertTrue(mockViewLog.toString().contains(view));
+  }
+
+
 }
