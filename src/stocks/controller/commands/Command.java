@@ -1,8 +1,8 @@
 package stocks.controller.commands;
 
 /**
- * An interface for a command which offers a method
- * execute to be implemented by various command classes.
+ * An interface for a command which offers a
+ * method execute to be implemented by various command classes.
  */
 public interface Command {
   /**

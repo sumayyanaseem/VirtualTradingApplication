@@ -65,9 +65,10 @@ public interface IFlexible extends Portfolio {
    * @param portfolioName name of the portfolio.
    * @return returns the performance of portfolio over the time.
    */
-  Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
-                                                      String endTime,
-                                                      String portfolioName) throws IllegalArgumentException;
+  Map<String, Double> getPortfolioPerformanceOvertime(
+          String startTime,
+          String endTime,
+          String portfolioName) throws IllegalArgumentException;
 
 
   /**
@@ -111,7 +112,9 @@ public interface IFlexible extends Portfolio {
    * @param dateStart          the start date for investment.
    * @param dateEnd            the end date for investment.
    */
-  void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException;
+  void dollarCostStrategy(String portfolioName,
+                          Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee,
+                          int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException;
 
 
   /**
@@ -123,6 +126,8 @@ public interface IFlexible extends Portfolio {
    * @param commissionFee    the commission charged for transaction.
    * @param date             the start date for investment.
    */
-  void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) throws IllegalArgumentException;
+  void fixedAmountStrategy(String portfolioName,
+                           Map<String, Double> stockAndPercent, double investmentAmount,
+                           double commissionFee, String date) throws IllegalArgumentException;
 
 }

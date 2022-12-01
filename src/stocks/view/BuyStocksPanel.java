@@ -2,7 +2,14 @@ package stocks.view;
 
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 
 import stocks.controller.Features;
 
@@ -54,13 +61,17 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
     this.setLayout(layout);
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(enterTickerJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterTickerJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterTickerJTextField)
-                    .addComponent(enterDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addComponent(enterDateJLabel,
+                            GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addComponent(enterDateJTextField)
-                    .addComponent(enterStocksJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterStocksJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStocksJTextField)
-                    .addComponent(enterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterPortfolioNameJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buyStocksBtn)
                     .addComponent(enterCommissionJLabel)
                     .addComponent(enterCommissionJTextField)
@@ -73,23 +84,28 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
                             .addContainerGap()
                             .addComponent(enterTickerJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterTickerJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterTickerJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterDateJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterDateJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterStocksJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(enterStocksJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterStocksJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(enterCommissionJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterCommissionJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterCommissionJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(enterPortfolioNameJLabel)
                             .addGap(26, 26, 26)
-                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(portfolioNamesJCombo,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(buyStocksBtn)
                             .addGap(43, 43, 43))
@@ -99,7 +115,9 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
   @Override
   public void delegateActions(Features feature) {
     buyStocksBtn.addActionListener(l -> {
-      feature.buyStock(enterTickerJTextField.getText().toUpperCase(), enterDateJTextField.getText(), enterStocksJTextField.getText(), enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
+      feature.buyStock(enterTickerJTextField.getText().toUpperCase(),
+              enterDateJTextField.getText(), enterStocksJTextField.getText(),
+              enterCommissionJTextField.getText(), portfolioNamesJCombo.getSelectedItem().toString());
       reset();
       repaint();
     });

@@ -80,8 +80,8 @@ public class ControllerValidations {
    * @return valid/invalid date provided ?
    */
   public boolean dateHelperInFlexiblePortfolio(String date, String companyName) {
-    return validateDate(date);
 
+    return validateDate(date);
   }
 
   /**
@@ -93,7 +93,6 @@ public class ControllerValidations {
    */
   public boolean companyHelper(Portfolio portfolio, String companyName) {
     return validateIfCompanyExists(companyName, portfolio);
-
   }
 
   /**
@@ -116,7 +115,6 @@ public class ControllerValidations {
    */
   public boolean commissionHelper(String com) {
     return validateCom(com);
-
   }
 
   /**

@@ -4,7 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
+import javax.swing.JTextArea;
 
 import stocks.controller.Features;
 
@@ -50,7 +59,8 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     enterCommissionJLabel = new JLabel("Enter Commission");
     enterCommissionJTextField = new JTextField(30);
     displayStocks = new JTextArea(5, 10);
-    enterStockAndPercentsJLabel = new JLabel("Enter stock1 weight1,stock 2 weight 2,...(ex: META 50,GOOG 20...");
+    enterStockAndPercentsJLabel = new JLabel("Enter stock1 "
+            + "weight1,stock 2 weight 2,...(ex: META 50,GOOG 20...");
     enterStockAndPercentsJTextField = new JTextField(30);
 
     getEnterPortfolioNameJLabel = new JLabel("Select Portfolio to invest:");
@@ -66,20 +76,28 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
     this.setLayout(layout);
     layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(getEnterPortfolioNameJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(portfolioNamesJCombo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(enterAmountJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(getEnterPortfolioNameJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(portfolioNamesJCombo, 0,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterAmountJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterAmountJTextField)
-                    .addComponent(enterStartDateJLabel, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addComponent(enterStartDateJLabel,
+                            GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addComponent(enterStartDateJTextField)
-                    .addComponent(enterEndDateJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterEndDateJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterEndDateJTextField)
-                    .addComponent(enterIntervalJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterIntervalJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterIntervalJTextField)
-                    .addComponent(enterCommissionJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterCommissionJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterCommissionJTextField)
 
-                    .addComponent(enterStockAndPercentsJLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterStockAndPercentsJLabel,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(enterStockAndPercentsJTextField)
 
                     .addComponent(investBtn));
@@ -91,33 +109,40 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                             .addContainerGap()
                             .addComponent(getEnterPortfolioNameJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(portfolioNamesJCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(portfolioNamesJCombo,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterAmountJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterAmountJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterAmountJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(enterStartDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterStartDateJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterStartDateJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterEndDateJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterEndDateJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterEndDateJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(enterIntervalJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(enterIntervalJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterIntervalJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
                             .addComponent(enterCommissionJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterCommissionJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterCommissionJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
 
                             .addComponent(enterStockAndPercentsJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(enterStockAndPercentsJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterStockAndPercentsJTextField,
+                                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
 
 
@@ -146,7 +171,8 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
         String percent = eachStock[1].trim();
         mapOfPercents.put(company, percent);
       }
-      feature.dollarCostStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
+      feature.dollarCostStrategy(portfolioName, mapOfPercents,
+              investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
       reset();
       repaint();
     });

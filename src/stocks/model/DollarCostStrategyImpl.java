@@ -88,8 +88,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       dateEndObj = LocalDate.parse(dateEnd, formatter);
     }
     if (dateStartObj.compareTo(dateEndObj) > 0) {
-      throw new IllegalArgumentException("start date "
-              + "can't be after end date. Strategy can't be applied.");
+      throw new IllegalArgumentException("start date can't be after end date. "
+              + "Strategy can't be applied.");
     }
 
 

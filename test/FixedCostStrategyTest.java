@@ -47,7 +47,8 @@ public class FixedCostStrategyTest {
     stockAndPercent.put("TWTR", 10.5);
     String date = "2022-10-03";
     portfolio.createEmptyPortfolio(portfolioName, "flexible");
-    portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+    portfolio.fixedAmountStrategy(portfolioName,
+            stockAndPercent, investmentAmount, commissionFee, date);
     List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(portfolioName, date);
     StringBuilder dates = new StringBuilder();
     for (List<String> list : results) {
@@ -74,7 +75,8 @@ public class FixedCostStrategyTest {
     String actual = "";
     try {
       portfolio.createEmptyPortfolio(portfolioName, "flexible");
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -92,7 +94,8 @@ public class FixedCostStrategyTest {
     String actual = "";
     try {
       portfolio.createEmptyPortfolio(portfolioName, "flexible");
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -103,7 +106,8 @@ public class FixedCostStrategyTest {
   public void testFixedCostStrategyWithValidInputs() {
     String date = "2022-10-03";
     portfolio.createEmptyPortfolio(portfolioName, "flexible");
-    portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+    portfolio.fixedAmountStrategy(portfolioName,
+            stockAndPercent, investmentAmount, commissionFee, date);
     List<List<String>> results = portfolio.viewCompositionOfCurrentPortfolio(portfolioName, date);
     StringBuilder dates = new StringBuilder();
     for (List<String> list : results) {
@@ -119,7 +123,8 @@ public class FixedCostStrategyTest {
     //On holiday
     date = "2022-01-01";
     portfolio.createEmptyPortfolio(portfolioName, "flexible");
-    portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, date);
+    portfolio.fixedAmountStrategy(portfolioName,
+            stockAndPercent, investmentAmount, commissionFee, date);
     results = portfolio.viewCompositionOfCurrentPortfolio(portfolioName, "2022-01-03");
     dates = new StringBuilder();
     for (List<String> list : results) {
@@ -147,7 +152,8 @@ public class FixedCostStrategyTest {
     String expected = "Date can't be empty or null";
     String actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, null);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, commissionFee, null);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -155,16 +161,8 @@ public class FixedCostStrategyTest {
 
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, commissionFee, "");
-    } catch (IllegalArgumentException e) {
-      actual = e.getMessage();
-    }
-    assertEquals(actual, expected);
-
-    expected = "amount cant be less than 0";
-    actual = "";
-    try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, 0, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, commissionFee, "");
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -173,7 +171,18 @@ public class FixedCostStrategyTest {
     expected = "amount cant be less than 0";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, -100, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, 0, commissionFee, date);
+    } catch (IllegalArgumentException e) {
+      actual = e.getMessage();
+    }
+    assertEquals(actual, expected);
+
+    expected = "amount cant be less than 0";
+    actual = "";
+    try {
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, -100, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -183,7 +192,8 @@ public class FixedCostStrategyTest {
     expected = "commission fee cant be less than 0";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, 0, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, 0, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -192,7 +202,8 @@ public class FixedCostStrategyTest {
     expected = "commission fee cant be less than 0";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockAndPercent, investmentAmount, -100, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockAndPercent, investmentAmount, -100, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -202,7 +213,8 @@ public class FixedCostStrategyTest {
     expected = "Stocks and weights map provided is empty.";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, null, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              null, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -212,7 +224,8 @@ public class FixedCostStrategyTest {
     expected = "Stocks and weights map provided is empty.";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, new HashMap<>(), investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              new HashMap<>(), investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -227,7 +240,8 @@ public class FixedCostStrategyTest {
     expected = "total percentage is not exactly 100";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(portfolioName, stockmap, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(portfolioName,
+              stockmap, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -237,7 +251,8 @@ public class FixedCostStrategyTest {
     expected = "The portfolio name cannot be null or empty.";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy(null, stockAndPercent, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy(null,
+              stockAndPercent, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }
@@ -246,7 +261,8 @@ public class FixedCostStrategyTest {
     expected = "The portfolio name cannot be null or empty.";
     actual = "";
     try {
-      portfolio.fixedAmountStrategy("", stockAndPercent, investmentAmount, commissionFee, date);
+      portfolio.fixedAmountStrategy("",
+              stockAndPercent, investmentAmount, commissionFee, date);
     } catch (IllegalArgumentException e) {
       actual = e.getMessage();
     }

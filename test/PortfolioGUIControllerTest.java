@@ -30,31 +30,40 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public double getTotalMoneyInvestedOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalMoneyInvestedOnCertainDate: " + date + " " + portfolioName + "\n");
+      log.append("inputs for getTotalMoneyInvestedOnCertainDate: "
+              + date + " " + portfolioName + "\n");
       return 0;
     }
 
     @Override
-    public void updatePortfolio(String companyName, String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
-      log.append("inputs for updatePortfolio: " + companyName + " " + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
+    public void updatePortfolio(String companyName, String quantity,
+                                String date, String portfolioName, String action, String com) throws IllegalArgumentException {
+      log.append("inputs for updatePortfolio: " + companyName + " "
+              + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
     }
 
     @Override
-    public void updatePortfolioUsingFilePath(String path, String companyName, String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
-      log.append("inputs for updatePortfolioUsingFilePath: " + path + " " + companyName + " " + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
+    public void updatePortfolioUsingFilePath(String path, String companyName,
+                                             String quantity, String date, String portfolioName, String action, String com) throws IllegalArgumentException {
+      log.append("inputs for updatePortfolioUsingFilePath: " + path
+              + " " + companyName + " " + quantity + " " + date + " " + portfolioName + " " + action + "  " + com + "\n");
 
     }
 
     @Override
-    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime, String endTime, String portfolioName) {
-      log.append("inputs for getPortfolioPerformanceOvertime: " + startTime + " " + endTime + " " + portfolioName + "\n");
+    public Map<String, Double> getPortfolioPerformanceOvertime(String startTime,
+                                                               String endTime, String portfolioName) {
+      log.append("inputs for getPortfolioPerformanceOvertime: " + startTime + " "
+              + endTime + " " + portfolioName + "\n");
 
       return null;
     }
 
     @Override
-    public void sellStocks(String companyName, String quantity, String date, String com, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for sellStocks: " + companyName + " " + quantity + " " + date + " " + portfolioName + "    " + com + "\n");
+    public void sellStocks(String companyName, String quantity,
+                           String date, String com, String portfolioName) throws IllegalArgumentException {
+      log.append("inputs for sellStocks: " + companyName + " "
+              + quantity + " " + date + " " + portfolioName + "    " + com + "\n");
 
     }
 
@@ -70,19 +79,25 @@ public class PortfolioGUIControllerTest {
     }
 
     @Override
-    public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
-      log.append("inputs for dollarCostStrategy: " + portfolioName + " " + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
+    public void dollarCostStrategy(String portfolioName,
+                                   Map<String, Double> stockAndPercent, double investmentAmount,
+                                   double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
+      log.append("inputs for dollarCostStrategy: " + portfolioName + " "
+              + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + investmentInterval + " " + dateStart + " " + dateEnd + "\n");
     }
 
     @Override
-    public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) {
-      log.append("inputs for fixedAmountStrategy: " + portfolioName + " " + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + date + "\n");
+    public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent,
+                                    double investmentAmount, double commissionFee, String date) {
+      log.append("inputs for fixedAmountStrategy: " + portfolioName + " "
+              + stockAndPercent + " " + investmentAmount + " " + commissionFee + "    " + date + "\n");
 
     }
 
     @Override
     public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) {
-      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: " + portfolioName + "    " + date + "\n");
+      log.append("inputs for getTotalValueOfPortfolioOnCertainDate: "
+              + portfolioName + "    " + date + "\n");
 
       return 0;
     }
@@ -96,7 +111,8 @@ public class PortfolioGUIControllerTest {
 
     @Override
     public List<List<String>> viewCompositionOfCurrentPortfolio(String portfolioName, String date) {
-      log.append("inputs for viewCompositionOfCurrentPortfolio: " + portfolioName + "    " + date + "\n");
+      log.append("inputs for viewCompositionOfCurrentPortfolio: "
+              + portfolioName + "    " + date + "\n");
 
       return null;
     }
@@ -126,8 +142,10 @@ public class PortfolioGUIControllerTest {
     }
 
     @Override
-    public void buyStocks(String companyName, String quantity, String date, String com, String portfolioName) throws IllegalArgumentException {
-      log.append("inputs for buyStocks: " + companyName + " " + quantity + " " + date + " " + com + " " + portfolioName + "\n");
+    public void buyStocks(String companyName, String quantity, String date,
+                          String com, String portfolioName) throws IllegalArgumentException {
+      log.append("inputs for buyStocks: " + companyName + " " + quantity + " "
+              + date + " " + com + " " + portfolioName + "\n");
 
     }
   }
@@ -265,7 +283,9 @@ public class PortfolioGUIControllerTest {
       stockAndPercent.put("META", "29.5");
       stockAndPercent.put("ORCL", "49.5");
       stockAndPercent.put("TWTR", "10.5");
-      portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30, "2020-01-01", "2022-11-11");
+      portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
+              10000, 20,
+              30, "2020-01-01", "2022-11-11");
       System.out.println(mockViewLog.toString());
       assertTrue(mockViewLog.toString().contains(view));
 
@@ -275,7 +295,8 @@ public class PortfolioGUIControllerTest {
       stockAndPercent.put("META", "29.5");
       stockAndPercent.put("ORCL", "49.5");
       stockAndPercent.put("TWTR", "10.5");
-      portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
+      portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent,
+              10000, 20, "2020-01-01");
       System.out.println(mockViewLog.toString());
       assertTrue(mockViewLog.toString().contains(view));
 
@@ -320,7 +341,9 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("META", "29.5");
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
-    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30, "2020-01-01", "2022-11-11");
+    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
+            10000, 20, 30,
+            "2020-01-01", "2022-11-11");
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
 
@@ -330,7 +353,8 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("META", "29.5");
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
-    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent, 10000, 20, 30, "2020-01-01", "2022-11-11");
+    portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
+            10000, 20, 30, "2020-01-01", "2022-11-11");
 
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
@@ -344,7 +368,8 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("META", "29.5");
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
-    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
+    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent,
+            10000, 20, "2020-01-01");
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
 
@@ -354,7 +379,8 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("META", "29.5");
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
-    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent, 10000, 20, "2020-01-01");
+    portfolioGUIController.investFixedAmountStrategy(pName, stockAndPercent,
+            10000, 20, "2020-01-01");
     assertTrue(mockViewLog.toString().contains(view));
   }
 

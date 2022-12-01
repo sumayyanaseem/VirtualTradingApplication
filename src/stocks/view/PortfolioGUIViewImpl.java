@@ -3,7 +3,16 @@ package stocks.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
+import javax.swing.GroupLayout;
+
 
 import stocks.controller.Features;
 
@@ -52,28 +61,42 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     GroupLayout groupLayout = new GroupLayout(mainPanel);
     mainPanel.setLayout(groupLayout);
     groupLayout.setHorizontalGroup(groupLayout.createParallelGroup()
-            .addComponent(createPortfolioButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(buyStockButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(sellStockButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(queryPortfolioButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(dollarCostButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(investButton, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(exitButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            .addComponent(createPortfolioButton,
+                    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(buyStockButton,
+                    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sellStockButton,
+                    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(queryPortfolioButton,
+                    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dollarCostButton,
+                    GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(investButton,
+                    GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(exitButton,
+                    GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
     groupLayout.setVerticalGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(groupLayout.createSequentialGroup()
-                    .addComponent(createPortfolioButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createPortfolioButton,
+                            GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(buyStockButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buyStockButton,
+                            GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(sellStockButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sellStockButton,
+                            GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(queryPortfolioButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(queryPortfolioButton,
+                            GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(dollarCostButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dollarCostButton,
+                            GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(investButton, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(investButton,
+                            GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitButton,
+                            GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()));
 
   }
@@ -160,7 +183,8 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
     try {
       investButton.addActionListener(l -> {
-        InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel = new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
+        InvestFixedAmountStrategyPanel investFixedAmountStrategyPanel =
+                new InvestFixedAmountStrategyPanel(this.listOfPortfolios);
         JScrollPane jScrollPane = new JScrollPane(investFixedAmountStrategyPanel);
         jSplitPane.setRightComponent(jScrollPane);
         investFixedAmountStrategyPanel.delegateActions(feature);
