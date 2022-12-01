@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
-public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInterface{
+public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInterface {
 
   private JLabel getEnterPortfolioNameJLabel;
   private JComboBox<String> portfolioNamesJCombo;
@@ -37,7 +37,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
     enterCommissionJLabel = new JLabel("Enter Commission");
     enterCommissionJTextField = new JTextField(30);
     displayStocksJLabel = new JLabel("Stocks Available in Portfolio:");
-    displayStocks = new JTextArea(5,10);
+    displayStocks = new JTextArea(5, 10);
     enterStockAndPercentsJLabel = new JLabel("Enter stock1 weight1,stock 2 weight 2,...(ex: META 50,GOOG 20...");
     enterStockAndPercentsJTextField = new JTextField(30);
 
@@ -47,7 +47,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
     setLayout();
   }
 
-  private void setLayout(){
+  private void setLayout() {
     GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
@@ -65,8 +65,6 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
                     .addComponent(enterStockAndPercentsJTextField)
 
                     .addComponent(investBtn));
-
-
 
 
     layout.setVerticalGroup(
@@ -91,13 +89,10 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
                             .addGap(26, 26, 26)
 
 
-
-
                             .addComponent(enterStockAndPercentsJLabel)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterStockAndPercentsJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
-
 
 
                             .addComponent(investBtn)
@@ -107,25 +102,22 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
 
 
   @Override
-  public void delegateActions(Features feature) throws IllegalArgumentException{
-    investBtn.addActionListener(l->{
+  public void delegateActions(Features feature) throws IllegalArgumentException {
+    investBtn.addActionListener(l -> {
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
       double investmentAmount = Double.valueOf(enterAmountJTextField.getText());
       double commissionFee = Double.valueOf(enterCommissionJTextField.getText());
       String dateStart = enterStartDateJTextField.getText();
       String stocksAndPercents = enterStockAndPercentsJTextField.getText();
       String[] splitData = stocksAndPercents.split(",");
-      Map<String, Double> mapOfPercents = new HashMap<>();
+      Map<String, String> mapOfPercents = new HashMap<>();
       for (int i = 0; i < splitData.length; i++) {
         String[] eachStock = splitData[i].trim().split("\\s+");
         String comapany = eachStock[0].trim().toUpperCase();
-        if (eachStock[1].trim() == null || eachStock[1].trim().equals("")) {
-          throw new IllegalArgumentException("percentValue can't be empty or null");
-        }
-        Double percent = Double.valueOf(eachStock[1].trim());
+        String percent = eachStock[1].trim();
         mapOfPercents.put(comapany, percent);
       }
-      feature.investFixedAmountStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee,dateStart);
+      feature.investFixedAmountStrategy(portfolioName, mapOfPercents, investmentAmount, commissionFee, dateStart);
       reset();
       repaint();
     });
