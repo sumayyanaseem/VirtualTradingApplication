@@ -32,7 +32,6 @@ public class PortfolioGUIController implements Features, PortfolioController {
   public void createPortfolio(String pName, String pType) {
     try {
       model.validateIfPortfolioAlreadyExists(pName);
-
     } catch (Exception e) {
       view.displayMessage("portfolio already exists with this name. Try a new name");
       return;

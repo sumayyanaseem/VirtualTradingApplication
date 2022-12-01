@@ -1,0 +1,1 @@
+{"Companies":[{"CompanyName":"AAPL","Actions":[{"date":"2022-01-01","Commission":"10","Quantity":"10","action":"buy"}]},{"CompanyName":"AMZN","Actions":[{"date":"2018-01-03","Commission":"10","Quantity":"20","action":"buy"},{"date":"2022-11-01","Quantity":"2","action":"sell","Commission":"10"}]}],"type":"flexible"}

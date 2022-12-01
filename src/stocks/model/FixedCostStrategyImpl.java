@@ -209,12 +209,10 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     }
 
     String qtyStr = String.format("%.2f", sharesCount);
-    // System.out.println(qtyStr);
+    foundFlag = true;
     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr,
             date, portfolioName,
             "buy", String.valueOf(commissionFee));
-
-    foundFlag = true;
   }
 
 

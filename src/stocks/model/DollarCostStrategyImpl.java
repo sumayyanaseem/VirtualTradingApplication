@@ -253,9 +253,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     }
 
     String qtyStr = String.format("%.2f", sharesCount);
+    foundFlag = true;
     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(),
             qtyStr, date, portfolioName, "buy", String.valueOf(commissionFee));
-    foundFlag = true;
   }
 
 

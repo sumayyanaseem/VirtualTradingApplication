@@ -20,7 +20,6 @@ public class TradingMVC {
    * @param args Not used.
    */
   public static void main(String[] args) {
-    //System.out.println("helloo " +args[0]);
     String type = "";
     if (args.length != 0) {
       type = args[0].toUpperCase();

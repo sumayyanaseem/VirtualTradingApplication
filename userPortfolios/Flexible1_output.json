@@ -1,0 +1,3529 @@
+{
+  "Companies": [
+    {
+      "CompanyName": "AAPL",
+      "Actions": [
+        {
+          "date": "2000-01-03",
+          "Commission": "30.0",
+          "Quantity": "178.67",
+          "action": "buy"
+        },
+        {
+          "date": "2000-03-01",
+          "Commission": "30.0",
+          "Quantity": "153.48",
+          "action": "buy"
+        },
+        {
+          "date": "2000-05-01",
+          "Commission": "30.0",
+          "Quantity": "160.89",
+          "action": "buy"
+        },
+        {
+          "date": "2000-06-29",
+          "Commission": "30.0",
+          "Quantity": "390.24",
+          "action": "buy"
+        },
+        {
+          "date": "2000-08-28",
+          "Commission": "30.0",
+          "Quantity": "344.47",
+          "action": "buy"
+        },
+        {
+          "date": "2000-10-27",
+          "Commission": "30.0",
+          "Quantity": "1077.59",
+          "action": "buy"
+        },
+        {
+          "date": "2000-12-26",
+          "Commission": "30.0",
+          "Quantity": "1361.47",
+          "action": "buy"
+        },
+        {
+          "date": "2001-02-26",
+          "Commission": "30.0",
+          "Quantity": "1025.64",
+          "action": "buy"
+        },
+        {
+          "date": "2001-04-25",
+          "Commission": "30.0",
+          "Quantity": "809.06",
+          "action": "buy"
+        },
+        {
+          "date": "2001-06-25",
+          "Commission": "30.0",
+          "Quantity": "833.68",
+          "action": "buy"
+        },
+        {
+          "date": "2001-08-23",
+          "Commission": "30.0",
+          "Quantity": "1122.96",
+          "action": "buy"
+        },
+        {
+          "date": "2001-10-22",
+          "Commission": "30.0",
+          "Quantity": "1051.52",
+          "action": "buy"
+        },
+        {
+          "date": "2001-12-21",
+          "Commission": "30.0",
+          "Quantity": "952.38",
+          "action": "buy"
+        },
+        {
+          "date": "2002-02-19",
+          "Commission": "30.0",
+          "Quantity": "884.17",
+          "action": "buy"
+        },
+        {
+          "date": "2002-04-22",
+          "Commission": "30.0",
+          "Quantity": "815.33",
+          "action": "buy"
+        },
+        {
+          "date": "2002-06-19",
+          "Commission": "30.0",
+          "Quantity": "1168.22",
+          "action": "buy"
+        },
+        {
+          "date": "2002-08-19",
+          "Commission": "30.0",
+          "Quantity": "1251.56",
+          "action": "buy"
+        },
+        {
+          "date": "2002-10-17",
+          "Commission": "30.0",
+          "Quantity": "1417.43",
+          "action": "buy"
+        },
+        {
+          "date": "2002-12-16",
+          "Commission": "30.0",
+          "Quantity": "1346.80",
+          "action": "buy"
+        },
+        {
+          "date": "2003-02-14",
+          "Commission": "30.0",
+          "Quantity": "1363.33",
+          "action": "buy"
+        },
+        {
+          "date": "2003-04-15",
+          "Commission": "30.0",
+          "Quantity": "1493.65",
+          "action": "buy"
+        },
+        {
+          "date": "2003-06-16",
+          "Commission": "30.0",
+          "Quantity": "1094.69",
+          "action": "buy"
+        },
+        {
+          "date": "2003-08-13",
+          "Commission": "30.0",
+          "Quantity": "991.08",
+          "action": "buy"
+        },
+        {
+          "date": "2003-10-13",
+          "Commission": "30.0",
+          "Quantity": "821.36",
+          "action": "buy"
+        },
+        {
+          "date": "2003-12-11",
+          "Commission": "30.0",
+          "Quantity": "942.95",
+          "action": "buy"
+        },
+        {
+          "date": "2004-02-09",
+          "Commission": "30.0",
+          "Quantity": "882.34",
+          "action": "buy"
+        },
+        {
+          "date": "2004-04-09",
+          "Commission": "30.0",
+          "Quantity": "726.48",
+          "action": "buy"
+        },
+        {
+          "date": "2004-06-08",
+          "Commission": "30.0",
+          "Quantity": "658.98",
+          "action": "buy"
+        },
+        {
+          "date": "2004-08-09",
+          "Commission": "30.0",
+          "Quantity": "660.07",
+          "action": "buy"
+        },
+        {
+          "date": "2004-10-06",
+          "Commission": "30.0",
+          "Quantity": "492.13",
+          "action": "buy"
+        },
+        {
+          "date": "2004-12-06",
+          "Commission": "30.0",
+          "Quantity": "304.04",
+          "action": "buy"
+        },
+        {
+          "date": "2005-02-03",
+          "Commission": "30.0",
+          "Quantity": "257.04",
+          "action": "buy"
+        },
+        {
+          "date": "2005-04-04",
+          "Commission": "30.0",
+          "Quantity": "486.74",
+          "action": "buy"
+        },
+        {
+          "date": "2005-06-03",
+          "Commission": "30.0",
+          "Quantity": "523.01",
+          "action": "buy"
+        },
+        {
+          "date": "2005-08-02",
+          "Commission": "30.0",
+          "Quantity": "463.07",
+          "action": "buy"
+        },
+        {
+          "date": "2005-10-03",
+          "Commission": "30.0",
+          "Quantity": "367.38",
+          "action": "buy"
+        },
+        {
+          "date": "2005-11-30",
+          "Commission": "30.0",
+          "Quantity": "294.90",
+          "action": "buy"
+        },
+        {
+          "date": "2006-01-30",
+          "Commission": "30.0",
+          "Quantity": "266.67",
+          "action": "buy"
+        },
+        {
+          "date": "2006-03-30",
+          "Commission": "30.0",
+          "Quantity": "318.73",
+          "action": "buy"
+        },
+        {
+          "date": "2006-05-30",
+          "Commission": "30.0",
+          "Quantity": "326.69",
+          "action": "buy"
+        },
+        {
+          "date": "2006-07-28",
+          "Commission": "30.0",
+          "Quantity": "304.92",
+          "action": "buy"
+        },
+        {
+          "date": "2006-09-26",
+          "Commission": "30.0",
+          "Quantity": "257.70",
+          "action": "buy"
+        },
+        {
+          "date": "2006-11-27",
+          "Commission": "30.0",
+          "Quantity": "223.36",
+          "action": "buy"
+        },
+        {
+          "date": "2007-01-24",
+          "Commission": "30.0",
+          "Quantity": "230.68",
+          "action": "buy"
+        },
+        {
+          "date": "2007-03-26",
+          "Commission": "30.0",
+          "Quantity": "208.66",
+          "action": "buy"
+        },
+        {
+          "date": "2007-05-24",
+          "Commission": "30.0",
+          "Quantity": "180.68",
+          "action": "buy"
+        },
+        {
+          "date": "2007-07-23",
+          "Commission": "30.0",
+          "Quantity": "139.18",
+          "action": "buy"
+        },
+        {
+          "date": "2007-09-21",
+          "Commission": "30.0",
+          "Quantity": "138.74",
+          "action": "buy"
+        },
+        {
+          "date": "2007-11-20",
+          "Commission": "30.0",
+          "Quantity": "118.45",
+          "action": "buy"
+        },
+        {
+          "date": "2008-01-22",
+          "Commission": "30.0",
+          "Quantity": "128.50",
+          "action": "buy"
+        },
+        {
+          "date": "2008-03-19",
+          "Commission": "30.0",
+          "Quantity": "154.24",
+          "action": "buy"
+        },
+        {
+          "date": "2008-05-19",
+          "Commission": "30.0",
+          "Quantity": "108.93",
+          "action": "buy"
+        },
+        {
+          "date": "2008-07-17",
+          "Commission": "30.0",
+          "Quantity": "116.41",
+          "action": "buy"
+        },
+        {
+          "date": "2008-09-15",
+          "Commission": "30.0",
+          "Quantity": "142.49",
+          "action": "buy"
+        },
+        {
+          "date": "2008-11-14",
+          "Commission": "30.0",
+          "Quantity": "221.63",
+          "action": "buy"
+        },
+        {
+          "date": "2009-01-13",
+          "Commission": "30.0",
+          "Quantity": "228.02",
+          "action": "buy"
+        },
+        {
+          "date": "2009-03-16",
+          "Commission": "30.0",
+          "Quantity": "209.60",
+          "action": "buy"
+        },
+        {
+          "date": "2009-05-13",
+          "Commission": "30.0",
+          "Quantity": "167.38",
+          "action": "buy"
+        },
+        {
+          "date": "2009-07-13",
+          "Commission": "30.0",
+          "Quantity": "140.51",
+          "action": "buy"
+        },
+        {
+          "date": "2009-09-10",
+          "Commission": "30.0",
+          "Quantity": "115.90",
+          "action": "buy"
+        },
+        {
+          "date": "2009-11-09",
+          "Commission": "30.0",
+          "Quantity": "99.28",
+          "action": "buy"
+        },
+        {
+          "date": "2010-01-08",
+          "Commission": "30.0",
+          "Quantity": "94.35",
+          "action": "buy"
+        },
+        {
+          "date": "2010-03-09",
+          "Commission": "30.0",
+          "Quantity": "89.68",
+          "action": "buy"
+        },
+        {
+          "date": "2010-05-10",
+          "Commission": "30.0",
+          "Quantity": "78.74",
+          "action": "buy"
+        },
+        {
+          "date": "2010-07-07",
+          "Commission": "30.0",
+          "Quantity": "77.32",
+          "action": "buy"
+        },
+        {
+          "date": "2010-09-07",
+          "Commission": "30.0",
+          "Quantity": "77.58",
+          "action": "buy"
+        },
+        {
+          "date": "2010-11-04",
+          "Commission": "30.0",
+          "Quantity": "62.84",
+          "action": "buy"
+        },
+        {
+          "date": "2011-01-03",
+          "Commission": "30.0",
+          "Quantity": "60.69",
+          "action": "buy"
+        },
+        {
+          "date": "2011-03-04",
+          "Commission": "30.0",
+          "Quantity": "55.56",
+          "action": "buy"
+        },
+        {
+          "date": "2011-05-03",
+          "Commission": "30.0",
+          "Quantity": "57.44",
+          "action": "buy"
+        },
+        {
+          "date": "2011-07-05",
+          "Commission": "30.0",
+          "Quantity": "57.24",
+          "action": "buy"
+        },
+        {
+          "date": "2011-08-31",
+          "Commission": "30.0",
+          "Quantity": "51.97",
+          "action": "buy"
+        },
+        {
+          "date": "2011-10-31",
+          "Commission": "30.0",
+          "Quantity": "49.41",
+          "action": "buy"
+        },
+        {
+          "date": "2011-12-29",
+          "Commission": "30.0",
+          "Quantity": "49.37",
+          "action": "buy"
+        },
+        {
+          "date": "2012-02-27",
+          "Commission": "30.0",
+          "Quantity": "38.04",
+          "action": "buy"
+        },
+        {
+          "date": "2012-04-27",
+          "Commission": "30.0",
+          "Quantity": "33.17",
+          "action": "buy"
+        },
+        {
+          "date": "2012-06-26",
+          "Commission": "30.0",
+          "Quantity": "34.96",
+          "action": "buy"
+        },
+        {
+          "date": "2012-08-27",
+          "Commission": "30.0",
+          "Quantity": "29.60",
+          "action": "buy"
+        },
+        {
+          "date": "2012-10-24",
+          "Commission": "30.0",
+          "Quantity": "32.42",
+          "action": "buy"
+        },
+        {
+          "date": "2012-12-24",
+          "Commission": "30.0",
+          "Quantity": "38.45",
+          "action": "buy"
+        },
+        {
+          "date": "2013-02-21",
+          "Commission": "30.0",
+          "Quantity": "44.84",
+          "action": "buy"
+        },
+        {
+          "date": "2013-04-22",
+          "Commission": "30.0",
+          "Quantity": "50.17",
+          "action": "buy"
+        },
+        {
+          "date": "2013-06-21",
+          "Commission": "30.0",
+          "Quantity": "48.37",
+          "action": "buy"
+        },
+        {
+          "date": "2013-08-20",
+          "Commission": "30.0",
+          "Quantity": "39.91",
+          "action": "buy"
+        },
+        {
+          "date": "2013-10-21",
+          "Commission": "30.0",
+          "Quantity": "38.36",
+          "action": "buy"
+        },
+        {
+          "date": "2013-12-18",
+          "Commission": "30.0",
+          "Quantity": "36.31",
+          "action": "buy"
+        },
+        {
+          "date": "2014-02-18",
+          "Commission": "30.0",
+          "Quantity": "36.63",
+          "action": "buy"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "30.0",
+          "Quantity": "38.10",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "30.0",
+          "Quantity": "216.92",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "30.0",
+          "Quantity": "204.12",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "30.0",
+          "Quantity": "202.53",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "30.0",
+          "Quantity": "184.80",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "30.0",
+          "Quantity": "160.15",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "30.0",
+          "Quantity": "157.67",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "30.0",
+          "Quantity": "155.53",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "30.0",
+          "Quantity": "167.06",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "30.0",
+          "Quantity": "178.38",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "30.0",
+          "Quantity": "169.16",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "30.0",
+          "Quantity": "210.50",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "30.0",
+          "Quantity": "180.25",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "30.0",
+          "Quantity": "202.78",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "30.0",
+          "Quantity": "188.91",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "30.0",
+          "Quantity": "177.75",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "30.0",
+          "Quantity": "181.98",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "30.0",
+          "Quantity": "164.81",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "30.0",
+          "Quantity": "139.18",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "30.0",
+          "Quantity": "130.92",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "30.0",
+          "Quantity": "134.47",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "30.0",
+          "Quantity": "130.48",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "30.0",
+          "Quantity": "114.88",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "30.0",
+          "Quantity": "116.61",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "30.0",
+          "Quantity": "118.81",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "30.0",
+          "Quantity": "106.44",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "30.0",
+          "Quantity": "102.66",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "30.0",
+          "Quantity": "90.58",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "30.0",
+          "Quantity": "116.08",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-22",
+          "Commission": "30.0",
+          "Quantity": "130.46",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-22",
+          "Commission": "30.0",
+          "Quantity": "104.68",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-21",
+          "Commission": "30.0",
+          "Quantity": "107.18",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-22",
+          "Commission": "30.0",
+          "Quantity": "96.52",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-18",
+          "Commission": "30.0",
+          "Quantity": "89.78",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-18",
+          "Commission": "30.0",
+          "Quantity": "74.88",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-16",
+          "Commission": "30.0",
+          "Quantity": "63.44",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-16",
+          "Commission": "30.0",
+          "Quantity": "82.57",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-15",
+          "Commission": "30.0",
+          "Quantity": "65.00",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-14",
+          "Commission": "30.0",
+          "Quantity": "51.52",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-14",
+          "Commission": "30.0",
+          "Quantity": "173.38",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-12",
+          "Commission": "30.0",
+          "Quantity": "167.77",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-11",
+          "Commission": "30.0",
+          "Quantity": "155.06",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-11",
+          "Commission": "30.0",
+          "Quantity": "163.99",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-10",
+          "Commission": "30.0",
+          "Quantity": "157.67",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-09",
+          "Commission": "30.0",
+          "Quantity": "137.83",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-07",
+          "Commission": "30.0",
+          "Quantity": "127.64",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-08",
+          "Commission": "30.0",
+          "Quantity": "132.94",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-05",
+          "Commission": "30.0",
+          "Quantity": "114.34",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-07",
+          "Commission": "30.0",
+          "Quantity": "125.55",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-05",
+          "Commission": "30.0",
+          "Quantity": "127.58",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-05",
+          "Commission": "30.0",
+          "Quantity": "141.28",
+          "action": "buy"
+        },
+        {
+          "date": "2022-09-02",
+          "Commission": "30.0",
+          "Quantity": "128.36",
+          "action": "buy"
+        },
+        {
+          "date": "2022-11-01",
+          "Commission": "30.0",
+          "Quantity": "132.76",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "ORCL",
+      "Actions": [
+        {
+          "date": "2000-01-03",
+          "Commission": "30.0",
+          "Quantity": "169.35",
+          "action": "buy"
+        },
+        {
+          "date": "2000-03-01",
+          "Commission": "30.0",
+          "Quantity": "279.72",
+          "action": "buy"
+        },
+        {
+          "date": "2000-05-01",
+          "Commission": "30.0",
+          "Quantity": "250.97",
+          "action": "buy"
+        },
+        {
+          "date": "2000-06-29",
+          "Commission": "30.0",
+          "Quantity": "247.28",
+          "action": "buy"
+        },
+        {
+          "date": "2000-08-28",
+          "Commission": "30.0",
+          "Quantity": "230.55",
+          "action": "buy"
+        },
+        {
+          "date": "2000-10-27",
+          "Commission": "30.0",
+          "Quantity": "584.97",
+          "action": "buy"
+        },
+        {
+          "date": "2000-12-26",
+          "Commission": "30.0",
+          "Quantity": "646.41",
+          "action": "buy"
+        },
+        {
+          "date": "2001-02-26",
+          "Commission": "30.0",
+          "Quantity": "862.44",
+          "action": "buy"
+        },
+        {
+          "date": "2001-04-25",
+          "Commission": "30.0",
+          "Quantity": "1159.42",
+          "action": "buy"
+        },
+        {
+          "date": "2001-06-25",
+          "Commission": "30.0",
+          "Quantity": "1125.49",
+          "action": "buy"
+        },
+        {
+          "date": "2001-08-23",
+          "Commission": "30.0",
+          "Quantity": "1427.55",
+          "action": "buy"
+        },
+        {
+          "date": "2001-10-22",
+          "Commission": "30.0",
+          "Quantity": "1337.79",
+          "action": "buy"
+        },
+        {
+          "date": "2001-12-21",
+          "Commission": "30.0",
+          "Quantity": "1390.82",
+          "action": "buy"
+        },
+        {
+          "date": "2002-02-19",
+          "Commission": "30.0",
+          "Quantity": "1352.27",
+          "action": "buy"
+        },
+        {
+          "date": "2002-04-22",
+          "Commission": "30.0",
+          "Quantity": "1749.78",
+          "action": "buy"
+        },
+        {
+          "date": "2002-06-19",
+          "Commission": "30.0",
+          "Quantity": "2272.73",
+          "action": "buy"
+        },
+        {
+          "date": "2002-08-19",
+          "Commission": "30.0",
+          "Quantity": "1829.83",
+          "action": "buy"
+        },
+        {
+          "date": "2002-10-17",
+          "Commission": "30.0",
+          "Quantity": "2026.34",
+          "action": "buy"
+        },
+        {
+          "date": "2002-12-16",
+          "Commission": "30.0",
+          "Quantity": "1769.91",
+          "action": "buy"
+        },
+        {
+          "date": "2003-02-14",
+          "Commission": "30.0",
+          "Quantity": "1709.40",
+          "action": "buy"
+        },
+        {
+          "date": "2003-04-15",
+          "Commission": "30.0",
+          "Quantity": "1733.10",
+          "action": "buy"
+        },
+        {
+          "date": "2003-06-16",
+          "Commission": "30.0",
+          "Quantity": "1465.20",
+          "action": "buy"
+        },
+        {
+          "date": "2003-08-13",
+          "Commission": "30.0",
+          "Quantity": "1680.67",
+          "action": "buy"
+        },
+        {
+          "date": "2003-10-13",
+          "Commission": "30.0",
+          "Quantity": "1628.66",
+          "action": "buy"
+        },
+        {
+          "date": "2003-12-11",
+          "Commission": "30.0",
+          "Quantity": "1558.85",
+          "action": "buy"
+        },
+        {
+          "date": "2004-02-09",
+          "Commission": "30.0",
+          "Quantity": "1506.02",
+          "action": "buy"
+        },
+        {
+          "date": "2004-04-09",
+          "Commission": "30.0",
+          "Quantity": "1615.51",
+          "action": "buy"
+        },
+        {
+          "date": "2004-06-08",
+          "Commission": "30.0",
+          "Quantity": "1725.63",
+          "action": "buy"
+        },
+        {
+          "date": "2004-08-09",
+          "Commission": "30.0",
+          "Quantity": "1928.64",
+          "action": "buy"
+        },
+        {
+          "date": "2004-10-06",
+          "Commission": "30.0",
+          "Quantity": "1633.99",
+          "action": "buy"
+        },
+        {
+          "date": "2004-12-06",
+          "Commission": "30.0",
+          "Quantity": "1499.25",
+          "action": "buy"
+        },
+        {
+          "date": "2005-02-03",
+          "Commission": "30.0",
+          "Quantity": "1499.25",
+          "action": "buy"
+        },
+        {
+          "date": "2005-04-04",
+          "Commission": "30.0",
+          "Quantity": "1576.04",
+          "action": "buy"
+        },
+        {
+          "date": "2005-06-03",
+          "Commission": "30.0",
+          "Quantity": "1588.56",
+          "action": "buy"
+        },
+        {
+          "date": "2005-08-02",
+          "Commission": "30.0",
+          "Quantity": "1472.75",
+          "action": "buy"
+        },
+        {
+          "date": "2005-10-03",
+          "Commission": "30.0",
+          "Quantity": "1615.51",
+          "action": "buy"
+        },
+        {
+          "date": "2005-11-30",
+          "Commission": "30.0",
+          "Quantity": "1587.30",
+          "action": "buy"
+        },
+        {
+          "date": "2006-01-30",
+          "Commission": "30.0",
+          "Quantity": "1586.04",
+          "action": "buy"
+        },
+        {
+          "date": "2006-03-30",
+          "Commission": "30.0",
+          "Quantity": "1451.38",
+          "action": "buy"
+        },
+        {
+          "date": "2006-05-30",
+          "Commission": "30.0",
+          "Quantity": "1426.53",
+          "action": "buy"
+        },
+        {
+          "date": "2006-07-28",
+          "Commission": "30.0",
+          "Quantity": "1327.14",
+          "action": "buy"
+        },
+        {
+          "date": "2006-09-26",
+          "Commission": "30.0",
+          "Quantity": "1099.51",
+          "action": "buy"
+        },
+        {
+          "date": "2006-11-27",
+          "Commission": "30.0",
+          "Quantity": "1057.08",
+          "action": "buy"
+        },
+        {
+          "date": "2007-01-24",
+          "Commission": "30.0",
+          "Quantity": "1166.86",
+          "action": "buy"
+        },
+        {
+          "date": "2007-03-26",
+          "Commission": "30.0",
+          "Quantity": "1087.55",
+          "action": "buy"
+        },
+        {
+          "date": "2007-05-24",
+          "Commission": "30.0",
+          "Quantity": "1066.67",
+          "action": "buy"
+        },
+        {
+          "date": "2007-07-23",
+          "Commission": "30.0",
+          "Quantity": "962.46",
+          "action": "buy"
+        },
+        {
+          "date": "2007-09-21",
+          "Commission": "30.0",
+          "Quantity": "910.13",
+          "action": "buy"
+        },
+        {
+          "date": "2007-11-20",
+          "Commission": "30.0",
+          "Quantity": "966.65",
+          "action": "buy"
+        },
+        {
+          "date": "2008-01-22",
+          "Commission": "30.0",
+          "Quantity": "989.12",
+          "action": "buy"
+        },
+        {
+          "date": "2008-03-19",
+          "Commission": "30.0",
+          "Quantity": "1022.50",
+          "action": "buy"
+        },
+        {
+          "date": "2008-05-19",
+          "Commission": "30.0",
+          "Quantity": "891.66",
+          "action": "buy"
+        },
+        {
+          "date": "2008-07-17",
+          "Commission": "30.0",
+          "Quantity": "958.77",
+          "action": "buy"
+        },
+        {
+          "date": "2008-09-15",
+          "Commission": "30.0",
+          "Quantity": "1052.08",
+          "action": "buy"
+        },
+        {
+          "date": "2008-11-14",
+          "Commission": "30.0",
+          "Quantity": "1183.43",
+          "action": "buy"
+        },
+        {
+          "date": "2009-01-13",
+          "Commission": "30.0",
+          "Quantity": "1166.86",
+          "action": "buy"
+        },
+        {
+          "date": "2009-03-16",
+          "Commission": "30.0",
+          "Quantity": "1342.28",
+          "action": "buy"
+        },
+        {
+          "date": "2009-05-13",
+          "Commission": "30.0",
+          "Quantity": "1106.81",
+          "action": "buy"
+        },
+        {
+          "date": "2009-07-13",
+          "Commission": "30.0",
+          "Quantity": "965.25",
+          "action": "buy"
+        },
+        {
+          "date": "2009-09-10",
+          "Commission": "30.0",
+          "Quantity": "878.73",
+          "action": "buy"
+        },
+        {
+          "date": "2009-11-09",
+          "Commission": "30.0",
+          "Quantity": "916.17",
+          "action": "buy"
+        },
+        {
+          "date": "2010-01-08",
+          "Commission": "30.0",
+          "Quantity": "810.37",
+          "action": "buy"
+        },
+        {
+          "date": "2010-03-09",
+          "Commission": "30.0",
+          "Quantity": "803.86",
+          "action": "buy"
+        },
+        {
+          "date": "2010-05-10",
+          "Commission": "30.0",
+          "Quantity": "820.01",
+          "action": "buy"
+        },
+        {
+          "date": "2010-07-07",
+          "Commission": "30.0",
+          "Quantity": "866.27",
+          "action": "buy"
+        },
+        {
+          "date": "2010-09-07",
+          "Commission": "30.0",
+          "Quantity": "824.23",
+          "action": "buy"
+        },
+        {
+          "date": "2010-11-04",
+          "Commission": "30.0",
+          "Quantity": "678.66",
+          "action": "buy"
+        },
+        {
+          "date": "2011-01-03",
+          "Commission": "30.0",
+          "Quantity": "632.51",
+          "action": "buy"
+        },
+        {
+          "date": "2011-03-04",
+          "Commission": "30.0",
+          "Quantity": "610.41",
+          "action": "buy"
+        },
+        {
+          "date": "2011-05-03",
+          "Commission": "30.0",
+          "Quantity": "553.40",
+          "action": "buy"
+        },
+        {
+          "date": "2011-07-05",
+          "Commission": "30.0",
+          "Quantity": "604.96",
+          "action": "buy"
+        },
+        {
+          "date": "2011-08-31",
+          "Commission": "30.0",
+          "Quantity": "712.50",
+          "action": "buy"
+        },
+        {
+          "date": "2011-10-31",
+          "Commission": "30.0",
+          "Quantity": "610.31",
+          "action": "buy"
+        },
+        {
+          "date": "2011-12-29",
+          "Commission": "30.0",
+          "Quantity": "775.19",
+          "action": "buy"
+        },
+        {
+          "date": "2012-02-27",
+          "Commission": "30.0",
+          "Quantity": "683.53",
+          "action": "buy"
+        },
+        {
+          "date": "2012-04-27",
+          "Commission": "30.0",
+          "Quantity": "683.99",
+          "action": "buy"
+        },
+        {
+          "date": "2012-06-26",
+          "Commission": "30.0",
+          "Quantity": "718.65",
+          "action": "buy"
+        },
+        {
+          "date": "2012-08-27",
+          "Commission": "30.0",
+          "Quantity": "628.34",
+          "action": "buy"
+        },
+        {
+          "date": "2012-10-24",
+          "Commission": "30.0",
+          "Quantity": "653.59",
+          "action": "buy"
+        },
+        {
+          "date": "2012-12-24",
+          "Commission": "30.0",
+          "Quantity": "595.06",
+          "action": "buy"
+        },
+        {
+          "date": "2013-02-21",
+          "Commission": "30.0",
+          "Quantity": "583.43",
+          "action": "buy"
+        },
+        {
+          "date": "2013-04-22",
+          "Commission": "30.0",
+          "Quantity": "615.10",
+          "action": "buy"
+        },
+        {
+          "date": "2013-06-21",
+          "Commission": "30.0",
+          "Quantity": "663.68",
+          "action": "buy"
+        },
+        {
+          "date": "2013-08-20",
+          "Commission": "30.0",
+          "Quantity": "621.12",
+          "action": "buy"
+        },
+        {
+          "date": "2013-10-21",
+          "Commission": "30.0",
+          "Quantity": "606.98",
+          "action": "buy"
+        },
+        {
+          "date": "2013-12-18",
+          "Commission": "30.0",
+          "Quantity": "578.03",
+          "action": "buy"
+        },
+        {
+          "date": "2014-02-18",
+          "Commission": "30.0",
+          "Quantity": "526.73",
+          "action": "buy"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "30.0",
+          "Quantity": "499.00",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "30.0",
+          "Quantity": "474.50",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "30.0",
+          "Quantity": "496.52",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "30.0",
+          "Quantity": "520.02",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "30.0",
+          "Quantity": "486.50",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "30.0",
+          "Quantity": "461.25",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "30.0",
+          "Quantity": "464.25",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "30.0",
+          "Quantity": "451.67",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "30.0",
+          "Quantity": "501.38",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "30.0",
+          "Quantity": "524.93",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "30.0",
+          "Quantity": "516.40",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "30.0",
+          "Quantity": "561.64",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "30.0",
+          "Quantity": "490.80",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "30.0",
+          "Quantity": "507.10",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "30.0",
+          "Quantity": "489.00",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "30.0",
+          "Quantity": "512.95",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "30.0",
+          "Quantity": "519.48",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "30.0",
+          "Quantity": "498.63",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "30.0",
+          "Quantity": "448.33",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "30.0",
+          "Quantity": "440.63",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "30.0",
+          "Quantity": "400.56",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "30.0",
+          "Quantity": "415.97",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "30.0",
+          "Quantity": "409.17",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "30.0",
+          "Quantity": "379.15",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "30.0",
+          "Quantity": "440.72",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "30.0",
+          "Quantity": "432.34",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "30.0",
+          "Quantity": "408.58",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "30.0",
+          "Quantity": "390.32",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "30.0",
+          "Quantity": "410.68",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-22",
+          "Commission": "30.0",
+          "Quantity": "408.66",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-22",
+          "Commission": "30.0",
+          "Quantity": "379.00",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-21",
+          "Commission": "30.0",
+          "Quantity": "369.21",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-22",
+          "Commission": "30.0",
+          "Quantity": "347.22",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-18",
+          "Commission": "30.0",
+          "Quantity": "380.52",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-18",
+          "Commission": "30.0",
+          "Quantity": "355.94",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-16",
+          "Commission": "30.0",
+          "Quantity": "360.82",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-16",
+          "Commission": "30.0",
+          "Quantity": "468.16",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-15",
+          "Commission": "30.0",
+          "Quantity": "377.93",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-14",
+          "Commission": "30.0",
+          "Quantity": "349.65",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-14",
+          "Commission": "30.0",
+          "Quantity": "336.36",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-12",
+          "Commission": "30.0",
+          "Quantity": "354.30",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-11",
+          "Commission": "30.0",
+          "Quantity": "317.31",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-11",
+          "Commission": "30.0",
+          "Quantity": "296.69",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-10",
+          "Commission": "30.0",
+          "Quantity": "249.53",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-09",
+          "Commission": "30.0",
+          "Quantity": "227.89",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-07",
+          "Commission": "30.0",
+          "Quantity": "225.43",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-08",
+          "Commission": "30.0",
+          "Quantity": "210.22",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-05",
+          "Commission": "30.0",
+          "Quantity": "231.32",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-07",
+          "Commission": "30.0",
+          "Quantity": "269.11",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-05",
+          "Commission": "30.0",
+          "Quantity": "274.73",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-05",
+          "Commission": "30.0",
+          "Quantity": "277.82",
+          "action": "buy"
+        },
+        {
+          "date": "2022-09-02",
+          "Commission": "30.0",
+          "Quantity": "267.81",
+          "action": "buy"
+        },
+        {
+          "date": "2022-11-01",
+          "Commission": "30.0",
+          "Quantity": "259.37",
+          "action": "buy"
+        },
+        {
+          "date": "2000-01-03",
+          "Commission": "10.0",
+          "Quantity": "16.93",
+          "action": "buy"
+        },
+        {
+          "date": "2000-03-01",
+          "Commission": "10.0",
+          "Quantity": "27.97",
+          "action": "buy"
+        },
+        {
+          "date": "2000-05-01",
+          "Commission": "10.0",
+          "Quantity": "25.10",
+          "action": "buy"
+        },
+        {
+          "date": "2000-06-29",
+          "Commission": "10.0",
+          "Quantity": "24.73",
+          "action": "buy"
+        },
+        {
+          "date": "2000-08-28",
+          "Commission": "10.0",
+          "Quantity": "23.05",
+          "action": "buy"
+        },
+        {
+          "date": "2000-10-27",
+          "Commission": "10.0",
+          "Quantity": "58.50",
+          "action": "buy"
+        },
+        {
+          "date": "2000-12-26",
+          "Commission": "10.0",
+          "Quantity": "64.64",
+          "action": "buy"
+        },
+        {
+          "date": "2001-02-26",
+          "Commission": "10.0",
+          "Quantity": "86.24",
+          "action": "buy"
+        },
+        {
+          "date": "2001-04-25",
+          "Commission": "10.0",
+          "Quantity": "115.94",
+          "action": "buy"
+        },
+        {
+          "date": "2001-06-25",
+          "Commission": "10.0",
+          "Quantity": "112.55",
+          "action": "buy"
+        },
+        {
+          "date": "2001-08-23",
+          "Commission": "10.0",
+          "Quantity": "142.76",
+          "action": "buy"
+        },
+        {
+          "date": "2001-10-22",
+          "Commission": "10.0",
+          "Quantity": "133.78",
+          "action": "buy"
+        },
+        {
+          "date": "2001-12-21",
+          "Commission": "10.0",
+          "Quantity": "139.08",
+          "action": "buy"
+        },
+        {
+          "date": "2002-02-19",
+          "Commission": "10.0",
+          "Quantity": "135.23",
+          "action": "buy"
+        },
+        {
+          "date": "2002-04-22",
+          "Commission": "10.0",
+          "Quantity": "174.98",
+          "action": "buy"
+        },
+        {
+          "date": "2002-06-19",
+          "Commission": "10.0",
+          "Quantity": "227.27",
+          "action": "buy"
+        },
+        {
+          "date": "2002-08-19",
+          "Commission": "10.0",
+          "Quantity": "182.98",
+          "action": "buy"
+        },
+        {
+          "date": "2002-10-17",
+          "Commission": "10.0",
+          "Quantity": "202.63",
+          "action": "buy"
+        },
+        {
+          "date": "2002-12-16",
+          "Commission": "10.0",
+          "Quantity": "176.99",
+          "action": "buy"
+        },
+        {
+          "date": "2003-02-14",
+          "Commission": "10.0",
+          "Quantity": "170.94",
+          "action": "buy"
+        },
+        {
+          "date": "2003-04-15",
+          "Commission": "10.0",
+          "Quantity": "173.31",
+          "action": "buy"
+        },
+        {
+          "date": "2003-06-16",
+          "Commission": "10.0",
+          "Quantity": "146.52",
+          "action": "buy"
+        },
+        {
+          "date": "2003-08-13",
+          "Commission": "10.0",
+          "Quantity": "168.07",
+          "action": "buy"
+        },
+        {
+          "date": "2003-10-13",
+          "Commission": "10.0",
+          "Quantity": "162.87",
+          "action": "buy"
+        },
+        {
+          "date": "2003-12-11",
+          "Commission": "10.0",
+          "Quantity": "155.88",
+          "action": "buy"
+        },
+        {
+          "date": "2004-02-09",
+          "Commission": "10.0",
+          "Quantity": "150.60",
+          "action": "buy"
+        },
+        {
+          "date": "2004-04-09",
+          "Commission": "10.0",
+          "Quantity": "161.55",
+          "action": "buy"
+        },
+        {
+          "date": "2004-06-08",
+          "Commission": "10.0",
+          "Quantity": "172.56",
+          "action": "buy"
+        },
+        {
+          "date": "2004-08-09",
+          "Commission": "10.0",
+          "Quantity": "192.86",
+          "action": "buy"
+        },
+        {
+          "date": "2004-10-06",
+          "Commission": "10.0",
+          "Quantity": "163.40",
+          "action": "buy"
+        },
+        {
+          "date": "2004-12-06",
+          "Commission": "10.0",
+          "Quantity": "149.93",
+          "action": "buy"
+        },
+        {
+          "date": "2005-02-03",
+          "Commission": "10.0",
+          "Quantity": "149.93",
+          "action": "buy"
+        },
+        {
+          "date": "2005-04-04",
+          "Commission": "10.0",
+          "Quantity": "157.60",
+          "action": "buy"
+        },
+        {
+          "date": "2005-06-03",
+          "Commission": "10.0",
+          "Quantity": "158.86",
+          "action": "buy"
+        },
+        {
+          "date": "2005-08-02",
+          "Commission": "10.0",
+          "Quantity": "147.28",
+          "action": "buy"
+        },
+        {
+          "date": "2005-10-03",
+          "Commission": "10.0",
+          "Quantity": "161.55",
+          "action": "buy"
+        },
+        {
+          "date": "2005-11-30",
+          "Commission": "10.0",
+          "Quantity": "158.73",
+          "action": "buy"
+        },
+        {
+          "date": "2006-01-30",
+          "Commission": "10.0",
+          "Quantity": "158.60",
+          "action": "buy"
+        },
+        {
+          "date": "2006-03-30",
+          "Commission": "10.0",
+          "Quantity": "145.14",
+          "action": "buy"
+        },
+        {
+          "date": "2006-05-30",
+          "Commission": "10.0",
+          "Quantity": "142.65",
+          "action": "buy"
+        },
+        {
+          "date": "2006-07-28",
+          "Commission": "10.0",
+          "Quantity": "132.71",
+          "action": "buy"
+        },
+        {
+          "date": "2006-09-26",
+          "Commission": "10.0",
+          "Quantity": "109.95",
+          "action": "buy"
+        },
+        {
+          "date": "2006-11-27",
+          "Commission": "10.0",
+          "Quantity": "105.71",
+          "action": "buy"
+        },
+        {
+          "date": "2007-01-24",
+          "Commission": "10.0",
+          "Quantity": "116.69",
+          "action": "buy"
+        },
+        {
+          "date": "2007-03-26",
+          "Commission": "10.0",
+          "Quantity": "108.75",
+          "action": "buy"
+        },
+        {
+          "date": "2007-05-24",
+          "Commission": "10.0",
+          "Quantity": "106.67",
+          "action": "buy"
+        },
+        {
+          "date": "2007-07-23",
+          "Commission": "10.0",
+          "Quantity": "96.25",
+          "action": "buy"
+        },
+        {
+          "date": "2007-09-21",
+          "Commission": "10.0",
+          "Quantity": "91.01",
+          "action": "buy"
+        },
+        {
+          "date": "2007-11-20",
+          "Commission": "10.0",
+          "Quantity": "96.67",
+          "action": "buy"
+        },
+        {
+          "date": "2008-01-22",
+          "Commission": "10.0",
+          "Quantity": "98.91",
+          "action": "buy"
+        },
+        {
+          "date": "2008-03-19",
+          "Commission": "10.0",
+          "Quantity": "102.25",
+          "action": "buy"
+        },
+        {
+          "date": "2008-05-19",
+          "Commission": "10.0",
+          "Quantity": "89.17",
+          "action": "buy"
+        },
+        {
+          "date": "2008-07-17",
+          "Commission": "10.0",
+          "Quantity": "95.88",
+          "action": "buy"
+        },
+        {
+          "date": "2008-09-15",
+          "Commission": "10.0",
+          "Quantity": "105.21",
+          "action": "buy"
+        },
+        {
+          "date": "2008-11-14",
+          "Commission": "10.0",
+          "Quantity": "118.34",
+          "action": "buy"
+        },
+        {
+          "date": "2009-01-13",
+          "Commission": "10.0",
+          "Quantity": "116.69",
+          "action": "buy"
+        },
+        {
+          "date": "2009-03-16",
+          "Commission": "10.0",
+          "Quantity": "134.23",
+          "action": "buy"
+        },
+        {
+          "date": "2009-05-13",
+          "Commission": "10.0",
+          "Quantity": "110.68",
+          "action": "buy"
+        },
+        {
+          "date": "2009-07-13",
+          "Commission": "10.0",
+          "Quantity": "96.53",
+          "action": "buy"
+        },
+        {
+          "date": "2009-09-10",
+          "Commission": "10.0",
+          "Quantity": "87.87",
+          "action": "buy"
+        },
+        {
+          "date": "2009-11-09",
+          "Commission": "10.0",
+          "Quantity": "91.62",
+          "action": "buy"
+        },
+        {
+          "date": "2010-01-08",
+          "Commission": "10.0",
+          "Quantity": "81.04",
+          "action": "buy"
+        },
+        {
+          "date": "2010-03-09",
+          "Commission": "10.0",
+          "Quantity": "80.39",
+          "action": "buy"
+        },
+        {
+          "date": "2010-05-10",
+          "Commission": "10.0",
+          "Quantity": "82.00",
+          "action": "buy"
+        },
+        {
+          "date": "2010-07-07",
+          "Commission": "10.0",
+          "Quantity": "86.63",
+          "action": "buy"
+        },
+        {
+          "date": "2010-09-07",
+          "Commission": "10.0",
+          "Quantity": "82.42",
+          "action": "buy"
+        },
+        {
+          "date": "2010-11-04",
+          "Commission": "10.0",
+          "Quantity": "67.87",
+          "action": "buy"
+        },
+        {
+          "date": "2011-01-03",
+          "Commission": "10.0",
+          "Quantity": "63.25",
+          "action": "buy"
+        },
+        {
+          "date": "2011-03-04",
+          "Commission": "10.0",
+          "Quantity": "61.04",
+          "action": "buy"
+        },
+        {
+          "date": "2011-05-03",
+          "Commission": "10.0",
+          "Quantity": "55.34",
+          "action": "buy"
+        },
+        {
+          "date": "2011-07-05",
+          "Commission": "10.0",
+          "Quantity": "60.50",
+          "action": "buy"
+        },
+        {
+          "date": "2011-08-31",
+          "Commission": "10.0",
+          "Quantity": "71.25",
+          "action": "buy"
+        },
+        {
+          "date": "2011-10-31",
+          "Commission": "10.0",
+          "Quantity": "61.03",
+          "action": "buy"
+        },
+        {
+          "date": "2011-12-29",
+          "Commission": "10.0",
+          "Quantity": "77.52",
+          "action": "buy"
+        },
+        {
+          "date": "2012-02-27",
+          "Commission": "10.0",
+          "Quantity": "68.35",
+          "action": "buy"
+        },
+        {
+          "date": "2012-04-27",
+          "Commission": "10.0",
+          "Quantity": "68.40",
+          "action": "buy"
+        },
+        {
+          "date": "2012-06-26",
+          "Commission": "10.0",
+          "Quantity": "71.86",
+          "action": "buy"
+        },
+        {
+          "date": "2012-08-27",
+          "Commission": "10.0",
+          "Quantity": "62.83",
+          "action": "buy"
+        },
+        {
+          "date": "2012-10-24",
+          "Commission": "10.0",
+          "Quantity": "65.36",
+          "action": "buy"
+        },
+        {
+          "date": "2012-12-24",
+          "Commission": "10.0",
+          "Quantity": "59.51",
+          "action": "buy"
+        },
+        {
+          "date": "2013-02-21",
+          "Commission": "10.0",
+          "Quantity": "58.34",
+          "action": "buy"
+        },
+        {
+          "date": "2013-04-22",
+          "Commission": "10.0",
+          "Quantity": "61.51",
+          "action": "buy"
+        },
+        {
+          "date": "2013-06-21",
+          "Commission": "10.0",
+          "Quantity": "66.37",
+          "action": "buy"
+        },
+        {
+          "date": "2013-08-20",
+          "Commission": "10.0",
+          "Quantity": "62.11",
+          "action": "buy"
+        },
+        {
+          "date": "2013-10-21",
+          "Commission": "10.0",
+          "Quantity": "60.70",
+          "action": "buy"
+        },
+        {
+          "date": "2013-12-18",
+          "Commission": "10.0",
+          "Quantity": "57.80",
+          "action": "buy"
+        },
+        {
+          "date": "2014-02-18",
+          "Commission": "10.0",
+          "Quantity": "52.67",
+          "action": "buy"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "10.0",
+          "Quantity": "49.90",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "10.0",
+          "Quantity": "47.45",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "10.0",
+          "Quantity": "49.65",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "10.0",
+          "Quantity": "52.00",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "10.0",
+          "Quantity": "48.65",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "10.0",
+          "Quantity": "46.13",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "10.0",
+          "Quantity": "46.43",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "10.0",
+          "Quantity": "45.17",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "10.0",
+          "Quantity": "50.14",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "10.0",
+          "Quantity": "52.49",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "10.0",
+          "Quantity": "51.64",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "10.0",
+          "Quantity": "56.16",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "10.0",
+          "Quantity": "49.08",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "10.0",
+          "Quantity": "50.71",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "10.0",
+          "Quantity": "48.90",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "10.0",
+          "Quantity": "51.30",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "10.0",
+          "Quantity": "51.95",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "10.0",
+          "Quantity": "49.86",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "10.0",
+          "Quantity": "44.83",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "10.0",
+          "Quantity": "44.06",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "10.0",
+          "Quantity": "40.06",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "10.0",
+          "Quantity": "41.60",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "10.0",
+          "Quantity": "40.92",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "10.0",
+          "Quantity": "37.91",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "10.0",
+          "Quantity": "44.07",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "10.0",
+          "Quantity": "43.23",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "10.0",
+          "Quantity": "40.86",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "10.0",
+          "Quantity": "39.03",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Quantity": "41.07",
+          "action": "buy",
+          "Commission": "10.0"
+        }
+      ]
+    },
+    {
+      "CompanyName": "META",
+      "Actions": [
+        {
+          "date": "2012-06-26",
+          "Commission": "30.0",
+          "Quantity": "604.23",
+          "action": "buy"
+        },
+        {
+          "date": "2012-08-27",
+          "Commission": "30.0",
+          "Quantity": "1044.39",
+          "action": "buy"
+        },
+        {
+          "date": "2012-10-24",
+          "Commission": "30.0",
+          "Quantity": "860.96",
+          "action": "buy"
+        },
+        {
+          "date": "2012-12-24",
+          "Commission": "30.0",
+          "Quantity": "742.67",
+          "action": "buy"
+        },
+        {
+          "date": "2013-02-21",
+          "Commission": "30.0",
+          "Quantity": "733.06",
+          "action": "buy"
+        },
+        {
+          "date": "2013-04-22",
+          "Commission": "30.0",
+          "Quantity": "770.12",
+          "action": "buy"
+        },
+        {
+          "date": "2013-06-21",
+          "Commission": "30.0",
+          "Quantity": "815.33",
+          "action": "buy"
+        },
+        {
+          "date": "2013-08-20",
+          "Commission": "30.0",
+          "Quantity": "520.70",
+          "action": "buy"
+        },
+        {
+          "date": "2013-10-21",
+          "Commission": "30.0",
+          "Quantity": "371.40",
+          "action": "buy"
+        },
+        {
+          "date": "2013-12-18",
+          "Commission": "30.0",
+          "Quantity": "359.91",
+          "action": "buy"
+        },
+        {
+          "date": "2014-02-18",
+          "Commission": "30.0",
+          "Quantity": "297.18",
+          "action": "buy"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "30.0",
+          "Quantity": "339.33",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "30.0",
+          "Quantity": "311.58",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "30.0",
+          "Quantity": "271.63",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "30.0",
+          "Quantity": "271.78",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "30.0",
+          "Quantity": "259.77",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "30.0",
+          "Quantity": "261.40",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "30.0",
+          "Quantity": "240.93",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "30.0",
+          "Quantity": "244.41",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "30.0",
+          "Quantity": "212.43",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "30.0",
+          "Quantity": "214.50",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "30.0",
+          "Quantity": "187.81",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "30.0",
+          "Quantity": "200.50",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "30.0",
+          "Quantity": "175.89",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "30.0",
+          "Quantity": "168.36",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "30.0",
+          "Quantity": "160.82",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "30.0",
+          "Quantity": "155.32",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "30.0",
+          "Quantity": "173.31",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "30.0",
+          "Quantity": "153.47",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "30.0",
+          "Quantity": "140.57",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "30.0",
+          "Quantity": "132.05",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "30.0",
+          "Quantity": "118.17",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "30.0",
+          "Quantity": "118.53",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "30.0",
+          "Quantity": "109.27",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "30.0",
+          "Quantity": "105.26",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "30.0",
+          "Quantity": "131.39",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "30.0",
+          "Quantity": "107.68",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "30.0",
+          "Quantity": "91.95",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "30.0",
+          "Quantity": "120.91",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "30.0",
+          "Quantity": "151.83",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-22",
+          "Commission": "30.0",
+          "Quantity": "135.53",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-22",
+          "Commission": "30.0",
+          "Quantity": "121.70",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-21",
+          "Commission": "30.0",
+          "Quantity": "108.21",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-22",
+          "Commission": "30.0",
+          "Quantity": "98.85",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-18",
+          "Commission": "30.0",
+          "Quantity": "106.30",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-18",
+          "Commission": "30.0",
+          "Quantity": "101.32",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-16",
+          "Commission": "30.0",
+          "Quantity": "90.18",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-16",
+          "Commission": "30.0",
+          "Quantity": "136.98",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-15",
+          "Commission": "30.0",
+          "Quantity": "94.84",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-14",
+          "Commission": "30.0",
+          "Quantity": "83.43",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-14",
+          "Commission": "30.0",
+          "Quantity": "75.15",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-12",
+          "Commission": "30.0",
+          "Quantity": "72.71",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-11",
+          "Commission": "30.0",
+          "Quantity": "77.87",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-11",
+          "Commission": "30.0",
+          "Quantity": "73.02",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-10",
+          "Commission": "30.0",
+          "Quantity": "65.37",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-09",
+          "Commission": "30.0",
+          "Quantity": "57.07",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-07",
+          "Commission": "30.0",
+          "Quantity": "52.33",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-08",
+          "Commission": "30.0",
+          "Quantity": "59.06",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-05",
+          "Commission": "30.0",
+          "Quantity": "61.70",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-07",
+          "Commission": "30.0",
+          "Quantity": "106.68",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-05",
+          "Commission": "30.0",
+          "Quantity": "96.02",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-05",
+          "Commission": "30.0",
+          "Quantity": "118.91",
+          "action": "buy"
+        },
+        {
+          "date": "2022-09-02",
+          "Commission": "30.0",
+          "Quantity": "124.75",
+          "action": "buy"
+        },
+        {
+          "date": "2022-11-01",
+          "Commission": "30.0",
+          "Quantity": "210.08",
+          "action": "buy"
+        },
+        {
+          "date": "2022-10-01",
+          "Commission": "20",
+          "Quantity": "100",
+          "action": "sell"
+        },
+        {
+          "date": "2012-06-26",
+          "Commission": "10.0",
+          "Quantity": "181.27",
+          "action": "buy"
+        },
+        {
+          "date": "2012-08-27",
+          "Commission": "10.0",
+          "Quantity": "313.32",
+          "action": "buy"
+        },
+        {
+          "date": "2012-10-24",
+          "Commission": "10.0",
+          "Quantity": "258.29",
+          "action": "buy"
+        },
+        {
+          "date": "2012-12-24",
+          "Commission": "10.0",
+          "Quantity": "222.80",
+          "action": "buy"
+        },
+        {
+          "date": "2013-02-21",
+          "Commission": "10.0",
+          "Quantity": "219.92",
+          "action": "buy"
+        },
+        {
+          "date": "2013-04-22",
+          "Commission": "10.0",
+          "Quantity": "231.04",
+          "action": "buy"
+        },
+        {
+          "date": "2013-06-21",
+          "Commission": "10.0",
+          "Quantity": "244.60",
+          "action": "buy"
+        },
+        {
+          "date": "2013-08-20",
+          "Commission": "10.0",
+          "Quantity": "156.21",
+          "action": "buy"
+        },
+        {
+          "date": "2013-10-21",
+          "Commission": "10.0",
+          "Quantity": "111.42",
+          "action": "buy"
+        },
+        {
+          "date": "2013-12-18",
+          "Commission": "10.0",
+          "Quantity": "107.97",
+          "action": "buy"
+        },
+        {
+          "date": "2014-02-18",
+          "Commission": "10.0",
+          "Quantity": "89.15",
+          "action": "buy"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "10.0",
+          "Quantity": "101.80",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "10.0",
+          "Quantity": "93.47",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "10.0",
+          "Quantity": "81.49",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "10.0",
+          "Quantity": "81.53",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "10.0",
+          "Quantity": "77.93",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "10.0",
+          "Quantity": "78.42",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "10.0",
+          "Quantity": "72.28",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "10.0",
+          "Quantity": "73.32",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "10.0",
+          "Quantity": "63.73",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "10.0",
+          "Quantity": "64.35",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "10.0",
+          "Quantity": "56.34",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "10.0",
+          "Quantity": "60.15",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "10.0",
+          "Quantity": "52.77",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "10.0",
+          "Quantity": "50.51",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "10.0",
+          "Quantity": "48.25",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "10.0",
+          "Quantity": "46.59",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "10.0",
+          "Quantity": "51.99",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "10.0",
+          "Quantity": "46.04",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "10.0",
+          "Quantity": "42.17",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "10.0",
+          "Quantity": "39.61",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "10.0",
+          "Quantity": "35.45",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "10.0",
+          "Quantity": "35.56",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "10.0",
+          "Quantity": "32.78",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "10.0",
+          "Quantity": "31.58",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "10.0",
+          "Quantity": "39.42",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "10.0",
+          "Quantity": "32.30",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "10.0",
+          "Quantity": "27.59",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "10.0",
+          "Quantity": "36.27",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "10.0",
+          "Quantity": "45.55",
+          "action": "buy"
+        }
+      ]
+    },
+    {
+      "CompanyName": "GOOG",
+      "Actions": [
+        {
+          "date": "2014-04-17",
+          "Commission": "30.0",
+          "Quantity": "74.61",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "30.0",
+          "Quantity": "73.49",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "30.0",
+          "Quantity": "69.75",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "30.0",
+          "Quantity": "74.36",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "30.0",
+          "Quantity": "77.85",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "30.0",
+          "Quantity": "74.63",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "30.0",
+          "Quantity": "74.19",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "30.0",
+          "Quantity": "74.82",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "30.0",
+          "Quantity": "63.12",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "30.0",
+          "Quantity": "62.15",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "30.0",
+          "Quantity": "52.47",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "30.0",
+          "Quantity": "58.59",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "30.0",
+          "Quantity": "53.64",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "30.0",
+          "Quantity": "55.82",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "30.0",
+          "Quantity": "51.84",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "30.0",
+          "Quantity": "51.78",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "30.0",
+          "Quantity": "53.30",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "30.0",
+          "Quantity": "50.20",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "30.0",
+          "Quantity": "47.70",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "30.0",
+          "Quantity": "41.46",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "30.0",
+          "Quantity": "42.99",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "30.0",
+          "Quantity": "42.13",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "30.0",
+          "Quantity": "37.94",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "30.0",
+          "Quantity": "34.02",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "30.0",
+          "Quantity": "39.80",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "30.0",
+          "Quantity": "37.72",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "30.0",
+          "Quantity": "31.65",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "30.0",
+          "Quantity": "34.09",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "30.0",
+          "Quantity": "39.07",
+          "action": "buy"
+        },
+        {
+          "date": "2019-01-22",
+          "Commission": "30.0",
+          "Quantity": "37.37",
+          "action": "buy"
+        },
+        {
+          "date": "2019-03-22",
+          "Commission": "30.0",
+          "Quantity": "33.18",
+          "action": "buy"
+        },
+        {
+          "date": "2019-05-21",
+          "Commission": "30.0",
+          "Quantity": "34.79",
+          "action": "buy"
+        },
+        {
+          "date": "2019-07-22",
+          "Commission": "30.0",
+          "Quantity": "35.15",
+          "action": "buy"
+        },
+        {
+          "date": "2019-09-18",
+          "Commission": "30.0",
+          "Quantity": "32.46",
+          "action": "buy"
+        },
+        {
+          "date": "2019-11-18",
+          "Commission": "30.0",
+          "Quantity": "30.29",
+          "action": "buy"
+        },
+        {
+          "date": "2020-01-16",
+          "Commission": "30.0",
+          "Quantity": "27.55",
+          "action": "buy"
+        },
+        {
+          "date": "2020-03-16",
+          "Commission": "30.0",
+          "Quantity": "36.89",
+          "action": "buy"
+        },
+        {
+          "date": "2020-05-15",
+          "Commission": "30.0",
+          "Quantity": "29.13",
+          "action": "buy"
+        },
+        {
+          "date": "2020-07-14",
+          "Commission": "30.0",
+          "Quantity": "26.31",
+          "action": "buy"
+        },
+        {
+          "date": "2020-09-14",
+          "Commission": "30.0",
+          "Quantity": "26.33",
+          "action": "buy"
+        },
+        {
+          "date": "2020-11-12",
+          "Commission": "30.0",
+          "Quantity": "22.86",
+          "action": "buy"
+        },
+        {
+          "date": "2021-01-11",
+          "Commission": "30.0",
+          "Quantity": "22.64",
+          "action": "buy"
+        },
+        {
+          "date": "2021-03-11",
+          "Commission": "30.0",
+          "Quantity": "18.91",
+          "action": "buy"
+        },
+        {
+          "date": "2021-05-10",
+          "Commission": "30.0",
+          "Quantity": "17.08",
+          "action": "buy"
+        },
+        {
+          "date": "2021-07-09",
+          "Commission": "30.0",
+          "Quantity": "15.44",
+          "action": "buy"
+        },
+        {
+          "date": "2021-09-07",
+          "Commission": "30.0",
+          "Quantity": "13.74",
+          "action": "buy"
+        },
+        {
+          "date": "2021-11-08",
+          "Commission": "30.0",
+          "Quantity": "13.39",
+          "action": "buy"
+        },
+        {
+          "date": "2022-01-05",
+          "Commission": "30.0",
+          "Quantity": "14.53",
+          "action": "buy"
+        },
+        {
+          "date": "2022-03-07",
+          "Commission": "30.0",
+          "Quantity": "15.81",
+          "action": "buy"
+        },
+        {
+          "date": "2022-05-05",
+          "Commission": "30.0",
+          "Quantity": "17.13",
+          "action": "buy"
+        },
+        {
+          "date": "2022-07-05",
+          "Commission": "30.0",
+          "Quantity": "17.56",
+          "action": "buy"
+        },
+        {
+          "date": "2022-09-02",
+          "Commission": "30.0",
+          "Quantity": "368.05",
+          "action": "buy"
+        },
+        {
+          "date": "2022-11-01",
+          "Commission": "30.0",
+          "Quantity": "441.99",
+          "action": "buy"
+        },
+        {
+          "date": "2022-11-01",
+          "Commission": "40",
+          "Quantity": "50",
+          "action": "sell"
+        },
+        {
+          "date": "2014-04-17",
+          "Commission": "10.0",
+          "Quantity": "11.19",
+          "action": "buy"
+        },
+        {
+          "date": "2014-06-16",
+          "Commission": "10.0",
+          "Quantity": "11.02",
+          "action": "buy"
+        },
+        {
+          "date": "2014-08-15",
+          "Commission": "10.0",
+          "Quantity": "10.46",
+          "action": "buy"
+        },
+        {
+          "date": "2014-10-14",
+          "Commission": "10.0",
+          "Quantity": "11.15",
+          "action": "buy"
+        },
+        {
+          "date": "2014-12-15",
+          "Commission": "10.0",
+          "Quantity": "11.68",
+          "action": "buy"
+        },
+        {
+          "date": "2015-02-11",
+          "Commission": "10.0",
+          "Quantity": "11.19",
+          "action": "buy"
+        },
+        {
+          "date": "2015-04-13",
+          "Commission": "10.0",
+          "Quantity": "11.13",
+          "action": "buy"
+        },
+        {
+          "date": "2015-06-11",
+          "Commission": "10.0",
+          "Quantity": "11.22",
+          "action": "buy"
+        },
+        {
+          "date": "2015-08-10",
+          "Commission": "10.0",
+          "Quantity": "9.47",
+          "action": "buy"
+        },
+        {
+          "date": "2015-10-09",
+          "Commission": "10.0",
+          "Quantity": "9.32",
+          "action": "buy"
+        },
+        {
+          "date": "2015-12-08",
+          "Commission": "10.0",
+          "Quantity": "7.87",
+          "action": "buy"
+        },
+        {
+          "date": "2016-02-08",
+          "Commission": "10.0",
+          "Quantity": "8.79",
+          "action": "buy"
+        },
+        {
+          "date": "2016-04-06",
+          "Commission": "10.0",
+          "Quantity": "8.05",
+          "action": "buy"
+        },
+        {
+          "date": "2016-06-06",
+          "Commission": "10.0",
+          "Quantity": "8.37",
+          "action": "buy"
+        },
+        {
+          "date": "2016-08-04",
+          "Commission": "10.0",
+          "Quantity": "7.78",
+          "action": "buy"
+        },
+        {
+          "date": "2016-10-03",
+          "Commission": "10.0",
+          "Quantity": "7.77",
+          "action": "buy"
+        },
+        {
+          "date": "2016-12-02",
+          "Commission": "10.0",
+          "Quantity": "7.99",
+          "action": "buy"
+        },
+        {
+          "date": "2017-01-31",
+          "Commission": "10.0",
+          "Quantity": "7.53",
+          "action": "buy"
+        },
+        {
+          "date": "2017-04-03",
+          "Commission": "10.0",
+          "Quantity": "7.16",
+          "action": "buy"
+        },
+        {
+          "date": "2017-05-31",
+          "Commission": "10.0",
+          "Quantity": "6.22",
+          "action": "buy"
+        },
+        {
+          "date": "2017-07-31",
+          "Commission": "10.0",
+          "Quantity": "6.45",
+          "action": "buy"
+        },
+        {
+          "date": "2017-09-28",
+          "Commission": "10.0",
+          "Quantity": "6.32",
+          "action": "buy"
+        },
+        {
+          "date": "2017-11-27",
+          "Commission": "10.0",
+          "Quantity": "5.69",
+          "action": "buy"
+        },
+        {
+          "date": "2018-01-26",
+          "Commission": "10.0",
+          "Quantity": "5.10",
+          "action": "buy"
+        },
+        {
+          "date": "2018-03-27",
+          "Commission": "10.0",
+          "Quantity": "5.97",
+          "action": "buy"
+        },
+        {
+          "date": "2018-05-29",
+          "Commission": "10.0",
+          "Quantity": "5.66",
+          "action": "buy"
+        },
+        {
+          "date": "2018-07-25",
+          "Commission": "10.0",
+          "Quantity": "4.75",
+          "action": "buy"
+        },
+        {
+          "date": "2018-09-24",
+          "Commission": "10.0",
+          "Quantity": "5.11",
+          "action": "buy"
+        },
+        {
+          "date": "2018-11-23",
+          "Commission": "10.0",
+          "Quantity": "5.86",
+          "action": "buy"
+        }
+      ]
+    }
+  ],
+  "type": "flexible"
+}

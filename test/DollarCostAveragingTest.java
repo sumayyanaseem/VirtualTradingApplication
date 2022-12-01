@@ -471,6 +471,97 @@ public class DollarCostAveragingTest {
   }
 
   @Test
+  public void testWhenDatesFallBeforeIPOMultipleStocks() {
+    stockAndPercent = new HashMap<>();
+    stockAndPercent.put("GOOG", 50.0);
+    stockAndPercent.put("ORCL", 50.0);
+    String expected = "Given Dates range is before IPO";
+    String actual = "";
+    try {
+      flexible.createEmptyPortfolio(pName, "flexible");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000.43, commission, 30,
+              "1900-01-01", "1900-03-01");
+      List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2021-01-31");
+      assertTrue(results.size() == 0);
+    } catch (Exception e) {
+      actual = e.getMessage();
+      System.out.println(e.getMessage());
+    }
+    assertEquals(actual, expected);
+    File f = new File("userPortfolios/" + pName + "_output.json");
+    assertTrue(f.exists());
+    f.deleteOnExit();
+
+  }
+
+  @Test
+  public void testWhenDatesMultipleStocks() {
+    stockAndPercent = new HashMap<>();
+    stockAndPercent.put("GOOG", 50.0);
+    stockAndPercent.put("ORCL", 50.0);
+    try {
+      flexible.createEmptyPortfolio(pName, "flexible");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000.43, commission, 30,
+              "2000-01-01", "2017-03-01");
+      List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2021-01-31");
+      assertTrue(results.size() > 0);
+      StringBuilder company = new StringBuilder();
+      StringBuilder quantity = new StringBuilder();
+      for (List<String> list : results) {
+        company.append(list.get(0).toString());
+        quantity.append(list.get(1).toString());
+
+      }
+      assertFalse(quantity.toString().isEmpty());
+      assertTrue(company.toString().contains("GOOG"));
+      assertTrue(company.toString().contains("ORCL"));
+
+    } catch (Exception e) {
+
+      System.out.println(e.getMessage());
+    }
+
+    File f = new File("userPortfolios/" + pName + "_output.json");
+    assertTrue(f.exists());
+    f.deleteOnExit();
+  }
+
+  @Test
+  public void testWhenDatesInBetweenIPOMultipleStocks() {
+    stockAndPercent = new HashMap<>();
+    stockAndPercent.put("GOOG", 50.0);
+    stockAndPercent.put("ORCL", 50.0);
+    try {
+      flexible.createEmptyPortfolio(pName, "flexible");
+      flexible.dollarCostStrategy(pName, stockAndPercent,
+              10000.43, commission, 30,
+              "2000-01-01", "2013-03-01");
+      List<List<String>> results = flexible.viewCompositionOfCurrentPortfolio(pName, "2021-01-31");
+      assertTrue(results.size() > 0);
+      StringBuilder company = new StringBuilder();
+      StringBuilder quantity = new StringBuilder();
+      for (List<String> list : results) {
+        company.append(list.get(0).toString());
+        quantity.append(list.get(1).toString());
+
+      }
+      assertFalse(quantity.toString().isEmpty());
+      assertFalse(company.toString().contains("GOOG"));
+      assertTrue(company.toString().contains("ORCL"));
+
+    } catch (Exception e) {
+
+      System.out.println(e.getMessage());
+    }
+
+    File f = new File("userPortfolios/" + pName + "_output.json");
+    assertTrue(f.exists());
+    f.deleteOnExit();
+  }
+
+  @Test
   public void testWhenDatesFallBetweenIPO() {
     stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", 100.0);
