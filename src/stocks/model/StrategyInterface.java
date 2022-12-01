@@ -9,7 +9,6 @@ import java.util.Map;
  */
 public interface StrategyInterface {
 
-<<<<<<< HEAD
   /**
    * applies strategy on given portfolio with relavant parameters.
    * @param portfolioName name of the portfolio on which the strategy needs to be applied.
@@ -18,13 +17,9 @@ public interface StrategyInterface {
    * @param commission the amount charged for this transaction.
    * @throws IllegalArgumentException
    */
-  void applyStrategyOnPortfolio(String portfolioName, Map<String, Double> stockAndWeights,
-                                double investmentAmount, double commission) throws IllegalArgumentException;
-=======
   void applyStrategyOnPortfolio(String portfolioName,
                                 Map<String, Double> stockAndWeights,
                                 double investmentAmount,
                                 double commission) throws IllegalArgumentException;
->>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
 
 }

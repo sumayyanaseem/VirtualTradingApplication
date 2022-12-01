@@ -422,17 +422,10 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   @Override
-<<<<<<< HEAD
   public void fixedAmountStrategy(
           String portfolioName, Map<String, Double> stockAndPercent,
           double investmentAmount, double commissionFee, String date)
           throws IllegalArgumentException {
-=======
-  public void fixedAmountStrategy(String portfolioName,
-                                  Map<String, Double> stockAndPercent,
-                                  double investmentAmount,
-                                  double commissionFee, String date) throws IllegalArgumentException {
->>>>>>> 5b65f16c2e6c26b6532cd9d87dc8631cad64b8e9
     StrategyInterface strategy = new FixedCostStrategyImpl(date, this);
     strategy.applyStrategyOnPortfolio(portfolioName,
             stockAndPercent, investmentAmount, commissionFee);
