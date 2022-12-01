@@ -9,7 +9,8 @@ public class ViewFactory {
   /**
    * constructs an view factory object based on the given type.
    *
-   * @param type the type of UI (text/GUI)
+   * @param type the type of UI (text/GUI).
+   * @return an object of IViewInterface.
    */
   public static IViewInterface generateViewFactory(String type) {
     if (type.equals("GUI")) {

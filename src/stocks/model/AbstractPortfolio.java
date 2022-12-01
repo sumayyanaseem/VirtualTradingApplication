@@ -40,16 +40,6 @@ abstract class AbstractPortfolio implements Portfolio {
       throw new IllegalArgumentException("Invalid companyName provided");
     }
     boolean found = false;
-   /* for (CompanyTickerSymbol companyTickerSymbol : CompanyTickerSymbol.values()) {
-      if (companyTickerSymbol.name().equalsIgnoreCase(companyName)) {
-        found = true;
-        break;
-      }
-    }
-    if (!found) {
-      throw new IllegalArgumentException("Given company doesnt exist in our records."
-              + "Please provide valid  companyTicker symbol.");
-    }*/
     try {
       double price = apiCustomInterface.fetchLatestStockPriceOfThisCompany(companyName);
     } catch (Exception e) {

@@ -3,6 +3,10 @@ package stocks.model;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * This class represents an interface for flexible Portfolio.
+ */
 public interface IFlexible extends Portfolio {
 
 

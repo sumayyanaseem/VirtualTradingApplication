@@ -128,6 +128,12 @@ public class APICustomClass implements APICustomInterface {
   }
 
 
+  /**
+   * fetches result from alphavantage API given the company name and interval ( daily/monthly etc )
+   * @param companyTickerSymbol name of the company for hich we need to query the API result
+   * @param interval time seriies string - DAILY/MONTHLY/YEARLY etc
+   * @return result from API in the form of a string.
+   */
   public String fetchOutputStringFromURLByInterval(String companyTickerSymbol, String interval) {
 
 

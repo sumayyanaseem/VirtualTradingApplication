@@ -164,7 +164,8 @@ public class PortfolioControllerImpl implements PortfolioController {
     view.getFilePath();
     String filePath = input.nextLine();
     try {
-      Command cmd = new LoadPortfolioCommand(view, inflexiblePortfolioTypeObj, flexiblePortfolioTypeObj, filePath);
+      Command cmd = new LoadPortfolioCommand(view,
+              inflexiblePortfolioTypeObj, flexiblePortfolioTypeObj, filePath);
       cmd.execute();
     } catch (IllegalArgumentException e) {
       if (e.getMessage().equals("start again")) {

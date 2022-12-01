@@ -10,7 +10,7 @@ public interface Features {
   /**
    * creates the portfolio with given name and type.
    *
-   * @param pname the name of portfolio.
+   * @param pName the name of portfolio.
    * @param pType the type of portfolio to be created.
    */
   void createPortfolio(String pName, String pType);
@@ -35,14 +35,15 @@ public interface Features {
    * @param commissionFee    the commission to be paid for this transaction.
    * @param date             the name of portfolio to be created.
    */
-  void investFixedAmountStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, String date);
+  void investFixedAmountStrategy(String portfolioName, Map<String,
+          String> stockAndPercent, double investmentAmount,
+                                 double commissionFee, String date);
 
   /**
    * method to invest in dollar cost strategy.
    *
    * @param portfolioName    the company name.
    * @param stockAndPercent  the map which contains stock names and respective percentages.
-   * @param investmentAmount the amount to be invested using this strategy.
    * @param investmentAmount the amount to be invested using this strategy.
    * @param commissionFee    the commission to be paid for this transaction.
    * @param dateStart        the start date of investment.

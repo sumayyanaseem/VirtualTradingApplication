@@ -18,7 +18,8 @@ public class ControllerFactory {
    * @param im   the model object.
    * @return controller object generated based on view type.
    */
-  public static PortfolioController generateControllerFactory(String type, IViewInterface iv, IFlexible im) {
+  public static PortfolioController generateControllerFactory(
+          String type, IViewInterface iv, IFlexible im) {
     if (type.equals("GUI")) {
       return new PortfolioGUIController(im, iv);
     } else if (type.equals("CONSOLE")) {

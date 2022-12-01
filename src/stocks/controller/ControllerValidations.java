@@ -20,9 +20,9 @@ public class ControllerValidations {
   private final IViewInterface view;
 
   /**
-   * Constructs the ControllerValidations object by taking view object as input
+   * Constructs the ControllerValidations object by taking view object as input.
    *
-   * @param view represents view object
+   * @param view represents view object.
    */
   public ControllerValidations(IViewInterface view) {
     this.view = view;
@@ -31,7 +31,7 @@ public class ControllerValidations {
   /**
    * method to validate options 1 or 2 from user.
    *
-   * @param input input 1/2 from user
+   * @param input input 1/2 from user.
    * @return valid/invalid input provided ?
    */
   public boolean validateInputsFromUSer(String input) {
@@ -48,7 +48,7 @@ public class ControllerValidations {
   /**
    * method to validate options 1 or 2 or 3 or 4 from user.
    *
-   * @param input input 1/2 /3/4from user
+   * @param input input 1/2 /3/4from user.
    * @return valid/invalid input provided ?
    */
   public boolean validateInitialInputsFromUser(String input) {
@@ -65,28 +65,23 @@ public class ControllerValidations {
   /**
    * method to validate date from user.
    *
-   * @param date string date provided by user
+   * @param date string date provided by user.
    * @return valid/invalid date provided ?
    */
   public boolean dateHelper(String date) {
-    if (validateDate(date)) {
-      return true;
-    }
-    return false;
+    return validateDate(date);
   }
 
   /**
    * method to validate date from user.
    *
-   * @param date        string date provided by used
-   * @param companyName stock name provided by usedr
+   * @param date        string date provided by user.
+   * @param companyName stock name provided by user
    * @return valid/invalid date provided ?
    */
   public boolean dateHelperInFlexiblePortfolio(String date, String companyName) {
-    if (validateDate(date)) {
-      return true;
-    }
-    return false;
+    return validateDate(date);
+
   }
 
   /**
@@ -97,10 +92,8 @@ public class ControllerValidations {
    * @return valid/invalid company provided ?
    */
   public boolean companyHelper(Portfolio portfolio, String companyName) {
-    if (validateIfCompanyExists(companyName, portfolio)) {
-      return true;
-    }
-    return false;
+    return validateIfCompanyExists(companyName, portfolio);
+
   }
 
   /**
@@ -110,10 +103,8 @@ public class ControllerValidations {
    * @return valid/invalid company provided ?
    */
   public boolean quantityHelper(String quantity) {
-    if (validateQuantity(quantity)) {
-      return true;
-    }
-    return false;
+    return validateQuantity(quantity);
+
   }
 
 
@@ -124,10 +115,8 @@ public class ControllerValidations {
    * @return valid/invalid commission provided ?
    */
   public boolean commissionHelper(String com) {
-    if (validateCom(com)) {
-      return true;
-    }
-    return false;
+    return validateCom(com);
+
   }
 
   /**

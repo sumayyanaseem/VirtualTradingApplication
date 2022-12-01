@@ -28,7 +28,8 @@ public class CreateFlexiblePortfolioCommand implements Command {
    * @param input                    the scanner object that reads the input
    * @param flexiblePortfolioTypeObj the object of a flexible portfolio.
    */
-  public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input, IFlexible flexiblePortfolioTypeObj) {
+  public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input,
+                                        IFlexible flexiblePortfolioTypeObj) {
     this.view = view;
     this.input = input;
     this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;

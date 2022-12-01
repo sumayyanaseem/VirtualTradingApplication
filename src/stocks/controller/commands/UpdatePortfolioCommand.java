@@ -25,10 +25,10 @@ public class UpdatePortfolioCommand implements Command {
 
   /**
    * Constructs the update command object by taking scanner, view objects to read input
-   * and display output using view respectively,
+   * and display output using view respectively.
    *
-   * @param view  represents view object
-   * @param input the scanner object that reads the input
+   * @param view  represents view object.
+   * @param input the scanner object that reads the input.
    */
   public UpdatePortfolioCommand(PortfolioView view, Scanner input) {
     this.view = view;
