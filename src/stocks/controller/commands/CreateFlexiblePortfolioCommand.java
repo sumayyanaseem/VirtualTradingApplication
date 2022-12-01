@@ -8,8 +8,8 @@ import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
 /**
- * This represents the create command class that provides methods to create a
- * flexible portfolio through execute method.
+ * This represents the command class for flexible portfolio
+ * that provides methods to create a flexible portfolio through execute method.
  */
 public class CreateFlexiblePortfolioCommand implements Command  {
 
@@ -34,6 +34,7 @@ public class CreateFlexiblePortfolioCommand implements Command  {
     this.flexiblePortfolioTypeObj=flexiblePortfolioTypeObj;
     this.controllerValidations = new ControllerValidations(view);
   }
+
 
   @Override
   public void execute() {

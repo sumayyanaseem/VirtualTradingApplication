@@ -10,6 +10,10 @@ import stocks.model.IFlexible;
 import stocks.model.Portfolio;
 import stocks.view.PortfolioView;
 
+/**
+ * This represents the update command class for flexible portfolio
+ * that provides methods to update a flexible portfolio through execute method.
+ */
 public class UpdatePortfolioCommand implements Command {
 
   private final PortfolioView view;
@@ -20,6 +24,14 @@ public class UpdatePortfolioCommand implements Command {
   private final CustomParser jsonParserImplementation;
 
   private ControllerValidations controllerValidations;
+
+  /**
+   * Constructs the update command object by taking scanner, view objects to read input
+   * and display output using view respectively,
+   *
+   * @param view    represents view object
+   * @param input the scanner object that reads the input
+   */
   public UpdatePortfolioCommand(PortfolioView view, Scanner input){
     this.view = view;
     this.input = input;
