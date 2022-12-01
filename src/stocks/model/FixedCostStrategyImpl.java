@@ -21,6 +21,8 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
   private final IFlexible flexible;
 
+  private boolean foundFlag;
+
 
   /**
    * constructs an object for FixedCostStrategyImpl class with given start date and
@@ -87,10 +89,13 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
     }
 
-
+    foundFlag = false;
     String dt = dateToInvest.format(formatter);
     invest(portfolioName, stockAndPercent, investmentAmount, commissionFee, dt);
 
+    if (!foundFlag) {
+      throw new IllegalArgumentException("Given Date is before IPO");
+    }
 
   }
 
@@ -193,6 +198,10 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(
             tickerSymbol.trim().toUpperCase(), 1, date);
 
+    if (pricePerStock == 0.0) {
+      return;
+    }
+
     double sharesCount = amount / pricePerStock;
 
     if (sharesCount == 0.0) {
@@ -205,7 +214,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
             date, portfolioName,
             "buy", String.valueOf(commissionFee));
 
-
+    foundFlag = true;
   }
 
 

@@ -23,6 +23,8 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
   private final IFlexible flexible;
 
+  private boolean foundFlag;
+
 
   /**
    * constructs an object for DollarCostStrategyImpl class with given date range, interval
@@ -108,7 +110,11 @@ public class DollarCostStrategyImpl implements StrategyInterface {
             ZoneId.systemDefault()));
 
     LocalDate actualDateOfInvestment = dateStartObj;
-
+    foundFlag = false;
+    if (dateStart.equals(dateEnd) && investmentInterval != 1) {
+      throw new IllegalArgumentException("InvestmentInterval should be one "
+              + "when start equals end date");
+    }
     while (dateToInvest.compareTo(dateEndObj) <= 0) {
 
       if (isHoliday(cal)) {
@@ -125,6 +131,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
       actualDateOfInvestment = dateToInvest;
       cal = GregorianCalendar.from(dateToInvest
               .atStartOfDay(ZoneId.systemDefault()));
+    }
+    if (!foundFlag) {
+      throw new IllegalArgumentException("Given Dates range is before IPO");
     }
 
   }
@@ -205,7 +214,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
   }
 
   private void invest(String portfolioName, Map<String, Double> stockAndPercent, double amount,
-                     double commissionFee, String date) throws IllegalArgumentException {
+                      double commissionFee, String date) throws IllegalArgumentException {
 
     for (Map.Entry<String, Double> entry : stockAndPercent.entrySet()) {
 
@@ -227,11 +236,15 @@ public class DollarCostStrategyImpl implements StrategyInterface {
 
 
   private void executeBuy(String tickerSymbol, String portfolioName, double amount,
-                         String date, double commissionFee)
+                          String date, double commissionFee)
           throws IllegalArgumentException {
 
     double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(
             tickerSymbol.trim().toUpperCase(), 1, date);
+
+    if (pricePerStock == 0.0) {
+      return;
+    }
 
     double sharesCount = amount / pricePerStock;
 
@@ -242,7 +255,7 @@ public class DollarCostStrategyImpl implements StrategyInterface {
     String qtyStr = String.format("%.2f", sharesCount);
     flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(),
             qtyStr, date, portfolioName, "buy", String.valueOf(commissionFee));
-
+    foundFlag = true;
   }
 
 

@@ -293,8 +293,8 @@ public class PortfolioGUIControllerTest {
       stockAndPercent.put("ORCL", "49.5");
       stockAndPercent.put("TWTR", "10.5");
       portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
-              10000, 20,
-              30, "2020-01-01", "2022-11-11");
+              "10000", "20",
+              "30", "2020-01-01", "2022-11-11");
       System.out.println(mockViewLog.toString());
       assertTrue(mockViewLog.toString().contains(view));
 
@@ -352,7 +352,7 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
     portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
-            10000, 20, 30,
+            "10000", "20", "30",
             "2020-01-01", "2022-11-11");
     System.out.println(mockViewLog.toString());
     assertTrue(mockViewLog.toString().contains(view));
@@ -364,7 +364,7 @@ public class PortfolioGUIControllerTest {
     stockAndPercent.put("ORCL", "49.5");
     stockAndPercent.put("TWTR", "10.5");
     portfolioGUIController.dollarCostStrategy(pName, stockAndPercent,
-            10000, 20, 30,
+            "10000", "20", "30",
             "2020-01-01", "2022-11-11");
 
     System.out.println(mockViewLog.toString());

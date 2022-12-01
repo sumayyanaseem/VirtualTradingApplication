@@ -170,9 +170,9 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
 
     investBtn.addActionListener(l -> {
       String portfolioName = portfolioNamesJCombo.getSelectedItem().toString();
-      double investmentAmount = Double.parseDouble(enterAmountJTextField.getText());
-      double commissionFee = Double.parseDouble(enterCommissionJTextField.getText());
-      int investmentInterval = Integer.parseInt(enterIntervalJTextField.getText());
+      String investmentAmount = enterAmountJTextField.getText();
+      String commissionFee = enterCommissionJTextField.getText();
+      String investmentInterval = enterIntervalJTextField.getText();
       String dateStart = enterStartDateJTextField.getText();
       String dateEnd = enterEndDateJTextField.getText();
       String stocksAndPercents = enterStockAndPercentsJTextField.getText();

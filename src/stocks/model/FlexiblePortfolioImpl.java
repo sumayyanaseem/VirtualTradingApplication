@@ -400,7 +400,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       if (!pathname.contains("test")) {
         String type = parser.getTypeOfLoadedFile(path + pathname);
         if (type.equalsIgnoreCase("flexible")) {
-          System.out.println(parser.getPortfolioNameFromFileName(pathname));
+          //System.out.println(parser.getPortfolioNameFromFileName(pathname));
           list.add(parser.getPortfolioNameFromFileName(pathname));
         }
       }
