@@ -35,6 +35,7 @@ public class Stock {
 
   /**
    * gives commission of this transaction.
+   *
    * @return returns commission.
    */
   public double getCommission() {
@@ -43,6 +44,7 @@ public class Stock {
 
   /**
    * gives the price of stock.
+   *
    * @return returns stock price.
    */
   public double getPriceOfStockAsOfGivenDate() {
@@ -51,6 +53,7 @@ public class Stock {
 
   /**
    * gives action buy/sell.
+   *
    * @return returns action of transaction.
    */
   public String getAction() {
@@ -59,6 +62,7 @@ public class Stock {
 
   /**
    * gives date of transaction.
+   *
    * @return returns date of the action.
    */
   public String getDateOfAction() {
@@ -67,6 +71,7 @@ public class Stock {
 
   /**
    * gives total value.
+   *
    * @return return total value.
    */
   public double getTotalValue() {

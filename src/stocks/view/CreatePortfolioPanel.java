@@ -3,6 +3,7 @@ package stocks.view;
 import javax.swing.*;
 
 import stocks.controller.Features;
+
 /**
  * This class represents a panel for creating a portfolio.
  */

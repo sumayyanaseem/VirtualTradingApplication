@@ -24,6 +24,7 @@ import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
 import static org.junit.Assert.assertTrue;
+
 /**
  * test class for integration tests between controller and flexible portfolio.
  */
@@ -96,7 +97,7 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio "
             + " 3: To get Total CostBasis  4:To display performance of Portfolio\n";
     in = new ByteArrayInputStream(("2\ntestFlexible\n4\n2022-01-01\n2022-11-14\n").getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {
@@ -141,7 +142,7 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio "
             + " 3: To get Total CostBasis  4:To display performance of Portfolio\n";
     in = new ByteArrayInputStream(("2\ntestFlexible\n4\n2020-01-01\n2022-11-14\n").getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {
@@ -226,7 +227,7 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
             + "2: To exit and continue further trading. 3: To update loaded portfolio.";
     in = new ByteArrayInputStream(("3\nuserPortfolios/testFlexible_output.json\n3\n1"
             + "\ngoog\n10\n2020-10-01\na\n10\n2\n1\n2\ntestFlexible\n1\n2022-11-14\n").getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {
@@ -242,7 +243,7 @@ public class ControllerToFlexiblePortfolioIntegrationTest {
     String expected = "Enter 1: To view composition  2: To get TotalValue of portfolio  "
             + "3: To get Total CostBasis  4:To display performance of Portfolio\n";
     in = new ByteArrayInputStream(("2\ntestFlexible\n3\n2020-10-01\n").getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {

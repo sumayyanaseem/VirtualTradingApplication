@@ -28,6 +28,7 @@ public class InvestFixedAmountStrategyPanel extends JPanel implements PanelInter
 
   /**
    * constructs an InvestFixedAmountStrategyPanel object.
+   *
    * @param portfolioList contains list of portfolios.
    */
   public InvestFixedAmountStrategyPanel(List<String> portfolioList) {

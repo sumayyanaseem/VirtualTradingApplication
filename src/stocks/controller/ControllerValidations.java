@@ -12,28 +12,28 @@ import java.util.Locale;
 import stocks.model.Portfolio;
 import stocks.view.IViewInterface;
 
- /**
+/**
  * Represents a class for controller validations.
  */
 public class ControllerValidations {
 
   private final IViewInterface view;
 
-   /**
-    * Constructs the ControllerValidations object by taking view object as input
-    *
-    * @param view    represents view object
-    */
-  public ControllerValidations(IViewInterface view){
-    this.view=view;
+  /**
+   * Constructs the ControllerValidations object by taking view object as input
+   *
+   * @param view represents view object
+   */
+  public ControllerValidations(IViewInterface view) {
+    this.view = view;
   }
 
-   /**
-    * method to validate options 1 or 2 from user.
-    *
-    * @param input input 1/2 from user
-    * @return valid/invalid input provided ?
-    */
+  /**
+   * method to validate options 1 or 2 from user.
+   *
+   * @param input input 1/2 from user
+   * @return valid/invalid input provided ?
+   */
   public boolean validateInputsFromUSer(String input) {
     if (input.equals("1") || input.equals("2")) {
       //do nothing
@@ -45,12 +45,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate options 1 or 2 or 3 or 4 from user.
-    *
-    * @param input input 1/2 /3/4from user
-    * @return valid/invalid input provided ?
-    */
+  /**
+   * method to validate options 1 or 2 or 3 or 4 from user.
+   *
+   * @param input input 1/2 /3/4from user
+   * @return valid/invalid input provided ?
+   */
   public boolean validateInitialInputsFromUser(String input) {
     if (input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4")) {
       //do nothing
@@ -62,12 +62,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate date from user.
-    *
-    * @param date string date provided by user
-    * @return valid/invalid date provided ?
-    */
+  /**
+   * method to validate date from user.
+   *
+   * @param date string date provided by user
+   * @return valid/invalid date provided ?
+   */
   public boolean dateHelper(String date) {
     if (validateDate(date)) {
       return true;
@@ -75,40 +75,40 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate date from user.
-    *
-    * @param date string date provided by used
-    * @param companyName stock name provided by usedr
-    * @return valid/invalid date provided ?
-    */
-  public boolean dateHelperInFlexiblePortfolio(String date,String companyName) {
+  /**
+   * method to validate date from user.
+   *
+   * @param date        string date provided by used
+   * @param companyName stock name provided by usedr
+   * @return valid/invalid date provided ?
+   */
+  public boolean dateHelperInFlexiblePortfolio(String date, String companyName) {
     if (validateDate(date)) {
       return true;
     }
     return false;
   }
 
-   /**
-    * method to validate if company exists.
-    *
-    * @param portfolio object of portfolio.
-    * @param companyName stock name provided by user.
-    * @return valid/invalid company provided ?
-    */
-  public boolean companyHelper(Portfolio portfolio,String companyName) {
+  /**
+   * method to validate if company exists.
+   *
+   * @param portfolio   object of portfolio.
+   * @param companyName stock name provided by user.
+   * @return valid/invalid company provided ?
+   */
+  public boolean companyHelper(Portfolio portfolio, String companyName) {
     if (validateIfCompanyExists(companyName, portfolio)) {
       return true;
     }
     return false;
   }
 
-   /**
-    * method to validate quantity.
-    *
-    * @param quantity the quantity provided by user.
-    * @return valid/invalid company provided ?
-    */
+  /**
+   * method to validate quantity.
+   *
+   * @param quantity the quantity provided by user.
+   * @return valid/invalid company provided ?
+   */
   public boolean quantityHelper(String quantity) {
     if (validateQuantity(quantity)) {
       return true;
@@ -117,12 +117,12 @@ public class ControllerValidations {
   }
 
 
-   /**
-    * method to validate commission.
-    *
-    * @param com the commission provided by user.
-    * @return valid/invalid commission provided ?
-    */
+  /**
+   * method to validate commission.
+   *
+   * @param com the commission provided by user.
+   * @return valid/invalid commission provided ?
+   */
   public boolean commissionHelper(String com) {
     if (validateCom(com)) {
       return true;
@@ -130,12 +130,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate date.
-    *
-    * @param date the date provided by user.
-    * @return valid/invalid date provided ?
-    */
+  /**
+   * method to validate date.
+   *
+   * @param date the date provided by user.
+   * @return valid/invalid date provided ?
+   */
   public boolean validateDate(String date) {
     String format = "yyyy-MM-dd";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
@@ -169,12 +169,12 @@ public class ControllerValidations {
   }
 
 
-   /**
-    * method to validate data from user after load.
-    *
-    * @param input the date provided by user.
-    * @return valid/invalid input provided ?
-    */
+  /**
+   * method to validate data from user after load.
+   *
+   * @param input the date provided by user.
+   * @return valid/invalid input provided ?
+   */
   public boolean validateInputsFromUSerAfterLoad(String input) {
     if (input.equals("1") || input.equals("2") || input.equals("3")) {
       //do nothing
@@ -187,12 +187,12 @@ public class ControllerValidations {
   }
 
 
-   /**
-    * method to validate quantity from user.
-    *
-    * @param quantity the quantity provided by user.
-    * @return valid/invalid input provided ?
-    */
+  /**
+   * method to validate quantity from user.
+   *
+   * @param quantity the quantity provided by user.
+   * @return valid/invalid input provided ?
+   */
   public boolean validateQuantity(String quantity) {
     try {
       long q = Long.parseLong(quantity);
@@ -207,12 +207,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate commission from user.
-    *
-    * @param quantity the commission provided by user.
-    * @return valid/invalid commission provided ?
-    */
+  /**
+   * method to validate commission from user.
+   *
+   * @param quantity the commission provided by user.
+   * @return valid/invalid commission provided ?
+   */
   public boolean validateCom(String quantity) {
     try {
       double q = Double.parseDouble(quantity);
@@ -227,12 +227,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate if portfolio already exists.
-    *
-    * @param portfolioName the name of portfolio provided by user.
-    * @return valid/invalid name provided ?
-    */
+  /**
+   * method to validate if portfolio already exists.
+   *
+   * @param portfolioName the name of portfolio provided by user.
+   * @return valid/invalid name provided ?
+   */
   public boolean validateIfPortfolioExists(String portfolioName, Portfolio portfolio) {
     try {
       portfolio.validateIfPortfolioAlreadyExists(portfolioName);
@@ -243,12 +243,12 @@ public class ControllerValidations {
     return false;
   }
 
-   /**
-    * method to validate if portfolio doesnt exists.
-    *
-    * @param portfolioName the name of portfolio provided by user.
-    * @return valid/invalid portfolio provided ?
-    */
+  /**
+   * method to validate if portfolio doesnt exists.
+   *
+   * @param portfolioName the name of portfolio provided by user.
+   * @return valid/invalid portfolio provided ?
+   */
   public boolean validateIfPortfolioDoesntExists(String portfolioName) {
     try {
       if (portfolioName == null) {
@@ -268,12 +268,12 @@ public class ControllerValidations {
   }
 
 
-   /**
-    * method to validate if company exists.
-    *
-    * @param companyName the name of company provided by user.
-    * @return valid/invalid company provided ?
-    */
+  /**
+   * method to validate if company exists.
+   *
+   * @param companyName the name of company provided by user.
+   * @return valid/invalid company provided ?
+   */
   public boolean validateIfCompanyExists(String companyName, Portfolio portfolio) {
     try {
       portfolio.validateIfCompanyExists(companyName);

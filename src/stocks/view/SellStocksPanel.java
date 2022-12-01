@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+/**
+ * This class represents a panel for SellStocks action.
+ */
 public class SellStocksPanel extends JPanel implements PanelInterface {
 
   private final JButton sellStocksBtn;
@@ -20,6 +23,11 @@ public class SellStocksPanel extends JPanel implements PanelInterface {
   private final JTextField enterTickerJTextField;
   private final JComboBox<String> portfolioNamesJCombo;
 
+  /**
+   * constructs an SellStocksPanel object.
+   *
+   * @param portfolioList contains list of portfolios.
+   */
   public SellStocksPanel(List<String> portfolioList) {
 
     sellStocksBtn = new JButton("Sell Stocks");

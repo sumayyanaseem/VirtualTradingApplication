@@ -50,7 +50,8 @@ public class PortfolioPerformance {
 
   /**
    * constructs an object for PortfolioPerformance class.
-   *  @param portfolioMap map which contains companies and corresponding values.
+   *
+   * @param portfolioMap map which contains companies and corresponding values.
    */
   PortfolioPerformance(Map<String, List<Stock>> portfolioMap) {
     apiCustom = new APICustomClass();

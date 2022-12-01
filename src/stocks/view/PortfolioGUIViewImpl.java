@@ -9,7 +9,7 @@ import stocks.controller.Features;
 
 
 /**
- * Represents class to create GUI frame.
+ * Represents view class to create GUI frame.
  */
 public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
@@ -149,14 +149,13 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
     });
 
 
+    dollarCostButton.addActionListener(l -> {
+      DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
+      JScrollPane jScrollPane = new JScrollPane(vp);
+      jSplitPane.setRightComponent(jScrollPane);
+      vp.delegateActions(feature);
 
-      dollarCostButton.addActionListener(l -> {
-        DollarCostAvgStrategyPanel vp = new DollarCostAvgStrategyPanel(this.listOfPortfolios);
-        JScrollPane jScrollPane = new JScrollPane(vp);
-        jSplitPane.setRightComponent(jScrollPane);
-          vp.delegateActions(feature);
-
-      });
+    });
 
 
     try {
@@ -167,7 +166,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
         investFixedAmountStrategyPanel.delegateActions(feature);
 
       });
-    } catch(IllegalArgumentException e ){
+    } catch (IllegalArgumentException e) {
       displayMessage(e.getMessage());
     }
 
@@ -176,7 +175,7 @@ public class PortfolioGUIViewImpl extends JFrame implements PortfolioGUIView {
 
   @Override
   public void displayMessage(String message) {
-    JOptionPane.showMessageDialog(null, message, null,JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(null, message, null, JOptionPane.INFORMATION_MESSAGE);
   }
 
 

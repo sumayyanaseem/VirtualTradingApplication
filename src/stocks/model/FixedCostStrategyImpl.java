@@ -27,10 +27,10 @@ public class FixedCostStrategyImpl implements StrategyInterface {
    * flexible portfolio object.
    *
    * @param dateStart start date of investment.
-   * @param flexible portfolio interface object for flexible portfolio.
+   * @param flexible  portfolio interface object for flexible portfolio.
    */
 
-  public FixedCostStrategyImpl(String dateStart,IFlexible flexible){
+  public FixedCostStrategyImpl(String dateStart, IFlexible flexible) {
     this.dateStart = dateStart;
     apiCustom = new APICustomClass();
     this.flexible = flexible;
@@ -54,7 +54,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     }
 
 
-    if (investmentAmount <=0) {
+    if (investmentAmount <= 0) {
       throw new IllegalArgumentException("amount cant be less than 0");
     }
 
@@ -72,27 +72,24 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     validateMapAndValuesForDollarCostStrategy(stockAndPercent);
 
 
-
     LocalDate dateToInvest = dateStartObj;
     Calendar cal = GregorianCalendar.from(dateToInvest.atStartOfDay(
             ZoneId.systemDefault()));
 
 
-    while(isHoliday(cal))
-    {
-        dateToInvest = dateToInvest.plusDays(1);
-        cal = GregorianCalendar.from(dateToInvest
-                .atStartOfDay(ZoneId.systemDefault()));
+    while (isHoliday(cal)) {
+      dateToInvest = dateToInvest.plusDays(1);
+      cal = GregorianCalendar.from(dateToInvest
+              .atStartOfDay(ZoneId.systemDefault()));
 
     }
 
 
-      String dt = dateToInvest.format(formatter);
-      invest(portfolioName, stockAndPercent, investmentAmount, commissionFee, dt);
+    String dt = dateToInvest.format(formatter);
+    invest(portfolioName, stockAndPercent, investmentAmount, commissionFee, dt);
 
 
-    }
-
+  }
 
 
   private void validateMapAndValuesForDollarCostStrategy(
@@ -148,7 +145,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
 
     }
 
-    if ( totalSum  < 100 ||  totalSum > 100.0 ) {
+    if (totalSum < 100 || totalSum > 100.0) {
       throw new IllegalArgumentException("total percentage is not exactly 100");
     }
 
@@ -159,14 +156,13 @@ public class FixedCostStrategyImpl implements StrategyInterface {
                      double commissionFee, String date) throws IllegalArgumentException {
 
 
-
     for (Map.Entry<String, Double> entry : stockAndPercent.entrySet()) {
 
       String companyName = entry.getKey();
       double percent = entry.getValue();
-      double investment = ( amount * percent ) / 100.00;
+      double investment = (amount * percent) / 100.00;
 
-      if(investment==0.0)
+      if (investment == 0.0)
         continue;
 
       try {
@@ -184,7 +180,6 @@ public class FixedCostStrategyImpl implements StrategyInterface {
   }
 
 
-
   public void executeBuy(String tickerSymbol, String portfolioName, double amount,
                          String date, double commissionFee)
           throws IllegalArgumentException {
@@ -192,8 +187,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     //validateDataofBuyShare(tickerSymbol, portfolioName, amount, date, commissionFee);
 
 
-
-    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(), 1,date);
+    double pricePerStock = apiCustom.getStockPriceAsOfCertainDate(tickerSymbol.trim().toUpperCase(), 1, date);
 
     /*if (sharePrice == 0.00) {
 
@@ -207,9 +201,9 @@ public class FixedCostStrategyImpl implements StrategyInterface {
       throw new IllegalArgumentException("Shares can't be bought. You don't have enough funds");
     }
 
-    String qtyStr = String.format("%.2f",sharesCount);
-   // System.out.println(qtyStr);
-    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr ,
+    String qtyStr = String.format("%.2f", sharesCount);
+    // System.out.println(qtyStr);
+    flexible.updatePortfolio(tickerSymbol.trim().toUpperCase(), qtyStr,
             date, portfolioName,
             "buy", String.valueOf(commissionFee));
 
@@ -217,14 +211,13 @@ public class FixedCostStrategyImpl implements StrategyInterface {
   }
 
 
-
   private boolean isHoliday(Calendar calInstance) {
 
 
-    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7 )
+    if (calInstance.get(Calendar.DAY_OF_WEEK) == 7)
       return true;
 
-    if(calInstance.get(Calendar.DAY_OF_WEEK) == 1) {
+    if (calInstance.get(Calendar.DAY_OF_WEEK) == 1) {
       return true;
     }
 
@@ -241,7 +234,6 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     }
 
 
-
     if (calInstance.get(Calendar.DAY_OF_WEEK_IN_MONTH) == 3 && calInstance.get(Calendar.MONTH) == 0
             && calInstance.get(Calendar.DAY_OF_WEEK) == 2) {
       return true;
@@ -254,7 +246,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
     }
 
     if (calInstance.get(Calendar.DAY_OF_WEEK) == 2 && calInstance.get(Calendar.MONTH) == 4
-            && calInstance.get(Calendar.DAY_OF_MONTH) > ( 31 - 7 )) {
+            && calInstance.get(Calendar.DAY_OF_MONTH) > (31 - 7)) {
       return true;
     }
 
@@ -274,7 +266,7 @@ public class FixedCostStrategyImpl implements StrategyInterface {
       return true;
     }
 
-    return ( calInstance.get(Calendar.DAY_OF_WEEK) == 5 && calInstance.get(Calendar.MONTH) == 10
+    return (calInstance.get(Calendar.DAY_OF_WEEK) == 5 && calInstance.get(Calendar.MONTH) == 10
             && calInstance.get(Calendar.DAY_OF_WEEK_IN_MONTH) == 4);
 
   }

@@ -25,6 +25,7 @@ public class BuyStocksPanel extends JPanel implements PanelInterface {
 
   /**
    * constructs an buy stocks panel object.
+   *
    * @param portfolioList contains list of portfolios.
    */
   public BuyStocksPanel(List<String> portfolioList) {

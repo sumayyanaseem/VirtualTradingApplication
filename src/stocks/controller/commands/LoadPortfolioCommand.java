@@ -15,7 +15,7 @@ import stocks.view.PortfolioView;
  * This represents the load command class for flexible/inflexible portfolio
  * that provides methods to load a flexible/inflexible portfolio through execute method.
  */
-public class LoadPortfolioCommand implements Command{
+public class LoadPortfolioCommand implements Command {
 
   private final PortfolioView view;
 
@@ -33,16 +33,16 @@ public class LoadPortfolioCommand implements Command{
    * Constructs the load command object by taking scanner, view objects to read input
    * and display output using view respectively, and also takes flexible and inflexible portfolio objects.
    *
-   * @param view    represents view object
+   * @param view                       represents view object
    * @param inflexiblePortfolioTypeObj the object of an inflexible portfolio.
-   * @param flexiblePortfolioTypeObj the object of an flexible portfolio.
-   * @param filePath the path of file to be loaded.
+   * @param flexiblePortfolioTypeObj   the object of an flexible portfolio.
+   * @param filePath                   the path of file to be loaded.
    */
-    public LoadPortfolioCommand(PortfolioView view,Portfolio inflexiblePortfolioTypeObj,IFlexible flexiblePortfolioTypeObj,String filePath){
+  public LoadPortfolioCommand(PortfolioView view, Portfolio inflexiblePortfolioTypeObj, IFlexible flexiblePortfolioTypeObj, String filePath) {
     this.view = view;
     this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;
     this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;
-    this.filePath=filePath;
+    this.filePath = filePath;
   }
 
   @Override
@@ -76,9 +76,6 @@ public class LoadPortfolioCommand implements Command{
       throw new IllegalArgumentException("start again");
     }
   }
-
-
-
 
 
 }

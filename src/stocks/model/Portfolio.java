@@ -59,7 +59,7 @@ public interface Portfolio {
    *
    * @param name the name of the portfolio to be validated.
    */
-  void validateIfPortfolioDoesntExists(String name) throws IllegalArgumentException ;
+  void validateIfPortfolioDoesntExists(String name) throws IllegalArgumentException;
 
 
   /**
@@ -72,7 +72,6 @@ public interface Portfolio {
   void buyStocks(String companyName, String quantity,
                  String date, String com, String portfolioName)
           throws IllegalArgumentException;
-
 
 
 }

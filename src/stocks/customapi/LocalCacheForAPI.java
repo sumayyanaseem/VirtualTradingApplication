@@ -15,7 +15,7 @@ public class LocalCacheForAPI {
    * inserts the stock data from alphavantage API into cache .
    *
    * @param companyTickerSymbol name of the company.
-   * @param output  the output string
+   * @param output              the output string
    */
   static void insertRecordsIntoCache(String companyTickerSymbol, StringBuilder output) {
     //System.out.println("insertRecordsIntoCache  "+companyTickerSymbol);

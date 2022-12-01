@@ -11,7 +11,7 @@ import stocks.view.PortfolioView;
  * This represents the command class for flexible portfolio
  * that provides methods to create a flexible portfolio through execute method.
  */
-public class CreateFlexiblePortfolioCommand implements Command  {
+public class CreateFlexiblePortfolioCommand implements Command {
 
   private final PortfolioView view;
   private final Scanner input;
@@ -24,14 +24,14 @@ public class CreateFlexiblePortfolioCommand implements Command  {
    * Constructs the command object by taking scanner, view objects to read input
    * and display output using view respectively.
    *
-   * @param view    represents view object
-   * @param input the scanner object that reads the input
+   * @param view                     represents view object
+   * @param input                    the scanner object that reads the input
    * @param flexiblePortfolioTypeObj the object of a flexible portfolio.
    */
-  public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input,IFlexible flexiblePortfolioTypeObj ){
+  public CreateFlexiblePortfolioCommand(PortfolioView view, Scanner input, IFlexible flexiblePortfolioTypeObj) {
     this.view = view;
     this.input = input;
-    this.flexiblePortfolioTypeObj=flexiblePortfolioTypeObj;
+    this.flexiblePortfolioTypeObj = flexiblePortfolioTypeObj;
     this.controllerValidations = new ControllerValidations(view);
   }
 
@@ -64,7 +64,7 @@ public class CreateFlexiblePortfolioCommand implements Command  {
       String com = commissionHelper1();
       portfolio.validateIfPortfolioAlreadyExists(portfolioName);
       try {
-        portfolio.buyStocks(companyName, quantity, date, com,portfolioName);
+        portfolio.buyStocks(companyName, quantity, date, com, portfolioName);
       } catch (IllegalArgumentException e) {
         view.displayMessage(e.getMessage());
       }
@@ -74,7 +74,7 @@ public class CreateFlexiblePortfolioCommand implements Command  {
       String date = dateHelperInFlexiblePortfolio1(companyName);
       String com = commissionHelper1();
       try {
-        portfolio.sellStocks(companyName, quantity, date, com,portfolioName);
+        portfolio.sellStocks(companyName, quantity, date, com, portfolioName);
       } catch (IllegalArgumentException e) {
         view.displayMessage(e.getMessage());
       }
@@ -86,13 +86,13 @@ public class CreateFlexiblePortfolioCommand implements Command  {
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date, companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;
   }
 
-  private String commissionHelper1(){
+  private String commissionHelper1() {
     view.getCommission();
     String com = input.nextLine();
     if (controllerValidations.commissionHelper(com)) {
@@ -113,7 +113,7 @@ public class CreateFlexiblePortfolioCommand implements Command  {
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (controllerValidations.companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio, companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;

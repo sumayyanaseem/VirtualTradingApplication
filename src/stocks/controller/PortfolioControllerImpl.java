@@ -25,7 +25,7 @@ import stocks.view.PortfolioView;
 /**
  * This class implements the methods of Portfolio Controller for text based view.
  */
-public class PortfolioControllerImpl  implements PortfolioController {
+public class PortfolioControllerImpl implements PortfolioController {
   private String portfolioName;
   private final PortfolioView view;
   private final Scanner input;
@@ -45,17 +45,18 @@ public class PortfolioControllerImpl  implements PortfolioController {
 
   /**
    * Constructs PortfolioControllerImpl with given input stream and view objects.
-   * @param in    the input stream.
-   * @param view  the view object.
+   *
+   * @param in   the input stream.
+   * @param view the view object.
    */
   public PortfolioControllerImpl(InputStream in, IViewInterface view) {
     this.view = (PortfolioView) view;
-    this.input=new Scanner(in);
+    this.input = new Scanner(in);
     this.portfolioName = "";
     this.inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
     this.flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
     this.jsonParserImplementation = new JsonParserImplementation();
-    this.controllerValidations =  new ControllerValidations((PortfolioView) view);
+    this.controllerValidations = new ControllerValidations((PortfolioView) view);
   }
 
   @Override
@@ -84,7 +85,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
   }
 
 
-  private void create(){
+  private void create() {
     view.createFlexibleOrInFlexiblePortfolio();
     String option = input.nextLine();
     if (controllerValidations.validateInputsFromUSer(option)) {
@@ -93,24 +94,24 @@ public class PortfolioControllerImpl  implements PortfolioController {
     if (option.equals("1")) {
       //flexible
       flexiblePortfolioTypeObj = new FlexiblePortfolioImpl();
-      Command cmd = new CreateFlexiblePortfolioCommand(view,input,flexiblePortfolioTypeObj);
+      Command cmd = new CreateFlexiblePortfolioCommand(view, input, flexiblePortfolioTypeObj);
       cmd.execute();
       finalExitCondition();
     } else if (option.equals("2")) {
       //inFlexible
       inflexiblePortfolioTypeObj = new InFlexiblePortfolioImpl();
-      Command cmd = new CreateInFlexiblePortfolioCommand(view,input,inflexiblePortfolioTypeObj);
+      Command cmd = new CreateInFlexiblePortfolioCommand(view, input, inflexiblePortfolioTypeObj);
       cmd.execute();
       finalExitCondition();
     }
   }
 
-  private void updatePortfolio(){
+  private void updatePortfolio() {
     try {
       Command cmd = new UpdatePortfolioCommand(view, input);
       cmd.execute();
-    } catch(IllegalArgumentException e){
-      if(e.getMessage().equals("start again")){
+    } catch (IllegalArgumentException e) {
+      if (e.getMessage().equals("start again")) {
         start();
       }
     }
@@ -159,14 +160,14 @@ public class PortfolioControllerImpl  implements PortfolioController {
     }
   }
 
-  private void loadPortfolio(){
+  private void loadPortfolio() {
     view.getFilePath();
     String filePath = input.nextLine();
     try {
       Command cmd = new LoadPortfolioCommand(view, inflexiblePortfolioTypeObj, flexiblePortfolioTypeObj, filePath);
       cmd.execute();
-    } catch(IllegalArgumentException e){
-      if(e.getMessage().equals("start again")){
+    } catch (IllegalArgumentException e) {
+      if (e.getMessage().equals("start again")) {
         start();
       }
     }
@@ -237,7 +238,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
     continueUpdatingPortfolioForCurrentInstance(path, portfolio, portfolioName);
   }
 
-  private String commissionHelper1(){
+  private String commissionHelper1() {
     view.getCommission();
     String com = input.nextLine();
     if (controllerValidations.commissionHelper(com)) {
@@ -258,7 +259,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (controllerValidations.companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio, companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -268,7 +269,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date, companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;
@@ -314,7 +315,7 @@ public class PortfolioControllerImpl  implements PortfolioController {
 
   private void askUserWhatHeWantsToView() {
     String name = pNameHelper();
-    portfolioName =name;
+    portfolioName = name;
     viewHelper(name);
   }
 
@@ -334,11 +335,11 @@ public class PortfolioControllerImpl  implements PortfolioController {
 
   private void helperForViewHelper(String type, String option, String name, String path) {
     Portfolio portfolio = null;
-    IFlexible flexible=null;
+    IFlexible flexible = null;
     if (type.equals(flexibleType)) {
       flexible = flexiblePortfolioTypeObj;
     } else if (type.equals(inflexibleType)) {
-      portfolio =  inflexiblePortfolioTypeObj;
+      portfolio = inflexiblePortfolioTypeObj;
     }
     switch (option) {
       case "1":

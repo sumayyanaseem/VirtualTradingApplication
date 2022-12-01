@@ -21,7 +21,7 @@ import static stocks.customapi.LocalCacheForAPI.insertRecordsIntoCache;
 public class APICustomClass implements APICustomInterface {
 
   private static final String apiKey = "5KFQLJAEXPPU6DJ9";
-  private static final String urlString="https://www.alphavantage.co/query?function=TIME_SERIES_";
+  private static final String urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_";
 
   @Override
   public Double fetchLatestStockPriceOfThisCompany(String companyTickerSymbol) {
@@ -39,10 +39,10 @@ public class APICustomClass implements APICustomInterface {
   }
 
   @Override
-  public void checkIPODate(String companyName,String date){
+  public void checkIPODate(String companyName, String date) {
     Date availableDateObj = null;
     Date givenDateObj;
-    boolean flag=false;
+    boolean flag = false;
     String[] lines = getStockRecordsForCompany(companyName);
     if (lines == null) {
       String output = fetchOutputStringFromURLByInterval(companyName, "DAILY");
@@ -62,7 +62,7 @@ public class APICustomClass implements APICustomInterface {
         availableDateObj = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
                 .parse(availableDate);
         if (availableDateObj.compareTo(givenDateObj) <= 0) {
-          flag=true;
+          flag = true;
           break;
         }
 
@@ -74,7 +74,7 @@ public class APICustomClass implements APICustomInterface {
 
 
     if (availableDateObj != null && availableDateObj.compareTo(givenDateObj) > 0) {
-      if(!flag){
+      if (!flag) {
         throw new IllegalArgumentException("Given date "
                 + "is before IPO Date.Please provide a valid date.");
       }

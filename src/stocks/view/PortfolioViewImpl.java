@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class implements the methods of PortfolioView.
+ * This class implements the methods of PortfolioView which is an interface for text UI.
  */
 public class PortfolioViewImpl implements PortfolioView {
   private final PrintStream out;
@@ -123,7 +123,7 @@ public class PortfolioViewImpl implements PortfolioView {
   }
 
 
- @Override
+  @Override
   public void displayPortfolioPerformance(Map<String,
           Double> mapToPlot, String date1,
                                           String date2,

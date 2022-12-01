@@ -32,6 +32,7 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
 
   /**
    * constructs an DollarCostAvgStrategyPanel object.
+   *
    * @param portfolioList contains list of portfolios.
    */
   public DollarCostAvgStrategyPanel(List<String> portfolioList) {
@@ -112,7 +113,6 @@ public class DollarCostAvgStrategyPanel extends JPanel implements PanelInterface
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(enterCommissionJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(26, 26, 26)
-
 
 
                             .addComponent(enterStockAndPercentsJLabel)

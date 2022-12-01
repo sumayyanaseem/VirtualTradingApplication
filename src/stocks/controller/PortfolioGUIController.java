@@ -18,8 +18,8 @@ public class PortfolioGUIController implements Features, PortfolioController {
   /**
    * Constructs PortfolioGUIController with given model and view objects.
    *
-   * @param m    the model object.
-   * @param v  the view object.
+   * @param m the model object.
+   * @param v the view object.
    */
   public PortfolioGUIController(IFlexible m, IViewInterface v) {
     model = m;
@@ -30,13 +30,10 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void createPortfolio(String pName, String pType) {
-    try
-    {
+    try {
       model.validateIfPortfolioAlreadyExists(pName);
 
-    }
-    catch(Exception e)
-    {
+    } catch (Exception e) {
       view.displayMessage("portfolio already exists with this name. Try a new name");
       return;
     }
@@ -67,21 +64,18 @@ public class PortfolioGUIController implements Features, PortfolioController {
 
   @Override
   public void investFixedAmountStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, String date) {
-    Map<String,Double> stockPercentValues = new HashMap<>();
+    Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
-      for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
-      {
-        try{
-          val=Double.parseDouble(entry.getValue());
+      for (Map.Entry<String, String> entry : stockAndPercent.entrySet()) {
+        try {
+          val = Double.parseDouble(entry.getValue());
 
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
           view.displayMessage("percentages should be in numbers");
           return;
         }
-        stockPercentValues.put(entry.getKey(),val);
+        stockPercentValues.put(entry.getKey(), val);
       }
       model.fixedAmountStrategy(portfolioName, stockPercentValues, investmentAmount, commissionFee, date);
       view.displayMessage("Bought stocks via fixed amount strategy successfully");
@@ -91,24 +85,21 @@ public class PortfolioGUIController implements Features, PortfolioController {
   }
 
   @Override
-  public void dollarCostStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval,String dateStart, String dateEnd) {
-    Map<String,Double> stockPercentValues = new HashMap<>();
+  public void dollarCostStrategy(String portfolioName, Map<String, String> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) {
+    Map<String, Double> stockPercentValues = new HashMap<>();
     double val;
     try {
-      for (Map.Entry<String,String> entry : stockAndPercent.entrySet())
-      {
-        try{
-          val=Double.parseDouble(entry.getValue());
+      for (Map.Entry<String, String> entry : stockAndPercent.entrySet()) {
+        try {
+          val = Double.parseDouble(entry.getValue());
 
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
           view.displayMessage("percentages should be in numbers");
           return;
         }
-        stockPercentValues.put(entry.getKey(),val);
+        stockPercentValues.put(entry.getKey(), val);
       }
-        model.dollarCostStrategy(portfolioName, stockPercentValues,investmentAmount,commissionFee,investmentInterval,dateStart, dateEnd);
+      model.dollarCostStrategy(portfolioName, stockPercentValues, investmentAmount, commissionFee, investmentInterval, dateStart, dateEnd);
       view.displayMessage("Bought stocks via dollar cost strategy successfully");
     } catch (Exception e) {
       view.displayMessage("Error while trying to buy the stock : " + e.getMessage());

@@ -15,8 +15,9 @@ import stocks.view.PortfolioView;
 import stocks.view.PortfolioViewImpl;
 
 import static org.junit.Assert.assertTrue;
+
 /**
- * Tests for the PortfolioControllerImpl.
+ * Tests for the PortfolioController implementation class for text based UI.
  */
 public class PortfolioControllerImplTest {
 
@@ -206,10 +207,10 @@ public class PortfolioControllerImplTest {
       System.out.println(e.getMessage());
     }
     //assertTrue(mockLog.toString().contains(exp));
-   // System.out.println(bytes.toString());
+    // System.out.println(bytes.toString());
     assertTrue(bytes.toString().contains(expected));
 
-    File f = new File("userPortfolios/" + portfolioName+ "_output.json");
+    File f = new File("userPortfolios/" + portfolioName + "_output.json");
     assertTrue(f.exists());
     f.deleteOnExit();
   }
@@ -219,7 +220,7 @@ public class PortfolioControllerImplTest {
   public void testCreateNewPortfolioForCurrentUser() {
     String expected = "Enter the name of the Portfolio";
     in = new ByteArrayInputStream("1\nsample\n".getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
   }
@@ -230,7 +231,7 @@ public class PortfolioControllerImplTest {
     String e = "Enter the quantity of the stocks.\n"
             + "Enter the quantity of the stocks.\n";
     in = new ByteArrayInputStream("1\n2\nsample\nmeta\n10\n".getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     portfolioController.start();
     assertTrue(bytes.toString().contains(expected));
     assertTrue(bytes.toString().contains(e));
@@ -345,14 +346,14 @@ public class PortfolioControllerImplTest {
             + "2: To exit from current Portfolio.";
     in = new ByteArrayInputStream(("1\n2\ntest1\nmeta\n10\n1\ndash\n20\n1\namzn"
             + "\n200\n2\n1\n1\ntest\n2\nshop\n20\n1\nnu\n10\n2\n2\n").getBytes());
-    portfolioController = new PortfolioControllerImpl( in, view);
+    portfolioController = new PortfolioControllerImpl(in, view);
     try {
       portfolioController.start();
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
     assertTrue(bytes.toString().contains(expected));
-    File f = new File("userPortfolios/" + "test1"+ "_output.json");
+    File f = new File("userPortfolios/" + "test1" + "_output.json");
     assertTrue(f.exists());
     f.deleteOnExit();
   }

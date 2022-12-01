@@ -17,9 +17,8 @@ public class InFlexiblePortfolioImpl extends AbstractPortfolio {
 
   /**
    * constructs an object for InFlexiblePortfolioImpl class.
-
    */
-  public InFlexiblePortfolioImpl(){
+  public InFlexiblePortfolioImpl() {
     super();
   }
 

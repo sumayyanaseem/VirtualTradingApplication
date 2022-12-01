@@ -6,7 +6,6 @@ package stocks.controller.commands;
 public interface Command {
   /**
    * This method will be overridden by command classes to execute specific actions supported by each command class.
-   *
    */
   void execute();
 }

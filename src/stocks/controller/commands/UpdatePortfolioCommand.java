@@ -27,10 +27,10 @@ public class UpdatePortfolioCommand implements Command {
    * Constructs the update command object by taking scanner, view objects to read input
    * and display output using view respectively,
    *
-   * @param view    represents view object
+   * @param view  represents view object
    * @param input the scanner object that reads the input
    */
-  public UpdatePortfolioCommand(PortfolioView view, Scanner input){
+  public UpdatePortfolioCommand(PortfolioView view, Scanner input) {
     this.view = view;
     this.input = input;
     this.jsonParserImplementation = new JsonParserImplementation();
@@ -101,7 +101,7 @@ public class UpdatePortfolioCommand implements Command {
   }
 
 
-  private String commissionHelper1(){
+  private String commissionHelper1() {
     view.getCommission();
     String com = input.nextLine();
     if (controllerValidations.commissionHelper(com)) {
@@ -113,7 +113,7 @@ public class UpdatePortfolioCommand implements Command {
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (controllerValidations.companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio, companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -122,7 +122,7 @@ public class UpdatePortfolioCommand implements Command {
   protected String dateHelperInFlexiblePortfolio1(String companyName) {
     view.getDate();
     String date = input.nextLine();
-    if (controllerValidations.dateHelperInFlexiblePortfolio(date,companyName)) {
+    if (controllerValidations.dateHelperInFlexiblePortfolio(date, companyName)) {
       return dateHelperInFlexiblePortfolio1(companyName);
     }
     return date;

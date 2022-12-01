@@ -52,7 +52,7 @@ abstract class AbstractPortfolio implements Portfolio {
     }*/
     try {
       double price = apiCustomInterface.fetchLatestStockPriceOfThisCompany(companyName);
-    } catch(Exception e ){
+    } catch (Exception e) {
       throw new IllegalArgumentException("Given company doesnt exist in our records."
               + "Please provide valid  companyTicker symbol.");
     }

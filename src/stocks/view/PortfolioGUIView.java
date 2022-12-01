@@ -11,6 +11,7 @@ public interface PortfolioGUIView extends IViewInterface {
 
   /**
    * constructs an InvestFixedAmountStrategyPanel object.
+   *
    * @param features contains list of portfolios.
    */
   void addFeatures(Features features);
@@ -22,6 +23,7 @@ public interface PortfolioGUIView extends IViewInterface {
 
   /**
    * method to update list of portfolios.
+   *
    * @param list contains list of portfolios.
    */
   void updatePortfolioList(List<String> list);

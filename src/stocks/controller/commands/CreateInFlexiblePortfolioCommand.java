@@ -10,7 +10,7 @@ import stocks.view.PortfolioView;
  * This represents the create command class for inflexible portfolio
  * that provides methods to create a flexible portfolio through execute method.
  */
-public class CreateInFlexiblePortfolioCommand  implements Command{
+public class CreateInFlexiblePortfolioCommand implements Command {
 
   private final PortfolioView view;
 
@@ -24,14 +24,14 @@ public class CreateInFlexiblePortfolioCommand  implements Command{
    * Constructs the command object by taking scanner, view objects to read input
    * and display output using view respectively.
    *
-   * @param view    represents view object
-   * @param input the scanner object that reads the input
+   * @param view                       represents view object
+   * @param input                      the scanner object that reads the input
    * @param inflexiblePortfolioTypeObj the object of an inflexible portfolio.
    */
-  public CreateInFlexiblePortfolioCommand(PortfolioView view,Scanner input, Portfolio inflexiblePortfolioTypeObj ){
+  public CreateInFlexiblePortfolioCommand(PortfolioView view, Scanner input, Portfolio inflexiblePortfolioTypeObj) {
     this.view = view;
     this.input = input;
-    this.inflexiblePortfolioTypeObj=inflexiblePortfolioTypeObj;
+    this.inflexiblePortfolioTypeObj = inflexiblePortfolioTypeObj;
     this.controllerValidations = new ControllerValidations(view);
   }
 
@@ -76,7 +76,7 @@ public class CreateInFlexiblePortfolioCommand  implements Command{
   private String companyHelper1(Portfolio portfolio) {
     view.getCompanyTicker();
     String companyName = input.nextLine();
-    if (controllerValidations.companyHelper(portfolio,companyName)) {
+    if (controllerValidations.companyHelper(portfolio, companyName)) {
       return companyHelper1(portfolio);
     }
     return companyName;
@@ -90,8 +90,6 @@ public class CreateInFlexiblePortfolioCommand  implements Command{
     }
     return quantity;
   }
-
-
 
 
 }

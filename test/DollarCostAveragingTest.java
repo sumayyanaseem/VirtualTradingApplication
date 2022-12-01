@@ -13,6 +13,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * test class for Dollar cost averaging investment strategy..
+ */
 public class DollarCostAveragingTest {
   private IFlexible flexible;
 
@@ -240,7 +243,7 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testFixedCostWithStockMapValueIsNull(){
+  public void testFixedCostWithStockMapValueIsNull() {
     stockAndPercent.put(null, 10.5);
     stockAndPercent.put("META", 29.5);
     stockAndPercent.put("ORCL", 49.5);
@@ -261,7 +264,7 @@ public class DollarCostAveragingTest {
   }
 
   @Test
-  public void testDollarCostStrategyStartNegativePercent(){
+  public void testDollarCostStrategyStartNegativePercent() {
     Map<String, Double> stockAndPercent = new HashMap<>();
     stockAndPercent.put("GOOG", -10.0);
     stockAndPercent.put("META", 30.0);
@@ -374,10 +377,10 @@ public class DollarCostAveragingTest {
       assertTrue(company.toString().contains("META"));
       assertTrue(company.toString().contains("ORCL"));
       assertTrue(company.toString().contains("TWTR"));
-  } catch(Exception e) {
-   // do nothing
+    } catch (Exception e) {
+      // do nothing
+    }
   }
-}
 
 
 }

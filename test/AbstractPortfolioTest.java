@@ -39,12 +39,11 @@ abstract class AbstractPortfolioTest {
     private static final String date = "2022-10-01";
     private static final String com = "10";
     private IFlexible portfolio;
+
     @Before
     public void initialisePortfolio() {
       portfolio = new FlexiblePortfolioImpl();
     }
-
-
 
 
     @Test

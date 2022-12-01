@@ -87,7 +87,6 @@ public interface PortfolioView extends IViewInterface {
   void displayComposition(List<List<String>> records);
 
 
-
   /**
    * displays the message to user asking if he wants to exit after loading the file.
    */

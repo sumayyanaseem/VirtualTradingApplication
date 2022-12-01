@@ -6,6 +6,10 @@ import javax.swing.*;
 
 import stocks.controller.Features;
 
+
+/**
+ * This class represents a panel fo QueryPortfolio action.
+ */
 public class QueryPortfolioPanel extends JPanel implements PanelInterface {
 
   private final JComboBox<String> portfoliosToViewJCombo;
@@ -19,6 +23,11 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
 
   private final JScrollPane jScrollPane;
 
+  /**
+   * constructs an QueryPortfolioPanel object.
+   *
+   * @param portfolioList contains list of portfolios.
+   */
   public QueryPortfolioPanel(List<String> portfolioList) {
     enterDateJLabel = new JLabel("Enter Date(YYYY-MM-DD)");
     enterPortfolioNameJLabel = new JLabel("Enter Portfolio name");
@@ -109,9 +118,7 @@ public class QueryPortfolioPanel extends JPanel implements PanelInterface {
       double value;
       try {
         value = feature.getTotalValue(portfoliosToViewJCombo.getSelectedItem().toString(), enterDateJTextField.getText());
-      }
-      catch(Exception e)
-      {
+      } catch (Exception e) {
         return;
       }
       String detailedOutput = "Total value of portfolio " + portfoliosToViewJCombo.getSelectedItem().toString() + " on " + enterDateJTextField.getText() + " is :" + value;

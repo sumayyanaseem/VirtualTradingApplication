@@ -22,9 +22,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   /**
    * constructs an object for FlexiblePortfolioImpl class.
-
    */
-  public FlexiblePortfolioImpl(){
+  public FlexiblePortfolioImpl() {
     super();
   }
 
@@ -294,7 +293,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
   @Override
-  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) throws IllegalArgumentException{
+  public double getTotalValueOfPortfolioOnCertainDate(String date, String portfolioName) throws IllegalArgumentException {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
@@ -349,7 +348,7 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
       if (checkIfDateIsLessThanGivenDate(date, stock)) {
         List<String> temp = new ArrayList<>();
         temp.add(stock.getCompanyTickerSymbol());
-        temp.add(String.format("%.2f",stock.getQty()));
+        temp.add(String.format("%.2f", stock.getQty()));
         temp.add(stock.getDateOfAction());
         temp.add(stock.getAction());
         return temp;
@@ -374,15 +373,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   }
 
 
-
   @Override
   public void createEmptyPortfolio(String portfolioName, String portfolioType) {
     if (portfolioName == null || portfolioName.equals("")) {
       throw new IllegalArgumentException("Invalid portfolioName provided");
     }
     this.portfolioName = portfolioName;
-    Map<String,List<Stock>> emptyMap = new HashMap<>();
-    stockMap.put(portfolioName,emptyMap);
+    Map<String, List<Stock>> emptyMap = new HashMap<>();
+    stockMap.put(portfolioName, emptyMap);
     parser.writeIntoFile(portfolioName, emptyMap, "flexible");
   }
 
@@ -390,14 +388,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
   public List<String> getListOfPortfolioNames() {
 
     String[] pathnames;
-    String path="userPortfolios/";
+    String path = "userPortfolios/";
     File f = new File(path);
     // Populates the array with names of files and directories
     pathnames = f.list();
-    List<String> list=new ArrayList<>();
+    List<String> list = new ArrayList<>();
     // For each pathname in the pathnames array
     for (String pathname : pathnames) {
-      if(!pathname.contains("test")) {
+      if (!pathname.contains("test")) {
         String type = parser.getTypeOfLoadedFile(path + pathname);
         if (type.equalsIgnoreCase("flexible")) {
           System.out.println(parser.getPortfolioNameFromFileName(pathname));
@@ -411,14 +409,14 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   @Override
   public void dollarCostStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, int investmentInterval, String dateStart, String dateEnd) throws IllegalArgumentException {
-    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval,dateStart,dateEnd,this);
-    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+    StrategyInterface strategy = new DollarCostStrategyImpl(investmentInterval, dateStart, dateEnd, this);
+    strategy.applyStrategyOnPortfolio(portfolioName, stockAndPercent, investmentAmount, commissionFee);
   }
 
   @Override
   public void fixedAmountStrategy(String portfolioName, Map<String, Double> stockAndPercent, double investmentAmount, double commissionFee, String date) throws IllegalArgumentException {
-    StrategyInterface strategy = new FixedCostStrategyImpl(date,this);
-    strategy.applyStrategyOnPortfolio(portfolioName,  stockAndPercent, investmentAmount, commissionFee);
+    StrategyInterface strategy = new FixedCostStrategyImpl(date, this);
+    strategy.applyStrategyOnPortfolio(portfolioName, stockAndPercent, investmentAmount, commissionFee);
 
   }
 
@@ -435,8 +433,6 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
     }
   }
-
-
 
 
   @Override
@@ -535,8 +531,8 @@ public class FlexiblePortfolioImpl extends AbstractPortfolio implements IFlexibl
 
   private void validateDateToCheckIfBeforeIPO(String date, String companyName) {
     try {
-      apiCustomInterface.checkIPODate(companyName,date);
-    } catch(Exception e ){
+      apiCustomInterface.checkIPODate(companyName, date);
+    } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
 

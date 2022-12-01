@@ -29,26 +29,29 @@ public interface CustomParser {
 
   /**
    * append into the given file.
+   *
    * @param portfolioName name of the portfolio.
-   * @param companyName name of the company.
-   * @param quantity quantity of stocks.
-   * @param action buy/sell.
-   * @param date date of transaction.
-   * @param com commisison of transaction.
+   * @param companyName   name of the company.
+   * @param quantity      quantity of stocks.
+   * @param action        buy/sell.
+   * @param date          date of transaction.
+   * @param com           commisison of transaction.
    */
   void appendIntoFile(String portfolioName, String companyName, String quantity,
                       String action, String date, String com);
 
   /**
    * write into given file.
+   *
    * @param portFolioName name of the potfolio.
-   * @param map values to be written into file.
-   * @param type type of the portfolio.
+   * @param map           values to be written into file.
+   * @param type          type of the portfolio.
    */
   void writeIntoFile(String portFolioName, Map<String, List<Stock>> map, String type);
 
   /**
    * get the type of file using name.
+   *
    * @param portFolioName name of the portfolio.
    * @return returns the type of the portfolio.
    */
@@ -56,6 +59,7 @@ public interface CustomParser {
 
   /**
    * get the type of file when path is provided.
+   *
    * @param path path of the file.
    * @return returns the type of the portfolio.
    */
@@ -63,13 +67,14 @@ public interface CustomParser {
 
   /**
    * Appends thr given info into the file.
-   * @param path path of the file.
+   *
+   * @param path          path of the file.
    * @param portfolioName name of the portfolio.
-   * @param companyName company ticker symbol.
-   * @param quantity quantity.
-   * @param action action -buy/sell.
-   * @param date date of transaction.
-   * @param com commission for this transaction.
+   * @param companyName   company ticker symbol.
+   * @param quantity      quantity.
+   * @param action        action -buy/sell.
+   * @param date          date of transaction.
+   * @param com           commission for this transaction.
    */
   void appendIntoFileUsingFilePath(String path, String portfolioName,
                                    String companyName, String quantity,
@@ -78,6 +83,7 @@ public interface CustomParser {
 
   /**
    * fetches the portfolio name from file name.
+   *
    * @param fileName filename from which portfolio name needs to be fetched.
    */
   String getPortfolioNameFromFileName(String fileName);

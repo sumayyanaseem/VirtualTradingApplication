@@ -222,7 +222,7 @@ public class JsonParserImplementation implements CustomParser {
   }
 
   @Override
-  public String getPortfolioNameFromFileName(String fileName){
+  public String getPortfolioNameFromFileName(String fileName) {
     String[] portfolioName = fileName.split("_");
     return portfolioName[0];
   }

@@ -29,9 +29,9 @@ public class DollarCostStrategyImpl implements StrategyInterface {
    * and flexible portfolio object.
    *
    * @param investmentInterval the interval at which investment needs to be done.
-   * @param dateStart start date of investment.
-   * @param dateEnd end date of investment.
-   * @param flexible portfolio interface object for flexible portfolio.
+   * @param dateStart          start date of investment.
+   * @param dateEnd            end date of investment.
+   * @param flexible           portfolio interface object for flexible portfolio.
    */
 
   public DollarCostStrategyImpl(int investmentInterval, String dateStart, String dateEnd, IFlexible flexible) {
